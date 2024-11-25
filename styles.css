@@ -30,8 +30,8 @@
 }
 
 @font-face {
-    font-family: 'Bodoni-72-Bold';
-    src: url('fonts/Bodoni-72-Bold.ttf') format('truetype');
+    font-family: 'bodoni-72-Bold';
+    src: url('fonts/bodoni-72-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
@@ -404,7 +404,7 @@ select[readonly] {
 .nextmatch-title {
     font-size: 36px;
     color: white;
-    font-family: 'Bodoni-72-Bold', serif;
+    font-family: 'bodoni-72-Bold', serif;
     text-align: center;
     margin-bottom: 20px;
 }
