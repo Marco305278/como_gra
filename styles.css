@@ -115,7 +115,7 @@ h4 {
 }
 
 .teams_container{
-    margin-top: 8px;
+    margin: 10px 0;
 }
 
 .teams_container select{
@@ -270,6 +270,25 @@ input[type="number"] {
     border-radius: 6px;
 }
 
+.number-container div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.symbol-arrow{
+    position: absolute;
+    margin: 5px;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: white;
+    border: none;
+    transition: all .5s cubic-bezier(.215, .61, .355, 1);
+    cursor: pointer;
+    line-height: 0.1;
+}
+
 .symbol{
     margin: 5px;
     width: 32px;
@@ -317,8 +336,16 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
     align-items: flex-end;
 }
 
-.col div {
+.col .div {
     width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.col .div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .swap-div {

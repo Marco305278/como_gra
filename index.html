@@ -33,7 +33,7 @@ marco305278.github.io/como_gra
     <div class="content">
         <div class="title">
             <h4>Graphics</h4>
-            <a href="index.html"><div><img src="images/assets/logo.png" alt="Logo" width="64" class="logo"> <h1>Com.o 1907</h1></div></a>
+            <a href="index.html"><div><img src="images/assets/logo.png" alt="Logo" width="64" class="logo"> <h1>Como 1907</h1></div></a>
         </div>
         <div class="container">
             <!-- Sezione Selezione Base -->
@@ -69,11 +69,17 @@ marco305278.github.io/como_gra
 
                 <!-- Selezione del Campionato -->
                 <label for="championship">Championship:</label>
-                <select id="championship" class="category-selection">
-                    <option value="seriea">Serie A</option>
-                    <option value="primavera">Primavera</option>
-                    <option value="women">Women</option>
-                </select>
+
+                <div class="col teams_container">
+                    <div class="div">
+                    <div id="decrease" class="symbol-arrow"><img src="images/assets/arrow.svg"></div>
+                    <select id="championship" class="category-selection">
+                        <option value="seriea">Serie A</option>
+                        <option value="primavera">Primavera</option>
+                        <option value="women">Women</option>
+                    </select>
+                    </div>
+                </div>
 
                 <!-- Selezione Squadre -->
                 <div class="col">
@@ -87,17 +93,19 @@ marco305278.github.io/como_gra
                     </div>
                 </div>
                 <div class="col teams_container">
-                    <div>
+                    <div class="div">
+                        <div id="decrease" class="symbol-arrow"><img src="images/assets/arrow.svg"></div>
                         <select id="homeTeam" disabled>
                             <option value="como1907">Como 1907</option>
                         </select>
                     </div>
-                    <div class="swap-div" style="width: 140px;">
+                    <div class="swap-div div" style="width: 140px;">
                         <button id="swapBtn" class="swap-button" title="Swap Teams">
                             <img src="images/assets/swap.svg" width="20px" alt="Swap">
                         </button>
                     </div>
-                    <div>
+                    <div class="div">
+                        <div id="decrease" class="symbol-arrow"><img src="images/assets/arrow.svg"></div>
                         <select id="awayTeam">
                             <!-- Le squadre saranno popolate in base al campionato -->
                         </select>
@@ -118,11 +126,11 @@ marco305278.github.io/como_gra
                     </div>
                     <div class="col">
                         <div>
-                            <input type="date" id="matchDate" class="input" required>
+                            <input type="date" id="matchDate" class="input" required style="width: 100%;">
                         </div>
                         <div class="swap-div" style="width: 140px;"></div>
                         <div>
-                            <input type="time" id="matchTime" class="input" required>
+                            <input type="time" id="matchTime" class="input" required style="width: 100%;">
                         </div>
                     </div>
                 </div>
@@ -132,9 +140,9 @@ marco305278.github.io/como_gra
                     <div style="margin-right: 14px;">
                         <label for="matchDay">Matchday</label>
                         <div class="number-container">
-                            <button id="decrease" class="symbol"><p>-</p></button>
+                            <div id="decrease" class="symbol"><p>-</p></div>
                             <input type="number" id="matchDay" min="0" class="input number" placeholder="1" required style="width: 100px; font-size: 22px; height: 44px; text-align: center;" value="1">
-                            <button id="increase" class="symbol"><p>+</p></button>
+                            <div id="increase" class="symbol"><p>+</p></div>
                         </div>
                     </div>
                     <div style="width: 100%;" id="stadiumLocationSection">
