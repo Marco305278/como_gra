@@ -23,8 +23,8 @@ const graphicStyles = {
             homeLogo: { x: 70, y: 970, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1145, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
-            homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
+            homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
@@ -32,8 +32,8 @@ const graphicStyles = {
             homeLogo: { x: 70, y: 1470, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1645, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
-            homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
+            homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
@@ -43,8 +43,8 @@ const graphicStyles = {
             homeLogo: { x: 70, y: 970, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1145, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
-            homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
+            homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
@@ -52,8 +52,8 @@ const graphicStyles = {
             homeLogo: { x: 70, y: 1470, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1645, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
-            homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
+            homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
@@ -65,7 +65,7 @@ const graphicStyles = {
             championshipLogo: { x: 70, y: 50, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 70, y: 360, fontSize: 54, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 2 },
+            dateTime: { x: 70, y: 360, fontSize: 54, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             matchDay: null
         },
         'overlay_9x16': {
@@ -74,7 +74,7 @@ const graphicStyles = {
             championshipLogo: { x: 70, y: 350, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 70, y: 640, fontSize: 64, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 2 },
+            dateTime: { x: 70, y: 640, fontSize: 64, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             matchDay: null
         }
     },
@@ -83,8 +83,8 @@ const graphicStyles = {
             homeLogo: { x: 800, y: 170, width: 165, height: 165 },
             awayLogo: { x: 800, y: 345, width: 165, height: 165 },
             championshipLogo: { x: 70, y: 60, width: 130, height: 212 },
-            homeScore: { x: 930, y: 170, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            awayScore: { x: 930, y: 345, fontSize: 164, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
+            homeScore: { x: 930, y: 170, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            awayScore: { x: 930, y: 345, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
@@ -92,8 +92,8 @@ const graphicStyles = {
             homeLogo: { x: 800, y: 400, width: 165, height: 165 },
             awayLogo: { x: 800, y: 575, width: 165, height: 165 },
             championshipLogo: { x: 70, y: 70, width: 130, height: 212 },
-            homeScore: { x: 930, y: 400, fontSize: 180, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            awayScore: { x: 930, y: 575, fontSize: 180, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
+            homeScore: { x: 930, y: 400, fontSize: 180, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            awayScore: { x: 930, y: 575, fontSize: 180, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
@@ -143,13 +143,13 @@ const graphicStyles = {
             championshipLogo: { x: 900, y: 40, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1240, fontSize: 72, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 810, fontSize: 40, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 6 },
-            nextMatchTitle: { x: 65, y: 160, fontSize: 72, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 2 },
+            dateTime: { x: 65, y: 1240, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 810, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            nextMatchTitle: { x: 65, y: 160, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-Bold', letterSpacing: -2 }
+            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
         },
         'overlay_9x16': {
             homeLogo: null,
@@ -157,13 +157,13 @@ const graphicStyles = {
             championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1240 + 415, fontSize: 72, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 810 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 6 },
-            nextMatchTitle: { x: 65, y: 200, fontSize: 72, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 2 },
+            dateTime: { x: 65, y: 1240 + 415, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 810 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            nextMatchTitle: { x: 65, y: 200, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-Bold', letterSpacing: -2 }
+            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
         }
     },
     'matchday': {
@@ -173,13 +173,13 @@ const graphicStyles = {
             championshipLogo: { x: 900, y: 40, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1240, fontSize: 72, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 810, fontSize: 40, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 6 },
+            dateTime: { x: 65, y: 1240, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 810, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: null,
             homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-Bold', letterSpacing: -2 }
+            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
         },
         'overlay_9x16': {
             homeLogo: null,
@@ -187,13 +187,13 @@ const graphicStyles = {
             championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1240 + 415, fontSize: 72, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 810 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-Bold', letterSpacing: 6 },
+            dateTime: { x: 65, y: 1240 + 415, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 810 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: null,
             homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-Bold', letterSpacing: -2 }
+            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
         }
     },
     // Aggiungi altre grafiche qui con disposizioni specifiche per ogni formato
