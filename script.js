@@ -105,7 +105,7 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 140, y: 600, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
+            dateTime: { x: 140, y: 630, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
             matchDay: null // Non richiesto per questa grafica
         },
         'overlay_16x9': {
