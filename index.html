@@ -41,7 +41,7 @@ marco305278.github.io/como_gra
 
                 <!-- Selezione delle Grafiche -->
                 <div class="graphics-selection">
-                    <input type="checkbox" id="nextmatch" name="graphic" value="nextmatch">
+                    <input type="checkbox" id="nextmatch" name="graphic" value="nextmatch" checked>
                     <label for="nextmatch">Next Match</label>
                     
                     <input type="checkbox" id="matchday" name="graphic" value="matchday">
@@ -130,7 +130,11 @@ marco305278.github.io/como_gra
                 <div id="matchDaySection" class="matchdaycol">
                     <div style="margin-right: 14px;">
                         <label for="matchDay">Matchday</label>
-                        <input type="number" id="matchDay" min="0" class="input" placeholder="1" required style="width: 100px; font-size: 22px; height: 44px;">
+                        <div class="number-container">
+                            <button id="decrease" class="symbol">-</button>
+                            <input type="number" id="matchDay" min="0" class="input" placeholder="1" required style="width: 100px; font-size: 22px; height: 44px; text-align: center;" value="1">
+                            <button id="increase" class="symbol">+</button>
+                        </div>
                     </div>
                     <div style="width: 100%;" id="stadiumLocationSection">
                         <label for="stadium">Stadium</label>

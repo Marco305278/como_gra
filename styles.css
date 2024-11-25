@@ -36,6 +36,10 @@
     font-style: normal;
 }
 
+*{
+    outline: transparent !important;
+}
+
 body {
     font-family: "Darker Grotesque", sans-serif;
     background-color: #1d3b62;
@@ -196,11 +200,42 @@ label {
 
 input[type="number"] {
     border: 0;
-    font-size: 42px;
-    margin: 8px 0;
-    width: 70px;
+    font-size: 21px !important;
+    width: 60px !important;
     text-align: center;
+    background: none;
+}
+
+.number-container {
+    margin: 8px 0;
+    display: flex;
+    height: 42px;
+    align-items: center;
     background: #e8f0f8;
+    border-radius: 6px;
+}
+
+.symbol{
+    margin: 5px;
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+    font-weight: 300 !important;
+    border-radius: 6px;
+    background: white;
+    border: none;
+    transition: all .5s cubic-bezier(.215, .61, .355, 1);
+    cursor: pointer;
+}
+
+.symbol:hover{
+    opacity: 0.5;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type="text"], select, .input {
@@ -214,7 +249,7 @@ input[type="text"], select, .input {
 }
 
 input[type="text"]:focus, input[type="number"]:focus, select:focus {
-    border: 4px solid #77a3d2;
+    border: 4px solid #9fc2e6;
 }
 
 .col {
@@ -459,7 +494,7 @@ select[readonly] {
 }
 
 #stadiumLocation:focus {
-    border: 4px solid #77a3d2;
+    border: 4px solid #9fc2e6;
 }
 
 /* Nuovi stili per NEXT MATCH */

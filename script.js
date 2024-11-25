@@ -15,6 +15,9 @@ const matchDaySection = document.getElementById('matchDaySection');
 const uploadContainer = document.querySelector('.upload-background-section .upload-container');
 const stadiumLocationSection = document.getElementById('stadiumLocationSection');
 const stadiumInput = document.getElementById('stadium');
+const matchDayInput = document.getElementById('matchDay');
+const decreaseButton = document.getElementById('decrease');
+const increaseButton = document.getElementById('increase');
 
 // Configurazione delle disposizioni degli elementi per ogni grafica e formato
 const graphicStyles = {
@@ -1382,6 +1385,23 @@ function addUploadItemListeners() {
         });
     });
 }
+
+  // Aumenta il valore
+  increaseButton.addEventListener('click', () => {
+    let currentValue = parseInt(matchDayInput.value, 10);
+    if (!isNaN(currentValue)) {
+      matchDayInput.value = currentValue + 1;
+    }
+  });
+  
+  // Diminuisce il valore
+  decreaseButton.addEventListener('click', () => {
+    let currentValue = parseInt(matchDayInput.value, 10);
+    if (!isNaN(currentValue) && currentValue > 0) {
+      matchDayInput.value = currentValue - 1;
+    }
+  });
+
 
 /**
  * Funzione per capitalizzare la prima lettera di una stringa
