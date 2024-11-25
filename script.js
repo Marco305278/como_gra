@@ -1386,6 +1386,7 @@ function addUploadItemListeners() {
     });
 }
 
+
   // Aumenta il valore
   increaseButton.addEventListener('click', () => {
     let currentValue = parseInt(matchDayInput.value, 10);
