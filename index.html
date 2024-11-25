@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphics - Como 1907</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/assets/logo.png">
+    <!-- Collegamento al foglio di stile CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Preload dei font personalizzati -->
+    <link rel="preload" href="fonts/DrukText-Bold-Trial.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/Bodoni-72-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        /* Nasconde inizialmente la sezione Data e Ora */
+        #dateTimeSection {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <a href="index.html">
+            <img src="images/assets/logo.png" alt="Logo" width="64">
+        </a>
+        <div class="container_title">
+            <h1>Graphics</h1>
+        </div>
+        <div class="container">
+            <!-- Sezione Selezione Base -->
+            <div class="inputs">
+                <h2>Base</h2>
+
+                <!-- Selezione delle Grafiche -->
+                <div class="graphics-selection">
+                    <input type="checkbox" id="nextmatch" name="graphic" value="nextmatch">
+                    <label for="nextmatch">Next Match</label>
+                    
+                    <input type="checkbox" id="matchday" name="graphic" value="matchday">
+                    <label for="matchday">Match Day</label>
+                    
+                    <input type="checkbox" id="kickoff" name="graphic" value="kickoff">
+                    <label for="kickoff">Kick Off</label>
+                    
+                    <input type="checkbox" id="goal" name="graphic" value="goal">
+                    <label for="goal">Goal</label>
+                    
+                    <input type="checkbox" id="halftime" name="graphic" value="halftime">
+                    <label for="halftime">Half Time</label>
+                    
+                    <input type="checkbox" id="fulltime" name="graphic" value="fulltime">
+                    <label for="fulltime">Full Time</label>
+                    
+                    <input type="checkbox" id="livematch" name="graphic" value="livematch">
+                    <label for="livematch">Live Match</label>
+                    
+                    <input type="checkbox" id="highlights" name="graphic" value="highlights">
+                    <label for="highlights">Highlights</label>
+                </div>
+
+                <!-- Selezione del Campionato -->
+                <label for="championship">Championship:</label>
+                <select id="championship" class="category-selection">
+                    <option value="seriea">Serie A</option>
+                    <option value="primavera">Primavera</option>
+                    <option value="women">Women</option>
+                </select>
+
+                <!-- Selezione Squadre -->
+                <div class="col">
+                    <div>
+                        <label for="homeTeam">Home team:</label>
+                    </div>
+                    <div class="swap-div" style="width: 140px;">
+                    </div>
+                    <div>
+                        <label for="awayTeam">Away team:</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div>
+                        <select id="homeTeam" disabled>
+                            <option value="como1907">Como 1907</option>
+                        </select>
+                    </div>
+                    <div class="swap-div" style="width: 140px;">
+                        <button id="swapBtn" class="swap-button" title="Swap Teams">
+                            <img src="images/assets/swap.svg" width="20px" alt="Swap">
+                        </button>
+                    </div>
+                    <div>
+                        <select id="awayTeam">
+                            <!-- Le squadre saranno popolate in base al campionato -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Sezione Data e Ora (Inizialmente Nascosta) -->
+                <div id="dateTimeSection">
+                    <div class="col">
+                        <div>
+                            <label for="matchDate">Data Match:</label>
+                        </div>
+                        <div class="swap-div" style="width: 140px;">
+                        </div>
+                        <div>
+                            <label for="matchTime">Orario Match:</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div>
+                            <input type="date" id="matchDate" class="input" required>
+                        </div>
+                        <div class="swap-div" style="width: 140px;"></div>
+                        <div>
+                            <input type="time" id="matchTime" class="input" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sezione MatchDay (Inizialmente Nascosta) -->
+                <div id="matchDaySection" class="matchdaycol">
+                    <div style="margin-right: 14px;">
+                        <label for="matchDay">Matchday</label>
+                        <input type="number" id="matchDay" min="0" class="input" placeholder="1" required style="width: 100px; font-size: 22px; height: 44px;">
+                    </div>
+                    <div style="width: 100%;" id="stadiumLocationSection">
+                        <label for="stadium">Stadium</label>
+                        <input type="text" id="stadium" class="input" placeholder="Stadium" required style="height: 44px;">
+                    </div>
+                </div>
+
+                <!-- Opzioni di Personalizzazione per le Grafiche Selezionate -->
+                <div id="graphicsOptions">
+                    <!-- Opzioni di personalizzazione appariranno qui in base alle grafiche selezionate -->
+                </div>
+
+                <h2>Images</h2>
+
+                <!-- Modifica: Aggiunta di ID agli elementi -->
+                <!-- Nuova Sezione per Caricare le Immagini di Sfondo -->
+                <div id="upload-background-section" class="upload-background-section">
+                    <div id="upload-container" class="upload-container"></div>
+                </div>
+
+                <!-- Pulsante Generate -->
+                <p>
+                    <button id="generateBtn" class="button" style="color: white;">GENERATE</button>
+                    <button id="downloadAllBtn" class="downloadAllBtn button-link">DOWNLOAD IMAGE</button>
+                </p>
+            </div>
+            <!-- Sezione Anteprima con Carosello -->
+            <div class="preview visible">
+                <h2>Anteprima</h2>
+                <div class="preview-container">
+                    <div class="graphic-tabs" >
+                    </div>
+                    <div class="carousel-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Collegamento al file JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
