@@ -62,11 +62,11 @@ a {
 h1 {
     font-size: 54px;
     color: white;
-    font-weight: 800;
+    font-weight: 600;
     text-transform: uppercase;
     margin: 5px;
     margin-bottom: 15px;
-    letter-spacing: 5px;
+    letter-spacing: 1px;
 }
 
 h2 {
