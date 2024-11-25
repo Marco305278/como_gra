@@ -442,7 +442,7 @@ function updateGraphicsOptions() {
                         optionDiv.innerHTML += `
                             <h3>Full Time - Highlights</h3>
                             <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
-                                <div class="col" style="text-align: center; padding-top: 12px;">
+                                <div class="col" style="text-align: center; padding-top: 4px;">
                                     <div><label>Home score:</label></div>
                                     <div style="width: 140px"></div>
                                     <div><label>Away score:</label></div>
@@ -454,7 +454,7 @@ function updateGraphicsOptions() {
                                         </div>
                                     </div>
                                     <div style="width: 140px;">
-                                        <h1 style="color: black; margin: 0;">-</h1>
+                                        <h2 style="color: black; margin: 0;">-</h2>
                                     </div>
                                     <div>
                                         <div class="cell100">
@@ -471,7 +471,7 @@ function updateGraphicsOptions() {
                     optionDiv.innerHTML += `
                         <h3>Half Time</h3>
                         <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
-                            <div class="col" style="text-align: center; padding-top: 12px;">
+                            <div class="col" style="text-align: center; padding-top: 4px;">
                                 <div><label>Home score:</label></div>
                                 <div style="width: 140px"></div>
                                 <div><label>Away score:</label></div>
@@ -483,7 +483,7 @@ function updateGraphicsOptions() {
                                     </div>
                                 </div>
                                 <div style="width: 140px;">
-                                    <h1 style="color: black; margin: 0;">-</h1>
+                                    <h2 style="color: black; margin: 0;">-</h2>
                                 </div>
                                 <div>
                                     <div class="cell100">
