@@ -411,7 +411,7 @@ function toggleTeams() {
     isHomeFixed = !isHomeFixed;
     console.log(`isHomeFixed ora è: ${isHomeFixed}`);
 
-    //generatePreviews();
+    generatePreviews();
 }
 
 /**
@@ -1146,19 +1146,19 @@ function addAutoUpdateListeners() {
         toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
         toggleMatchDaySection();
         toggleStadiumLocationSection();
-        //generatePreviews();
+        generatePreviews();
     });
 
     // Selezione della squadra di casa
     homeTeamSelect.addEventListener('change', () => {
         console.log(`Home Team cambiato a: ${homeTeamSelect.value}`);
-        //generatePreviews();
+        generatePreviews();
     });
 
     // Selezione della squadra ospite
     awayTeamSelect.addEventListener('change', () => {
         console.log(`Away Team cambiato a: ${awayTeamSelect.value}`);
-        //generatePreviews();
+        generatePreviews();
     });
 
     // Selezione delle grafiche
@@ -1170,13 +1170,14 @@ function addAutoUpdateListeners() {
             toggleMatchDaySection();
             toggleStadiumLocationSection();
             handleGraphicsChange(); // Chiamata a handleGraphicsChange
+            updateImagesHeaderVisibility(); // Aggiungi questa linea
         });
     });
 
     // Event listeners per le opzioni di personalizzazione delle grafiche
     graphicsOptionsDiv.addEventListener('input', () => {
         console.log('Opzioni grafiche modificate');
-        //generatePreviews();
+        generatePreviews();
     });
 
     // Event listener per il pulsante Generate
@@ -1223,7 +1224,7 @@ function addAutoUpdateListeners() {
     // Event listener per l'input della posizione dello stadio
     stadiumInput.addEventListener('input', () => {
         console.log('Posizione dello stadio modificata');
-        //generatePreviews();
+        generatePreviews();
     });
 
     // Event listeners per gli input della data e dell'ora
@@ -1242,10 +1243,11 @@ function addAutoUpdateListeners() {
     if (matchDayInput) {
         matchDayInput.addEventListener('input', () => {
             console.log('Matchday modificato');
-            //generatePreviews();
+            generatePreviews();
         });
     }
 }
+
 
 /**
  * Funzione per alternare la sezione Data e Ora
@@ -1365,7 +1367,7 @@ function generateBackgroundUploadFields() {
  */
 function handleGraphicsChange() {
     generateBackgroundUploadFields();
-    //generatePreviews();
+    generatePreviews();
 }
 
 /**
@@ -1399,9 +1401,20 @@ function addUploadItemListeners() {
   decreaseButton.addEventListener('click', () => {
     let currentValue = parseInt(matchDayInput.value, 10);
     if (!isNaN(currentValue) && currentValue > 0) {
-      matchDayInput.value = currentValue - 1;
+      matchDayInput.value = currentValue + 5;
     }
   });
+
+  function updateImagesHeaderVisibility() {
+    const imagesHeader = document.getElementById('imagesHeader');
+    const anyGraphicSelected = Array.from(graphicCheckboxes).some(cb => cb.checked);
+    
+    if (anyGraphicSelected) {
+        imagesHeader.style.display = 'block';
+    } else {
+        imagesHeader.style.display = 'none';
+    }
+}
 
 
 /**
@@ -1420,7 +1433,8 @@ function initialize() {
     addAutoUpdateListeners();
     initializeTeams();
     generateBackgroundUploadFields();
-    //generatePreviews();
+    generatePreviews();
+    updateImagesHeaderVisibility();
 }
 
 // Assicurati di avere una sola definizione della funzione initialize
