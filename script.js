@@ -123,7 +123,7 @@ const graphicStyles = {
             homeLogo: { x: 55, y: 655, width: 150, height: 150 },
             awayLogo: { x: 375, y: 655, width: 150, height: 150 },
             championshipLogo: null,
-            combinedScore: { x: 291, y: 760, fontSize: 72, color: 'white', font: 'MazzardM-Light', letterSpacing: -10, textAlign: 'center' },
+            combinedScore: { x: 291, y: 760, fontSize: 72, color: 'white', font: 'MazzardH-Light', letterSpacing: -10, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
@@ -131,7 +131,7 @@ const graphicStyles = {
             homeLogo: { x: 960, y: 430, width: 260, height: 260 },
             awayLogo: { x: 1545, y: 430, width: 260, height: 260 },
             championshipLogo: null,
-            combinedScore: { x: 1400, y: 590, fontSize: 130, color: 'white', font: 'MazzardM-Light', letterSpacing: 0, textAlign: 'center' },
+            combinedScore: { x: 1400, y: 590, fontSize: 130, color: 'white', font: 'MazzardH-Light', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
