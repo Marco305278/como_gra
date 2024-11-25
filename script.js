@@ -105,7 +105,7 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 140, y: 640, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
+            dateTime: { x: 140, y: 630, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
             matchDay: null // Non richiesto per questa grafica
         },
         'overlay_16x9': {
@@ -114,7 +114,7 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 640, y: 685, fontSize: 34, color: 'white', font: 'MazzardH-Medium', letterSpacing: 8 },
+            dateTime: { x: 640, y: 675, fontSize: 34, color: 'white', font: 'MazzardH-Medium', letterSpacing: 8 },
             matchDay: null // Non richiesto per questa grafica
         }
     },
