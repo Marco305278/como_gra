@@ -228,6 +228,7 @@ h4 {
 
 select {
     all: unset;
+    cursor: pointer;
 }
 
 label {
@@ -328,12 +329,18 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
     border: 4px solid #9fc2e6;
 }
 
+.col100 div{
+    width: 100%;
+}
+
 .col {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
+}
+
+.col .w100{
+    width: 100%;
 }
 
 .col .div {
@@ -352,6 +359,7 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
     display: flex;
     justify-content: center;
     height: 100%;
+    width: min-content;
 }
 
 .swap-button {
@@ -619,4 +627,14 @@ select[readonly] {
 /* Nasconde i contenitori delle anteprime non attivi */
 .graphic-preview-container {
     display: none;
+}
+
+
+
+select:disabled {
+    background-color: #e8f0f8; /* Colore di sfondo per indicare disabilitazione */
+    color: #a0a0a0; /* Colore del testo disabilitato */
+    border: 1px solid #c0d6e4; /* Colore bordo */
+    cursor: not-allowed; /* Mostra un cursore di divieto */
+    opacity: 0.6; /* Aggiunge un effetto visivo di trasparenza */
 }
