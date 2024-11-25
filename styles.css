@@ -3,45 +3,35 @@
 /* Caricamento dei font personalizzati */
 @font-face {
     font-family: 'DrukText-Medium-Trial';
-    src: url('fonts/DrukText-Medium-Trial.woff2') format('woff2'),
-         url('fonts/DrukText-Medium-Trial.woff') format('woff'),
-         url('fonts/DrukText-Medium-Trial.ttf') format('truetype');
+    src: url('fonts/DrukText-Medium-Trial.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MazzardH-Medium';
-    src: url('fonts/MazzardH-Medium.woff2') format('woff2'),
-         url('fonts/MazzardM-Medium.woff') format('woff'),
-         url('fonts/MazzardM-Medium.ttf') format('truetype');
+    src: url('fonts/MazzardH-Medium.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MazzardM-Light';
-    src: url('fonts/MazzardM-Light.woff2') format('woff2'),
-         url('fonts/MazzardM-Light.woff') format('woff'),
-         url('fonts/MazzardM-Light.ttf') format('truetype');
+    src: url('fonts/MazzardM-Light.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'bodoni-72-book-italic';
-    src: url('fonts/bodoni-72-book-italic.woff2') format('woff2'),
-         url('fonts/bodoni-72-book-italic.woff') format('woff'),
-         url('fonts/bodoni-72-book-italic.ttf') format('truetype');
+    src: url('fonts/bodoni-72-book-italic.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Bodoni-72-Bold';
-    src: url('fonts/Bodoni-72-Bold.woff2') format('woff2'),
-         url('fonts/Bodoni-72-Bold.woff') format('woff'),
-         url('fonts/Bodoni-72-Bold.ttf') format('truetype');
+    src: url('fonts/Bodoni-72-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
