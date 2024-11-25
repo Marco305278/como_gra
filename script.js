@@ -1362,7 +1362,7 @@ function generateBackgroundUploadFields() {
  */
 function handleGraphicsChange() {
     generateBackgroundUploadFields();
-    generatePreviews();
+    //generatePreviews();
 }
 
 /**
@@ -1399,7 +1399,7 @@ function initialize() {
     addAutoUpdateListeners();
     initializeTeams();
     generateBackgroundUploadFields();
-    generatePreviews();
+    //generatePreviews();
 }
 
 // Assicurati di avere una sola definizione della funzione initialize
