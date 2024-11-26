@@ -626,10 +626,6 @@ select[readonly] {
     width: min-content;
 }
 
-.preview-size{
-    max-width: 500px;
-}
-
 .graphic-tab.active {
     text-decoration: underline;
 }
