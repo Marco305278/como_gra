@@ -11,14 +11,14 @@
 @font-face {
     font-family: 'MazzardH-Medium';
     src: url('fonts/MazzardH-Medium.ttf') format('truetype');
-    font-weight: normal;
+    font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MazzardH-Light';
     src: url('fonts/MazzardH-Light.ttf') format('truetype');
-    font-weight: normal;
+    font-weight: 800;
     font-style: normal;
 }
 
@@ -33,6 +33,19 @@
     font-family: 'bodoni-72-bold';
     src: url('fonts/bodoni-72-bold.ttf') format('truetype');
     font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'bodoni-72-bold';
+    src: url('fonts/bodoni-72-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Saturday-Lovin';
+    src: url('fonts/Saturday-Lovin.ttf') format('truetype');
     font-style: normal;
 }
 
@@ -361,6 +374,19 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
     align-items: center;
 }
 
+.div2 {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.div2 div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .swap-div {
     display: flex;
     justify-content: center;
@@ -539,7 +565,7 @@ select[readonly] {
 .upload-item.selected {
     border: 1px solid #1d3b62;
     background: #1d3b62;
-    color: white;
+    color: white !important;
 }
 
 
