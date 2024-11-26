@@ -202,8 +202,8 @@ h4 {
         display: none;
     }
     
-    .number-input-fz input{
-        font-size: 32px;
+    .number-input-fz{
+        margin-bottom: 5px;
     }
 
 }
