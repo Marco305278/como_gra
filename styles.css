@@ -633,6 +633,11 @@ select[readonly] {
 }
 
 
+.number-input-fz input{
+    line-height: 0,5;
+}
+
+
 
 select:disabled {
     background-color: #e8f0f8; /* Colore di sfondo per indicare disabilitazione */
