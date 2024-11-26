@@ -447,7 +447,7 @@ function updateGraphicsOptions() {
                                     <div style="width: 140px"></div>
                                     <div><label>Away score:</label></div>
                                 </div>
-                                <div class="col col100" style="text-align: center;">
+                                <div class="col col100 number-input-fz" style="text-align: center;">
                                     <div>
                                         <div class="cell100">
                                             <input size="2" type="number" class="homeFullScore number" min="0" placeholder="0" value="0">
@@ -471,12 +471,12 @@ function updateGraphicsOptions() {
                     optionDiv.innerHTML += `
                         <h3>Half Time</h3>
                         <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
-                            <div class="col" style="text-align: center; padding-top: 4px;">
+                            <div class="col col100" style="text-align: center; padding-top: 4px;">
                                 <div><label>Home score:</label></div>
                                 <div style="width: 140px"></div>
                                 <div><label>Away score:</label></div>
                             </div>
-                            <div class="col" style="text-align: center;">
+                            <div class="col col100 number-input-fz" style="text-align: center;">
                                 <div>
                                     <div class="cell100">
                                         <input size="2" type="number" class="homeHalfScore number" min="0" placeholder="0" value="0">
