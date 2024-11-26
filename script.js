@@ -21,7 +21,7 @@ const increaseButton = document.getElementById('increase');
 
 const players = [
     { value: 'Dennis Brasolin', text: 'Dennis Brasolin' },
-    { value: 'Test', text: 'Test' },
+    { value: 'Felippe Jack', text: 'Felippe Jack' },
     // Aggiungi altri giocatori secondo necessità
 ];
 
