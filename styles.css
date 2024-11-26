@@ -222,6 +222,7 @@ h4 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100vh;
 }
 
 .cell100 {
@@ -632,12 +633,6 @@ select[readonly] {
 .graphic-tab:hover{
     color: #e04413 !important;
 }
-
-/* Nasconde i contenitori delle anteprime non attivi */
-.graphic-preview-container {
-    display: none;
-}
-
 
 select:disabled {
     background-color: #e8f0f8; /* Colore di sfondo per indicare disabilitazione */
