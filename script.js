@@ -1364,7 +1364,7 @@ async function drawDefaultGraphic(ctx, style, graphicName) {
 
     // Disegna la data e l'ora del match
     if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
+const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
         ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
         ctx.fillStyle = style.dateTime.color;
         ctx.textAlign = 'left';
@@ -1671,7 +1671,7 @@ async function drawTeamLogos(ctx, style) {
  * @param {string} graphicName - Il nome della grafica ('livematch')
  * @param {string} overlayName - Il nome del formato dell'overlay ('overlay_5x8' o 'overlay_16x9')
  */
-async function drawLivematchGraphic(ctx, style, graphicName, overlayName) {
+async function drawLivematchGraphic(ctx, style, graphicName, adjustedDateObj, overlayName) {
     // Aggiunta del titolo per 'livematch'
     const formatSuffix = overlayName.replace('overlay_', ''); // Es: '5x8' da 'overlay_5x8'
     const championship = championshipSelect.value; // Es: 'primavera' o 'women'
@@ -1708,7 +1708,7 @@ async function drawLivematchGraphic(ctx, style, graphicName, overlayName) {
 
     // Disegna la data e l'ora del match
     if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
+const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
         ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
         ctx.fillStyle = style.dateTime.color;
         ctx.textAlign = 'left';
