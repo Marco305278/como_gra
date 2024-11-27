@@ -294,6 +294,22 @@ input[type="number"] {
     align-items: center;
 }
 
+.symbol-arrow-left{
+    margin: 5px;
+    width: 35px;
+    height: 32px;
+    border-radius: 6px;
+    background: white;
+    border: none;
+    transition: all .5s cubic-bezier(.215, .61, .355, 1);
+    cursor: pointer;
+    line-height: 0.1;
+}
+
+.symbol-arrow-left img{
+    width: 12px;
+}
+
 .symbol-arrow{
     position: absolute;
     margin: 5px;
@@ -382,6 +398,23 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
 }
 
 .div2 div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div3 {
+    margin: 8px 0;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    height: 42px;
+    border-radius: 6px;
+    align-items: center;
+    background: #e8f0f8;
+}
+
+.div3 div {
     display: flex;
     justify-content: center;
     align-items: center;
