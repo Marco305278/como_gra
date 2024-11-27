@@ -951,7 +951,7 @@ async function generatePreviews() {
                             await drawMatchGraphic(ctx, style, timeVersion, adjustedDateObj, graphicName);
                             break;
                         case 'livematch':
-                            await drawLivematchGraphic(ctx, style, graphicName, overlayName);
+                            await drawLivematchGraphic(ctx, style, adjustedDateObj, graphicName, overlayName);
                             break;
                         // Aggiungi altri case per altre grafiche specifiche se necessario
                         default:
@@ -1253,7 +1253,7 @@ async function drawMatchGraphic(ctx, style, timeVersion, adjustedDateObj, graphi
  * @param {string} graphicName - Il nome della grafica ('livematch')
  * @param {string} overlayName - Il nome del formato dell'overlay ('overlay_5x8' o 'overlay_16x9')
  */
-async function drawLivematchGraphic(ctx, style, graphicName, overlayName) {
+async function drawLivematchGraphic(ctx, style, adjustedDateObj, graphicName, overlayName) {
     // Aggiunta del titolo per 'livematch'
     const formatSuffix = overlayName.replace('overlay_', ''); // Es: '5x8' da 'overlay_5x8'
     const championship = championshipSelect.value; // Es: 'primavera' o 'women'
