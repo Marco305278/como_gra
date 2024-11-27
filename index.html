@@ -55,7 +55,7 @@ marco305278.github.io/como_gra
                     <input type="checkbox" id="kickoff" name="graphic" value="kickoff">
                     <label for="kickoff">Kick Off</label>
                     
-                    <input type="checkbox" id="goal" name="graphic" value="goal">
+                    <input type="checkbox" id="goal" name="graphic" value="goal" class="work">
                     <label for="goal" class="work">Goal</label>
                     
                     <input type="checkbox" id="halftime" name="graphic" value="halftime">
@@ -67,8 +67,8 @@ marco305278.github.io/como_gra
                     <input type="checkbox" id="livematch" name="graphic" value="livematch">
                     <label for="livematch">Live Match</label>
                     
-                    <input type="checkbox" id="highlights" name="graphic" value="highlights">
-                    <label for="highlights">Highlights</label>
+                    <input type="checkbox" id="highlights" name="graphic" value="highlights" class="work">
+                    <label for="highlights" class="work">Highlights</label>
                 </div>
 
                 <!-- Selezione del Campionato -->
@@ -116,8 +116,6 @@ marco305278.github.io/como_gra
                     </div>
                 </div>
 
-
-
                 <!-- Sezione Data e Ora (Inizialmente Nascosta) -->
                 <div id="dateTimeSection">
                     <div class="col col100">
@@ -132,11 +130,11 @@ marco305278.github.io/como_gra
                     </div>
                     <div class="col col100">
                         <div>
-                            <input type="date" id="matchDate" class="input" width="100%">
+                            <input type="date" id="matchDate" class="input" required>
                         </div>
                         <div class="swap-div" style="width: 140px;"></div>
                         <div>
-                            <input type="time" id="matchTime" class="input" width="100%" required>
+                            <input type="time" id="matchTime" class="input" required>
                         </div>
                     </div>
                 </div>
@@ -177,17 +175,12 @@ marco305278.github.io/como_gra
                 </p>
             </div>
             <!-- Sezione Anteprima con Carosello -->
-            <div class="preview">
+            <div class="preview visible">
                 <h2>Anteprima</h2>
                 <div class="preview-container">
-                    <div class="graphic-tabs">
+                    <div class="graphic-tabs" >
                     </div>
                     <div class="carousel-container">
-                    </div>
-                    <div class="carousel-container">
-                        <div class="graphic-preview-container">
-                                <canvas height="0" width="1080" style="background-color: red; border: none;"></canvas>
-                        </div>
                     </div>
                 </div>
             </div>
