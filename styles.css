@@ -11,14 +11,14 @@
 @font-face {
     font-family: 'MazzardH-Medium';
     src: url('fonts/MazzardH-Medium.ttf') format('truetype');
-    font-weight: 800;
+    font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MazzardH-Light';
     src: url('fonts/MazzardH-Light.ttf') format('truetype');
-    font-weight: 800;
+    font-weight: normal;
     font-style: normal;
 }
 
@@ -33,19 +33,6 @@
     font-family: 'bodoni-72-bold';
     src: url('fonts/bodoni-72-bold.ttf') format('truetype');
     font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'bodoni-72-bold';
-    src: url('fonts/bodoni-72-bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Saturday-Lovin';
-    src: url('fonts/Saturday-Lovin.ttf') format('truetype');
     font-style: normal;
 }
 
@@ -214,10 +201,6 @@ h4 {
     .button-link {
         display: none;
     }
-    
-    .number-input-fz{
-        margin-bottom: 5px;
-    }
 
 }
 
@@ -292,26 +275,6 @@ input[type="number"] {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.symbol-arrow-left{
-    margin: 5px;
-    width: 36px;
-    height: 32px;
-    border-radius: 6px;
-    background: white;
-    border: none;
-    transition: all .5s cubic-bezier(.215, .61, .355, 1);
-    cursor: pointer;
-    line-height: 0.1;
-}
-
-.symbol-arrow-active{
-    background: #1d3b62;
-}
-
-.symbol-arrow-active:hover{
-    opacity: 0.8;
 }
 
 .symbol-arrow{
@@ -389,44 +352,6 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
 }
 
 .col .div div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.div_back {
-    margin: 8px 0;
-    background: #e8f0f8;
-    display: flex;
-    justify-content: right;
-    border-radius: 6px;
-    height: 42px;
-}
-
-.div_back div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.div_back select,
-.div_back input{
-    margin: 0;
-}
-
-#goalPlayerInput{
-    padding-top: 3px;
-    padding-bottom: 7px;
-}
-
-.div2 {
-    width: 100%;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-}
-
-.div2 div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -533,6 +458,7 @@ select[readonly] {
     margin-bottom: 20px;
     display: inline-flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .graphics-selection input[type="checkbox"] {
@@ -578,7 +504,8 @@ select[readonly] {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    border: 1px dashed #1d3b62;
+    border: 2px dashed #1d3b62;
+    background-color: #f2f6fb;
     cursor: pointer;
     border-radius: 8px;
     transition: all .3s cubic-bezier(.215, .61, .355, 1);
@@ -586,21 +513,18 @@ select[readonly] {
 }
 
 .upload-item label {
-    color: #1d3b62;
     text-transform: uppercase;
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 600;
     padding: 8px 15px;
     cursor: pointer;
 }
 
 .upload-item input[type="file"] {
-    color: #1d3b62;
     padding: 14px;
     padding-top: 0px;
-    font-size: 13px;
+    font-size: 11px;
     cursor: pointer;
-    font-family: serif;
 }
 
 .upload-item:hover {
@@ -608,9 +532,9 @@ select[readonly] {
 }
 
 .upload-item.selected {
-    border: 1px solid #1d3b62;
+    border: 2px solid #1d3b62;
     background: #1d3b62;
-    color: white !important;
+    color: white;
 }
 
 
@@ -704,6 +628,13 @@ select[readonly] {
     color: #e04413 !important;
 }
 
+/* Nasconde i contenitori delle anteprime non attivi */
+.graphic-preview-container {
+    display: none;
+}
+
+
+
 select:disabled {
     background-color: #e8f0f8; /* Colore di sfondo per indicare disabilitazione */
     padding: 8px;
@@ -714,6 +645,19 @@ select:disabled {
 }
 
 label.work {
-    background-color: #e3ebf6 !important;
-    opacity: 0.4;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #edd6c4 !important;
+    opacity: 0.7;
+    color: black !important;
+    padding: 6px 18px;
+}
+
+input[type="checkbox"].work:checked + label {
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #c86f51 !important;
+    opacity: 0.7;
+    color: white !important;
+    padding: 6px 18px;
 }
