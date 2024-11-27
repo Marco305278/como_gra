@@ -11,14 +11,14 @@
 @font-face {
     font-family: 'MazzardH-Medium';
     src: url('fonts/MazzardH-Medium.ttf') format('truetype');
-    font-weight: normal;
+    font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MazzardH-Light';
     src: url('fonts/MazzardH-Light.ttf') format('truetype');
-    font-weight: normal;
+    font-weight: 800;
     font-style: normal;
 }
 
