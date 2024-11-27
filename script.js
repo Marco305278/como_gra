@@ -817,7 +817,7 @@ async function generatePreviews() {
     // Recupera la data e l'ora del match
     const matchDateValue = matchDateInput.value;
     const matchTimeValue = matchTimeInput.value;
-
+    
     let matchDateObj;
     if (matchDateValue && matchTimeValue) {
         const matchDateTimeString = `${matchDateValue}T${matchTimeValue}`;
@@ -1059,12 +1059,11 @@ async function drawGoalGraphic(ctx, style, timeVersion, adjustedDateObj, graphic
 
     // Disegna la data e l'ora del match
     if (style.dateTime) {
-        const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
-        ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
+        const dateText = formatDate(matchDateObj, 'CET', 'en-GB'); // Usa la data dall'input
+        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
         ctx.fillStyle = style.dateTime.color;
         ctx.textAlign = 'left';
         if (style.dateTime.letterSpacing) {
-            ctx.textBaseline = 'top';
             drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
         } else {
             ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
@@ -1291,7 +1290,7 @@ async function drawLivematchGraphic(ctx, style, graphicName, overlayName) {
 
     // Disegna la data e l'ora del match
     if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
+        const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
         ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
         ctx.fillStyle = style.dateTime.color;
         ctx.textAlign = 'left';
