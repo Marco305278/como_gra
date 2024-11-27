@@ -56,7 +56,7 @@ marco305278.github.io/como_gra
                     <label for="kickoff">Kick Off</label>
                     
                     <input type="checkbox" id="goal" name="graphic" value="goal">
-                    <label for="goal">Goal</label>
+                    <label for="goal" class="work">Goal</label>
                     
                     <input type="checkbox" id="halftime" name="graphic" value="halftime">
                     <label for="halftime">Half Time</label>
@@ -116,6 +116,8 @@ marco305278.github.io/como_gra
                     </div>
                 </div>
 
+
+
                 <!-- Sezione Data e Ora (Inizialmente Nascosta) -->
                 <div id="dateTimeSection">
                     <div class="col col100">
@@ -130,11 +132,11 @@ marco305278.github.io/como_gra
                     </div>
                     <div class="col col100">
                         <div>
-                            <input type="date" id="matchDate" class="input" required>
+                            <input type="date" id="matchDate" class="input" width="100%">
                         </div>
                         <div class="swap-div" style="width: 140px;"></div>
                         <div>
-                            <input type="time" id="matchTime" class="input" required>
+                            <input type="time" id="matchTime" class="input" width="100%" required>
                         </div>
                     </div>
                 </div>
@@ -181,6 +183,11 @@ marco305278.github.io/como_gra
                     <div class="graphic-tabs">
                     </div>
                     <div class="carousel-container">
+                    </div>
+                    <div class="carousel-container">
+                        <div class="graphic-preview-container">
+                                <canvas height="0" width="1080" style="background-color: red; border: none;"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>

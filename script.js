@@ -16,59 +16,58 @@ const uploadContainer = document.querySelector('.upload-background-section .uplo
 const stadiumLocationSection = document.getElementById('stadiumLocationSection');
 const stadiumInput = document.getElementById('stadium');
 const matchDayInput = document.getElementById('matchDay');
-const decreaseButton = document.getElementById('decrease');
-const increaseButton = document.getElementById('increase');
 
+// Lista dei giocatori
 const players = [
     { value: 'Dennis Brasolin', text: 'Dennis Brasolin' },
     { value: 'Felippe Jack', text: 'Felippe Jack' },
     // Aggiungi altri giocatori secondo necessità
 ];
 
-// Configurazione delle disposizioni degli elementi per ogni grafica e formato
+// Configurazione delle grafiche e formati
 const graphicStyles = {
-    'fulltime': {
-        'overlay_4x5': {
+    fulltime: {
+        overlay_4x5: {
             homeLogo: { x: 70, y: 970, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1145, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
             homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null
         },
-        'overlay_9x16': {
+        overlay_9x16: {
             homeLogo: { x: 70, y: 1470, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1645, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
             homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null
         }
     },
-    'halftime': {
-        'overlay_4x5': {
+    halftime: {
+        overlay_4x5: {
             homeLogo: { x: 70, y: 970, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1145, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
             homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null
         },
-        'overlay_9x16': {
+        overlay_9x16: {
             homeLogo: { x: 70, y: 1470, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1645, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
             homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null
         }
     },
-    'kickoff': {
-        'overlay_4x5': {
+    kickoff: {
+        overlay_4x5: {
             homeLogo: { x: 70, y: 950, width: 165, height: 165 },
             awayLogo: { x: 250, y: 950, width: 165, height: 165 },
             championshipLogo: { x: 70, y: 50, width: 130, height: 212 },
@@ -77,7 +76,7 @@ const graphicStyles = {
             dateTime: { x: 70, y: 360, fontSize: 54, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             matchDay: null
         },
-        'overlay_9x16': {
+        overlay_9x16: {
             homeLogo: { x: 70, y: 1250, width: 165, height: 165 },
             awayLogo: { x: 250, y: 1250, width: 165, height: 165 },
             championshipLogo: { x: 70, y: 350, width: 130, height: 212 },
@@ -87,68 +86,68 @@ const graphicStyles = {
             matchDay: null
         }
     },
-    'goal': {
-        'overlay_4x5': {
+    goal: {
+        overlay_4x5: {
             homeLogo: { x: 750, y: 50, width: 150, height: 150 },
             awayLogo: { x: 750, y: 235, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
             homeScore: { x: 910, y: 180, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
             awayScore: { x: 910, y: 355, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
             dateTime: null,
-            matchDay: null, // Non richiesto per questa grafica
-            playerName: { x: 70, y: 1250, fontSize: 130, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 } // Nuova proprietà
+            matchDay: null,
+            playerName: { x: 70, y: 1250, fontSize: 130, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 }
         },
-        'overlay_9x16': {
+        overlay_9x16: {
             homeLogo: { x: 750, y: 150, width: 150, height: 150 },
             awayLogo: { x: 750, y: 335, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
             homeScore: { x: 910, y: 280, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
             awayScore: { x: 910, y: 455, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
             dateTime: null,
-            matchDay: null, // Non richiesto per questa grafica
-            playerName: { x: 70, y: 1740, fontSize: 145, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 } // Nuova proprietà
+            matchDay: null,
+            playerName: { x: 70, y: 1740, fontSize: 145, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 }
         }
     },
-    'livematch': {
-        'overlay_5x8': {
+    livematch: {
+        overlay_5x8: {
             homeLogo: { x: 180, y: 700, width: 105, height: 105 },
             awayLogo: { x: 300, y: 700, width: 105, height: 105 },
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
             dateTime: { x: 140, y: 640, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null
         },
-        'overlay_16x9': {
+        overlay_16x9: {
             homeLogo: { x: 710, y: 790, width: 230, height: 230 },
             awayLogo: { x: 980, y: 790, width: 230, height: 230 },
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
             dateTime: { x: 640, y: 665, fontSize: 34, color: 'white', font: 'MazzardH-Medium', letterSpacing: 8 },
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null
         }
     },
-    'highlights': {
-        'overlay_5x8': {
+    highlights: {
+        overlay_5x8: {
             homeLogo: { x: 55, y: 655, width: 150, height: 150 },
             awayLogo: { x: 375, y: 655, width: 150, height: 150 },
             championshipLogo: null,
             combinedScore: { x: 291, y: 760, fontSize: 72, color: 'white', font: 'MazzardH-Light', letterSpacing: -10, textAlign: 'center' },
             dateTime: null,
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null
         },
-        'overlay_16x9': {
+        overlay_16x9: {
             homeLogo: { x: 960, y: 430, width: 260, height: 260 },
             awayLogo: { x: 1545, y: 430, width: 260, height: 260 },
             championshipLogo: null,
             combinedScore: { x: 1400, y: 590, fontSize: 130, color: 'white', font: 'MazzardH-Light', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null
         }
     },
-    'nextmatch': {
-        'overlay_4x5': {
+    nextmatch: {
+        overlay_4x5: {
             homeLogo: null,
             awayLogo: null,
             championshipLogo: { x: 900, y: 40, width: 130, height: 212 },
@@ -162,23 +161,23 @@ const graphicStyles = {
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
         },
-        'overlay_9x16': {
+        overlay_9x16: {
             homeLogo: null,
             awayLogo: null,
             championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1655, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }, // 1240 + 415
-            matchDay: { x: 65, y: 1180, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 }, // 810 + 370
+            dateTime: { x: 65, y: 1655, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 1180, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: { x: 65, y: 200, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
-            homeTeamName: { x: 60, y: 1360, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 }, // 970 + 390
-            vsText: { x: null, y: 1360, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 }, // 970 + 390
-            awayTeamName: { x: 60, y: 1530, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 }, // 1140 + 390
-            stadiumLocation: { x: 65, y: 1725, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 } // 1310 + 415
+            homeTeamName: { x: 60, y: 1360, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
+            vsText: { x: null, y: 1360, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            awayTeamName: { x: 60, y: 1530, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 65, y: 1725, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
         }
     },
-    'matchday': {
-        'overlay_4x5': {
+    matchday: {
+        overlay_4x5: {
             homeLogo: null,
             awayLogo: null,
             championshipLogo: { x: 900, y: 40, width: 130, height: 212 },
@@ -192,75 +191,62 @@ const graphicStyles = {
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
         },
-        'overlay_9x16': {
+        overlay_9x16: {
             homeLogo: null,
             awayLogo: null,
             championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1655, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }, // 1240 + 415
-            matchDay: { x: 65, y: 1180, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 }, // 810 + 370
+            dateTime: { x: 65, y: 1655, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 1180, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: null,
-            homeTeamName: { x: 60, y: 1360, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 }, // 970 + 390
-            vsText: { x: null, y: 1360, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 }, // 970 + 390
-            awayTeamName: { x: 60, y: 1530, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 }, // 1140 + 390
-            stadiumLocation: { x: 65, y: 1725, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 } // 1310 + 415
+            homeTeamName: { x: 60, y: 1360, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
+            vsText: { x: null, y: 1360, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            awayTeamName: { x: 60, y: 1530, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 65, y: 1725, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
         }
-    },
-    // Aggiungi altre grafiche qui con disposizioni specifiche per ogni formato
+    }
 };
 
 // Definizione dei formati e delle dimensioni
 const formats = {
-    'overlay_5x8': { width: 582, height: 872 },
-    'overlay_4x5': { width: 1080, height: 1350 },
-    'overlay_9x16': { width: 1080, height: 1920 },
-    'overlay_16x9': { width: 1920, height: 1080 }
+    overlay_5x8: { width: 582, height: 872 },
+    overlay_4x5: { width: 1080, height: 1350 },
+    overlay_9x16: { width: 1080, height: 1920 },
+    overlay_16x9: { width: 1920, height: 1080 }
 };
 
 // Mappatura dei formati disponibili per ogni grafica
 const graphicsFormats = {
-    'fulltime': ['overlay_4x5', 'overlay_9x16'],
-    'halftime': ['overlay_4x5', 'overlay_9x16'],
-    'kickoff': ['overlay_4x5', 'overlay_9x16'],
-    'goal': ['overlay_4x5', 'overlay_9x16'],
-    'livematch': ['overlay_5x8', 'overlay_16x9'],
-    'highlights': ['overlay_5x8', 'overlay_16x9'],
-    'nextmatch': ['overlay_4x5', 'overlay_9x16'],
-    'matchday': ['overlay_4x5', 'overlay_9x16']
+    fulltime: ['overlay_4x5', 'overlay_9x16'],
+    halftime: ['overlay_4x5', 'overlay_9x16'],
+    kickoff: ['overlay_4x5', 'overlay_9x16'],
+    goal: ['overlay_4x5', 'overlay_9x16'],
+    livematch: ['overlay_5x8', 'overlay_16x9'],
+    highlights: ['overlay_5x8', 'overlay_16x9'],
+    nextmatch: ['overlay_4x5', 'overlay_9x16'],
+    matchday: ['overlay_4x5', 'overlay_9x16']
 };
 
-// Definizione delle grafiche che richiedono l'uso dei loghi delle squadre
+// Definizioni delle grafiche che richiedono specifiche componenti
 const graphicsWithLogos = ['livematch', 'highlights', 'halftime', 'fulltime', 'goal', 'kickoff'];
 const graphicsRequireDateTime = ['kickoff', 'matchday', 'nextmatch', 'livematch'];
 const graphicsRequireMatchDay = ['matchday', 'nextmatch'];
-const graphicsRequireStadiumLocation = ['nextmatch', 'matchday']; // Grafiche che richiedono la posizione dello stadio
-
-// Definizione delle grafiche che richiedono solo il logo del campionato
+const graphicsRequireStadiumLocation = ['nextmatch', 'matchday'];
 const graphicsWithChampionshipLogo = ['nextmatch', 'matchday'];
 
-// Variabile di stato per gestire lo swap
-let isHomeFixed = true; // Inizialmente, Home Team è fisso su "Como 1907"
-
-// Definizione del team fisso
-const fixedTeam = {
-    value: 'como1907',
-    text: 'Como 1907'
-};
-
-// Variabile per memorizzare le squadre correnti
+// Stato per gestire lo swap delle squadre
+let isHomeFixed = true;
+const fixedTeam = { value: 'como1907', text: 'Como 1907' };
 let currentTeams = [];
-
-// Oggetto per memorizzare le immagini di sfondo caricate
-// Mappa graphicId a immagine (stringa Data URL)
 let backgroundImages = {};
 
-/**
- * Funzione per popolare un select con le squadre selezionabili
- * @param {HTMLElement} selectElement - L'elemento select da popolare
- * @param {Array} teams - L'array delle squadre disponibili
- * @param {string|null} selectedValue - Il valore da selezionare (opzionale)
- */
+// Funzione per capitalizzare la prima lettera
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Funzione per popolare un select con le squadre selezionabili
 function populateSelectableSelect(selectElement, teams, selectedValue = null) {
     selectElement.innerHTML = '';
 
@@ -277,21 +263,15 @@ function populateSelectableSelect(selectElement, teams, selectedValue = null) {
         const optionExists = Array.from(selectElement.options).some(option => option.value === selectedValue);
         if (optionExists) {
             selectElement.value = selectedValue;
-        } else {
-            if (selectElement.options.length > 0) {
-                selectElement.selectedIndex = 0;
-            }
-        }
-    } else {
-        if (selectElement.options.length > 0) {
+        } else if (selectElement.options.length > 0) {
             selectElement.selectedIndex = 0;
         }
+    } else if (selectElement.options.length > 0) {
+        selectElement.selectedIndex = 0;
     }
 }
 
-/**
- * Funzione per popolare le squadre in base al campionato selezionato
- */
+// Funzione per popolare le squadre in base al campionato selezionato
 function populateTeams() {
     const championship = championshipSelect.value;
     let teams = [];
@@ -377,13 +357,11 @@ function populateTeams() {
     if (isHomeFixed) {
         homeTeamSelect.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
         homeTeamSelect.disabled = true;
-
         awayTeamSelect.disabled = false;
         populateSelectableSelect(awayTeamSelect, currentTeams);
     } else {
         awayTeamSelect.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
         awayTeamSelect.disabled = true;
-
         homeTeamSelect.disabled = false;
         populateSelectableSelect(homeTeamSelect, currentTeams);
     }
@@ -391,9 +369,7 @@ function populateTeams() {
     console.log(`Popolate le squadre per il campionato: ${championship}`);
 }
 
-/**
- * Funzione per alternare lo stato dei team e mantenere la selezione
- */
+// Funzione per alternare lo stato dei team
 function toggleTeams() {
     if (isHomeFixed) {
         const selectedAwayTeam = awayTeamSelect.value;
@@ -421,41 +397,35 @@ function toggleTeams() {
     generatePreviews();
 }
 
-/**
- * Funzione per aggiornare le opzioni grafiche
- */
+// Funzione per aggiornare le opzioni grafiche
 function updateGraphicsOptions() {
     // Salva i valori esistenti degli input
     const existingInputs = {};
-    const inputs = graphicsOptionsDiv.querySelectorAll('input');
-    inputs.forEach(input => {
+    graphicsOptionsDiv.querySelectorAll('input').forEach(input => {
         existingInputs[input.className] = input.value;
     });
 
     graphicsOptionsDiv.innerHTML = ''; // Pulisce le opzioni esistenti
 
-    let isFulltimeHighlightsAdded = false; // Flag globale per fulltime/highlights
-    let isHalftimeHighlightsAdded = false; // Flag globale per halftime/goal
+    let isFulltimeHighlightsAdded = false;
+    let isHalftimeHighlightsAdded = false;
 
     graphicCheckboxes.forEach(cb => {
         if (cb.checked) {
             const optionDiv = document.createElement('div');
             optionDiv.classList.add('graphic-option');
 
-            // Aggiungi opzioni specifiche per ogni grafica
             switch (cb.value) {
                 case 'goal':
-                    // Aggiungi il selettore dei giocatori
+                    // Selettore del giocatore
                     const playerLabel = document.createElement('label');
                     playerLabel.setAttribute('for', 'goalPlayerSelect');
                     playerLabel.textContent = 'Player:';
                     optionDiv.appendChild(playerLabel);
 
-                    // Crea il contenitore div con classe 'div'
                     const goalContainerDiv = document.createElement('div');
                     goalContainerDiv.classList.add('div2');
 
-                    // Crea il pulsante di decremento
                     const decreaseDiv = document.createElement('div');
                     decreaseDiv.id = 'decrease';
                     decreaseDiv.classList.add('symbol-arrow');
@@ -465,7 +435,6 @@ function updateGraphicsOptions() {
                     decreaseDiv.appendChild(decreaseImg);
                     goalContainerDiv.appendChild(decreaseDiv);
 
-                    // Crea il selettore dei giocatori
                     const playerSelect = document.createElement('select');
                     playerSelect.id = 'goalPlayerSelect';
                     playerSelect.name = 'goalPlayerSelect';
@@ -479,10 +448,9 @@ function updateGraphicsOptions() {
 
                     goalContainerDiv.appendChild(playerSelect);
                     optionDiv.appendChild(goalContainerDiv);
-                    
-            
+
                     if (!isHalftimeHighlightsAdded) {
-                        // Aggiungi i campi per i punteggi di half-time
+                        // Campi per i punteggi di half-time
                         const halftimeDiv = document.createElement('div');
                         halftimeDiv.innerHTML = `
                             <h3>Half Time - Goal</h3>
@@ -510,15 +478,13 @@ function updateGraphicsOptions() {
                             </div>
                         `;
                         optionDiv.appendChild(halftimeDiv);
-
                         isHalftimeHighlightsAdded = true;
                     }
-                    
                     break;
 
                 case 'fulltime':
                 case 'highlights':
-                    if (!isFulltimeHighlightsAdded) { // Controlla se è già stato aggiunto
+                    if (!isFulltimeHighlightsAdded) {
                         optionDiv.innerHTML += `
                             <h3>Full Time - Highlights</h3>
                             <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
@@ -544,9 +510,10 @@ function updateGraphicsOptions() {
                                 </div>
                             </div>
                         `;
-                        isFulltimeHighlightsAdded = true; // Imposta il flag su true
+                        isFulltimeHighlightsAdded = true;
                     }
                     break;
+
                 case 'halftime':
                     if (!isHalftimeHighlightsAdded) {
                         optionDiv.innerHTML += `
@@ -577,9 +544,9 @@ function updateGraphicsOptions() {
                         isHalftimeHighlightsAdded = true;
                     }
                     break;
-                // Aggiungi altri case per altre grafiche se necessario
+
                 default:
-                    // Non aggiungere opzioni per altre grafiche
+                    // Altre grafiche non richiedono opzioni aggiuntive
                     break;
             }
 
@@ -598,19 +565,13 @@ function updateGraphicsOptions() {
     });
 }
 
-/**
- * Funzione per caricare un'immagine e restituire una Promise
- * @param {string} src - Il percorso dell'immagine da caricare
- * @returns {Promise<Image|null>} - Una Promise che risolve con l'immagine caricata o null in caso di errore
- */
+// Funzione per caricare un'immagine e restituire una Promise
 function loadImage(src) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const img = new Image();
         img.src = src;
         img.crossOrigin = "Anonymous";
-        img.onload = () => {
-            resolve(img);
-        };
+        img.onload = () => resolve(img);
         img.onerror = () => {
             console.error(`Errore nel caricamento dell'immagine: ${src}`);
             resolve(null);
@@ -618,16 +579,14 @@ function loadImage(src) {
     });
 }
 
-/**
- * Funzione per scaricare tutte le immagini generate
- */
+// Funzione per scaricare tutte le immagini generate
 function downloadAllPreviews() {
     const canvases = carouselContainer.querySelectorAll('canvas');
     if (canvases.length === 0) {
         alert('Nessuna anteprima da scaricare.');
         return;
     }
-    canvases.forEach((canvas, index) => {
+    canvases.forEach(canvas => {
         const filename = getFilenameForCanvas(canvas);
         const link = document.createElement('a');
         link.href = canvas.toDataURL('image/png');
@@ -636,19 +595,9 @@ function downloadAllPreviews() {
     });
 }
 
-/**
- * Funzione per ottenere il nome del file per un canvas
- * @param {HTMLCanvasElement} canvas - Il canvas per il quale generare il nome del file
- * @returns {string} - Il nome del file
- */
+// Funzione per ottenere il nome del file per un canvas
 function getFilenameForCanvas(canvas) {
-    const timeZoneAbbreviation = canvas.dataset.timeZoneAbbreviation || '';
-    const graphicName = canvas.dataset.graphicName || 'graphic';
-    const format = canvas.dataset.format || '';
-    const homeTeamName = canvas.dataset.homeTeamName || '';
-    const awayTeamName = canvas.dataset.awayTeamName || '';
-    const day = canvas.dataset.day || '';
-
+    const { timeZoneAbbreviation, graphicName, format, homeTeamName, awayTeamName, day } = canvas.dataset;
     let filename = '';
 
     if (graphicName === 'livematch' || graphicName === 'highlights') {
@@ -660,13 +609,7 @@ function getFilenameForCanvas(canvas) {
     return filename;
 }
 
-/**
- * Funzione per formattare la data
- * @param {Date} dateObj - L'oggetto Date da formattare
- * @param {string} timeZoneAbbreviation - Abbreviazione del fuso orario (es. 'CET', 'WIB')
- * @param {string} locale - Locale per la formattazione della data (es. 'en-GB')
- * @returns {string} - La data formattata come "NOVEMBER 16 | 15:00 CET"
- */
+// Funzione per formattare la data
 function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB') {
     const optionsDate = { month: 'long', day: 'numeric' };
     const formattedDate = dateObj.toLocaleDateString(locale, optionsDate).toUpperCase();
@@ -674,13 +617,7 @@ function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB') {
     return `${formattedDate} | ${formattedTime} ${timeZoneAbbreviation}`;
 }
 
-/**
- * Funzione per disegnare un'immagine su canvas mantenendo l'aspect ratio e coprendo l'intero canvas
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Image} img - L'immagine da disegnare
- * @param {number} canvasWidth - La larghezza del canvas
- * @param {number} canvasHeight - L'altezza del canvas
- */
+// Funzione per disegnare un'immagine su canvas mantenendo l'aspect ratio
 function drawImageCover(ctx, img, canvasWidth, canvasHeight) {
     const imgAspect = img.width / img.height;
     const canvasAspect = canvasWidth / canvasHeight;
@@ -702,61 +639,26 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight) {
     ctx.drawImage(img, xStart, yStart, renderWidth, renderHeight);
 }
 
-/**
- * Funzione per disegnare testo con letter-spacing personalizzato
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {string} text - Il testo da disegnare
- * @param {number} x - Coordinata x iniziale
- * @param {number} y - Coordinata y iniziale
- * @param {number} letterSpacing - Spazio tra i caratteri in pixel
- */
+// Funzione per disegnare testo con letter-spacing personalizzato
 function drawTextWithLetterSpacing(ctx, text, x, y, letterSpacing) {
-    const characters = text.split('');
-    let currentX = x;
-
-    characters.forEach(char => {
-        ctx.fillText(char, currentX, y);
-        const metrics = ctx.measureText(char);
-        currentX += metrics.width + letterSpacing;
+    text.split('').forEach(char => {
+        ctx.fillText(char, x, y);
+        x += ctx.measureText(char).width + letterSpacing;
     });
 }
 
-/**
- * Funzione per misurare la larghezza del testo con letter-spacing
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {string} text - Il testo da misurare
- * @param {number} letterSpacing - Lo spazio tra le lettere
- * @returns {number} - La larghezza totale del testo
- */
+// Funzione per misurare la larghezza del testo con letter-spacing
 function measureTextWithLetterSpacing(ctx, text, letterSpacing) {
-    const characters = text.split('');
-    let totalWidth = 0;
-
-    characters.forEach((char, index) => {
-        const metrics = ctx.measureText(char);
-        totalWidth += metrics.width;
-        if (index < characters.length - 1) {
-            totalWidth += letterSpacing;
-        }
-    });
-    return totalWidth;
+    return text.split('').reduce((total, char) => total + ctx.measureText(char).width + letterSpacing, -letterSpacing);
 }
 
-/**
- * Funzione per ottenere il nome visualizzabile della squadra
- * @param {string} teamValue - Il valore della squadra selezionata
- * @returns {string} - Il nome visualizzabile della squadra
- */
+// Funzione per ottenere il nome visualizzabile della squadra
 function getTeamDisplayName(teamValue) {
     const team = currentTeams.find(t => t.value === teamValue);
     return team ? team.text : teamValue;
 }
 
-/**
- * Funzione per creare le tab delle grafiche
- * @param {Array} selectedGraphics - Array delle grafiche selezionate
- * @param {string|null} selectedGraphicName - Nome della grafica selezionata
- */
+// Funzione per creare le tab delle grafiche
 function createGraphicTabs(selectedGraphics, selectedGraphicName) {
     const previewSection = document.querySelector('.preview-container');
     const tabsContainer = document.createElement('div');
@@ -769,11 +671,7 @@ function createGraphicTabs(selectedGraphics, selectedGraphicName) {
         tabButton.dataset.graphicName = graphicName;
 
         // Imposta la tab attiva
-        if (selectedGraphicName) {
-            if (graphicName === selectedGraphicName) {
-                tabButton.classList.add('active');
-            }
-        } else if (index === 0) {
+        if (selectedGraphicName ? graphicName === selectedGraphicName : index === 0) {
             tabButton.classList.add('active');
         }
 
@@ -782,11 +680,7 @@ function createGraphicTabs(selectedGraphics, selectedGraphicName) {
             tabButton.classList.add('active');
 
             document.querySelectorAll('.graphic-preview-container').forEach(container => {
-                if (container.dataset.graphicName === graphicName) {
-                    container.style.display = 'block';
-                } else {
-                    container.style.display = 'none';
-                }
+                container.style.display = container.dataset.graphicName === graphicName ? 'block' : 'none';
             });
         });
 
@@ -794,227 +688,46 @@ function createGraphicTabs(selectedGraphics, selectedGraphicName) {
     });
 
     const existingTabs = previewSection.querySelector('.graphic-tabs');
-    if (existingTabs) {
-        previewSection.removeChild(existingTabs);
-    }
+    if (existingTabs) previewSection.removeChild(existingTabs);
     previewSection.insertBefore(tabsContainer, previewSection.firstChild);
 }
 
-/**
- * Funzione per generare le anteprime delle grafiche selezionate
- */
-async function generatePreviews() {
-    console.log('generatePreviews chiamato');
-    await document.fonts.ready; // Assicurati che i font siano caricati
-
-    // Memorizza la grafica attualmente selezionata tramite la tab attiva
-    const activeTab = document.querySelector('.graphic-tab.active');
-    const selectedGraphicName = activeTab ? activeTab.dataset.graphicName : null;
-
-    // Pulisce il contenitore delle anteprime
-    carouselContainer.innerHTML = '';
-
-    // Recupera la data e l'ora del match
-    const matchDateValue = matchDateInput.value;
-    const matchTimeValue = matchTimeInput.value;
-    
-    let matchDateObj;
-    if (matchDateValue && matchTimeValue) {
-        const matchDateTimeString = `${matchDateValue}T${matchTimeValue}`;
-        matchDateObj = new Date(matchDateTimeString);
-    } else {
-        matchDateObj = new Date(); // Usa la data corrente se non specificata
+// Funzione per disegnare i loghi delle squadre
+async function drawTeamLogos(ctx, style) {
+    // Disegna il logo della squadra di casa
+    if (style.homeLogo) {
+        const homeLogoSrc = homeTeamSelect.value === 'como1907'
+            ? `images/badge/all/como.png`
+            : `images/badge/${championshipSelect.value}/${homeTeamSelect.value}.png`;
+        const homeLogo = await loadImage(homeLogoSrc);
+        if (homeLogo) ctx.drawImage(homeLogo, style.homeLogo.x, style.homeLogo.y, style.homeLogo.width, style.homeLogo.height);
+        else console.warn(`Logo squadra di casa non trovato: ${homeLogoSrc}`);
     }
 
-    console.log(`Generazione delle anteprime per il match del: ${matchDateObj}`);
-
-    let previewsGenerated = 0;
-
-    // Ottiene le grafiche selezionate tramite le checkbox
-    const selectedGraphics = Array.from(graphicCheckboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-
-    // Crea le tab per le grafiche selezionate
-    createGraphicTabs(selectedGraphics, selectedGraphicName);
-
-    // Itera attraverso tutte le grafiche selezionate
-    for (const graphicName of selectedGraphics) {
-        console.log(`Elaborazione grafica: ${graphicName}`);
-        const graphicPreviewContainer = document.createElement('div');
-        graphicPreviewContainer.classList.add('graphic-preview-container');
-        graphicPreviewContainer.dataset.graphicName = graphicName;
-
-        // Controlla se mostrare o nascondere le anteprime
-        if (selectedGraphicName) {
-            graphicPreviewContainer.style.display = (graphicName === selectedGraphicName) ? 'block' : 'none';
-        } else if (previewsGenerated === 0) {
-            graphicPreviewContainer.style.display = 'block';
-        } else {
-            graphicPreviewContainer.style.display = 'none';
-        }
-
-        const graphicFolder = `images/graphics/${graphicName}`;
-
-        const availableFormats = graphicsFormats[graphicName];
-
-        if (!availableFormats || availableFormats.length === 0) {
-            console.log(`Nessun formato disponibile per la grafica ${graphicName}.`);
-            continue;
-        }
-
-        // Itera attraverso i formati disponibili per questa grafica
-        for (const overlayName of availableFormats) {
-            const dimensions = formats[overlayName];
-
-            if (!dimensions) {
-                console.warn(`Dimensioni non definite per il formato ${overlayName}.`);
-                continue;
-            }
-
-            let bgImageSrc = '';
-
-            // Gestione specifica per la grafica 'goal'
-            if (graphicName === 'goal') {
-                const playerSelect = document.getElementById('goalPlayerSelect');
-                const selectedPlayerValue = playerSelect ? playerSelect.value : '';
-                const selectedPlayer = players.find(p => p.value === selectedPlayerValue);
-                const playerName = selectedPlayer ? selectedPlayer.text.replace(/\s+/g, '_').toLowerCase() : 'default_player';
-
-                const position = isHomeFixed ? 'home' : 'away';
-                bgImageSrc = `images/graphics/goal/player/${position}/${playerName}.png`;
-
-                // Verifica se è stata caricata un'immagine di sfondo personalizzata
-                if (backgroundImages['goal']) {
-                    bgImageSrc = backgroundImages['goal'];
-                }
-            } else {
-                // Per le altre grafiche, usa l'immagine di sfondo personalizzata se presente, altrimenti quella di default
-                bgImageSrc = backgroundImages[graphicName.toLowerCase()] ? backgroundImages[graphicName.toLowerCase()] : `${graphicFolder}/1.png`;
-            }
-
-            const overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
-
-            console.log(`Caricamento immagini: ${bgImageSrc}, ${overlayImageSrc}`);
-
-            // Carica le immagini di sfondo e di overlay
-            const [bgImage, overlayImage] = await Promise.all([
-                loadImage(bgImageSrc),
-                loadImage(overlayImageSrc)
-            ]);
-
-            if (!overlayImage) {
-                console.log(`Overlay non trovato per la grafica ${graphicName} nel formato ${overlayName}. Salto questo formato.`);
-                continue;
-            }
-
-            // Determina le versioni temporali (fusi orari) da generare
-            let timeVersions = [{ timeOffsetHours: 0, timeZoneAbbreviation: 'CET' }];
-
-            if (['nextmatch', 'matchday', 'kickoff'].includes(graphicName)) {
-                timeVersions.push({ timeOffsetHours: 6, timeZoneAbbreviation: 'WIB' });
-            }
-
-            for (const timeVersion of timeVersions) {
-                const adjustedDateObj = new Date(matchDateObj.getTime() + timeVersion.timeOffsetHours * 3600000);
-
-                const canvas = document.createElement('canvas');
-                canvas.width = dimensions.width;
-                canvas.height = dimensions.height;
-                const ctx = canvas.getContext('2d');
-
-                // Disegna l'immagine di sfondo
-                if (bgImage) {
-                    drawImageCover(ctx, bgImage, canvas.width, canvas.height);
-                } else {
-                    // Riempie il canvas con bianco se l'immagine di sfondo non è caricata
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    console.warn(`Immagine di sfondo non caricata per ${graphicName} nel formato ${overlayName}. Canvas riempito con bianco.`);
-                }
-
-                // Disegna l'overlay sopra lo sfondo
-                drawImageCover(ctx, overlayImage, canvas.width, canvas.height);
-
-                // Ottieni lo stile specifico per questa grafica e formato
-                const style = graphicStyles[graphicName][overlayName];
-                if (style) {
-                    switch (graphicName) {
-                        case 'goal':
-                            await drawGoalGraphic(ctx, style, timeVersion, adjustedDateObj, graphicName);
-                            break;
-                        case 'highlights':
-                            await drawHighlightsGraphic(ctx, style, graphicName);
-                            break;
-                        case 'nextmatch':
-                        case 'matchday':
-                            await drawMatchGraphic(ctx, style, timeVersion, adjustedDateObj, graphicName);
-                            break;
-                        case 'livematch':
-                            await drawLivematchGraphic(ctx, style, adjustedDateObj, graphicName, overlayName);
-                            break;
-                        // Aggiungi altri case per altre grafiche specifiche se necessario
-                        default:
-                            await drawDefaultGraphic(ctx, style, graphicName);
-                            break;
-                    }
-                }
-
-                // Imposta gli attributi data-* sul canvas per uso futuro
-                canvas.dataset.timeZoneAbbreviation = timeVersion.timeZoneAbbreviation || '';
-                canvas.dataset.graphicName = graphicName;
-                canvas.dataset.format = overlayName.replace('overlay_', '');
-                canvas.dataset.homeTeamName = getTeamDisplayName(homeTeamSelect.value);
-                canvas.dataset.awayTeamName = getTeamDisplayName(awayTeamSelect.value);
-                canvas.dataset.day = adjustedDateObj.getDate().toString().padStart(2, '0') + adjustedDateObj.toLocaleString('default', { month: 'short' }).toLowerCase();
-
-                // Crea un div per l'anteprima e aggiungi il canvas
-                const previewDiv = document.createElement('div');
-                previewDiv.classList.add('carousel-item');
-                previewDiv.appendChild(canvas);
-
-                // Aggiunge il pulsante di download individuale
-                const downloadLink = document.createElement('a');
-                downloadLink.textContent = 'Download';
-                downloadLink.href = canvas.toDataURL('image/png');
-                downloadLink.download = getFilenameForCanvas(canvas);
-                downloadLink.classList.add('download-link');
-                previewDiv.appendChild(downloadLink);
-
-                graphicPreviewContainer.appendChild(previewDiv);
-                console.log(`Anteprima aggiunta per grafica: ${graphicName}, formato: ${overlayName}, fuso orario: ${timeVersion.timeZoneAbbreviation}`);
-                previewsGenerated++;
-            }
-        }
-
-        // Aggiunge il contenitore dell'anteprima al carousel
-        carouselContainer.appendChild(graphicPreviewContainer);
+    // Disegna il logo della squadra ospite
+    if (style.awayLogo) {
+        const awayLogoSrc = awayTeamSelect.value === 'como1907'
+            ? `images/badge/all/como.png`
+            : `images/badge/${championshipSelect.value}/${awayTeamSelect.value}.png`;
+        const awayLogo = await loadImage(awayLogoSrc);
+        if (awayLogo) ctx.drawImage(awayLogo, style.awayLogo.x, style.awayLogo.y, style.awayLogo.width, style.awayLogo.height);
+        else console.warn(`Logo squadra ospite non trovato: ${awayLogoSrc}`);
     }
 
-    // Gestisce la visibilità della sezione preview
-    const previewSection = document.querySelector('.preview');
-    if (previewsGenerated > 0) {
-        previewSection.classList.add('visible');
-    } else {
-        previewSection.classList.remove('visible');
+    // Disegna il logo del campionato se presente
+    if (style.championshipLogo) {
+        const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
+        const championshipLogo = await loadImage(championshipLogoSrc);
+        if (championshipLogo) ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
+        else console.warn(`Logo campionato non trovato: ${championshipLogoSrc}`);
     }
-
-    console.log('generatePreviews completato');
 }
 
-/**
- * Funzione per disegnare la grafica 'goal'
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {Object} timeVersion - La versione temporale (fuso orario)
- * @param {Date} adjustedDateObj - La data e ora aggiustata
- * @param {string} graphicName - Il nome della grafica ('goal')
- */
+// Funzioni per disegnare specifiche grafiche
 async function drawGoalGraphic(ctx, style, timeVersion, adjustedDateObj, graphicName) {
     // Recupera il giocatore selezionato
     const playerSelect = document.getElementById('goalPlayerSelect');
-    const selectedPlayerValue = playerSelect ? playerSelect.value : '';
-    const selectedPlayer = players.find(p => p.value === selectedPlayerValue);
+    const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
     const playerName = selectedPlayer ? selectedPlayer.text : '';
 
     // Disegna il nome del giocatore
@@ -1022,8 +735,6 @@ async function drawGoalGraphic(ctx, style, timeVersion, adjustedDateObj, graphic
         ctx.font = `${style.playerName.fontSize}px ${style.playerName.font}`;
         ctx.fillStyle = style.playerName.color;
         ctx.textAlign = 'left';
-
-        // Aggiungi ombra al testo
         ctx.shadowColor = 'rgba(0, 0, 0, 0.58)';
         ctx.shadowBlur = 8;
         ctx.shadowOffsetX = 2;
@@ -1035,31 +746,26 @@ async function drawGoalGraphic(ctx, style, timeVersion, adjustedDateObj, graphic
             ctx.fillText(playerName, style.playerName.x, style.playerName.y);
         }
 
-        // Ripristina le impostazioni di ombra
         ctx.shadowColor = 'transparent';
     }
 
     // Disegna i loghi delle squadre
     await drawTeamLogos(ctx, style);
 
-    // Recupera i punteggi corretti in base alla grafica
+    // Recupera i punteggi
     let homeScore = '0';
     let awayScore = '0';
-
     if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
+        homeScore = getInputValue('.homeFullScore');
+        awayScore = getInputValue('.awayFullScore');
+    } else if (graphicName === 'halftime' || graphicName === 'goal') {
+        homeScore = getInputValue('.homeHalfScore');
+        awayScore = getInputValue('.awayHalfScore');
     }
 
     // Disegna la data e l'ora del match
     if (style.dateTime) {
-        const dateText = formatDate(matchDateObj, 'CET', 'en-GB'); // Usa la data dall'input
+        const dateText = formatDate(adjustedDateObj, 'CET', 'en-GB');
         ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
         ctx.fillStyle = style.dateTime.color;
         ctx.textAlign = 'left';
@@ -1093,35 +799,26 @@ async function drawGoalGraphic(ctx, style, timeVersion, adjustedDateObj, graphic
 
     // Disegna il match day se necessario
     if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+        const matchDayValue = matchDayInput.value.trim() || '1';
         ctx.font = `bold ${style.matchDay.fontSize}px ${style.matchDay.font}`;
         ctx.fillStyle = style.matchDay.color;
         ctx.textAlign = 'left';
+        const matchDayText = `MATCHDAY ${matchDayValue}`;
         if (style.matchDay.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, `MATCHDAY ${matchDayValue}`, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
+            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
         } else {
-            ctx.fillText(`MATCHDAY ${matchDayValue}`, style.matchDay.x, style.matchDay.y);
+            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
         }
     }
 }
 
-/**
- * Funzione per disegnare la grafica 'highlights'
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica ('highlights')
- */
 async function drawHighlightsGraphic(ctx, style, graphicName) {
     // Disegna i loghi delle squadre
     await drawTeamLogos(ctx, style);
 
     // Recupera i punteggi
-    let homeScore = '0';
-    let awayScore = '0';
-
-    homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-    awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-
+    const homeScore = getInputValue('.homeFullScore') || '0';
+    const awayScore = getInputValue('.awayFullScore') || '0';
     const combinedText = `${homeScore}-${awayScore}`;
 
     // Disegna il testo combinato
@@ -1131,14 +828,6 @@ async function drawHighlightsGraphic(ctx, style, graphicName) {
     ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
 }
 
-/**
- * Funzione per disegnare le grafiche 'nextmatch' e 'matchday'
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {Object} timeVersion - La versione temporale (fuso orario)
- * @param {Date} adjustedDateObj - La data e ora aggiustata
- * @param {string} graphicName - Il nome della grafica ('nextmatch' o 'matchday')
- */
 async function drawMatchGraphic(ctx, style, timeVersion, adjustedDateObj, graphicName) {
     // Disegna il titolo 'NEXT MATCH' se presente
     if (style.nextMatchTitle) {
@@ -1169,10 +858,9 @@ async function drawMatchGraphic(ctx, style, timeVersion, adjustedDateObj, graphi
     }
 
     // Calcola la posizione x per 'vs.' in base alla larghezza del nome della squadra di casa
-    let vsTextX;
     if (style.vsText && homeTeamNameWidth !== undefined) {
-        const spacingAfterHomeTeamName = 10; // Spazio tra il nome della squadra e 'vs.'
-        vsTextX = style.homeTeamName.x + homeTeamNameWidth + spacingAfterHomeTeamName;
+        const spacingAfterHomeTeamName = 10;
+        const vsTextX = style.homeTeamName.x + homeTeamNameWidth + spacingAfterHomeTeamName;
         ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
         ctx.fillStyle = style.vsText.color;
         ctx.textAlign = 'left';
@@ -1211,7 +899,7 @@ async function drawMatchGraphic(ctx, style, timeVersion, adjustedDateObj, graphi
 
     // Disegna il match day
     if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+        const matchDayValue = matchDayInput.value.trim() || '1';
         const matchDayText = `MATCHDAY ${matchDayValue}`;
         ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
         ctx.fillStyle = style.matchDay.color;
@@ -1235,34 +923,18 @@ async function drawMatchGraphic(ctx, style, timeVersion, adjustedDateObj, graphi
             ctx.fillText(stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y);
         }
     }
-
-    // Disegna il logo del campionato se presente
-    if (style.championshipLogo) {
-        const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
-        const championshipLogo = await loadImage(championshipLogoSrc);
-        if (championshipLogo) {
-            ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
-        }
-    }
 }
 
-/**
- * Funzione per disegnare la grafica 'livematch'
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica ('livematch')
- * @param {string} overlayName - Il nome del formato dell'overlay ('overlay_5x8' o 'overlay_16x9')
- */
-async function drawLivematchGraphic(ctx, style, adjustedDateObj, graphicName, overlayName) {
+// Funzione per disegnare la grafica 'livematch'
+async function drawLivematchGraphic(ctx, style, adjustedDateObj, overlayName) {
     // Aggiunta del titolo per 'livematch'
-    const formatSuffix = overlayName.replace('overlay_', ''); // Es: '5x8' da 'overlay_5x8'
-    const championship = championshipSelect.value; // Es: 'primavera' o 'women'
+    const formatSuffix = overlayName.replace('overlay_', '');
+    const championship = championshipSelect.value;
     const titleImageSrc = `images/graphics/livematch/title/${championship}_${formatSuffix}.png`;
     console.log(`Caricamento titolo: ${titleImageSrc}`);
 
     const titleImage = await loadImage(titleImageSrc);
     if (titleImage) {
-        // Disegna il titolo centrato in alto
         const titleX = (ctx.canvas.width - titleImage.width) / 2;
         ctx.drawImage(titleImage, titleX, 0, titleImage.width, titleImage.height);
         console.log(`Titolo disegnato: ${titleImageSrc}`);
@@ -1273,24 +945,20 @@ async function drawLivematchGraphic(ctx, style, adjustedDateObj, graphicName, ov
     // Disegna i loghi delle squadre
     await drawTeamLogos(ctx, style);
 
-    // Recupera i punteggi corretti in base alla grafica
+    // Recupera i punteggi
     let homeScore = '0';
     let awayScore = '0';
-
-    if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
+    if (['fulltime'].includes(style.homeScore)) {
+        homeScore = getInputValue('.homeFullScore');
+        awayScore = getInputValue('.awayFullScore');
+    } else if (['halftime', 'goal'].includes(style.homeScore)) {
+        homeScore = getInputValue('.homeHalfScore');
+        awayScore = getInputValue('.awayHalfScore');
     }
 
     // Disegna la data e l'ora del match
     if (style.dateTime) {
-        const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
+        const dateText = formatDate(adjustedDateObj, 'CET', 'en-GB');
         ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
         ctx.fillStyle = style.dateTime.color;
         ctx.textAlign = 'left';
@@ -1322,9 +990,9 @@ async function drawLivematchGraphic(ctx, style, adjustedDateObj, graphicName, ov
         }
     }
 
-    // Disegna il match day se necessario
+    // Disegna il match day
     if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+        const matchDayValue = matchDayInput.value.trim() || '1';
         const matchDayText = `MATCHDAY ${matchDayValue}`;
         ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
         ctx.fillStyle = style.matchDay.color;
@@ -1337,34 +1005,23 @@ async function drawLivematchGraphic(ctx, style, adjustedDateObj, graphicName, ov
     }
 }
 
-/**
- * Funzione per disegnare le grafiche di default o non specifiche
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica
- */
-async function drawDefaultGraphic(ctx, style, graphicName) {
-    // Disegna i loghi delle squadre
+// Funzione di disegno di default per grafiche non specifiche
+async function drawDefaultGraphic(ctx, style, graphicName, timeVersion, adjustedDateObj) {
     await drawTeamLogos(ctx, style);
 
-    // Recupera i punteggi corretti in base alla grafica
     let homeScore = '0';
     let awayScore = '0';
-
     if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
+        homeScore = getInputValue('.homeFullScore');
+        awayScore = getInputValue('.awayFullScore');
+    } else if (graphicName === 'halftime' || graphicName === 'goal') {
+        homeScore = getInputValue('.homeHalfScore');
+        awayScore = getInputValue('.awayHalfScore');
     }
 
     // Disegna la data e l'ora del match
     if (style.dateTime) {
-const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
+        const dateText = formatDate(adjustedDateObj, 'CET', 'en-GB');
         ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
         ctx.fillStyle = style.dateTime.color;
         ctx.textAlign = 'left';
@@ -1396,9 +1053,9 @@ const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, '
         }
     }
 
-    // Disegna il match day se necessario
+    // Disegna il match day
     if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+        const matchDayValue = matchDayInput.value.trim() || '1';
         const matchDayText = `MATCHDAY ${matchDayValue}`;
         ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
         ctx.fillStyle = style.matchDay.color;
@@ -1411,439 +1068,227 @@ const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, '
     }
 }
 
-/**
- * Funzione per disegnare i loghi delle squadre
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per i loghi
- */
-async function drawTeamLogos(ctx, style) {
-    // Disegna il logo della squadra di casa
-    if (style.homeLogo) {
-        const homeLogoSrc = homeTeamSelect.value === 'como1907'
-            ? `images/badge/all/como.png`
-            : `images/badge/${championshipSelect.value}/${homeTeamSelect.value}.png`;
-        const homeLogo = await loadImage(homeLogoSrc);
-        if (homeLogo) {
-            ctx.drawImage(homeLogo, style.homeLogo.x, style.homeLogo.y, style.homeLogo.width, style.homeLogo.height);
-        } else {
-            console.warn(`Logo squadra di casa non trovato: ${homeLogoSrc}`);
-        }
-    }
-
-    // Disegna il logo della squadra ospite
-    if (style.awayLogo) {
-        const awayLogoSrc = awayTeamSelect.value === 'como1907'
-            ? `images/badge/all/como.png`
-            : `images/badge/${championshipSelect.value}/${awayTeamSelect.value}.png`;
-        const awayLogo = await loadImage(awayLogoSrc);
-        if (awayLogo) {
-            ctx.drawImage(awayLogo, style.awayLogo.x, style.awayLogo.y, style.awayLogo.width, style.awayLogo.height);
-        } else {
-            console.warn(`Logo squadra ospite non trovato: ${awayLogoSrc}`);
-        }
-    }
-
-    // Disegna il logo del campionato se presente
-    if (style.championshipLogo) {
-        const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
-        const championshipLogo = await loadImage(championshipLogoSrc);
-        if (championshipLogo) {
-            ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
-        } else {
-            console.warn(`Logo campionato non trovato: ${championshipLogoSrc}`);
-        }
-    }
+// Funzione per ottenere il valore di un input selezionato
+function getInputValue(selector) {
+    const input = document.querySelector(selector);
+    return input ? input.value.trim() : '0';
 }
 
-/**
- * Funzione per disegnare la grafica 'livematch'
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica ('livematch')
- * @param {string} overlayName - Il nome del formato dell'overlay ('overlay_5x8' o 'overlay_16x9')
- */
-async function drawLivematchGraphic(ctx, style, graphicName, overlayName) {
-    // Aggiunta del titolo per 'livematch'
-    const formatSuffix = overlayName.replace('overlay_', ''); // Es: '5x8' da 'overlay_5x8'
-    const championship = championshipSelect.value; // Es: 'primavera' o 'women'
-    const titleImageSrc = `images/graphics/livematch/title/${championship}_${formatSuffix}.png`;
-    console.log(`Caricamento titolo: ${titleImageSrc}`);
+// Funzione per creare le tab delle grafiche selezionate
+function createGraphicTabs(selectedGraphics, selectedGraphicName) {
+    const previewSection = document.querySelector('.preview-container');
+    const tabsContainer = document.createElement('div');
+    tabsContainer.classList.add('graphic-tabs');
 
-    const titleImage = await loadImage(titleImageSrc);
-    if (titleImage) {
-        // Disegna il titolo centrato in alto
-        const titleX = (ctx.canvas.width - titleImage.width) / 2;
-        ctx.drawImage(titleImage, titleX, 0, titleImage.width, titleImage.height);
-        console.log(`Titolo disegnato: ${titleImageSrc}`);
+    selectedGraphics.forEach((graphicName, index) => {
+        const tabButton = document.createElement('button');
+        tabButton.textContent = capitalizeFirstLetter(graphicName);
+        tabButton.classList.add('graphic-tab');
+        tabButton.dataset.graphicName = graphicName;
+
+        // Imposta la tab attiva
+        if (selectedGraphicName ? graphicName === selectedGraphicName : index === 0) {
+            tabButton.classList.add('active');
+        }
+
+        tabButton.addEventListener('click', () => {
+            document.querySelectorAll('.graphic-tab').forEach(tab => tab.classList.remove('active'));
+            tabButton.classList.add('active');
+
+            document.querySelectorAll('.graphic-preview-container').forEach(container => {
+                container.style.display = container.dataset.graphicName === graphicName ? 'block' : 'none';
+            });
+        });
+
+        tabsContainer.appendChild(tabButton);
+    });
+
+    const existingTabs = previewSection.querySelector('.graphic-tabs');
+    if (existingTabs) previewSection.removeChild(existingTabs);
+    previewSection.insertBefore(tabsContainer, previewSection.firstChild);
+}
+
+// Funzione per generare le anteprime delle grafiche selezionate
+async function generatePreviews() {
+    console.log('generatePreviews chiamato');
+    await document.fonts.ready; // Assicurati che i font siano caricati
+
+    const activeTab = document.querySelector('.graphic-tab.active');
+    const selectedGraphicName = activeTab ? activeTab.dataset.graphicName : null;
+
+    carouselContainer.innerHTML = ''; // Pulisce il contenitore delle anteprime
+
+    // Recupera la data e l'ora del match
+    const matchDateValue = matchDateInput.value;
+    const matchTimeValue = matchTimeInput.value;
+    let matchDateObj = matchDateValue && matchTimeValue ? new Date(`${matchDateValue}T${matchTimeValue}`) : new Date();
+
+    console.log(`Generazione delle anteprime per il match del: ${matchDateObj}`);
+
+    // Ottiene le grafiche selezionate tramite le checkbox
+    const selectedGraphics = Array.from(graphicCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+    // Crea le tab per le grafiche selezionate
+    createGraphicTabs(selectedGraphics, selectedGraphicName);
+
+    let previewsGenerated = 0;
+
+    for (const graphicName of selectedGraphics) {
+        console.log(`Elaborazione grafica: ${graphicName}`);
+        const graphicPreviewContainer = document.createElement('div');
+        graphicPreviewContainer.classList.add('graphic-preview-container');
+        graphicPreviewContainer.dataset.graphicName = graphicName;
+
+        // Mostra solo la grafica selezionata o la prima
+        if (selectedGraphicName) {
+            graphicPreviewContainer.style.display = graphicName === selectedGraphicName ? 'block' : 'none';
+        } else if (previewsGenerated === 0) {
+            graphicPreviewContainer.style.display = 'block';
+        } else {
+            graphicPreviewContainer.style.display = 'none';
+        }
+
+        const graphicFolder = `images/graphics/${graphicName}`;
+        const availableFormats = graphicsFormats[graphicName];
+
+        if (!availableFormats || availableFormats.length === 0) {
+            console.log(`Nessun formato disponibile per la grafica ${graphicName}.`);
+            continue;
+        }
+
+        for (const overlayName of availableFormats) {
+            const dimensions = formats[overlayName];
+            if (!dimensions) {
+                console.warn(`Dimensioni non definite per il formato ${overlayName}.`);
+                continue;
+            }
+
+            let bgImageSrc = backgroundImages[graphicName.toLowerCase()] || `${graphicFolder}/1.png`;
+
+            if (graphicName === 'goal') {
+                const playerSelect = document.getElementById('goalPlayerSelect');
+                const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
+                const playerName = selectedPlayer ? selectedPlayer.text.replace(/\s+/g, '_').toLowerCase() : 'default_player';
+                const position = isHomeFixed ? 'home' : 'away';
+                bgImageSrc = backgroundImages['goal'] || `images/graphics/goal/player/${position}/${playerName}.png`;
+            }
+
+            const overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
+
+            console.log(`Caricamento immagini: ${bgImageSrc}, ${overlayImageSrc}`);
+
+            const [bgImage, overlayImage] = await Promise.all([
+                loadImage(bgImageSrc),
+                loadImage(overlayImageSrc)
+            ]);
+
+            if (!overlayImage) {
+                console.log(`Overlay non trovato per la grafica ${graphicName} nel formato ${overlayName}. Salto questo formato.`);
+                continue;
+            }
+
+            // Determina le versioni temporali (fusi orari) da generare
+            let timeVersions = [{ timeOffsetHours: 0, timeZoneAbbreviation: 'CET' }];
+            if (['nextmatch', 'matchday', 'kickoff'].includes(graphicName)) {
+                timeVersions.push({ timeOffsetHours: 6, timeZoneAbbreviation: 'WIB' });
+            }
+
+            for (const timeVersion of timeVersions) {
+                const adjustedDateObj = new Date(matchDateObj.getTime() + timeVersion.timeOffsetHours * 3600000);
+
+                const canvas = document.createElement('canvas');
+                canvas.width = dimensions.width;
+                canvas.height = dimensions.height;
+                const ctx = canvas.getContext('2d');
+
+                // Disegna l'immagine di sfondo
+                if (bgImage) {
+                    drawImageCover(ctx, bgImage, canvas.width, canvas.height);
+                } else {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    console.warn(`Immagine di sfondo non caricata per ${graphicName} nel formato ${overlayName}. Canvas riempito con bianco.`);
+                }
+
+                // Disegna l'overlay sopra lo sfondo
+                drawImageCover(ctx, overlayImage, canvas.width, canvas.height);
+
+                // Ottieni lo stile specifico per questa grafica e formato
+                const style = graphicStyles[graphicName][overlayName];
+                if (style) {
+                    switch (graphicName) {
+                        case 'goal':
+                            await drawGoalGraphic(ctx, style, timeVersion, adjustedDateObj, graphicName);
+                            break;
+                        case 'highlights':
+                            await drawHighlightsGraphic(ctx, style, graphicName);
+                            break;
+                        case 'nextmatch':
+                        case 'matchday':
+                            await drawMatchGraphic(ctx, style, timeVersion, adjustedDateObj, graphicName);
+                            break;
+                        case 'livematch':
+                            await drawLivematchGraphic(ctx, style, timeVersion, adjustedDateObj, overlayName);
+                            break;
+                        default:
+                            await drawDefaultGraphic(ctx, style, graphicName, timeVersion, adjustedDateObj);
+                            break;
+                    }
+                }
+
+                // Imposta gli attributi data-* sul canvas
+                Object.assign(canvas.dataset, {
+                    timeZoneAbbreviation: timeVersion.timeZoneAbbreviation || '',
+                    graphicName: graphicName,
+                    format: overlayName.replace('overlay_', ''),
+                    homeTeamName: getTeamDisplayName(homeTeamSelect.value),
+                    awayTeamName: getTeamDisplayName(awayTeamSelect.value),
+                    day: adjustedDateObj.getDate().toString().padStart(2, '0') + adjustedDateObj.toLocaleString('default', { month: 'short' }).toLowerCase()
+                });
+
+                // Crea un div per l'anteprima e aggiungi il canvas
+                const previewDiv = document.createElement('div');
+                previewDiv.classList.add('carousel-item');
+                previewDiv.appendChild(canvas);
+
+                // Aggiunge il pulsante di download individuale
+                const downloadLink = document.createElement('a');
+                downloadLink.textContent = 'Download';
+                downloadLink.href = canvas.toDataURL('image/png');
+                downloadLink.download = getFilenameForCanvas(canvas);
+                downloadLink.classList.add('download-link');
+                previewDiv.appendChild(downloadLink);
+
+                graphicPreviewContainer.appendChild(previewDiv);
+                console.log(`Anteprima aggiunta per grafica: ${graphicName}, formato: ${overlayName}, fuso orario: ${timeVersion.timeZoneAbbreviation}`);
+                previewsGenerated++;
+            }
+        }
+
+        carouselContainer.appendChild(graphicPreviewContainer);
+    }
+
+    // Gestisce la visibilità della sezione preview
+    const previewSection = document.querySelector('.preview');
+    if (previewsGenerated > 0) {
+        previewSection.classList.add('visible');
     } else {
-        console.warn(`Titolo non trovato: ${titleImageSrc}`);
+        previewSection.classList.remove('visible');
     }
 
-    // Disegna i loghi delle squadre
-    await drawTeamLogos(ctx, style);
-
-    // Recupera i punteggi corretti in base alla grafica
-    let homeScore = '0';
-    let awayScore = '0';
-
-    if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    }
-
-    // Disegna la data e l'ora del match
-    if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
-        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-        ctx.fillStyle = style.dateTime.color;
-        ctx.textAlign = 'left';
-        if (style.dateTime.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-        } else {
-            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
-        }
-    }
-
-    // Disegna i punteggi
-    if (style.homeScore && style.awayScore) {
-        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
-        ctx.fillStyle = style.homeScore.color;
-        ctx.textAlign = 'left';
-        if (style.homeScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
-        } else {
-            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
-        }
-
-        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
-        ctx.fillStyle = style.awayScore.color;
-        ctx.textAlign = 'left';
-        if (style.awayScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
-        } else {
-            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
-        }
-    }
-
-    // Disegna il match day se necessario
-    if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-        const matchDayText = `MATCHDAY ${matchDayValue}`;
-        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-        ctx.fillStyle = style.matchDay.color;
-        ctx.textAlign = 'left';
-        if (style.matchDay.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-        } else {
-            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-        }
-    }
+    console.log('generatePreviews completato');
 }
 
-/**
- * Funzione per disegnare le grafiche di default o non specifiche
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica
- */
-async function drawDefaultGraphic(ctx, style, graphicName) {
-    // Disegna i loghi delle squadre
-    await drawTeamLogos(ctx, style);
-
-    // Recupera i punteggi corretti in base alla grafica
-    let homeScore = '0';
-    let awayScore = '0';
-
-    if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    }
-
-    // Disegna la data e l'ora del match
-    if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
-        ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
-        ctx.fillStyle = style.dateTime.color;
-        ctx.textAlign = 'left';
-        if (style.dateTime.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-        } else {
-            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
-        }
-    }
-
-    // Disegna i punteggi
-    if (style.homeScore && style.awayScore) {
-        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
-        ctx.fillStyle = style.homeScore.color;
-        ctx.textAlign = 'left';
-        if (style.homeScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
-        } else {
-            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
-        }
-
-        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
-        ctx.fillStyle = style.awayScore.color;
-        ctx.textAlign = 'left';
-        if (style.awayScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
-        } else {
-            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
-        }
-    }
-
-    // Disegna il match day se necessario
-    if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-        const matchDayText = `MATCHDAY ${matchDayValue}`;
-        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-        ctx.fillStyle = style.matchDay.color;
-        ctx.textAlign = 'left';
-        if (style.matchDay.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-        } else {
-            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-        }
-    }
-}
-
-/**
- * Funzione per disegnare i loghi delle squadre
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per i loghi
- */
-async function drawTeamLogos(ctx, style) {
-    // Disegna il logo della squadra di casa
-    if (style.homeLogo) {
-        const homeLogoSrc = homeTeamSelect.value === 'como1907'
-            ? `images/badge/all/como.png`
-            : `images/badge/${championshipSelect.value}/${homeTeamSelect.value}.png`;
-        const homeLogo = await loadImage(homeLogoSrc);
-        if (homeLogo) {
-            ctx.drawImage(homeLogo, style.homeLogo.x, style.homeLogo.y, style.homeLogo.width, style.homeLogo.height);
-        } else {
-            console.warn(`Logo squadra di casa non trovato: ${homeLogoSrc}`);
-        }
-    }
-
-    // Disegna il logo della squadra ospite
-    if (style.awayLogo) {
-        const awayLogoSrc = awayTeamSelect.value === 'como1907'
-            ? `images/badge/all/como.png`
-            : `images/badge/${championshipSelect.value}/${awayTeamSelect.value}.png`;
-        const awayLogo = await loadImage(awayLogoSrc);
-        if (awayLogo) {
-            ctx.drawImage(awayLogo, style.awayLogo.x, style.awayLogo.y, style.awayLogo.width, style.awayLogo.height);
-        } else {
-            console.warn(`Logo squadra ospite non trovato: ${awayLogoSrc}`);
-        }
-    }
-
-    // Disegna il logo del campionato se presente
-    if (style.championshipLogo) {
-        const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
-        const championshipLogo = await loadImage(championshipLogoSrc);
-        if (championshipLogo) {
-            ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
-        } else {
-            console.warn(`Logo campionato non trovato: ${championshipLogoSrc}`);
-        }
-    }
-}
-
-/**
- * Funzione per disegnare la grafica 'livematch'
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica ('livematch')
- * @param {string} overlayName - Il nome del formato dell'overlay ('overlay_5x8' o 'overlay_16x9')
- */
-async function drawLivematchGraphic(ctx, style, graphicName, adjustedDateObj, overlayName) {
-    // Aggiunta del titolo per 'livematch'
-    const formatSuffix = overlayName.replace('overlay_', ''); // Es: '5x8' da 'overlay_5x8'
-    const championship = championshipSelect.value; // Es: 'primavera' o 'women'
-    const titleImageSrc = `images/graphics/livematch/title/${championship}_${formatSuffix}.png`;
-    console.log(`Caricamento titolo: ${titleImageSrc}`);
-
-    const titleImage = await loadImage(titleImageSrc);
-    if (titleImage) {
-        // Disegna il titolo centrato in alto
-        const titleX = (ctx.canvas.width - titleImage.width) / 2;
-        ctx.drawImage(titleImage, titleX, 0, titleImage.width, titleImage.height);
-        console.log(`Titolo disegnato: ${titleImageSrc}`);
-    } else {
-        console.warn(`Titolo non trovato: ${titleImageSrc}`);
-    }
-
-    // Disegna i loghi delle squadre
-    await drawTeamLogos(ctx, style);
-
-    // Recupera i punteggi corretti in base alla grafica
-    let homeScore = '0';
-    let awayScore = '0';
-
-    if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    }
-
-    // Disegna la data e l'ora del match
-    if (style.dateTime) {
-const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
-        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-        ctx.fillStyle = style.dateTime.color;
-        ctx.textAlign = 'left';
-        if (style.dateTime.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-        } else {
-            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
-        }
-    }
-
-    // Disegna i punteggi
-    if (style.homeScore && style.awayScore) {
-        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
-        ctx.fillStyle = style.homeScore.color;
-        ctx.textAlign = 'left';
-        if (style.homeScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
-        } else {
-            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
-        }
-
-        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
-        ctx.fillStyle = style.awayScore.color;
-        ctx.textAlign = 'left';
-        if (style.awayScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
-        } else {
-            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
-        }
-    }
-
-    // Disegna il match day se necessario
-    if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-        const matchDayText = `MATCHDAY ${matchDayValue}`;
-        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-        ctx.fillStyle = style.matchDay.color;
-        ctx.textAlign = 'left';
-        if (style.matchDay.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-        } else {
-            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-        }
-    }
-}
-
-/**
- * Funzione per disegnare le grafiche di default o non specifiche
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica
- */
-async function drawDefaultGraphic(ctx, style, graphicName) {
-    // Disegna i loghi delle squadre
-    await drawTeamLogos(ctx, style);
-
-    // Recupera i punteggi corretti in base alla grafica
-    let homeScore = '0';
-    let awayScore = '0';
-
-    if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    }
-
-    // Disegna la data e l'ora del match
-    if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
-        ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
-        ctx.fillStyle = style.dateTime.color;
-        ctx.textAlign = 'left';
-        if (style.dateTime.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-        } else {
-            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
-        }
-    }
-
-    // Disegna i punteggi
-    if (style.homeScore && style.awayScore) {
-        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
-        ctx.fillStyle = style.homeScore.color;
-        ctx.textAlign = 'left';
-        if (style.homeScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
-        } else {
-            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
-        }
-
-        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
-        ctx.fillStyle = style.awayScore.color;
-        ctx.textAlign = 'left';
-        if (style.awayScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
-        } else {
-            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
-        }
-    }
-
-    // Disegna il match day se necessario
-    if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-        const matchDayText = `MATCHDAY ${matchDayValue}`;
-        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-        ctx.fillStyle = style.matchDay.color;
-        ctx.textAlign = 'left';
-        if (style.matchDay.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-        } else {
-            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-        }
-    }
-}
-
-/**
- * Funzione per generare i campi di upload delle immagini di sfondo
- * Ora crea un solo campo di upload per grafica, indipendentemente dai formati
- */
+// Funzione per generare i campi di upload delle immagini di sfondo
 function generateBackgroundUploadFields() {
     graphicCheckboxes.forEach(cb => {
+        const graphicId = cb.value.toLowerCase();
         if (cb.checked) {
-            const graphicId = cb.value.toLowerCase();
-            // Creare un solo upload per grafica, non per formato
-            let existingUploadItem = Array.from(uploadContainer.children).find(child => {
-                return child.querySelector(`input[data-graphic-id="${graphicId}"]`);
-            });
+            let existingUploadItem = Array.from(uploadContainer.children).find(child => child.querySelector(`input[data-graphic-id="${graphicId}"]`));
 
             if (!existingUploadItem) {
-                // Crea un nuovo upload-item se non esiste
                 const uploadItem = document.createElement('div');
                 uploadItem.classList.add('upload-item');
 
@@ -1863,37 +1308,23 @@ function generateBackgroundUploadFields() {
                 uploadContainer.appendChild(uploadItem);
             }
         } else {
-            const graphicId = cb.value.toLowerCase();
             const uploadInput = uploadContainer.querySelector(`input[data-graphic-id="${graphicId}"]`);
             if (uploadInput) {
                 const uploadItem = uploadInput.parentElement;
                 uploadContainer.removeChild(uploadItem);
-                if (backgroundImages[graphicId]) {
-                    delete backgroundImages[graphicId];
-                }
+                delete backgroundImages[graphicId];
             }
         }
     });
 
-    // Dopo aver generato i campi di upload, aggiungi i listener per gestire l'opacità
     addUploadItemListeners();
 }
 
-/**
- * Funzione per gestire la generazione dei campi di upload quando le grafiche cambiano
- */
-function handleGraphicsChange() {
-    generateBackgroundUploadFields();
-    generatePreviews();
-}
-
-/**
- * Funzione per aggiungere gli event listeners per gli upload-item
- */
+// Funzione per aggiungere gli event listeners per gli upload-item
 function addUploadItemListeners() {
     const uploadItems = document.querySelectorAll('.upload-item input[type="file"]');
 
-    uploadItems.forEach(function(input) {
+    uploadItems.forEach(input => {
         input.addEventListener('change', function() {
             const uploadItem = this.closest('.upload-item');
             if (this.files && this.files.length > 0) {
@@ -1905,54 +1336,429 @@ function addUploadItemListeners() {
     });
 }
 
-/**
- * Funzione per inizializzare lo stato dei team dopo il caricamento iniziale
- */
-function initializeTeams() {
-    populateTeams();
-    updateGraphicsOptions();
+// Funzione per alternare la visibilità delle sezioni
+function toggleSections() {
     toggleDateTimeSection();
     toggleMatchDaySection();
     toggleStadiumLocationSection();
-    generatePreviews();
 }
 
-/**
- * Funzione per capitalizzare la prima lettera di una stringa
- * @param {string} string - La stringa da capitalizzare
- * @returns {string} - La stringa con la prima lettera capitalizzata
- */
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+
+function toggleStadiumLocationSection() {
+    const requiresStadiumLocation = Array.from(graphicCheckboxes)
+        .filter(cb => cb.checked)
+        .some(cb => graphicsRequireStadiumLocation.includes(cb.value));
+
+    stadiumLocationSection.style.display = requiresStadiumLocation ? 'block' : 'none';
 }
 
-/**
- * Funzione per inizializzare tutto dopo il caricamento del DOM
- */
-function initialize() {
-    addAutoUpdateListeners();
-    initializeTeams();
+function toggleMatchDaySection() {
+    const requiresMatchDay = Array.from(graphicCheckboxes)
+        .filter(cb => cb.checked)
+        .some(cb => graphicsRequireMatchDay.includes(cb.value));
+
+    matchDaySection.style.display = requiresMatchDay ? 'flex' : 'none';
+}
+
+function toggleDateTimeSection() {
+    const requiresDateTime = Array.from(graphicCheckboxes)
+        .filter(cb => cb.checked)
+        .some(cb => graphicsRequireDateTime.includes(cb.value));
+
+    dateTimeSection.style.display = requiresDateTime ? 'block' : 'none';
+}
+
+// Funzione per aggiornare la visibilità dell'intestazione delle immagini
+function updateImagesHeaderVisibility() {
+    const imagesHeader = document.getElementById('imagesHeader');
+    const anyGraphicSelected = Array.from(graphicCheckboxes).some(cb => cb.checked);
+
+    imagesHeader.style.display = anyGraphicSelected ? 'block' : 'none';
+}
+
+// Funzione per gestire le modifiche alle grafiche selezionate
+function handleGraphicsChange() {
     generateBackgroundUploadFields();
     generatePreviews();
     updateImagesHeaderVisibility();
 }
 
-// Assicurati di avere una sola definizione della funzione initialize
-document.addEventListener('DOMContentLoaded', initialize);
+// Funzione per ottenere il valore di un input
+function getInputValue(selector) {
+    const input = document.querySelector(selector);
+    return input ? input.value.trim() : '0';
+}
 
-/**
- * Funzione per aggiungere gli event listeners per l'aggiornamento automatico
- */
+// Funzione per disegnare una grafica di default o non specifica
+async function drawDefaultGraphic(ctx, style, graphicName, timeVersion, adjustedDateObj) {
+    await drawTeamLogos(ctx, style);
+
+    let homeScore = '0';
+    let awayScore = '0';
+    if (graphicName === 'fulltime') {
+        homeScore = getInputValue('.homeFullScore');
+        awayScore = getInputValue('.awayFullScore');
+    } else if (graphicName === 'halftime' || graphicName === 'goal') {
+        homeScore = getInputValue('.homeHalfScore');
+        awayScore = getInputValue('.awayHalfScore');
+    }
+
+    // Disegna la data e l'ora del match
+    if (style.dateTime) {
+        const dateText = formatDate(adjustedDateObj, 'CET', 'en-GB');
+        ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
+        ctx.fillStyle = style.dateTime.color;
+        ctx.textAlign = 'left';
+        if (style.dateTime.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
+        } else {
+            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
+        }
+    }
+
+    // Disegna i punteggi
+    if (style.homeScore && style.awayScore) {
+        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
+        ctx.fillStyle = style.homeScore.color;
+        ctx.textAlign = 'left';
+        if (style.homeScore.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
+        } else {
+            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
+        }
+
+        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
+        ctx.fillStyle = style.awayScore.color;
+        ctx.textAlign = 'left';
+        if (style.awayScore.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
+        } else {
+            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
+        }
+    }
+
+    // Disegna il match day
+    if (style.matchDay) {
+        const matchDayValue = matchDayInput.value.trim() || '1';
+        const matchDayText = `MATCHDAY ${matchDayValue}`;
+        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+        ctx.fillStyle = style.matchDay.color;
+        ctx.textAlign = 'left';
+        if (style.matchDay.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
+        } else {
+            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
+        }
+    }
+}
+
+// Funzione per formattare la data
+function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB') {
+    const optionsDate = { month: 'long', day: 'numeric' };
+    const formattedDate = dateObj.toLocaleDateString(locale, optionsDate).toUpperCase();
+    const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
+    return `${formattedDate} | ${formattedTime} ${timeZoneAbbreviation}`;
+}
+
+// Funzione per creare le tab delle grafiche selezionate
+function createGraphicTabs(selectedGraphics, selectedGraphicName) {
+    const previewSection = document.querySelector('.preview-container');
+    const tabsContainer = document.createElement('div');
+    tabsContainer.classList.add('graphic-tabs');
+
+    selectedGraphics.forEach((graphicName, index) => {
+        const tabButton = document.createElement('button');
+        tabButton.textContent = capitalizeFirstLetter(graphicName);
+        tabButton.classList.add('graphic-tab');
+        tabButton.dataset.graphicName = graphicName;
+
+        // Imposta la tab attiva
+        if (selectedGraphicName ? graphicName === selectedGraphicName : index === 0) {
+            tabButton.classList.add('active');
+        }
+
+        tabButton.addEventListener('click', () => {
+            document.querySelectorAll('.graphic-tab').forEach(tab => tab.classList.remove('active'));
+            tabButton.classList.add('active');
+
+            document.querySelectorAll('.graphic-preview-container').forEach(container => {
+                container.style.display = container.dataset.graphicName === graphicName ? 'block' : 'none';
+            });
+        });
+
+        tabsContainer.appendChild(tabButton);
+    });
+
+    const existingTabs = previewSection.querySelector('.graphic-tabs');
+    if (existingTabs) previewSection.removeChild(existingTabs);
+    previewSection.insertBefore(tabsContainer, previewSection.firstChild);
+}
+
+// Funzione per disegnare la grafica 'livematch'
+async function drawLivematchGraphic(ctx, style, timeVersion, adjustedDateObj, overlayName) {
+    // Aggiunta del titolo per 'livematch'
+    const formatSuffix = overlayName.replace('overlay_', '');
+    const championship = championshipSelect.value;
+    const titleImageSrc = `images/graphics/livematch/title/${championship}_${formatSuffix}.png`;
+    console.log(`Caricamento titolo: ${titleImageSrc}`);
+
+    const titleImage = await loadImage(titleImageSrc);
+    if (titleImage) {
+        const titleX = (ctx.canvas.width - titleImage.width) / 2;
+        ctx.drawImage(titleImage, titleX, 0, titleImage.width, titleImage.height);
+        console.log(`Titolo disegnato: ${titleImageSrc}`);
+    } else {
+        console.warn(`Titolo non trovato: ${titleImageSrc}`);
+    }
+
+    // Disegna i loghi delle squadre
+    await drawTeamLogos(ctx, style);
+
+    // Recupera i punteggi
+    let homeScore = '0';
+    let awayScore = '0';
+    if (['fulltime'].includes(style.homeScore)) {
+        homeScore = getInputValue('.homeFullScore');
+        awayScore = getInputValue('.awayFullScore');
+    } else if (['halftime', 'goal'].includes(style.homeScore)) {
+        homeScore = getInputValue('.homeHalfScore');
+        awayScore = getInputValue('.awayHalfScore');
+    }
+
+    // Disegna la data e l'ora del match
+    if (style.dateTime) {
+        const dateText = formatDate(adjustedDateObj, 'CET', 'en-GB');
+        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+        ctx.fillStyle = style.dateTime.color;
+        ctx.textAlign = 'left';
+        if (style.dateTime.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
+        } else {
+            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
+        }
+    }
+
+    // Disegna i punteggi
+    if (style.homeScore && style.awayScore) {
+        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
+        ctx.fillStyle = style.homeScore.color;
+        ctx.textAlign = 'left';
+        if (style.homeScore.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
+        } else {
+            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
+        }
+
+        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
+        ctx.fillStyle = style.awayScore.color;
+        ctx.textAlign = 'left';
+        if (style.awayScore.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
+        } else {
+            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
+        }
+    }
+
+    // Disegna il match day
+    if (style.matchDay) {
+        const matchDayValue = matchDayInput.value.trim() || '1';
+        const matchDayText = `MATCHDAY ${matchDayValue}`;
+        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+        ctx.fillStyle = style.matchDay.color;
+        ctx.textAlign = 'left';
+        if (style.matchDay.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
+        } else {
+            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
+        }
+    }
+}
+
+// Funzione per caricare i loghi delle squadre
+async function drawTeamLogos(ctx, style) {
+    // Disegna il logo della squadra di casa
+    if (style.homeLogo) {
+        const homeLogoSrc = homeTeamSelect.value === 'como1907'
+            ? `images/badge/all/como.png`
+            : `images/badge/${championshipSelect.value}/${homeTeamSelect.value}.png`;
+        const homeLogo = await loadImage(homeLogoSrc);
+        if (homeLogo) ctx.drawImage(homeLogo, style.homeLogo.x, style.homeLogo.y, style.homeLogo.width, style.homeLogo.height);
+        else console.warn(`Logo squadra di casa non trovato: ${homeLogoSrc}`);
+    }
+
+    // Disegna il logo della squadra ospite
+    if (style.awayLogo) {
+        const awayLogoSrc = awayTeamSelect.value === 'como1907'
+            ? `images/badge/all/como.png`
+            : `images/badge/${championshipSelect.value}/${awayTeamSelect.value}.png`;
+        const awayLogo = await loadImage(awayLogoSrc);
+        if (awayLogo) ctx.drawImage(awayLogo, style.awayLogo.x, style.awayLogo.y, style.awayLogo.width, style.awayLogo.height);
+        else console.warn(`Logo squadra ospite non trovato: ${awayLogoSrc}`);
+    }
+
+    // Disegna il logo del campionato se presente
+    if (style.championshipLogo) {
+        const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
+        const championshipLogo = await loadImage(championshipLogoSrc);
+        if (championshipLogo) ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
+        else console.warn(`Logo campionato non trovato: ${championshipLogoSrc}`);
+    }
+}
+
+// Funzione per disegnare un'immagine su canvas mantenendo l'aspect ratio
+function drawImageCover(ctx, img, canvasWidth, canvasHeight) {
+    const imgAspect = img.width / img.height;
+    const canvasAspect = canvasWidth / canvasHeight;
+
+    let renderWidth, renderHeight, xStart, yStart;
+
+    if (imgAspect > canvasAspect) {
+        renderHeight = canvasHeight;
+        renderWidth = img.width * (canvasHeight / img.height);
+        xStart = (canvasWidth - renderWidth) / 2;
+        yStart = 0;
+    } else {
+        renderWidth = canvasWidth;
+        renderHeight = img.height * (canvasWidth / img.width);
+        xStart = 0;
+        yStart = (canvasHeight - renderHeight) / 2;
+    }
+
+    ctx.drawImage(img, xStart, yStart, renderWidth, renderHeight);
+}
+
+// Funzione per disegnare testo con letter-spacing personalizzato
+function drawTextWithLetterSpacing(ctx, text, x, y, letterSpacing) {
+    text.split('').forEach(char => {
+        ctx.fillText(char, x, y);
+        x += ctx.measureText(char).width + letterSpacing;
+    });
+}
+
+// Funzione per misurare la larghezza del testo con letter-spacing
+function measureTextWithLetterSpacing(ctx, text, letterSpacing) {
+    return text.split('').reduce((total, char) => total + ctx.measureText(char).width + letterSpacing, -letterSpacing);
+}
+
+// Funzione per ottenere il nome visualizzabile della squadra
+function getTeamDisplayName(teamValue) {
+    const team = currentTeams.find(t => t.value === teamValue);
+    return team ? team.text : teamValue;
+}
+
+// Funzione per creare le tab delle grafiche selezionate
+function createGraphicTabs(selectedGraphics, selectedGraphicName) {
+    const previewSection = document.querySelector('.preview-container');
+    const tabsContainer = document.createElement('div');
+    tabsContainer.classList.add('graphic-tabs');
+
+    selectedGraphics.forEach((graphicName, index) => {
+        const tabButton = document.createElement('button');
+        tabButton.textContent = capitalizeFirstLetter(graphicName);
+        tabButton.classList.add('graphic-tab');
+        tabButton.dataset.graphicName = graphicName;
+
+        // Imposta la tab attiva
+        if (selectedGraphicName ? graphicName === selectedGraphicName : index === 0) {
+            tabButton.classList.add('active');
+        }
+
+        tabButton.addEventListener('click', () => {
+            document.querySelectorAll('.graphic-tab').forEach(tab => tab.classList.remove('active'));
+            tabButton.classList.add('active');
+
+            document.querySelectorAll('.graphic-preview-container').forEach(container => {
+                container.style.display = container.dataset.graphicName === graphicName ? 'block' : 'none';
+            });
+        });
+
+        tabsContainer.appendChild(tabButton);
+    });
+
+    const existingTabs = previewSection.querySelector('.graphic-tabs');
+    if (existingTabs) previewSection.removeChild(existingTabs);
+    previewSection.insertBefore(tabsContainer, previewSection.firstChild);
+}
+
+// Funzione per disegnare una grafica di default o non specifica
+async function drawDefaultGraphic(ctx, style, graphicName, timeVersion, adjustedDateObj) {
+    await drawTeamLogos(ctx, style);
+
+    let homeScore = '0';
+    let awayScore = '0';
+    if (graphicName === 'fulltime') {
+        homeScore = getInputValue('.homeFullScore');
+        awayScore = getInputValue('.awayFullScore');
+    } else if (graphicName === 'halftime' || graphicName === 'goal') {
+        homeScore = getInputValue('.homeHalfScore');
+        awayScore = getInputValue('.awayHalfScore');
+    }
+
+    // Disegna la data e l'ora del match
+    if (style.dateTime) {
+        const dateText = formatDate(adjustedDateObj, 'CET', 'en-GB');
+        ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
+        ctx.fillStyle = style.dateTime.color;
+        ctx.textAlign = 'left';
+        if (style.dateTime.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
+        } else {
+            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
+        }
+    }
+
+    // Disegna i punteggi
+    if (style.homeScore && style.awayScore) {
+        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
+        ctx.fillStyle = style.homeScore.color;
+        ctx.textAlign = 'left';
+        if (style.homeScore.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
+        } else {
+            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
+        }
+
+        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
+        ctx.fillStyle = style.awayScore.color;
+        ctx.textAlign = 'left';
+        if (style.awayScore.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
+        } else {
+            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
+        }
+    }
+
+    // Disegna il match day
+    if (style.matchDay) {
+        const matchDayValue = matchDayInput.value.trim() || '1';
+        const matchDayText = `MATCHDAY ${matchDayValue}`;
+        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+        ctx.fillStyle = style.matchDay.color;
+        ctx.textAlign = 'left';
+        if (style.matchDay.letterSpacing) {
+            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
+        } else {
+            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
+        }
+    }
+}
+
+// Funzione per inizializzare lo stato dei team dopo il caricamento iniziale
+function initializeTeams() {
+    populateTeams();
+    updateGraphicsOptions();
+    toggleSections();
+    generatePreviews();
+}
+
+// Funzione per aggiungere gli event listeners per l'aggiornamento automatico
 function addAutoUpdateListeners() {
     // Selezione del campionato
     championshipSelect.addEventListener('change', () => {
         console.log('Campionato cambiato');
-        // Popola le squadre quando cambia il campionato
         populateTeams();
         updateGraphicsOptions();
-        toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
-        toggleMatchDaySection();
-        toggleStadiumLocationSection();
+        toggleSections();
         generatePreviews();
     });
 
@@ -1973,11 +1779,8 @@ function addAutoUpdateListeners() {
         checkbox.addEventListener('change', () => {
             console.log(`Grafica ${checkbox.value} cambiata: ${checkbox.checked}`);
             updateGraphicsOptions();
-            toggleDateTimeSection();
-            toggleMatchDaySection();
-            toggleStadiumLocationSection();
-            handleGraphicsChange(); // Chiamata a handleGraphicsChange
-            updateImagesHeaderVisibility(); // Aggiungi questa linea
+            toggleSections();
+            handleGraphicsChange();
         });
     });
 
@@ -2002,13 +1805,13 @@ function addAutoUpdateListeners() {
 
     // Event listener per il pulsante Swap
     swapBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevenire il comportamento di default del pulsante se necessario
+        e.preventDefault();
         console.log('Pulsante Swap premuto');
         toggleTeams();
     });
 
     // Event listeners per i campi di upload delle immagini di sfondo
-    uploadContainer.addEventListener('change', (event) => {
+    uploadContainer.addEventListener('change', async (event) => {
         if (event.target && event.target.matches('input[type="file"]')) {
             const fileInput = event.target;
             const graphicId = fileInput.dataset.graphicId;
@@ -2016,13 +1819,10 @@ function addAutoUpdateListeners() {
             if (file && file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // Salva l'immagine caricata nell'oggetto backgroundImages
                     backgroundImages[graphicId] = e.target.result;
                     console.log(`Immagine di sfondo caricata per ${graphicId}`);
-
-                    // Rigenera le anteprime delle grafiche per applicare il nuovo sfondo
                     generatePreviews();
-                }
+                };
                 reader.readAsDataURL(file);
             }
         }
@@ -2046,7 +1846,6 @@ function addAutoUpdateListeners() {
     });
 
     // Event listener per l'input del matchday
-    const matchDayInput = document.getElementById('matchDay');
     if (matchDayInput) {
         matchDayInput.addEventListener('input', () => {
             console.log('Matchday modificato');
@@ -2055,289 +1854,13 @@ function addAutoUpdateListeners() {
     }
 }
 
-/**
- * Funzione per alternare la sezione Data e Ora
- */
-function toggleDateTimeSection() {
-    const selectedGraphics = Array.from(graphicCheckboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-
-    const requiresDateTime = selectedGraphics.some(graphic => graphicsRequireDateTime.includes(graphic));
-
-    if (requiresDateTime) {
-        dateTimeSection.style.display = 'block';
-    } else {
-        dateTimeSection.style.display = 'none';
-    }
+// Funzione per inizializzare tutto dopo il caricamento del DOM
+function initialize() {
+    addAutoUpdateListeners();
+    initializeTeams();
+    generateBackgroundUploadFields();
+    updateImagesHeaderVisibility();
 }
 
-/**
- * Funzione per alternare la sezione Match Day
- */
-function toggleMatchDaySection() {
-    const selectedGraphics = Array.from(graphicCheckboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-
-    const requiresMatchDay = selectedGraphics.some(graphic => graphicsRequireMatchDay.includes(graphic));
-
-    if (requiresMatchDay) {
-        matchDaySection.style.display = 'flex';
-    } else {
-        matchDaySection.style.display = 'none';
-    }
-}
-
-/**
- * Funzione per alternare la sezione Posizione dello Stadio
- */
-function toggleStadiumLocationSection() {
-    const selectedGraphics = Array.from(graphicCheckboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-
-    const requiresStadiumLocation = selectedGraphics.some(graphic => graphicsRequireStadiumLocation.includes(graphic));
-
-    if (requiresStadiumLocation) {
-        stadiumLocationSection.style.display = 'block';
-    } else {
-        stadiumLocationSection.style.display = 'none';
-    }
-}
-
-/**
- * Funzione per aggiornare la visibilità dell'intestazione delle immagini
- */
-function updateImagesHeaderVisibility() {
-    const imagesHeader = document.getElementById('imagesHeader');
-    const anyGraphicSelected = Array.from(graphicCheckboxes).some(cb => cb.checked);
-
-    if (anyGraphicSelected) {
-        imagesHeader.style.display = 'block';
-    } else {
-        imagesHeader.style.display = 'none';
-    }
-}
-
-/**
- * Funzione per disegnare la grafica di default (per grafiche non specifiche)
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica
- */
-async function drawDefaultGraphic(ctx, style, graphicName) {
-    // Disegna i loghi delle squadre
-    await drawTeamLogos(ctx, style);
-
-    // Recupera i punteggi corretti in base alla grafica
-    let homeScore = '0';
-    let awayScore = '0';
-
-    if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    }
-
-    // Disegna la data e l'ora del match
-    if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
-        ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
-        ctx.fillStyle = style.dateTime.color;
-        ctx.textAlign = 'left';
-        if (style.dateTime.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-        } else {
-            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
-        }
-    }
-
-    // Disegna i punteggi
-    if (style.homeScore && style.awayScore) {
-        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
-        ctx.fillStyle = style.homeScore.color;
-        ctx.textAlign = 'left';
-        if (style.homeScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
-        } else {
-            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
-        }
-
-        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
-        ctx.fillStyle = style.awayScore.color;
-        ctx.textAlign = 'left';
-        if (style.awayScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
-        } else {
-            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
-        }
-    }
-
-    // Disegna il match day se necessario
-    if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-        const matchDayText = `MATCHDAY ${matchDayValue}`;
-        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-        ctx.fillStyle = style.matchDay.color;
-        ctx.textAlign = 'left';
-        if (style.matchDay.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-        } else {
-            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-        }
-    }
-}
-
-/**
- * Funzione per disegnare una grafica di default
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica
- */
-async function drawDefaultGraphic(ctx, style, graphicName) {
-    // Disegna i loghi delle squadre
-    await drawTeamLogos(ctx, style);
-
-    // Recupera i punteggi corretti in base alla grafica
-    let homeScore = '0';
-    let awayScore = '0';
-
-    if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    }
-
-    // Disegna la data e l'ora del match
-    if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
-        ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
-        ctx.fillStyle = style.dateTime.color;
-        ctx.textAlign = 'left';
-        if (style.dateTime.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-        } else {
-            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
-        }
-    }
-
-    // Disegna i punteggi
-    if (style.homeScore && style.awayScore) {
-        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
-        ctx.fillStyle = style.homeScore.color;
-        ctx.textAlign = 'left';
-        if (style.homeScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
-        } else {
-            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
-        }
-
-        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
-        ctx.fillStyle = style.awayScore.color;
-        ctx.textAlign = 'left';
-        if (style.awayScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
-        } else {
-            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
-        }
-    }
-
-    // Disegna il match day se necessario
-    if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-        const matchDayText = `MATCHDAY ${matchDayValue}`;
-        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-        ctx.fillStyle = style.matchDay.color;
-        ctx.textAlign = 'left';
-        if (style.matchDay.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-        } else {
-            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-        }
-    }
-}
-
-/**
- * Funzione per disegnare una grafica di default
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Object} style - Lo stile specifico per la grafica
- * @param {string} graphicName - Il nome della grafica
- */
-async function drawDefaultGraphic(ctx, style, graphicName) {
-    // Disegna i loghi delle squadre
-    await drawTeamLogos(ctx, style);
-
-    // Recupera i punteggi corretti in base alla grafica
-    let homeScore = '0';
-    let awayScore = '0';
-
-    if (graphicName === 'fulltime') {
-        homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-    } else if (graphicName === 'halftime') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    } else if (graphicName === 'goal') {
-        homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
-        awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
-    }
-
-    // Disegna la data e l'ora del match
-    if (style.dateTime) {
-        const dateText = formatDate(new Date(), 'CET', 'en-GB'); // Usa la data corrente se non specificata
-        ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
-        ctx.fillStyle = style.dateTime.color;
-        ctx.textAlign = 'left';
-        if (style.dateTime.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-        } else {
-            ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
-        }
-    }
-
-    // Disegna i punteggi
-    if (style.homeScore && style.awayScore) {
-        ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
-        ctx.fillStyle = style.homeScore.color;
-        ctx.textAlign = 'left';
-        if (style.homeScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
-        } else {
-            ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
-        }
-
-        ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
-        ctx.fillStyle = style.awayScore.color;
-        ctx.textAlign = 'left';
-        if (style.awayScore.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
-        } else {
-            ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
-        }
-    }
-
-    // Disegna il match day se necessario
-    if (style.matchDay) {
-        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-        const matchDayText = `MATCHDAY ${matchDayValue}`;
-        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-        ctx.fillStyle = style.matchDay.color;
-        ctx.textAlign = 'left';
-        if (style.matchDay.letterSpacing) {
-            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-        } else {
-            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-        }
-    }
-}
+// Inizializza al caricamento del DOM
+document.addEventListener('DOMContentLoaded', initialize);

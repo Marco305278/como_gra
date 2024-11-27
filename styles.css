@@ -296,7 +296,7 @@ input[type="number"] {
 
 .symbol-arrow-left{
     margin: 5px;
-    width: 35px;
+    width: 36px;
     height: 32px;
     border-radius: 6px;
     background: white;
@@ -306,8 +306,12 @@ input[type="number"] {
     line-height: 0.1;
 }
 
-.symbol-arrow-left img{
-    width: 12px;
+.symbol-arrow-active{
+    background: #1d3b62;
+}
+
+.symbol-arrow-active:hover{
+    opacity: 0.8;
 }
 
 .symbol-arrow{
@@ -390,6 +394,31 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
     align-items: center;
 }
 
+.div_back {
+    margin: 8px 0;
+    background: #e8f0f8;
+    display: flex;
+    justify-content: right;
+    border-radius: 6px;
+    height: 42px;
+}
+
+.div_back div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div_back select,
+.div_back input{
+    margin: 0;
+}
+
+#goalPlayerInput{
+    padding-top: 3px;
+    padding-bottom: 7px;
+}
+
 .div2 {
     width: 100%;
     display: flex;
@@ -398,23 +427,6 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
 }
 
 .div2 div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.div3 {
-    margin: 8px 0;
-    width: 100%;
-    display: flex;
-    justify-content: right;
-    height: 42px;
-    border-radius: 6px;
-    align-items: center;
-    background: #e8f0f8;
-}
-
-.div3 div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -699,4 +711,9 @@ select:disabled {
     border: 1px solid #c0d6e4; /* Colore bordo */
     cursor: not-allowed; /* Mostra un cursore di divieto */
     opacity: 0.6; /* Aggiunge un effetto visivo di trasparenza */
+}
+
+label.work {
+    background-color: #e3ebf6 !important;
+    opacity: 0.4;
 }
