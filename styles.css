@@ -278,7 +278,7 @@ input[type="number"] {
 }
 
 .score .col{
-    justify-content: space-beetween;
+    justify-content: space-evenly !important;
 }
 
 .symbol-arrow{
