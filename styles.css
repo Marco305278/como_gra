@@ -277,6 +277,10 @@ input[type="number"] {
     align-items: center;
 }
 
+.score .col{
+    justify-content: space-beetween;
+}
+
 .symbol-arrow{
     position: absolute;
     margin: 5px;
