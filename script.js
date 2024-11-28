@@ -591,36 +591,63 @@ function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB') {
 }
 
 /**
- * Funzione per disegnare un'immagine su canvas mantenendo l'aspect ratio e coprendo l'intero canvas
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {Image} img - L'immagine da disegnare
- * @param {number} canvasWidth - La larghezza del canvas
- * @param {number} canvasHeight - L'altezza del canvas
+ * Funzione per disegnare un'immagine di sfondo su canvas con posizionamento e scaling specifici.
+ * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas.
+ * @param {Image} img - L'immagine da disegnare.
+ * @param {number} canvasWidth - La larghezza del canvas.
+ * @param {number} canvasHeight - L'altezza del canvas.
+ * @param {string} graphicName - Il nome della grafica.
+ * @param {string} overlayName - Il nome del formato overlay.
  */
 function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', overlayName = '') {
+    // Definisci il rettangolo per lo sfondo
+    let rectX = 0;
+    let rectY = 0;
+    let rectWidth = canvasWidth;
+    let rectHeight = canvasHeight;
+
+    // Specifiche per Highlights + overlay_16x9
+    if (graphicName === 'highlights' && overlayName === 'overlay_16x9') {
+        rectX = 0; // Allineato a sinistra
+        rectY = 0;
+        rectWidth = canvasWidth - 180; // Riduci 180px sul lato lungo (larghezza)
+        rectHeight = canvasHeight;
+    }
+
+    // Determina l'orientamento dell'immagine
     const imgAspect = img.width / img.height;
-    const canvasAspect = canvasWidth / canvasHeight;
+    const rectAspect = rectWidth / rectHeight;
 
     let renderWidth, renderHeight, xStart, yStart;
 
-    // Controllo specifico per Highlights 16x9
     if (graphicName === 'highlights' && overlayName === 'overlay_16x9') {
-        xStart = -180; // Sposta lo sfondo di 150px a sinistra
-        renderWidth = canvasWidth -180;
-        renderHeight = img.height * (canvasWidth / img.width);
-        yStart = (canvasHeight - renderHeight) / 2;
+        if (imgAspect > rectAspect) {
+            // Immagine orizzontale: scala per toccare top e bottom
+            renderHeight = rectHeight;
+            renderWidth = img.width * (rectHeight / img.height);
+            xStart = rectX - (renderWidth - rectWidth) / 2;
+            yStart = rectY;
+        } else {
+            // Immagine verticale: scala per toccare destra e sinistra
+            renderWidth = rectWidth;
+            renderHeight = img.height * (rectWidth / img.width);
+            xStart = rectX;
+            yStart = rectY - (renderHeight - rectHeight) / 2;
+        }
     } else {
         // Comportamento standard
-        if (imgAspect > canvasAspect) {
-            renderHeight = canvasHeight;
-            renderWidth = img.width * (canvasHeight / img.height);
-            xStart = (canvasWidth - renderWidth) / 2;
-            yStart = 0;
+        if (imgAspect > rectAspect) {
+            // Immagine orizzontale
+            renderHeight = rectHeight;
+            renderWidth = img.width * (rectHeight / img.height);
+            xStart = rectX + (rectWidth - renderWidth) / 2;
+            yStart = rectY;
         } else {
-            renderWidth = canvasWidth;
-            renderHeight = img.height * (canvasWidth / img.width);
-            xStart = 0;
-            yStart = (canvasHeight - renderHeight) / 2;
+            // Immagine verticale
+            renderWidth = rectWidth;
+            renderHeight = img.height * (rectWidth / img.width);
+            xStart = rectX;
+            yStart = rectY + (rectHeight - renderHeight) / 2;
         }
     }
 
