@@ -3,6 +3,7 @@ const championshipSelect = document.getElementById('championship');
 const homeTeamSelect = document.getElementById('homeTeam');
 const awayTeamSelect = document.getElementById('awayTeam');
 const swapBtn = document.getElementById('swapBtn');
+const swapHome = document.getElementById('swapHome');
 const graphicCheckboxes = document.querySelectorAll('input[name="graphic"]');
 const graphicsOptionsDiv = document.getElementById('graphicsOptions');
 const generateBtn = document.getElementById('generateBtn');
@@ -243,6 +244,7 @@ const graphicsWithChampionshipLogo = ['nextmatch', 'matchday'];
 let isHomeFixed = true; // Inizialmente, Home Team è fisso su "Como 1907"
 
 let customPlayer = false;
+let playerHome = false;
 
 // Definizione del team fisso
 const fixedTeam = {
@@ -419,7 +421,7 @@ function toggleTeams() {
     }
 
     isHomeFixed = !isHomeFixed;
-    console.log(`isHomeFixed ora è: ${isHomeFixed}`);
+    playerHome = !playerHome;
 
     generatePreviews();
 }
@@ -448,81 +450,99 @@ function updateGraphicsOptions() {
             // Aggiungi opzioni specifiche per ogni grafica
             switch (cb.value) {
                 case 'goal':
-                    // Aggiungi una label per il selettore del giocatore
-                    const playerLabel = document.createElement('label');
-                    playerLabel.setAttribute('for', 'goalPlayerSelect');
-                    playerLabel.textContent = 'Player:';
-                    optionDiv.appendChild(playerLabel);
+    // Aggiungi una label per il selettore del giocatore
+    const playerLabel = document.createElement('label');
+    playerLabel.setAttribute('for', 'goalPlayerSelect');
+    playerLabel.textContent = 'Player:';
+    optionDiv.appendChild(playerLabel);
 
-                    // Crea div2 come contenitore esterno
-                    const div2 = document.createElement('div');
-                    div2.classList.add('div2');
+    // Crea div2 come contenitore esterno
+    const div2 = document.createElement('div');
+    div2.classList.add('div2');
 
-                    // Crea div_back e appendilo a div2
-                    const divBack = document.createElement('div');
-                    divBack.classList.add('div_back');
-                    div2.appendChild(divBack);
+    const swapHome = document.createElement('div');
+    swapHome.id = 'swapHome';
+    swapHome.classList.add('swap-button');
+    const swapHomeImg = document.createElement('img');
+    swapHomeImg.src = 'images/assets/swap.svg';
+    swapHomeImg.alt = 'Swap Teams';
+    swapHomeImg.width = '20';
+    swapHome.appendChild(swapHomeImg);
 
-                    // Crea il pulsante per alternare i layout
-                    const toggleButton = document.createElement('div');
-                    toggleButton.id = 'toggleCustomPlayer';
-                    toggleButton.classList.add('symbol-arrow-left');
+    // Crea div_back e appendilo a div2
+    const divBack = document.createElement('div');
+    divBack.classList.add('div_back');
+    div2.appendChild(divBack);
+    div2.appendChild(swapHome);
 
-                    // Aggiungi la classe 'symbol-arrow-active' se customPlayer è true
-                    if (customPlayer) {
-                        toggleButton.classList.add('symbol-arrow-active');
-                    }
+    // Crea il pulsante per alternare i layout
+    const toggleButton = document.createElement('div');
+    toggleButton.id = 'toggleCustomPlayer';
+    toggleButton.classList.add('symbol-arrow-left');
 
-                    // Imposta l'icona iniziale in base allo stato di customPlayer
-                    const toggleImg = document.createElement('img');
-                    toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/plus.svg';
-                    toggleImg.alt = 'Toggle Player Input';
-                    toggleButton.appendChild(toggleImg);
-                    divBack.appendChild(toggleButton);
+    // Aggiungi la classe 'symbol-arrow-active' se customPlayer è true
+    if (customPlayer) {
+        toggleButton.classList.add('symbol-arrow-active');
+    }
 
-                    // Pulsante di swap esistente (assicurati che l'ID sia unico)
-                    const swapButton = document.createElement('div');
-                    swapButton.id = 'swapBtn'; // Cambiato da 'decrease' a 'swapBtn' per unicità
-                    swapButton.classList.add('symbol-arrow');
-                    const swapImg = document.createElement('img');
-                    swapImg.src = 'images/assets/arrow.svg';
-                    swapImg.alt = 'Swap Teams';
-                    swapButton.appendChild(swapImg);
-                    divBack.appendChild(swapButton);
+    // Imposta l'icona iniziale in base allo stato di customPlayer
+    const toggleImg = document.createElement('img');
+    toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/plus.svg';
+    toggleImg.alt = 'Toggle Player Input';
+    toggleButton.appendChild(toggleImg);
+    divBack.appendChild(toggleButton);
 
-                    // Aggiungi il select o l'input in base allo stato di customPlayer
-                    if (!customPlayer) {
-                        // **Layout 1**
-                        const selectPlayer = document.createElement('select');
-                        selectPlayer.id = 'goalPlayerSelect';
-                        selectPlayer.name = 'goalPlayerSelect';
+    // Pulsante di swap esistente (assicurati che l'ID sia unico)
+    const swapButton = document.createElement('div');
+    swapButton.id = 'arrow'; 
+    swapButton.classList.add('symbol-arrow');
+    const swapImg = document.createElement('img');
+    swapImg.src = 'images/assets/arrow.svg';
+    swapImg.alt = 'Swap Teams';
+    swapButton.appendChild(swapImg);
+    divBack.appendChild(swapButton);
 
-                        const option1 = document.createElement('option');
-                        option1.value = 'Dennis Brasolin';
-                        option1.textContent = 'Dennis Brasolin';
-                        selectPlayer.appendChild(option1);
+    // Aggiungi il select o l'input in base allo stato di customPlayer
+    if (!customPlayer) {
+        // **Layout 1**
+        const selectPlayer = document.createElement('select');
+        selectPlayer.id = 'goalPlayerSelect';
+        selectPlayer.name = 'goalPlayerSelect';
 
-                        const option2 = document.createElement('option');
-                        option2.value = 'Felippe Jack';
-                        option2.textContent = 'Felippe Jack';
-                        selectPlayer.appendChild(option2);
+        const option1 = document.createElement('option');
+        option1.value = 'Dennis Brasolin';
+        option1.textContent = 'Dennis Brasolin';
+        selectPlayer.appendChild(option1);
 
-                        divBack.appendChild(selectPlayer);
-                    } else {
-                        // **Layout 2**
-                        const inputPlayer = document.createElement('input');
-                        inputPlayer.type = 'text';
-                        inputPlayer.name = 'goalPlayerInput';
-                        inputPlayer.id = 'goalPlayerInput';
-                        inputPlayer.placeholder = 'player';
-                        divBack.appendChild(inputPlayer);
-                    }
+        const option2 = document.createElement('option');
+        option2.value = 'Felippe Jack';
+        option2.textContent = 'Felippe Jack';
+        selectPlayer.appendChild(option2);
 
-                    // Append div2 a optionDiv
-                    optionDiv.appendChild(div2);
+        divBack.appendChild(selectPlayer);
+    } else {
+        // **Layout 2**
+        const inputPlayer = document.createElement('input');
+        inputPlayer.type = 'text';
+        inputPlayer.name = 'goalPlayerInput';
+        inputPlayer.id = 'goalPlayerInput';
+        inputPlayer.placeholder = 'player';
+        divBack.appendChild(inputPlayer);
+    }
 
-                    // Append optionDiv a graphicsOptionsDiv
-                    graphicsOptionsDiv.appendChild(optionDiv);
+    // Append div2 a optionDiv
+    optionDiv.appendChild(div2);
+
+    // Append optionDiv a graphicsOptionsDiv
+    graphicsOptionsDiv.appendChild(optionDiv);
+
+    // Event listener per swapHome
+    swapHome.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevenire il comportamento di default del pulsante se necessario
+        console.log('Pulsante SwapHome premuto');
+        playerHome = !playerHome; // Inverti lo stato di playerHome
+        generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
+    });
 
                     // Aggiungi l'event listener per il pulsante di toggle
                     toggleButton.addEventListener('click', () => {
@@ -1015,7 +1035,7 @@ async function generatePreviews() {
                 const playerSelect = document.getElementById('goalPlayerSelect');
                 const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
                 const playerName = selectedPlayer ? selectedPlayer.text.replace(/\s+/g, '_').toLowerCase() : 'default_player';
-                const position = isHomeFixed ? 'home' : 'away';
+                const position = playerHome ? 'home' : 'away';
                 bgImageSrc = backgroundImages['goal'] || `images/graphics/goal/player/${position}/${playerName}.png`;
             }
 
@@ -1661,7 +1681,7 @@ function addUploadItemListeners() {
   decreaseButton.addEventListener('click', () => {
     let currentValue = parseInt(matchDayInput.value, 10);
     if (!isNaN(currentValue) && currentValue > 0) {
-      matchDayInput.value = currentValue + 5;
+      matchDayInput.value = currentValue - 1;
     }
   });
 
