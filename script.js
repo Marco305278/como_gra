@@ -597,22 +597,31 @@ function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB') {
  * @param {number} canvasWidth - La larghezza del canvas
  * @param {number} canvasHeight - L'altezza del canvas
  */
-function drawImageCover(ctx, img, canvasWidth, canvasHeight) {
+function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', overlayName = '') {
     const imgAspect = img.width / img.height;
     const canvasAspect = canvasWidth / canvasHeight;
 
     let renderWidth, renderHeight, xStart, yStart;
 
-    if (imgAspect > canvasAspect) {
-        renderHeight = canvasHeight;
+    // Controllo specifico per Highlights 16x9
+    if (graphicName === 'highlights' && overlayName === 'overlay_16x9') {
+        xStart = -350; // Sposta di 350px a sinistra
         renderWidth = img.width * (canvasHeight / img.height);
-        xStart = (canvasWidth - renderWidth) / 2;
+        renderHeight = canvasHeight;
         yStart = 0;
     } else {
-        renderWidth = canvasWidth;
-        renderHeight = img.height * (canvasWidth / img.width);
-        xStart = 0;
-        yStart = (canvasHeight - renderHeight) / 2;
+        // Comportamento standard
+        if (imgAspect > canvasAspect) {
+            renderHeight = canvasHeight;
+            renderWidth = img.width * (canvasHeight / img.height);
+            xStart = (canvasWidth - renderWidth) / 2;
+            yStart = 0;
+        } else {
+            renderWidth = canvasWidth;
+            renderHeight = img.height * (canvasWidth / img.width);
+            xStart = 0;
+            yStart = (canvasHeight - renderHeight) / 2;
+        }
     }
 
     ctx.drawImage(img, xStart, yStart, renderWidth, renderHeight);
@@ -821,14 +830,14 @@ async function generatePreviews() {
                 const ctx = canvas.getContext('2d');
 
                 if (bgImage) {
-                    drawImageCover(ctx, bgImage, canvas.width, canvas.height);
+                    drawImageCover(ctx, bgImage, canvas.width, canvas.height, graphicName, overlayName);
                 } else {
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     console.warn(`Immagine di sfondo non caricata per ${graphicName} nel formato ${overlayName}. Canvas riempito con bianco.`);
                 }
 
-                drawImageCover(ctx, overlayImage, canvas.width, canvas.height);
+                drawImageCover(ctx, bgImage, canvas.width, canvas.height, graphicName, overlayName);
 
                 // Ottieni lo stile specifico per questa grafica e formato
                 const style = graphicStyles[graphicName][overlayName];
