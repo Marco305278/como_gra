@@ -606,8 +606,8 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
     // Controllo specifico per Highlights 16x9
     if (graphicName === 'highlights' && overlayName === 'overlay_16x9') {
         xStart = -120; // Sposta lo sfondo di 350px a sinistra
-        renderWidth = img.width * (canvasHeight / img.height);
-        renderHeight = canvasHeight;
+        renderWidth = canvasWidth;
+        renderHeight = img.height * (canvasWidth / img.width);
         yStart = 0;
     } else {
         // Comportamento standard
