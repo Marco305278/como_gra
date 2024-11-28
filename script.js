@@ -448,10 +448,6 @@ function updateGraphicsOptions() {
             // Aggiungi opzioni specifiche per ogni grafica
             switch (cb.value) {
                 case 'goal':
-                    // Crea un contenitore per le opzioni grafiche
-                    const optionDiv = document.createElement('div');
-                    optionDiv.classList.add('graphic-option');
-
                     // Aggiungi una label per il selettore del giocatore
                     const playerLabel = document.createElement('label');
                     playerLabel.setAttribute('for', 'goalPlayerSelect');
@@ -583,7 +579,6 @@ function updateGraphicsOptions() {
                         generatePreviews();
                     });
 
-                    // Aggiungi eventuali altre sezioni specifiche per la grafica 'goal' qui, se necessario
 
                     console.log(`Opzioni aggiunte per grafica: ${cb.value}`);
 
@@ -655,7 +650,7 @@ function updateGraphicsOptions() {
                 case 'halftime':
                     if (!isHalftimeHighlightsAdded) {
                     optionDiv.innerHTML += `
-                        <h3>Half Time</h3>
+                        <h3>Half Time - Goal</h3>
                         <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
                             <div class="col" style="text-align: center; padding-top: 4px;">
                                 <div><label>Home score:</label></div>
