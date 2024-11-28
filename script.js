@@ -605,7 +605,7 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
 
     // Controllo specifico per Highlights 16x9
     if (graphicName === 'highlights' && overlayName === 'overlay_16x9') {
-        xStart = -350; // Sposta di 350px a sinistra
+        xStart = -350; // Sposta lo sfondo di 350px a sinistra
         renderWidth = img.width * (canvasHeight / img.height);
         renderHeight = canvasHeight;
         yStart = 0;
@@ -837,7 +837,7 @@ async function generatePreviews() {
                     console.warn(`Immagine di sfondo non caricata per ${graphicName} nel formato ${overlayName}. Canvas riempito con bianco.`);
                 }
 
-                drawImageCover(ctx, bgImage, canvas.width, canvas.height, graphicName, overlayName);
+                ctx.drawImage(overlayImage, 0, 0, canvas.width, canvas.height);
 
                 // Ottieni lo stile specifico per questa grafica e formato
                 const style = graphicStyles[graphicName][overlayName];
