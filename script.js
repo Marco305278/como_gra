@@ -608,9 +608,9 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
 
     // Specifiche per Highlights + overlay_16x9
     if (graphicName === 'highlights' && overlayName === 'overlay_16x9') {
-        rectX = 0; // Allineato a sinistra
+        rectX = -150; // Allineato a sinistra
         rectY = 0;
-        rectWidth = canvasWidth - 180; // Riduci 180px sul lato lungo (larghezza)
+        rectWidth = canvasWidth - 400; // Riduci 180px sul lato lungo (larghezza)
         rectHeight = canvasHeight;
     }
 
