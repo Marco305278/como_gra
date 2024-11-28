@@ -19,6 +19,12 @@ const matchDayInput = document.getElementById('matchDay');
 const decreaseButton = document.getElementById('decrease');
 const increaseButton = document.getElementById('increase');
 
+const players = [
+    { value: 'Dennis Brasolin', text: 'Dennis Brasolin' },
+    { value: 'Felippe Jack', text: 'Felippe Jack' },
+    // Aggiungi altri giocatori secondo necessità
+];
+
 // Configurazione delle disposizioni degli elementi per ogni grafica e formato
 const graphicStyles = {
     'fulltime': {
@@ -83,22 +89,24 @@ const graphicStyles = {
     },
     'goal': {
         'overlay_4x5': {
-            homeLogo: { x: 800, y: 170, width: 165, height: 165 },
-            awayLogo: { x: 800, y: 345, width: 165, height: 165 },
-            championshipLogo: { x: 70, y: 60, width: 130, height: 212 },
-            homeScore: { x: 930, y: 170, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            awayScore: { x: 930, y: 345, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            homeLogo: { x: 750, y: 50, width: 150, height: 150 },
+            awayLogo: { x: 750, y: 235, width: 150, height: 150 },
+            championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
+            homeScore: { x: 910, y: 180, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
+            awayScore: { x: 910, y: 365, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
             dateTime: null,
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null,
+            playerName: { x: 70, y: 1250, fontSize: 130, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 }
         },
         'overlay_9x16': {
-            homeLogo: { x: 800, y: 400, width: 165, height: 165 },
-            awayLogo: { x: 800, y: 575, width: 165, height: 165 },
-            championshipLogo: { x: 70, y: 70, width: 130, height: 212 },
-            homeScore: { x: 930, y: 400, fontSize: 180, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            awayScore: { x: 930, y: 575, fontSize: 180, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            homeLogo: { x: 750, y: 150, width: 150, height: 150 },
+            awayLogo: { x: 750, y: 335, width: 150, height: 150 },
+            championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
+            homeScore: { x: 910, y: 280, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
+            awayScore: { x: 910, y: 465, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
             dateTime: null,
-            matchDay: null // Non richiesto per questa grafica
+            matchDay: null,
+            playerName: { x: 70, y: 1740, fontSize: 145, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 }
         }
     },
     'livematch': {
@@ -428,6 +436,7 @@ function updateGraphicsOptions() {
     graphicsOptionsDiv.innerHTML = ''; // Pulisce le opzioni esistenti
 
     let isFulltimeHighlightsAdded = false; // Flag globale per fulltime/highlights
+    let isHalftimeHighlightsAdded = false;
 
     graphicCheckboxes.forEach(cb => {
         if (cb.checked) {
@@ -436,6 +445,72 @@ function updateGraphicsOptions() {
 
             // Aggiungi opzioni specifiche per ogni grafica
             switch (cb.value) {
+                case 'goal':
+                    // Selettore del giocatore
+                    const playerLabel = document.createElement('label');
+                    playerLabel.setAttribute('for', 'goalPlayerSelect');
+                    playerLabel.textContent = 'Player:';
+                    optionDiv.appendChild(playerLabel);
+
+                    const goalContainerDiv = document.createElement('div');
+                    goalContainerDiv.classList.add('div2');
+
+                    const decreaseDiv = document.createElement('div');
+                    decreaseDiv.id = 'decrease';
+                    decreaseDiv.classList.add('symbol-arrow');
+                    const decreaseImg = document.createElement('img');
+                    decreaseImg.src = 'images/assets/arrow.svg';
+                    decreaseImg.alt = 'Swap Teams';
+                    decreaseDiv.appendChild(decreaseImg);
+                    goalContainerDiv.appendChild(decreaseDiv);
+
+                    const playerSelect = document.createElement('select');
+                    playerSelect.id = 'goalPlayerSelect';
+                    playerSelect.name = 'goalPlayerSelect';
+
+                    players.forEach(player => {
+                        const option = document.createElement('option');
+                        option.value = player.value;
+                        option.textContent = player.text;
+                        playerSelect.appendChild(option);
+                    });
+
+                    goalContainerDiv.appendChild(playerSelect);
+                    optionDiv.appendChild(goalContainerDiv);
+
+                    if (!isHalftimeHighlightsAdded) {
+                        // Campi per i punteggi di half-time
+                        const halftimeDiv = document.createElement('div');
+                        halftimeDiv.innerHTML = `
+                            <h3>Half Time - Goal</h3>
+                            <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
+                                <div class="col col100" style="text-align: center; padding-top: 4px;">
+                                    <div><label>Home score:</label></div>
+                                    <div style="width: 140px"></div>
+                                    <div><label>Away score:</label></div>
+                                </div>
+                                <div class="col col100 number-input-fz" style="text-align: center;">
+                                    <div>
+                                        <div class="cell100">
+                                            <input size="2" type="number" class="homeHalfScore number" min="0" placeholder="0" value="0">
+                                        </div>
+                                    </div>
+                                    <div style="width: 140px;">
+                                        <h2 style="color: black; margin: 0;">-</h2>
+                                    </div>
+                                    <div>
+                                        <div class="cell100">
+                                            <input type="number" class="awayHalfScore number" min="0" placeholder="0" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        optionDiv.appendChild(halftimeDiv);
+                        isHalftimeHighlightsAdded = true;
+                    }
+                    break;
+
                 case 'fulltime':
                 case 'highlights':
                     if (!isFulltimeHighlightsAdded) { // Controlla se è già stato aggiunto
@@ -468,6 +543,7 @@ function updateGraphicsOptions() {
                     }
                     break;
                 case 'halftime':
+                    if (!isHalftimeHighlightsAdded) {
                     optionDiv.innerHTML += `
                         <h3>Half Time</h3>
                         <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
@@ -493,6 +569,8 @@ function updateGraphicsOptions() {
                             </div>
                         </div>
                     `;
+                    isHalftimeHighlightsAdded = true;
+                    }
                     break;
                 // Aggiungi altri case per altre grafiche se necessario
                 default:
@@ -826,7 +904,16 @@ async function generatePreviews() {
                 continue;
             }
 
-            const bgImageSrc = backgroundImages[graphicName.toLowerCase()] ? backgroundImages[graphicName.toLowerCase()] : `${graphicFolder}/1.png`;
+            let bgImageSrc = backgroundImages[graphicName.toLowerCase()] || `${graphicFolder}/1.png`;
+
+            if (graphicName === 'goal') {
+                const playerSelect = document.getElementById('goalPlayerSelect');
+                const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
+                const playerName = selectedPlayer ? selectedPlayer.text.replace(/\s+/g, '_').toLowerCase() : 'default_player';
+                const position = isHomeFixed ? 'home' : 'away';
+                bgImageSrc = backgroundImages['goal'] || `images/graphics/goal/player/${position}/${playerName}.png`;
+            }
+
             const overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
 
             console.log(`Caricamento immagini: ${bgImageSrc}, ${overlayImageSrc}`);
@@ -1053,7 +1140,7 @@ async function generatePreviews() {
                         if (graphicName === 'fulltime') {
                             homeScore = document.querySelector('.homeFullScore') ? document.querySelector('.homeFullScore').value.trim() : '0';
                             awayScore = document.querySelector('.awayFullScore') ? document.querySelector('.awayFullScore').value.trim() : '0';
-                        } else if (graphicName === 'halftime') {
+                        } else if (graphicName === 'halftime' || graphicName === 'goal') {
                             homeScore = document.querySelector('.homeHalfScore') ? document.querySelector('.homeHalfScore').value.trim() : '0';
                             awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
                         }
@@ -1091,6 +1178,29 @@ async function generatePreviews() {
                             } else {
                                 ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
                             }
+                        }
+
+                        if (style.playerName) {
+
+                            const playerSelect = document.getElementById('goalPlayerSelect');
+                            const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
+                            const playerName = selectedPlayer ? selectedPlayer.text : '';
+
+                            ctx.font = `${style.playerName.fontSize}px ${style.playerName.font}`;
+                            ctx.fillStyle = style.playerName.color;
+                            ctx.textAlign = 'left';
+                            ctx.shadowColor = 'rgba(0, 0, 0, 0.58)';
+                            ctx.shadowBlur = 8;
+                            ctx.shadowOffsetX = 2;
+                            ctx.shadowOffsetY = 2;
+                    
+                            if (style.playerName.letterSpacing) {
+                                drawTextWithLetterSpacing(ctx, playerName, style.playerName.x, style.playerName.y, style.playerName.letterSpacing);
+                            } else {
+                                ctx.fillText(playerName, style.playerName.x, style.playerName.y);
+                            }
+                    
+                            ctx.shadowColor = 'transparent';
                         }
 
                         // Disegna il match day se necessario

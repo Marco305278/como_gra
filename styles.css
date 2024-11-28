@@ -36,6 +36,12 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Saturday-Lovin';
+    src: url('fonts/Saturday-Lovin.ttf') format('truetype');
+    font-style: normal;
+}
+
 *{
     outline: transparent !important;
     font-family: "Darker Grotesque", sans-serif;
@@ -99,11 +105,11 @@ h3 {
 }
 
 h4 {
+    font-family: 'Saturday-Lovin';
     padding-top: 10px;
-    font-size: 40px;
+    font-size: 54px;
     color: #e1624b;
     margin: 0;
-    font-weight: 600;
     text-align: center;
 }
 
@@ -281,6 +287,26 @@ input[type="number"] {
     justify-content: space-evenly !important;
 }
 
+.symbol-arrow-left{
+    margin: 5px;
+    width: 36px;
+    height: 32px;
+    border-radius: 6px;
+    background: white;
+    border: none;
+    transition: all .5s cubic-bezier(.215, .61, .355, 1);
+    cursor: pointer;
+    line-height: 0.1;
+}
+
+.symbol-arrow-active{
+    background: #1d3b62;
+}
+
+.symbol-arrow-active:hover{
+    opacity: 0.8;
+}
+
 .symbol-arrow{
     position: absolute;
     margin: 5px;
@@ -356,6 +382,19 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
 }
 
 .col .div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div2 {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.div2 div {
     display: flex;
     justify-content: center;
     align-items: center;
