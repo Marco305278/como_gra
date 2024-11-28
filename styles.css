@@ -207,6 +207,10 @@ h4 {
     .button-link {
         display: none;
     }
+    
+    .number-input-fz{
+        margin-bottom: 5px;
+    }
 
 }
 
@@ -285,6 +289,10 @@ input[type="number"] {
 
 .score .col{
     justify-content: space-evenly !important;
+}
+
+.symbol-arrow-left img{
+    padding: 0 10.5px;
 }
 
 .symbol-arrow-left{
@@ -387,10 +395,36 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
     align-items: center;
 }
 
+.div_back {
+    margin: 8px 0;
+    background: #e8f0f8;
+    display: flex;
+    justify-content: right !important;
+    border-radius: 6px;
+    height: 42px;
+    width: 100%;
+}
+
+.div_back div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div_back select,
+.div_back input{
+    margin: 0;
+}
+
+#goalPlayerInput{
+    padding-top: 3px;
+    padding-bottom: 7px;
+}
+
 .div2 {
     width: 100%;
     display: flex;
-    justify-content: right;
+    justify-content: right !important;
     align-items: center;
 }
 
@@ -670,12 +704,6 @@ select[readonly] {
 .graphic-tab:hover{
     color: #e04413 !important;
 }
-
-/* Nasconde i contenitori delle anteprime non attivi */
-.graphic-preview-container {
-    display: none;
-}
-
 
 
 select:disabled {

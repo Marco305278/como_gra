@@ -39,6 +39,7 @@ marco305278.github.io/como_gra
             <h4>Graphics</h4>
             <a href="index.html"><div><img src="images/assets/logo.png" alt="Logo" width="64" class="logo"> <h1>Como 1907</h1></div></a>
         </div>
+        <p style="font-size: 0.1px; opacity: 0; line-height: 0; cursor: none;"><b style="font-family: 'DrukText-Medium-Trial';">a</b><b style="font-family: 'MazzardH-Medium';">a</b><b style="font-family: 'MazzardH-Light';">a</b><b style="font-family: 'bodoni-72-book-italic';">a</b><b style="font-family: 'bodoni-72-bold';">a</b><b style="font-family: 'Saturday-Lovin';">a</b></p>
         <div class="container">
             <!-- Sezione Selezione Base -->
             <div class="inputs">
@@ -55,8 +56,8 @@ marco305278.github.io/como_gra
                     <input type="checkbox" id="kickoff" name="graphic" value="kickoff">
                     <label for="kickoff">Kick Off</label>
                     
-                    <input type="checkbox" id="goal" name="graphic" value="goal" class="work">
-                    <label for="goal" class="work">Goal</label>
+                    <input type="checkbox" id="goal" name="graphic" value="goal">
+                    <label for="goal">Goal</label>
                     
                     <input type="checkbox" id="halftime" name="graphic" value="halftime">
                     <label for="halftime">Half Time</label>
@@ -115,6 +116,27 @@ marco305278.github.io/como_gra
                         </select>
                     </div>
                 </div>
+
+                <!--
+                <div class="div_back">
+                    <div class="div2">
+                        <div id="decrease" class="symbol-arrow-left"><img src="images/assets/plus.svg" alt="Swap Teams"></div>
+                        <div id="decrease" class="symbol-arrow"><img src="images/assets/arrow.svg" alt="Swap Teams"></div>
+                        <select id="goalPlayerSelect" name="goalPlayerSelect">
+                            <option value="Dennis Brasolin">Dennis Brasolin</option>
+                            <option value="Felippe Jack">Felippe Jack</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="div_back">
+                    <div class="div2">
+                        <div id="decrease" class="symbol-arrow-left symbol-arrow-active"><img src="images/assets/minus.svg" alt="Swap Teams"></div>
+                        <div id="decrease" class="symbol-arrow"><img src="images/assets/arrow.svg" alt="Swap Teams"></div>
+                        <input type="text" name="goalPlayerInput" id="goalPlayerInput" placeholder="player">
+                    </div>
+                </div>
+                -->
 
                 <!-- Sezione Data e Ora (Inizialmente Nascosta) -->
                 <div id="dateTimeSection">
@@ -181,6 +203,11 @@ marco305278.github.io/como_gra
                     <div class="graphic-tabs" >
                     </div>
                     <div class="carousel-container">
+                    </div>
+                    <div class="carousel-container">
+                        <div class="graphic-preview-container">
+                                <canvas height="0" width="1080" style="border: none;"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -242,6 +242,8 @@ const graphicsWithChampionshipLogo = ['nextmatch', 'matchday'];
 // Variabile di stato per gestire lo swap
 let isHomeFixed = true; // Inizialmente, Home Team è fisso su "Como 1907"
 
+let customPlayer = false;
+
 // Definizione del team fisso
 const fixedTeam = {
     value: 'como1907',
@@ -446,37 +448,145 @@ function updateGraphicsOptions() {
             // Aggiungi opzioni specifiche per ogni grafica
             switch (cb.value) {
                 case 'goal':
-                    // Selettore del giocatore
+                    // Crea un contenitore per le opzioni grafiche
+                    const optionDiv = document.createElement('div');
+                    optionDiv.classList.add('graphic-option');
+
+                    // Aggiungi una label per il selettore del giocatore
                     const playerLabel = document.createElement('label');
                     playerLabel.setAttribute('for', 'goalPlayerSelect');
                     playerLabel.textContent = 'Player:';
                     optionDiv.appendChild(playerLabel);
 
-                    const goalContainerDiv = document.createElement('div');
-                    goalContainerDiv.classList.add('div2');
+                    // Crea div2 come contenitore esterno
+                    const div2 = document.createElement('div');
+                    div2.classList.add('div2');
 
-                    const decreaseDiv = document.createElement('div');
-                    decreaseDiv.id = 'decrease';
-                    decreaseDiv.classList.add('symbol-arrow');
-                    const decreaseImg = document.createElement('img');
-                    decreaseImg.src = 'images/assets/arrow.svg';
-                    decreaseImg.alt = 'Swap Teams';
-                    decreaseDiv.appendChild(decreaseImg);
-                    goalContainerDiv.appendChild(decreaseDiv);
+                    // Crea div_back e appendilo a div2
+                    const divBack = document.createElement('div');
+                    divBack.classList.add('div_back');
+                    div2.appendChild(divBack);
 
-                    const playerSelect = document.createElement('select');
-                    playerSelect.id = 'goalPlayerSelect';
-                    playerSelect.name = 'goalPlayerSelect';
+                    // Crea il pulsante per alternare i layout
+                    const toggleButton = document.createElement('div');
+                    toggleButton.id = 'toggleCustomPlayer';
+                    toggleButton.classList.add('symbol-arrow-left');
 
-                    players.forEach(player => {
-                        const option = document.createElement('option');
-                        option.value = player.value;
-                        option.textContent = player.text;
-                        playerSelect.appendChild(option);
+                    // Aggiungi la classe 'symbol-arrow-active' se customPlayer è true
+                    if (customPlayer) {
+                        toggleButton.classList.add('symbol-arrow-active');
+                    }
+
+                    // Imposta l'icona iniziale in base allo stato di customPlayer
+                    const toggleImg = document.createElement('img');
+                    toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/plus.svg';
+                    toggleImg.alt = 'Toggle Player Input';
+                    toggleButton.appendChild(toggleImg);
+                    divBack.appendChild(toggleButton);
+
+                    // Pulsante di swap esistente (assicurati che l'ID sia unico)
+                    const swapButton = document.createElement('div');
+                    swapButton.id = 'swapBtn'; // Cambiato da 'decrease' a 'swapBtn' per unicità
+                    swapButton.classList.add('symbol-arrow');
+                    const swapImg = document.createElement('img');
+                    swapImg.src = 'images/assets/arrow.svg';
+                    swapImg.alt = 'Swap Teams';
+                    swapButton.appendChild(swapImg);
+                    divBack.appendChild(swapButton);
+
+                    // Aggiungi il select o l'input in base allo stato di customPlayer
+                    if (!customPlayer) {
+                        // **Layout 1**
+                        const selectPlayer = document.createElement('select');
+                        selectPlayer.id = 'goalPlayerSelect';
+                        selectPlayer.name = 'goalPlayerSelect';
+
+                        const option1 = document.createElement('option');
+                        option1.value = 'Dennis Brasolin';
+                        option1.textContent = 'Dennis Brasolin';
+                        selectPlayer.appendChild(option1);
+
+                        const option2 = document.createElement('option');
+                        option2.value = 'Felippe Jack';
+                        option2.textContent = 'Felippe Jack';
+                        selectPlayer.appendChild(option2);
+
+                        divBack.appendChild(selectPlayer);
+                    } else {
+                        // **Layout 2**
+                        const inputPlayer = document.createElement('input');
+                        inputPlayer.type = 'text';
+                        inputPlayer.name = 'goalPlayerInput';
+                        inputPlayer.id = 'goalPlayerInput';
+                        inputPlayer.placeholder = 'player';
+                        divBack.appendChild(inputPlayer);
+                    }
+
+                    // Append div2 a optionDiv
+                    optionDiv.appendChild(div2);
+
+                    // Append optionDiv a graphicsOptionsDiv
+                    graphicsOptionsDiv.appendChild(optionDiv);
+
+                    // Aggiungi l'event listener per il pulsante di toggle
+                    toggleButton.addEventListener('click', () => {
+                        customPlayer = !customPlayer; // Alterna il valore di customPlayer
+
+                        // Aggiungi o rimuovi la classe 'symbol-arrow-active' in base al nuovo stato
+                        if (customPlayer) {
+                            toggleButton.classList.add('symbol-arrow-active');
+                        } else {
+                            toggleButton.classList.remove('symbol-arrow-active');
+                        }
+
+                        // Aggiorna l'icona del pulsante
+                        toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/plus.svg';
+                        toggleImg.alt = customPlayer ? 'Switch to Input Player' : 'Switch to Select Player';
+
+                        // Rimuove il layout corrente e aggiunge il nuovo layout
+                        if (customPlayer) {
+                            // Rimuove il select e aggiunge l'input
+                            const existingSelect = divBack.querySelector('#goalPlayerSelect');
+                            if (existingSelect) {
+                                divBack.removeChild(existingSelect);
+                            }
+                            const newInput = document.createElement('input');
+                            newInput.type = 'text';
+                            newInput.name = 'goalPlayerInput';
+                            newInput.id = 'goalPlayerInput';
+                            newInput.placeholder = 'player';
+                            divBack.appendChild(newInput);
+                        } else {
+                            // Rimuove l'input e aggiunge il select
+                            const existingInput = divBack.querySelector('#goalPlayerInput');
+                            if (existingInput) {
+                                divBack.removeChild(existingInput);
+                            }
+                            const newSelect = document.createElement('select');
+                            newSelect.id = 'goalPlayerSelect';
+                            newSelect.name = 'goalPlayerSelect';
+
+                            const option1 = document.createElement('option');
+                            option1.value = 'Dennis Brasolin';
+                            option1.textContent = 'Dennis Brasolin';
+                            newSelect.appendChild(option1);
+
+                            const option2 = document.createElement('option');
+                            option2.value = 'Felippe Jack';
+                            option2.textContent = 'Felippe Jack';
+                            newSelect.appendChild(option2);
+
+                            divBack.appendChild(newSelect);
+                        }
+
+                        // Rigenera le anteprime per riflettere il cambiamento
+                        generatePreviews();
                     });
 
-                    goalContainerDiv.appendChild(playerSelect);
-                    optionDiv.appendChild(goalContainerDiv);
+                    // Aggiungi eventuali altre sezioni specifiche per la grafica 'goal' qui, se necessario
+
+                    console.log(`Opzioni aggiunte per grafica: ${cb.value}`);
+
 
                     if (!isHalftimeHighlightsAdded) {
                         // Campi per i punteggi di half-time
@@ -1182,10 +1292,19 @@ async function generatePreviews() {
 
                         if (style.playerName) {
 
-                            const playerSelect = document.getElementById('goalPlayerSelect');
-                            const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
-                            const playerName = selectedPlayer ? selectedPlayer.text : '';
+                            let playerName = '';
 
+                            if (customPlayer) {
+                                // Se customPlayer è true, ottieni il nome del giocatore dall'input di testo
+                                const playerInput = document.getElementById('goalPlayerInput');
+                                playerName = playerInput ? playerInput.value.trim() : '';
+                            } else {
+                                // Altrimenti, ottieni il nome del giocatore dal select
+                                const playerSelect = document.getElementById('goalPlayerSelect');
+                                const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
+                                playerName = selectedPlayer ? selectedPlayer.text : '';
+                            }
+                            
                             ctx.font = `${style.playerName.fontSize}px ${style.playerName.font}`;
                             ctx.fillStyle = style.playerName.color;
                             ctx.textAlign = 'left';
@@ -1193,13 +1312,13 @@ async function generatePreviews() {
                             ctx.shadowBlur = 8;
                             ctx.shadowOffsetX = 2;
                             ctx.shadowOffsetY = 2;
-                    
+                            
                             if (style.playerName.letterSpacing) {
                                 drawTextWithLetterSpacing(ctx, playerName, style.playerName.x, style.playerName.y, style.playerName.letterSpacing);
                             } else {
                                 ctx.fillText(playerName, style.playerName.x, style.playerName.y);
                             }
-                    
+                            
                             ctx.shadowColor = 'transparent';
                         }
 
