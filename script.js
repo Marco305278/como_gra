@@ -608,7 +608,7 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
         xStart = -150; // Sposta lo sfondo di 150px a sinistra
         renderWidth = canvasWidth -150;
         renderHeight = img.height * ((canvasWidth - 150) / img.width);
-        yStart = 0;
+        yStart = (canvasHeight - renderHeight) / 2;
     } else {
         // Comportamento standard
         if (imgAspect > canvasAspect) {
