@@ -21,8 +21,31 @@ const decreaseButton = document.getElementById('decrease');
 const increaseButton = document.getElementById('increase');
 
 const players = [
+    { value: 'Ali Jasim', text: 'Ali Jasim' },
+    { value: 'Ben Kone', text: 'Ben Kone' },
+    { value: 'Cristian Mazzara', text: 'Cristian Mazzara' },
     { value: 'Dennis Brasolin', text: 'Dennis Brasolin' },
+    { value: 'Dinay Bierstekers', text: 'Dinay Bierstekers' },
+    { value: 'Enea Bernasconi', text: 'Enea Bernasconi' },
+    { value: 'Fabio Ronchetti', text: 'Fabio Ronchetti' },
     { value: 'Felippe Jack', text: 'Felippe Jack' },
+    { value: 'Federico Chinetti', text: 'Federico Chinetti' },
+    { value: 'Federico Grilli', text: 'Federico Grilli' },
+    { value: 'Filippo Galafassi', text: 'Filippo Galafassi' },
+    { value: 'Francesco Andrrealli', text: 'Francesco Andrrealli' },
+    { value: 'Giuseppe Mazzaglia', text: 'Giuseppe Mazzaglia' },
+    { value: 'Italo Bulgheroni', text: 'Italo Bulgheroni' },
+    { value: 'Jean Castegnaro', text: 'Jean Castegnaro' },
+    { value: 'João Cardozo', text: 'João Cardozo' },
+    { value: 'Mattia Arioli', text: 'Mattia Arioli' },
+    { value: 'Matteo Papaccioli', text: 'Matteo Papaccioli' },
+    { value: 'Manuel Pisano', text: 'Manuel Pisano' },
+    { value: 'Marco ortelli', text: 'Marco ortelli' },
+    { value: 'Naj Razi', text: 'Naj Razi' },
+    { value: 'Omar Lebyad', text: 'Omar Lebyad' },
+    { value: 'Pasquale Piscitelli', text: 'Pasquale Piscitelli' },
+    { value: 'Silvano Biggi', text: 'Silvano Biggi' },
+    { value: 'William Feola', text: 'William Feola' },
     // Aggiungi altri giocatori secondo necessità
 ];
 
@@ -86,6 +109,28 @@ const graphicStyles = {
             awayScore: null,
             dateTime: { x: 70, y: 620, fontSize: 68, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             matchDay: null
+        }
+    },
+    'startingxi': {
+        'overlay_4x5': {
+            homeTeamName: { y: 330, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
+            vsText: { y: 330, fontSize: 62, color: 'white', font: 'bodoni-72-book-italic' },
+            awayTeamName: { y: 330, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
+            playerFontSize: 47,          // Dimensione del font per i nomi dei giocatori
+            playerSpacing: 57,           // Spaziatura verticale tra i nomi dei giocatori
+            playerStartY: 400,            // Posizione y iniziale per il primo nome
+            substitutesStartY: 1140,
+            substitutesFontSize: 34
+        },
+        'overlay_9x16': {
+            homeTeamName: { x: 960, y: 495, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial', textAlign: 'right' },
+            vsText: { text: 'VS', x: 600, y: 495, fontSize: 76, color: 'white', font: 'bodoni-72-book-italic', textAlign: 'center' },
+            awayTeamName: { x: 960, y: 495, fontSize: 72, color: 'white', font: 'DrukText-Medium-Trial', textAlign: 'center' },
+            playerFontSize: 54,          // Dimensione del font per i nomi dei giocatori
+            playerSpacing: 67,           // Spaziatura verticale tra i nomi dei giocatori
+            playerStartY: 675,      // Posizione y iniziale per il primo nome
+            substitutesStartY: 1575,
+            substitutesFontSize: 45
         }
     },
     'goal': {
@@ -224,6 +269,7 @@ const graphicsFormats = {
     'fulltime': ['overlay_4x5', 'overlay_9x16'],
     'halftime': ['overlay_4x5', 'overlay_9x16'],
     'kickoff': ['overlay_4x5', 'overlay_9x16'],
+    'startingxi': ['overlay_4x5', 'overlay_9x16'],
     'goal': ['overlay_4x5', 'overlay_9x16'],
     'livematch': ['overlay_5x8', 'overlay_16x9'],
     'highlights': ['overlay_5x8', 'overlay_16x9'],
@@ -426,6 +472,39 @@ function toggleTeams() {
     generatePreviews();
 }
 
+
+function populatePlayerSelect(selectElement) {
+    // Pulisci eventuali opzioni esistenti (tranne la prima)
+    selectElement.innerHTML = '';
+
+    // Ottieni il numero dal data attribute
+    const number = selectElement.dataset.number || '1';
+
+    // Aggiungi l'opzione predefinita con il numero
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = number;
+    selectElement.appendChild(defaultOption);
+
+    // Aggiungi le opzioni dei giocatori
+    players.forEach(player => {
+        const option = document.createElement('option');
+        option.value = player.value;
+        option.textContent = player.text;
+        selectElement.appendChild(option);
+    });
+
+    // Aggiungi un listener per gestire l'aggiunta/rimozione della classe 'select'
+    selectElement.addEventListener('change', function() {
+        if (this.value !== '') {
+            this.classList.add('select');
+        } else {
+            this.classList.remove('select');
+        }
+    });
+}
+
+
 /**
  * Funzione per aggiornare le opzioni grafiche
  */
@@ -450,99 +529,96 @@ function updateGraphicsOptions() {
             // Aggiungi opzioni specifiche per ogni grafica
             switch (cb.value) {
                 case 'goal':
-    // Aggiungi una label per il selettore del giocatore
-    const playerLabel = document.createElement('label');
-    playerLabel.setAttribute('for', 'goalPlayerSelect');
-    playerLabel.textContent = 'Player:';
-    optionDiv.appendChild(playerLabel);
+                    // Aggiungi una label per il selettore del giocatore
+                    const playerLabel = document.createElement('label');
+                    playerLabel.setAttribute('for', 'goalPlayerSelect');
+                    playerLabel.textContent = 'Player:';
+                    optionDiv.appendChild(playerLabel);
 
-    // Crea div2 come contenitore esterno
-    const div2 = document.createElement('div');
-    div2.classList.add('div2');
+                    // Crea div2 come contenitore esterno
+                    const div2 = document.createElement('div');
+                    div2.classList.add('div2');
 
-    const swapHome = document.createElement('div');
-    swapHome.id = 'swapHome';
-    swapHome.classList.add('swap-button');
-    const swapHomeImg = document.createElement('img');
-    swapHomeImg.src = 'images/assets/swap.svg';
-    swapHomeImg.alt = 'Swap Teams';
-    swapHomeImg.width = '20';
-    swapHome.appendChild(swapHomeImg);
+                    const swapHome = document.createElement('div');
+                    swapHome.id = 'swapHome';
+                    swapHome.classList.add('swap-button');
+                    const swapHomeImg = document.createElement('img');
+                    swapHomeImg.src = 'images/assets/swap.svg';
+                    swapHomeImg.alt = 'Swap Teams';
+                    swapHomeImg.width = '20';
+                    swapHome.appendChild(swapHomeImg);
 
-    // Crea div_back e appendilo a div2
-    const divBack = document.createElement('div');
-    divBack.classList.add('div_back');
-    div2.appendChild(divBack);
-    div2.appendChild(swapHome);
+                    // Crea div_back e appendilo a div2
+                    const divBack = document.createElement('div');
+                    divBack.classList.add('div_back');
+                    div2.appendChild(divBack);
+                    div2.appendChild(swapHome);
 
-    // Crea il pulsante per alternare i layout
-    const toggleButton = document.createElement('div');
-    toggleButton.id = 'toggleCustomPlayer';
-    toggleButton.classList.add('symbol-arrow-left');
+                    // Crea il pulsante per alternare i layout
+                    const toggleButton = document.createElement('div');
+                    toggleButton.id = 'toggleCustomPlayer';
+                    toggleButton.classList.add('symbol-arrow-left');
 
-    // Aggiungi la classe 'symbol-arrow-active' se customPlayer è true
-    if (customPlayer) {
-        toggleButton.classList.add('symbol-arrow-active');
-    }
+                    // Aggiungi la classe 'symbol-arrow-active' se customPlayer è true
+                    if (customPlayer) {
+                        toggleButton.classList.add('symbol-arrow-active');
+                    }
 
-    // Imposta l'icona iniziale in base allo stato di customPlayer
-    const toggleImg = document.createElement('img');
-    toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/plus.svg';
-    toggleImg.alt = 'Toggle Player Input';
-    toggleButton.appendChild(toggleImg);
-    divBack.appendChild(toggleButton);
+                    // Imposta l'icona iniziale in base allo stato di customPlayer
+                    const toggleImg = document.createElement('img');
+                    toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/plus.svg';
+                    toggleImg.alt = 'Toggle Player Input';
+                    toggleButton.appendChild(toggleImg);
+                    divBack.appendChild(toggleButton);
 
-    // Pulsante di swap esistente (assicurati che l'ID sia unico)
-    const swapButton = document.createElement('div');
-    swapButton.id = 'arrow'; 
-    swapButton.classList.add('symbol-arrow');
-    const swapImg = document.createElement('img');
-    swapImg.src = 'images/assets/arrow.svg';
-    swapImg.alt = 'Swap Teams';
-    swapButton.appendChild(swapImg);
-    divBack.appendChild(swapButton);
+                    // Pulsante di swap esistente (assicurati che l'ID sia unico)
+                    const swapButton = document.createElement('div');
+                    swapButton.id = 'arrow'; 
+                    swapButton.classList.add('symbol-arrow');
+                    const swapImg = document.createElement('img');
+                    swapImg.src = 'images/assets/arrow.svg';
+                    swapImg.alt = 'Swap Teams';
+                    swapButton.appendChild(swapImg);
+                    divBack.appendChild(swapButton);
 
-    // Aggiungi il select o l'input in base allo stato di customPlayer
-    if (!customPlayer) {
-        // **Layout 1**
-        const selectPlayer = document.createElement('select');
-        selectPlayer.id = 'goalPlayerSelect';
-        selectPlayer.name = 'goalPlayerSelect';
+                    // Aggiungi il select o l'input in base allo stato di customPlayer
+                    if (!customPlayer) {
+                        // **Layout 1**
+                        const selectPlayer = document.createElement('select');
+                        selectPlayer.id = 'goalPlayerSelect';
+                        selectPlayer.name = 'goalPlayerSelect';
 
-        const option1 = document.createElement('option');
-        option1.value = 'Dennis Brasolin';
-        option1.textContent = 'Dennis Brasolin';
-        selectPlayer.appendChild(option1);
+                        players.forEach(player => {
+                            const option = document.createElement('option');
+                            option.value = player.value;
+                            option.textContent = player.text;
+                            selectPlayer.appendChild(option);
+                        });
 
-        const option2 = document.createElement('option');
-        option2.value = 'Felippe Jack';
-        option2.textContent = 'Felippe Jack';
-        selectPlayer.appendChild(option2);
+                        divBack.appendChild(selectPlayer);
+                    } else {
+                        // **Layout 2**
+                        const inputPlayer = document.createElement('input');
+                        inputPlayer.type = 'text';
+                        inputPlayer.name = 'goalPlayerInput';
+                        inputPlayer.id = 'goalPlayerInput';
+                        inputPlayer.placeholder = 'player';
+                        divBack.appendChild(inputPlayer);
+                    }
 
-        divBack.appendChild(selectPlayer);
-    } else {
-        // **Layout 2**
-        const inputPlayer = document.createElement('input');
-        inputPlayer.type = 'text';
-        inputPlayer.name = 'goalPlayerInput';
-        inputPlayer.id = 'goalPlayerInput';
-        inputPlayer.placeholder = 'player';
-        divBack.appendChild(inputPlayer);
-    }
+                    // Append div2 a optionDiv
+                    optionDiv.appendChild(div2);
 
-    // Append div2 a optionDiv
-    optionDiv.appendChild(div2);
+                    // Append optionDiv a graphicsOptionsDiv
+                    graphicsOptionsDiv.appendChild(optionDiv);
 
-    // Append optionDiv a graphicsOptionsDiv
-    graphicsOptionsDiv.appendChild(optionDiv);
-
-    // Event listener per swapHome
-    swapHome.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevenire il comportamento di default del pulsante se necessario
-        console.log('Pulsante SwapHome premuto');
-        playerHome = !playerHome; // Inverti lo stato di playerHome
-        generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
-    });
+                    // Event listener per swapHome
+                    swapHome.addEventListener('click', (e) => {
+                        e.preventDefault(); // Prevenire il comportamento di default del pulsante se necessario
+                        console.log('Pulsante SwapHome premuto');
+                        playerHome = !playerHome; // Inverti lo stato di playerHome
+                        generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
+                    });
 
                     // Aggiungi l'event listener per il pulsante di toggle
                     toggleButton.addEventListener('click', () => {
@@ -578,21 +654,19 @@ function updateGraphicsOptions() {
                             if (existingInput) {
                                 divBack.removeChild(existingInput);
                             }
-                            const newSelect = document.createElement('select');
-                            newSelect.id = 'goalPlayerSelect';
-                            newSelect.name = 'goalPlayerSelect';
+                        // **Layout 1**
+                        const selectPlayer = document.createElement('select');
+                        selectPlayer.id = 'goalPlayerSelect';
+                        selectPlayer.name = 'goalPlayerSelect';
 
-                            const option1 = document.createElement('option');
-                            option1.value = 'Dennis Brasolin';
-                            option1.textContent = 'Dennis Brasolin';
-                            newSelect.appendChild(option1);
+                        players.forEach(player => {
+                            const option = document.createElement('option');
+                            option.value = player.value;
+                            option.textContent = player.text;
+                            selectPlayer.appendChild(option);
+                        });
 
-                            const option2 = document.createElement('option');
-                            option2.value = 'Felippe Jack';
-                            option2.textContent = 'Felippe Jack';
-                            newSelect.appendChild(option2);
-
-                            divBack.appendChild(newSelect);
+                        divBack.appendChild(selectPlayer);
                         }
 
                         // Rigenera le anteprime per riflettere il cambiamento
@@ -642,12 +716,12 @@ function updateGraphicsOptions() {
                         optionDiv.innerHTML += `
                             <h3>Full Time - Highlights</h3>
                             <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
-                                <div class="col" style="text-align: center; padding-top: 4px;">
+                                <div class="col col100" style="text-align: center; padding-top: 4px;">
                                     <div><label>Home score:</label></div>
                                     <div style="width: 140px"></div>
                                     <div><label>Away score:</label></div>
                                 </div>
-                                <div class="col" style="text-align: center;">
+                                <div class="col col100" style="text-align: center;">
                                     <div>
                                         <div class="cell100">
                                             <input size="2" type="number" class="homeFullScore number" min="0" placeholder="0" value="0">
@@ -697,6 +771,47 @@ function updateGraphicsOptions() {
                     isHalftimeHighlightsAdded = true;
                     }
                     break;
+
+                    case 'startingxi':
+                        optionDiv.innerHTML += `
+                            <h3>Starting XI</h3>
+                            <label>Player:</label>
+                            <div class="player-selection">
+                                ${generatePlayerSelects('p', 11)}
+                            </div>
+                    
+                            <label>Substitutes:</label>
+                            <div class="player-selection player-substitutes-selection">
+                                ${generatePlayerSelects('ps', 10)}
+                            </div>
+                        `;
+                    
+                        // Funzione per generare i select dei giocatori
+                        function generatePlayerSelects(prefix, count) {
+                            let selectsHTML = '';
+                            for (let i = 1; i <= count; i++) {
+                                selectsHTML += `
+                                    <div class="player-select-container">
+                                        <select id="${prefix}${i}" name="player" data-number="${i}">
+                                            <option value="">${i}</option>
+                                        </select>
+                                    </div>
+                                `;
+                            }
+                            return selectsHTML;
+                        }
+                    
+                        // Dopo aver aggiunto l'HTML, seleziona tutti i nuovi select e popolali
+                        const startingXISelects = optionDiv.querySelectorAll('select[name="player"]');
+                        startingXISelects.forEach(select => {
+                            populatePlayerSelect(select);
+                        });
+                    
+                        console.log(`Opzioni aggiunte per grafica: ${cb.value}`);
+
+                    break;
+
+
                 // Aggiungi altri case per altre grafiche se necessario
                 default:
                     // Non aggiungere opzioni per altre grafiche
@@ -718,6 +833,23 @@ function updateGraphicsOptions() {
     });
 }
 
+function handleSelectChange() {
+    const selectedValues = Array.from(document.querySelectorAll('select[name="player"]'))
+        .map(select => select.value)
+        .filter(value => value !== '');
+
+    document.querySelectorAll('select[name="player"]').forEach(select => {
+        select.querySelectorAll('option').forEach(option => {
+            if (selectedValues.includes(option.value)) {
+                option.disabled = true;
+            } else {
+                option.disabled = false;
+            }
+        });
+    });
+}
+
+
 /**
  * Funzione per caricare un'immagine e restituire una Promise
  * @param {string} src - Il percorso dell'immagine da caricare
@@ -736,6 +868,7 @@ function loadImage(src) {
         };
     });
 }
+
 
 /**
  * Funzione per scaricare tutte le immagini generate
@@ -907,6 +1040,41 @@ function getTeamDisplayName(teamValue) {
     return team ? team.text : teamValue;
 }
 
+function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
+    const names = text.split(' | ');
+    const totalNames = names.length;
+
+    if (totalNames === 0) {
+        return;
+    }
+
+    // Determina il numero base di nomi per la prima e terza linea
+    const baseCount = Math.floor(totalNames / 3);
+    const line1Count = baseCount;
+    const line3Count = baseCount;
+    const line2Count = totalNames - (line1Count + line3Count);
+
+    const line1 = names.slice(0, line1Count).join(' | ');
+    const line2 = names.slice(line1Count, line1Count + line2Count).join(' | ');
+    const line3 = names.slice(line1Count + line2Count).join(' | ');
+
+    // Imposta l'allineamento del testo al centro
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+
+    // Disegna le tre linee
+    if (line1) {
+        ctx.fillText(line1, x, y);
+    }
+
+    if (line2) {
+        ctx.fillText(line2, x, y + lineHeight);
+    }
+
+    if (line3) {
+        ctx.fillText(line3, x, y + 2 * lineHeight);
+    }
+}
 /**
  * Funzione per creare le tab delle grafiche
  * @param {Array} selectedGraphics - Array delle grafiche selezionate
@@ -953,6 +1121,30 @@ function createGraphicTabs(selectedGraphics, selectedGraphicName) {
         previewSection.removeChild(existingTabs);
     }
     previewSection.insertBefore(tabsContainer, previewSection.firstChild);
+}
+
+function drawCenteredWrappedText(ctx, text, maxWidth, x, y, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    const lines = [];
+
+    words.forEach(word => {
+        const testLine = line + word + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        if (testWidth > maxWidth && line !== '') {
+            lines.push(line.trim());
+            line = word + ' ';
+        } else {
+            line = testLine;
+        }
+    });
+    lines.push(line.trim());
+
+    lines.forEach((lineText, index) => {
+        const lineWidth = ctx.measureText(lineText).width;
+        ctx.fillText(lineText, x - lineWidth / 2, y + index * lineHeight);
+    });
 }
 
 /**
@@ -1117,6 +1309,184 @@ async function generatePreviews() {
                         ctx.fillStyle = style.combinedScore.color;
                         ctx.textAlign = style.combinedScore.textAlign;
                         ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
+                    } else if (graphicName === 'startingxi') {
+                        const startingXIStyle = style; // graphicStyles['startingxi'][overlayName]
+
+                        const playerStartY = startingXIStyle.playerStartY;
+                        const playerSpacing = startingXIStyle.playerSpacing;
+
+                        const playerIds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11'];
+                        const playerNames = playerIds.map(id => {
+                            const select = document.getElementById(id);
+                            const selectedOption = players.find(p => p.value === select.value);
+                            if (selectedOption && selectedOption.text.includes(' ')) {
+                                // Estrae solo il cognome
+                                return selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                            } else if (selectedOption) {
+                                // Se non c'è uno spazio, utilizza l'intero nome
+                                return selectedOption.text.toUpperCase();
+                            }
+                            return '';
+                        }).filter(name => name !== '');
+
+                        // Imposta lo stile del testo dei giocatori
+                        ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`; // Usa il font specificato
+                        ctx.fillStyle = `white`; // Colore del testo
+                        ctx.textAlign = 'left'; // Allineamento a sinistra
+                        ctx.textBaseline = 'top'; // Allineamento verticale in alto
+
+                        // Disegna ogni cognome del giocatore su una nuova linea, corrispondente all'ID p1-p11
+                        playerNames.forEach((name, index) => {
+                            const yPosition = playerStartY + index * playerSpacing;
+                            ctx.fillText(name, 420, yPosition);
+                        });
+
+
+
+                        const canvas = ctx.canvas;
+                        const canvasWidth = canvas.width;
+
+                        const substitutesIds = ['ps1', 'ps2', 'ps3', 'ps4', 'ps5', 'ps6', 'ps7', 'ps8', 'ps9', 'ps10'];
+                        const substitutesNames = substitutesIds.map(id => {
+                            const select = document.getElementById(id);
+                            const selectedOption = players.find(p => p.value === select.value);
+                            if (selectedOption && selectedOption.text.includes(' ')) {
+                                // Estrae solo il cognome
+                                return selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                            } else if (selectedOption) {
+                                // Se non c'è uno spazio, utilizza l'intero nome
+                                return selectedOption.text.toUpperCase();
+                            }
+                            return '';
+                        }).filter(name => name !== '');
+
+                        // Unisci i nomi con il separatore ' | '
+                        const substitutesText = substitutesNames.join(' | ');
+
+                        // Log per debugging
+                        console.log(`Substitutes Text: "${substitutesText}"`);
+
+                        // Imposta lo stile per i sostituti
+                        const substitutesLineHeight = startingXIStyle.substitutesFontSize + 5; // Altezza di ogni linea
+                        ctx.font = `bold ${startingXIStyle.substitutesFontSize}px ${startingXIStyle.playerFont}`; // Usa lo stesso font dei titolari
+                        ctx.fillStyle = `white`; // Colore del testo
+                        ctx.textAlign = 'center'; // Allineamento centrale
+                        ctx.textBaseline = 'top'; // Allineamento verticale in alto
+
+                        // Calcola la larghezza massima consentita
+                        const maxWidth = 600;
+
+                        // Calcola la posizione y per i sostituti in base ai titolari
+                        const substitutesYPosition = startingXIStyle.substitutesStartY; // 20 pixel di margine dopo i titolari
+
+                        // Disegna il testo suddiviso in tre linee, con la linea centrale più lunga
+                        drawThreeLineCenteredText(ctx, substitutesText, maxWidth, canvas.width / 2, substitutesYPosition, substitutesLineHeight);
+
+
+
+
+
+
+                            // Definisci uno spazio tra i testi
+                            const spacing = 20; // Puoi regolare questo valore secondo le tue preferenze
+
+                            // Disegna il nome della squadra di casa e calcola la larghezza
+                            let homeTeamNameWidth = 0;
+                            let homeTeamText = '';
+                            if (style.homeTeamName) {
+                                homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+                                ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+                                ctx.fillStyle = style.homeTeamName.color;
+                                ctx.textAlign = 'left'; // Impostiamo l'allineamento a sinistra per facilitare il calcolo
+                                ctx.textBaseline = 'middle'; // Allineamento verticale al centro
+
+                                if (style.homeTeamName.letterSpacing) {
+                                    homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+                                } else {
+                                    homeTeamNameWidth = ctx.measureText(homeTeamText).width;
+                                }
+                            }
+
+                            // Disegna il testo 'vs.' e calcola la larghezza
+                            let vsTextWidth = 0;
+                            let vsText = '';
+                            if (style.vsText) {
+                                vsText = 'vs.';
+                                ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+                                ctx.fillStyle = style.vsText.color;
+                                ctx.textAlign = 'left'; // Impostiamo l'allineamento a sinistra per facilitare il calcolo
+                                ctx.textBaseline = 'middle'; // Allineamento verticale al centro
+
+                                if (style.vsText.letterSpacing) {
+                                    vsTextWidth = measureTextWithLetterSpacing(ctx, vsText, style.vsText.letterSpacing);
+                                } else {
+                                    vsTextWidth = ctx.measureText(vsText).width;
+                                }
+                            }
+
+                            // Disegna il nome della squadra ospite e calcola la larghezza
+                            let awayTeamNameWidth = 0;
+                            let awayTeamText = '';
+                            if (style.awayTeamName) {
+                                awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+                                ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+                                ctx.fillStyle = style.awayTeamName.color;
+                                ctx.textAlign = 'left'; // Impostiamo l'allineamento a sinistra per facilitare il calcolo
+                                ctx.textBaseline = 'middle'; // Allineamento verticale al centro
+
+                                if (style.awayTeamName.letterSpacing) {
+                                    awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+                                } else {
+                                    awayTeamNameWidth = ctx.measureText(awayTeamText).width;
+                                }
+                            }
+
+                            // Calcola la larghezza totale del blocco
+                            const totalBlockWidth = homeTeamNameWidth + spacing + vsTextWidth + spacing + awayTeamNameWidth;
+
+                            // Calcola la posizione x iniziale per centrare il blocco
+                            const startX = (canvasWidth - totalBlockWidth) / 2;
+
+                            // Disegna il nome della squadra di casa
+                            if (style.homeTeamName) {
+                                const homeX = startX;
+                                ctx.textAlign = 'left'; // Allineamento a sinistra per la squadra di casa
+                                ctx.fillStyle = style.homeTeamName.color;
+                                ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+                                if (style.homeTeamName.letterSpacing) {
+                                    drawTextWithLetterSpacing(ctx, homeTeamText, homeX, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+                                } else {
+                                    ctx.fillText(homeTeamText, homeX, style.homeTeamName.y);
+                                }
+                            }
+
+                            // Disegna il testo 'vs.'
+                            if (style.vsText) {
+                                const vsX = startX + homeTeamNameWidth + spacing;
+                                ctx.textAlign = 'left'; // Allineamento a sinistra per 'vs.'
+                                ctx.fillStyle = style.vsText.color;
+                                ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+                                ctx.textBaseline = 'middle'; // Allinea verticalmente al centro
+                                if (style.vsText.letterSpacing) {
+                                    drawTextWithLetterSpacing(ctx, vsText, vsX, style.vsText.y, style.vsText.letterSpacing);
+                                } else {
+                                    ctx.fillText(vsText, vsX, style.vsText.y);
+                                }
+                            }
+
+                            // Disegna il nome della squadra ospite
+                            if (style.awayTeamName) {
+                                const awayX = startX + homeTeamNameWidth + spacing + vsTextWidth + spacing;
+                                ctx.textAlign = 'left'; // Allineamento a sinistra per la squadra ospite
+                                ctx.fillStyle = style.awayTeamName.color;
+                                ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+                                if (style.awayTeamName.letterSpacing) {
+                                    drawTextWithLetterSpacing(ctx, awayTeamText, awayX, style.awayTeamName.y, style.awayTeamName.letterSpacing);
+                                } else {
+                                    ctx.fillText(awayTeamText, awayX, style.awayTeamName.y);
+                                }
+                            }
+
                     } else if (graphicName === 'nextmatch' || graphicName === 'matchday') {
                         // Gestione specifica per la grafica 'nextmatch'
 
