@@ -32,7 +32,7 @@ const players = [
     { value: 'Federico Chinetti', text: 'Federico Chinetti' },
     { value: 'Federico Grilli', text: 'Federico Grilli' },
     { value: 'Filippo Galafassi', text: 'Filippo Galafassi' },
-    { value: 'Francesco Andrrealli', text: 'Francesco Andrrealli' },
+    { value: 'Francesco Andrealli', text: 'Francesco Andrealli' },
     { value: 'Giuseppe Mazzaglia', text: 'Giuseppe Mazzaglia' },
     { value: 'Italo Bulgheroni', text: 'Italo Bulgheroni' },
     { value: 'Jean Castegnaro', text: 'Jean Castegnaro' },
