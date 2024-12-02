@@ -201,12 +201,12 @@ const graphicStyles = {
             homeScore: null,
             awayScore: null,
             dateTime: { x: 65, y: 1240, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 810, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            matchDay: { x: 65, y: 800, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: { x: 65, y: 160, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
+            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
         },
         'overlay_9x16': {
             homeLogo: null,
@@ -215,12 +215,12 @@ const graphicStyles = {
             homeScore: null,
             awayScore: null,
             dateTime: { x: 65, y: 1240 + 415, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 810 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            matchDay: { x: 65, y: 800 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: { x: 65, y: 200, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
+            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
         }
     },
     'matchday': {
@@ -231,12 +231,12 @@ const graphicStyles = {
             homeScore: null,
             awayScore: null,
             dateTime: { x: 65, y: 1240, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 810, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            matchDay: { x: 65, y: 800, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: null,
             homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
+            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
         },
         'overlay_9x16': {
             homeLogo: null,
@@ -245,14 +245,19 @@ const graphicStyles = {
             homeScore: null,
             awayScore: null,
             dateTime: { x: 65, y: 1240 + 415, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 810 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            matchDay: { x: 65, y: 800 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: null,
             homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: -2 }
+            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
         }
     },
+    'insta': {
+        'overlay_9x16': {
+
+        }
+    }
     // Aggiungi altre grafiche qui con disposizioni specifiche per ogni formato
 };
 
@@ -274,7 +279,8 @@ const graphicsFormats = {
     'livematch': ['overlay_5x8', 'overlay_16x9'],
     'highlights': ['overlay_5x8', 'overlay_16x9'],
     'nextmatch': ['overlay_4x5', 'overlay_9x16'],
-    'matchday': ['overlay_4x5', 'overlay_9x16']
+    'matchday': ['overlay_4x5', 'overlay_9x16'],
+    'insta' : ['overlay_9x16']
 };
 
 // Definizione delle grafiche che richiedono l'uso dei loghi delle squadre
@@ -294,7 +300,7 @@ let playerHome = false;
 
 // Definizione del team fisso
 const fixedTeam = {
-    value: 'como1907',
+    value: 'como 1907',
     text: 'Como 1907'
 };
 
@@ -352,7 +358,6 @@ function populateTeams() {
                 { value: 'atalanta', text: 'Atalanta' },
                 { value: 'bologna', text: 'Bologna' },
                 { value: 'cagliari', text: 'Cagliari' },
-                { value: 'como1907', text: 'Como 1907' },
                 { value: 'empoli', text: 'Empoli' },
                 { value: 'fiorentina', text: 'Fiorentina' },
                 { value: 'genoa', text: 'Genoa' },
@@ -724,7 +729,7 @@ function updateGraphicsOptions() {
                                 <div class="col col100" style="text-align: center;">
                                     <div>
                                         <div class="cell100">
-                                            <input size="2" type="number" class="homeFullScore number" min="0" placeholder="0" value="0">
+                                            <input size="2" id="homeFullScore" type="number" class="homeFullScore number" min="0" placeholder="0" value="0">
                                         </div>
                                     </div>
                                     <div style="width: 140px;">
@@ -732,7 +737,7 @@ function updateGraphicsOptions() {
                                     </div>
                                     <div>
                                         <div class="cell100">
-                                            <input type="number" class="awayFullScore number" min="0" placeholder="0" value="0">
+                                            <input type="number" id="awayFullScore" class="awayFullScore  number" min="0" placeholder="0" value="0">
                                         </div>
                                     </div>
                                 </div>
@@ -912,6 +917,24 @@ function getFilenameForCanvas(canvas) {
     return filename;
 }
 
+
+
+/**
+ * Funzione per formattare la data
+ * @param {Date} dateObj - L'oggetto Date da formattare
+ * @param {string} timeZoneAbbreviation - Abbreviazione del fuso orario (es. 'CET', 'WIB')
+ * @param {string} locale - Locale per la formattazione della data (es. 'en-GB')
+ * @returns {string} - La data formattata come "NOVEMBER 16 | 15:00 CET"
+ */
+function formatDateMatch(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB') {
+    const optionsDate = { month: 'long', day: 'numeric' };
+    const formattedDate = dateObj.toLocaleDateString(locale, optionsDate).toUpperCase();
+    const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
+    return `${formattedDate} | ${formattedTime} ${timeZoneAbbreviation}`;
+}
+
+
+
 /**
  * Funzione per formattare la data
  * @param {Date} dateObj - L'oggetto Date da formattare
@@ -949,6 +972,8 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
         rectWidth = canvasWidth - 400; // Riduci 180px sul lato lungo (larghezza)
         rectHeight = canvasHeight;
     }
+    
+
 
     // Determina l'orientamento dell'immagine
     const imgAspect = img.width / img.height;
@@ -1276,7 +1301,7 @@ async function generatePreviews() {
                     if (graphicName === 'highlights') {
                         // Disegna i loghi e il testo combinato centralmente
                         if (style.homeLogo) {
-                            const homeLogoSrc = homeTeamSelect.value === 'como1907'
+                            const homeLogoSrc = homeTeamSelect.value === 'como 1907'
                                 ? `images/badge/all/como.png`
                                 : `images/badge/${championshipSelect.value}/${homeTeamSelect.value}.png`;
                             const homeLogo = await loadImage(homeLogoSrc);
@@ -1286,7 +1311,7 @@ async function generatePreviews() {
                         }
 
                         if (style.awayLogo) {
-                            const awayLogoSrc = awayTeamSelect.value === 'como1907'
+                            const awayLogoSrc = awayTeamSelect.value === 'como 1907'
                                 ? `images/badge/all/como.png`
                                 : `images/badge/${championshipSelect.value}/${awayTeamSelect.value}.png`;
                             const awayLogo = await loadImage(awayLogoSrc);
@@ -1551,7 +1576,7 @@ async function generatePreviews() {
 
                         // Disegna la data del match
                         if (style.dateTime) {
-                            const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
+                            const dateText = formatDateMatch(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
                             ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
                             ctx.fillStyle = style.dateTime.color;
                             ctx.textAlign = 'left';
@@ -1597,11 +1622,27 @@ async function generatePreviews() {
                                 ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
                             }
                         }
+                    } else if (graphicName === 'insta') {
+                        // *** Nuova Gestione per 'insta' ***
+                        // Disegna un rettangolo trasparente di 500x300px al centro del canvas
+                        const rectWidth = 500;
+                        const rectHeight = 300;
+                        const rectX = (canvas.width - rectWidth) / 2;
+                        const rectY = (canvas.height - rectHeight) / 2;
+
+                        // Imposta il metodo di composizione per rendere il rettangolo trasparente
+                        ctx.save();
+                        ctx.globalCompositeOperation = 'destination-out';
+                        ctx.fillStyle = 'rgba(0,255,1)'; // Colore arbitrario, l'opacità verrà ignorata
+                        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+                        ctx.restore();
+
+                        // Puoi aggiungere ulteriori elementi grafici o testo qui se necessario
                     } else {
                         // Gestione delle altre grafiche
                         // Disegna i loghi
                         if (style.homeLogo) {
-                            const homeLogoSrc = homeTeamSelect.value === 'como1907'
+                            const homeLogoSrc = homeTeamSelect.value === 'como 1907'
                                 ? `images/badge/all/como.png`
                                 : `images/badge/${championshipSelect.value}/${homeTeamSelect.value}.png`;
                             const homeLogo = await loadImage(homeLogoSrc);
@@ -1611,7 +1652,7 @@ async function generatePreviews() {
                         }
 
                         if (style.awayLogo) {
-                            const awayLogoSrc = awayTeamSelect.value === 'como1907'
+                            const awayLogoSrc = awayTeamSelect.value === 'como 1907'
                                 ? `images/badge/all/como.png`
                                 : `images/badge/${championshipSelect.value}/${awayTeamSelect.value}.png`;
                             const awayLogo = await loadImage(awayLogoSrc);

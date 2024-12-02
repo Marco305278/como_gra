@@ -232,6 +232,10 @@ h4 {
     flex-direction: column;
 }
 
+#jsonDisplay {
+    color: white;
+}
+
 .cell100 {
     width: 100%;
     display: flex;
@@ -528,7 +532,8 @@ button.active {
 }
 
 canvas {
-    border: 5px solid #8eb2da;
+    border: 6px solid #8eb2da;
+    border-radius: 16px;
     margin-top: 15px;
     max-width: 100%;
     height: auto;
