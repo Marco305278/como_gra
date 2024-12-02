@@ -257,6 +257,12 @@ const graphicStyles = {
         'overlay_9x16': {
 
         }
+    },
+    'tickets': {
+        'overlay_4x5': {
+            homeLogo: { x: 210, y: 530, width: 300, height: 300 },
+            awayLogo: { x: 575, y: 530, width: 300, height: 300 },
+        }
     }
     // Aggiungi altre grafiche qui con disposizioni specifiche per ogni formato
 };
@@ -280,6 +286,7 @@ const graphicsFormats = {
     'highlights': ['overlay_5x8', 'overlay_16x9'],
     'nextmatch': ['overlay_4x5', 'overlay_9x16'],
     'matchday': ['overlay_4x5', 'overlay_9x16'],
+    'tickets': ['overlay_4x5'],
     'insta' : ['overlay_9x16']
 };
 
