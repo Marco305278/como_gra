@@ -1625,8 +1625,8 @@ async function generatePreviews() {
                     } else if (graphicName === 'insta') {
                         // *** Nuova Gestione per 'insta' ***
                         // Disegna un rettangolo trasparente di 500x300px al centro del canvas
-                        const rectWidth = 500;
-                        const rectHeight = 300;
+                        const rectWidth = 629;
+                        const rectHeight = 788;
                         const rectX = (canvas.width - rectWidth) / 2;
                         const rectY = (canvas.height - rectHeight) / 2;
 
