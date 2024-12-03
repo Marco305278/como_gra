@@ -1248,9 +1248,9 @@ function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
     const line3Count = baseCount;
     const line2Count = totalNames - (line1Count + line3Count);
 
-    const line1 = names.slice(0, line1Count).join(' | ');
-    const line2 = names.slice(line1Count, line1Count + line2Count).join(' | ');
-    const line3 = names.slice(line1Count + line2Count).join(' | ');
+    const line1 = names.slice(0, line1Count).join('  |  ');
+    const line2 = names.slice(line1Count, line1Count + line2Count).join('  |  ');
+    const line3 = names.slice(line1Count + line2Count).join('  |  ');
 
     // Imposta l'allineamento del testo al centro
     ctx.textAlign = 'center';
