@@ -29,7 +29,7 @@ let jsondata = {};
  */
 async function fetchData() {
     try {
-        const response = await fetch('/data/info.json'); // Adjust the path as needed
+        const response = await fetch('info.json'); // Adjust the path as needed
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
