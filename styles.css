@@ -462,6 +462,21 @@ input[type="text"]:focus, input[type="number"]:focus, select:focus {
     background-color: #af360f;
 }
 
+.swap-button-player {
+    margin-left: 8px;
+    padding: 10px;
+    max-height: 42px;
+    background-color: #e04413;
+    border-radius: 6px;
+    border: none;
+    transition: all .5s cubic-bezier(.215, .61, .355, 1);
+    cursor: pointer;
+}
+
+.swap-button-player:hover {
+    background-color: #af360f;
+}
+
 .button {
     margin-top: 25px;
     margin-right: 12px;

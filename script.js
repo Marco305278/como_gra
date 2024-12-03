@@ -296,6 +296,8 @@ let customFullOverlay = false;
 
 let playerHome = true;
 
+let playerFotoNumber = false
+
 // Definizione del team fisso
 const fixedTeam = {
     value: 'como 1907',
@@ -392,6 +394,7 @@ function toggleTeams() {
 
     isHomeFixed = !isHomeFixed;
     playerHome = !playerHome;
+    playerFotoNumber = !playerFotoNumber;
 
     generatePreviews();
 }
@@ -476,7 +479,30 @@ function updateGraphicsOptions() {
                     const divBack = document.createElement('div');
                     divBack.classList.add('div_back');
                     div2.appendChild(divBack);
+
+                    if (championshipSelect.value == 'seriea') {
+
+                    const swapPlayerFotoNumber = document.createElement('div');
+                    swapPlayerFotoNumber.id = 'swapPlayer';
+                    swapPlayerFotoNumber.classList.add('swap-button-player');
+                    const swapPlayerFotoNumberImg = document.createElement('img');
+                    swapPlayerFotoNumberImg.src = 'images/assets/swap-arrow.svg';
+                    swapPlayerFotoNumberImg.alt = 'Swap Teams';
+                    swapPlayerFotoNumberImg.width = '20';
+                    swapPlayerFotoNumber.appendChild(swapPlayerFotoNumberImg);
+                    div2.appendChild(swapPlayerFotoNumber);
+
+                    // Event listener per swapHome
+                    swapPlayerFotoNumber.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        playerFotoNumber = !playerFotoNumber; // Inverti lo stato di playerHome
+                        generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
+                    });
+
+                    }
+
                     div2.appendChild(swapHome);
+                    
 
                     // Crea il pulsante per alternare i layout
                     const toggleButton = document.createElement('div');
@@ -545,6 +571,8 @@ function updateGraphicsOptions() {
                         playerHome = !playerHome; // Inverti lo stato di playerHome
                         generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
                     });
+
+                    
 
                     // Aggiungi l'event listener per il pulsante di toggle
                     toggleButton.addEventListener('click', () => {
@@ -795,7 +823,7 @@ function updateGraphicsOptions() {
             if (isCustom) {
                 fieldsHTML += `
                     <div class="player-input-container">
-                        <input id="${prefix}${i}" name="player" data-number="${i}" placeholder="Player ${i}">
+                        <input id="${prefix}${i}" name="player" data-number="${i}" placeholder="${i} Player">
                     </div>
                 `;
             } else {
@@ -1390,12 +1418,17 @@ async function generatePreviews() {
                 const selectedPlayer = currentPlayers.find(p => p.value === (playerSelect ? playerSelect.value : ''));
                 
                 // Ottieni il nome del giocatore formattato o usa un valore predefinito
-                const playerName = selectedPlayer ? selectedPlayer.text.replace(/\s+/g, '_').toLowerCase() : 'default_player';
+                const playerName = selectedPlayer ? selectedPlayer.value.replace(/\s+/g, '_').toLowerCase() : 'default_player';
                 
                 // Determina la posizione in base allo stato di `playerHome`
                 const position = playerHome ? 'home' : 'away';
 
-                bgImageSrc = backgroundImages['goal'] || `images/graphics/goal/player/${championshipSelect.value}/${position}/${playerName}.png`;
+                if (championshipSelect.value == 'seriea') { 
+                    const goalfotonumber = playerFotoNumber ? '_2' : '';
+                    bgImageSrc = backgroundImages['goal'] || `images/graphics/goal/player/${championshipSelect.value}/${position}/${playerName}${goalfotonumber}.png`;
+                } else {
+                    bgImageSrc = backgroundImages['goal'] || `images/graphics/goal/player/${championshipSelect.value}/${position}/${playerName}.png`;
+                }
             }
 
             const overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
@@ -1499,53 +1532,157 @@ async function generatePreviews() {
                         const captainValue = captainSelect.value;
                         
                         const playerIds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11'];
+
                         const playerNames = playerIds.map(id => {
-                            if (!customStartingXIPlayer) {
-                                // Caso in cui customStartingXIPlayer è false: utilizza i select
-                                const select = document.getElementById(id);
-                                const selectedOption = currentPlayers.find(p => p.value === select.value);
-                                if (selectedOption && selectedOption.text.includes(' ')) {
-                                    // Estrae solo il cognome
-                                    let lastName = selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
-                                    // Aggiungi '(C)' se è il capitano
-                                    if (select.value === captainValue) {
-                                        lastName += ' (C)';
-                                    }
-                                    return lastName;
-                                } else if (selectedOption) {
-                                    // Se non c'è uno spazio, utilizza l'intero nome
-                                    let name = selectedOption.text.toUpperCase();
-                                    // Aggiungi '(C)' se è il capitano
-                                    if (select.value === captainValue) {
-                                        name += ' (C)';
-                                    }
-                                    return name;
-                                }
-                            } else {
-                                // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
-                                const input = document.getElementById(id);
-                                let name = input.value.trim().toUpperCase();
-                                if (name) {
-                                    // Aggiungi '(C)' se è il capitano
-                                    if (name === captainValue.toUpperCase()) {
-                                        name += ' (C)';
-                                    }
-                                    return name;
-                                }
-                            }
-                            return '';
-                        }).filter(name => name !== '');
-                        // Imposta lo stile del testo dei giocatori
-                        ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`; // Usa il font specificato
-                        ctx.fillStyle = `white`; // Colore del testo
-                        ctx.textAlign = 'left'; // Allineamento a sinistra
-                        ctx.textBaseline = 'top'; // Allineamento verticale in alto
+                            if (championshipSelect.value == 'primavera') {
+                                if (!customStartingXIPlayer) {
+                                    // Caso in cui customStartingXIPlayer è false: utilizza i select
+                                    const select = document.getElementById(id);
+                                    const selectedOption = currentPlayers.find(p => p.value === select.value);
+                                    if (selectedOption) {
+                                        let name = '';
+                                        // Estrai il numero dal data-number
+                                        const number = select.dataset.number || '';
                         
-                        // Disegna ogni cognome del giocatore su una nuova linea, corrispondente all'ID p1-p11
-                        playerNames.forEach((name, index) => {
-                            const yPosition = playerStartY + index * playerSpacing;
-                            ctx.fillText(name, 420, yPosition);
-                        });
+                                        if (selectedOption.text.includes(' ')) {
+                                            // Estrae solo il cognome
+                                            name = selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                                        } else {
+                                            // Se non c'è uno spazio, utilizza l'intero nome
+                                            name = selectedOption.text.toUpperCase();
+                                        }
+                        
+                                        // Aggiungi '(C)' se è il capitano
+                                        if (select.value === captainValue) {
+                                            name += ' (C)';
+                                        }
+                        
+                                        return { number, name };
+                                    }
+                                } else {
+                                    // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
+                                    const input = document.getElementById(id);
+                                    const inputValue = input.value.trim().toUpperCase();
+                                    if (inputValue) {
+                                        // Suddividi l'input in 'number' e 'name' basandoti sul primo spazio
+                                        const firstSpaceIndex = inputValue.indexOf(' ');
+                                        
+                                        // Verifica se c'è almeno uno spazio nell'input
+                                        if (firstSpaceIndex !== -1) {
+                                            const number = inputValue.substring(0, firstSpaceIndex);
+                                            let name = inputValue.substring(firstSpaceIndex + 1);
+                        
+                                            // Aggiungi '(C)' se è il capitano
+                                            if (name === captainValue.toUpperCase()) {
+                                                name += ' (C)';
+                                            }
+                        
+                                            return { number, name };
+                                        } else {
+                                            // Gestisci il caso in cui non ci sia uno spazio nell'input
+                                            console.warn(`Input invalido per l'ID "${id}". Formato atteso: "numero nome".`);
+                                            return null;
+                                        }
+                                    }
+                                }
+                                return null;
+                            } else {
+                                if (!customStartingXIPlayer) {
+                                    // Caso in cui customStartingXIPlayer è false: utilizza i select
+                                    const select = document.getElementById(id);
+                                    const selectedOption = currentPlayers.find(p => p.value === select.value);
+                                    if (selectedOption) {
+                                        let name = '';
+                                        // Estrai il numero direttamente dal campo 'number' dell'oggetto JSON
+                                        const number = selectedOption.number || '';
+                        
+                                        if (selectedOption.text.includes(' ')) {
+                                            // Estrae solo il cognome
+                                            name = selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                                        } else {
+                                            // Se non c'è uno spazio, utilizza l'intero nome
+                                            name = selectedOption.text.toUpperCase();
+                                        }
+                        
+                                        // Aggiungi '(C)' se è il capitano
+                                        if (select.value === captainValue) {
+                                            name += ' (C)';
+                                        }
+                        
+                                        return { number, name };
+                                    }
+                                } else {
+                                    // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
+                                    const input = document.getElementById(id);
+                                    const inputValue = input.value.trim().toUpperCase();
+                        
+                                    if (inputValue) {
+                                        // Suddividi l'input in 'number' e 'name' basandoti sul primo spazio
+                                        const firstSpaceIndex = inputValue.indexOf(' ');
+                                        
+                                        // Verifica se c'è almeno uno spazio nell'input
+                                        if (firstSpaceIndex !== -1) {
+                                            const number = inputValue.substring(0, firstSpaceIndex);
+                                            let name = inputValue.substring(firstSpaceIndex + 1);
+                        
+                                            // Aggiungi '(C)' se è il capitano
+                                            if (name === captainValue.toUpperCase()) {
+                                                name += ' (C)';
+                                            }
+                        
+                                            return { number, name };
+                                        } else {
+                                            // Gestisci il caso in cui non ci sia uno spazio nell'input
+                                            console.warn(`Input invalido per l'ID "${id}". Formato atteso: "numero nome".`);
+                                            return null;
+                                        }
+                                    }
+                                }
+                                return null;
+                            }
+                        }).filter(player => player !== null);
+                        
+                        /* --- Parte di Disegno sul Canvas --- */
+                        
+                        // Imposta lo stile del testo dei giocatori
+                        ctx.font = `bold ${startingXIStyle.playerFontSize}px bodoni-72-book-italic`; // Usa il font specificato
+                        ctx.fillStyle = `white`; // Colore del testo
+                        ctx.textAlign = 'right'; // Allineamento a destra per i numeri
+                        ctx.textBaseline = 'top'; // Allineamento verticale in alto
+
+                        if (championshipSelect.value == 'primavera') {
+                            // Disegna i numeri dei giocatori
+                            playerNames.forEach(player => {
+                                const yPosition = playerStartY + (player.number - 1) * playerSpacing; // Assumendo che number sia da 1 a 11
+                                ctx.fillText(player.number, 380, yPosition);
+                            });
+
+                            ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`; // Usa il font specificato
+                            ctx.textAlign = 'left'; // Allineamento a sinistra per i nomi
+
+                            // Disegna i nomi dei giocatori
+                            playerNames.forEach(player => {
+                                const yPosition = playerStartY + (player.number - 1) * playerSpacing; // Allinea i nomi con i numeri
+                                ctx.fillText(player.name, 420, yPosition); // Posiziona i nomi leggermente a destra dei numeri
+                            });
+                        } else {
+                            // Disegna i numeri dei giocatori
+                            playerNames.forEach((player, index) => {
+                                const yPosition = playerStartY + index * playerSpacing; // Assumendo che number sia da 1 a 11
+                                ctx.fillText(player.number, 380, yPosition);
+                            });
+
+                            ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`; // Usa il font specificato
+                            ctx.textAlign = 'left'; // Allineamento a sinistra per i nomi
+
+                            // Disegna i nomi dei giocatori
+                            playerNames.forEach((player, index) => {
+                                const yPosition = playerStartY + index * playerSpacing; // Allinea i nomi con i numeri
+                                ctx.fillText(player.name, 420, yPosition); // Posiziona i nomi leggermente a destra dei numeri
+                            });
+                        }
+                        
+                        
 
 
 
