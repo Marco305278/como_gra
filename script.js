@@ -19,35 +19,28 @@ const stadiumInput = document.getElementById('stadium');
 const matchDayInput = document.getElementById('matchDay');
 const decreaseButton = document.getElementById('decrease');
 const increaseButton = document.getElementById('increase');
+const halftimeCheckbox = document.getElementById('customHalfOverlay');
+const fulltimeCheckbox = document.getElementById('customFullOverlay');
 
-const players = [
-    { value: 'Ali Jasim', text: 'Ali Jasim' },
-    { value: 'Ben Kone', text: 'Ben Kone' },
-    { value: 'Cristian Mazzara', text: 'Cristian Mazzara' },
-    { value: 'Dennis Brasolin', text: 'Dennis Brasolin' },
-    { value: 'Dinay Bierstekers', text: 'Dinay Bierstekers' },
-    { value: 'Enea Bernasconi', text: 'Enea Bernasconi' },
-    { value: 'Fabio Ronchetti', text: 'Fabio Ronchetti' },
-    { value: 'Felippe Jack', text: 'Felippe Jack' },
-    { value: 'Federico Chinetti', text: 'Federico Chinetti' },
-    { value: 'Federico Grilli', text: 'Federico Grilli' },
-    { value: 'Filippo Galafassi', text: 'Filippo Galafassi' },
-    { value: 'Francesco Andrealli', text: 'Francesco Andrealli' },
-    { value: 'Giuseppe Mazzaglia', text: 'Giuseppe Mazzaglia' },
-    { value: 'Italo Bulgheroni', text: 'Italo Bulgheroni' },
-    { value: 'Jean Castegnaro', text: 'Jean Castegnaro' },
-    { value: 'João Cardozo', text: 'João Cardozo' },
-    { value: 'Mattia Arioli', text: 'Mattia Arioli' },
-    { value: 'Matteo Papaccioli', text: 'Matteo Papaccioli' },
-    { value: 'Manuel Pisano', text: 'Manuel Pisano' },
-    { value: 'Marco ortelli', text: 'Marco ortelli' },
-    { value: 'Naj Razi', text: 'Naj Razi' },
-    { value: 'Omar Lebyad', text: 'Omar Lebyad' },
-    { value: 'Pasquale Piscitelli', text: 'Pasquale Piscitelli' },
-    { value: 'Silvano Biggi', text: 'Silvano Biggi' },
-    { value: 'William Feola', text: 'William Feola' },
-    // Aggiungi altri giocatori secondo necessità
-];
+let jsondata = {};
+
+/**
+ * Function to fetch JSON data
+ */
+async function fetchData() {
+    try {
+        const response = await fetch('/data/info.json'); // Adjust the path as needed
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        jsondata = data;
+        console.log('JSON data successfully loaded:', data);
+    } catch (error) {
+        console.error('Error fetching JSON data:', error);
+    }
+}
+
 
 // Configurazione delle disposizioni degli elementi per ogni grafica e formato
 const graphicStyles = {
@@ -95,27 +88,27 @@ const graphicStyles = {
         'overlay_4x5': {
             homeLogo: { x: 70, y: 950, width: 165, height: 165 },
             awayLogo: { x: 250, y: 950, width: 165, height: 165 },
-            championshipLogo: { x: 70, y: 50, width: 130, height: 212 },
+            championshipLogo: { x: 70, y: 45, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 70, y: 340, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
+            dateTime: { x: 70, y: 335, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             matchDay: null
         },
         'overlay_9x16': {
             homeLogo: { x: 70, y: 1250, width: 165, height: 165 },
             awayLogo: { x: 250, y: 1250, width: 165, height: 165 },
-            championshipLogo: { x: 70, y: 350, width: 130, height: 212 },
+            championshipLogo: { x: 70, y: 325, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 70, y: 620, fontSize: 68, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
+            dateTime: { x: 70, y: 600, fontSize: 68, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             matchDay: null
         }
     },
     'startingxi': {
         'overlay_4x5': {
-            homeTeamName: { y: 330, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
-            vsText: { y: 330, fontSize: 62, color: 'white', font: 'bodoni-72-book-italic' },
-            awayTeamName: { y: 330, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
+            homeTeamName: { y: 315, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
+            vsText: { y: 315, fontSize: 62, color: 'white', font: 'bodoni-72-book-italic' },
+            awayTeamName: { y: 315, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
             playerFontSize: 47,          // Dimensione del font per i nomi dei giocatori
             playerSpacing: 57,           // Spaziatura verticale tra i nomi dei giocatori
             playerStartY: 400,            // Posizione y iniziale per il primo nome
@@ -135,8 +128,8 @@ const graphicStyles = {
     },
     'goal': {
         'overlay_4x5': {
-            homeLogo: { x: 750, y: 50, width: 150, height: 150 },
-            awayLogo: { x: 750, y: 235, width: 150, height: 150 },
+            homeLogo: { x: 720, y: 50, width: 150, height: 150 },
+            awayLogo: { x: 720, y: 235, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
             homeScore: { x: 910, y: 180, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
             awayScore: { x: 910, y: 365, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
@@ -145,8 +138,8 @@ const graphicStyles = {
             playerName: { x: 70, y: 1250, fontSize: 130, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 }
         },
         'overlay_9x16': {
-            homeLogo: { x: 750, y: 150, width: 150, height: 150 },
-            awayLogo: { x: 750, y: 335, width: 150, height: 150 },
+            homeLogo: { x: 720, y: 150, width: 150, height: 150 },
+            awayLogo: { x: 720, y: 335, width: 150, height: 150 },
             championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
             homeScore: { x: 910, y: 280, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
             awayScore: { x: 910, y: 465, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
@@ -162,7 +155,7 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 140, y: 640, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
+            dateTime: { x: 150, y: 630, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
             matchDay: null // Non richiesto per questa grafica
         },
         'overlay_16x9': {
@@ -171,7 +164,7 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 640, y: 665, fontSize: 34, color: 'white', font: 'MazzardH-Medium', letterSpacing: 8 },
+            dateTime: { x: 665, y: 660, fontSize: 34, color: 'white', font: 'MazzardH-Medium', letterSpacing: 8 },
             matchDay: null // Non richiesto per questa grafica
         }
     },
@@ -254,9 +247,7 @@ const graphicStyles = {
         }
     },
     'insta': {
-        'overlay_9x16': {
-
-        }
+        'overlay_9x16': {}
     },
     'tickets': {
         'overlay_4x5': {
@@ -264,7 +255,6 @@ const graphicStyles = {
             awayLogo: { x: 575, y: 530, width: 300, height: 300 },
         }
     }
-    // Aggiungi altre grafiche qui con disposizioni specifiche per ogni formato
 };
 
 // Definizione dei formati e delle dimensioni
@@ -299,11 +289,17 @@ const graphicsRequireStadiumLocation = ['nextmatch', 'matchday']; // Grafiche ch
 // Definizione delle grafiche che richiedono solo il logo del campionato
 const graphicsWithChampionshipLogo = ['nextmatch', 'matchday'];
 
-// Variabile di stato per gestire lo swap
-let isHomeFixed = true; // Inizialmente, Home Team è fisso su "Como 1907"
+let isHomeFixed = true;
 
 let customPlayer = false;
-let playerHome = false;
+
+let customStartingXIPlayer = false;
+let customStartingXISubstitutes = false;
+
+let customHalfOverlay = false;
+let customFullOverlay = false;
+
+let playerHome = true;
 
 // Definizione del team fisso
 const fixedTeam = {
@@ -356,102 +352,45 @@ function populateSelectableSelect(selectElement, teams, selectedValue = null) {
  * Funzione per popolare le squadre in base al campionato selezionato
  */
 function populateTeams() {
-    const championship = championshipSelect.value;
-    let teams = [];
+    const championship = championshipSelect.value; // Ottieni il valore selezionato
+    console.log(`Selected Championship: "${championship}"`); // Log di debug
 
-    switch (championship) {
-        case 'seriea':
-            teams = [
-                { value: 'atalanta', text: 'Atalanta' },
-                { value: 'bologna', text: 'Bologna' },
-                { value: 'cagliari', text: 'Cagliari' },
-                { value: 'empoli', text: 'Empoli' },
-                { value: 'fiorentina', text: 'Fiorentina' },
-                { value: 'genoa', text: 'Genoa' },
-                { value: 'inter', text: 'Inter' },
-                { value: 'juventus', text: 'Juventus' },
-                { value: 'lazio', text: 'Lazio' },
-                { value: 'lecce', text: 'Lecce' },
-                { value: 'milan', text: 'Milan' },
-                { value: 'monza', text: 'Monza' },
-                { value: 'napoli', text: 'Napoli' },
-                { value: 'parma', text: 'Parma' },
-                { value: 'roma', text: 'Roma' },
-                { value: 'sampdoria', text: 'Sampdoria' },
-                { value: 'torino', text: 'Torino' },
-                { value: 'udinese', text: 'Udinese' },
-                { value: 'venezia', text: 'Venezia' },
-                { value: 'verona', text: 'Verona' }
-            ];
-            break;
-        case 'primavera':
-            teams = [
-                { value: 'albinoleffe', text: 'Albinoleffe' },
-                { value: 'ascoli', text: 'Ascoli' },
-                { value: 'bari', text: 'Bari' },
-                { value: 'brescia', text: 'Brescia' },
-                { value: 'catanzaro', text: 'Catanzaro' },
-                { value: 'cittadella', text: 'Cittadella' },
-                { value: 'cosenza', text: 'Cosenza' },
-                { value: 'cremonese', text: 'Cremonese' },
-                { value: 'feralpisalo', text: 'Feralpisalò' },
-                { value: 'lecco', text: 'Lecco' },
-                { value: 'modena', text: 'Modena' },
-                { value: 'padova', text: 'Padova' },
-                { value: 'palermo', text: 'Palermo' },
-                { value: 'parma', text: 'Parma' },
-                { value: 'pisa', text: 'Pisa' },
-                { value: 'reggiana', text: 'Reggiana' },
-                { value: 'sampdoria', text: 'Sampdoria' },
-                { value: 'spal', text: 'Spal' },
-                { value: 'spezia', text: 'Spezia' },
-                { value: 'sudtirol', text: 'Sudtirol' },
-                { value: 'ternana', text: 'Ternana' },
-                { value: 'venezia', text: 'Venezia' },
-                { value: 'virtusentella', text: 'Virtus Entella' }
-            ];
-            break;
-        case 'women':
-            teams = [
-                { value: 'acm', text: 'ACM' },
-                { value: 'bresso', text: 'Bresso' },
-                { value: 'castellocittadicantu', text: 'Castello Città di Cantù' },
-                { value: 'circologiovanilebresso', text: 'Circolo Giovanile Bresso' },
-                { value: 'cittadibrugherio', text: 'Città di Brugherio' },
-                { value: 'cittadisegrate', text: 'Città di Segrate' },
-                { value: 'cittadivarese', text: 'Città di Varese' },
-                { value: 'crema', text: 'Crema' },
-                { value: 'doverese', text: 'Doverese' },
-                { value: 'erbusco', text: 'Erbusco' },
-                { value: 'fiammamonza', text: 'Fiammamonza' },
-                { value: 'mantova', text: 'Mantova' },
-                { value: 'propalazzolo', text: 'Pro Palazzolo' },
-                { value: 'rizzonese', text: 'Rizzonese' },
-                { value: 'tabiago', text: 'Tabiago' }
-            ];
-            break;
-        default:
-            teams = [];
+    // Verifica che jsondata e jsondata.teams siano definiti
+    if (!jsondata || !jsondata.teams) {
+        console.error('jsondata o jsondata.teams è undefined');
+        return;
     }
 
-    currentTeams = teams;
+    // Recupera le squadre per il campionato selezionato
+    const teams = jsondata.teams[championship];
+    if (!teams) {
+        console.error(`Nessuna squadra trovata per il campionato: "${championship}"`);
+        return;
+    }
+
+    currentTeams = teams; // Aggiorna le squadre correnti
+
+    console.log('Current Teams:', currentTeams); // Log di debug
 
     if (isHomeFixed) {
+        // Imposta il team fisso come squadra di casa
         homeTeamSelect.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
         homeTeamSelect.disabled = true;
 
+        // Abilita la selezione della squadra ospite
         awayTeamSelect.disabled = false;
         populateSelectableSelect(awayTeamSelect, currentTeams);
     } else {
+        // Imposta il team fisso come squadra ospite
         awayTeamSelect.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
         awayTeamSelect.disabled = true;
 
+        // Abilita la selezione della squadra di casa
         homeTeamSelect.disabled = false;
         populateSelectableSelect(homeTeamSelect, currentTeams);
     }
 
-
-    console.log(`Popolate le squadre per il campionato: ${championship}`);
+    console.log(`Popolate le squadre per il campionato: "${championship}"`);
 }
 
 /**
@@ -485,8 +424,12 @@ function toggleTeams() {
 }
 
 
+/**
+ * Funzione per popolare un singolo select di giocatori
+ * @param {HTMLElement} selectElement - L'elemento select da popolare
+ */
 function populatePlayerSelect(selectElement) {
-    // Pulisci eventuali opzioni esistenti (tranne la prima)
+    // Pulisci le opzioni esistenti
     selectElement.innerHTML = '';
 
     // Ottieni il numero dal data attribute
@@ -498,7 +441,12 @@ function populatePlayerSelect(selectElement) {
     defaultOption.textContent = number;
     selectElement.appendChild(defaultOption);
 
-    // Aggiungi le opzioni dei giocatori
+    const championship = championshipSelect.value;
+
+    // Recupera i giocatori per la categoria determinata
+    const players = jsondata.players[championship] || [];
+
+    // Popola le opzioni dei giocatori
     players.forEach(player => {
         const option = document.createElement('option');
         option.value = player.value;
@@ -578,7 +526,7 @@ function updateGraphicsOptions() {
 
                     // Imposta l'icona iniziale in base allo stato di customPlayer
                     const toggleImg = document.createElement('img');
-                    toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/plus.svg';
+                    toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/edit.svg';
                     toggleImg.alt = 'Toggle Player Input';
                     toggleButton.appendChild(toggleImg);
                     divBack.appendChild(toggleButton);
@@ -595,10 +543,13 @@ function updateGraphicsOptions() {
 
                     // Aggiungi il select o l'input in base allo stato di customPlayer
                     if (!customPlayer) {
-                        // **Layout 1**
+                        // Creazione del selectPlayer
                         const selectPlayer = document.createElement('select');
                         selectPlayer.id = 'goalPlayerSelect';
                         selectPlayer.name = 'goalPlayerSelect';
+
+                        const championship = championshipSelect.value;
+                        const players = jsondata.players[championship];
 
                         players.forEach(player => {
                             const option = document.createElement('option');
@@ -644,8 +595,7 @@ function updateGraphicsOptions() {
                         }
 
                         // Aggiorna l'icona del pulsante
-                        toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/plus.svg';
-                        toggleImg.alt = customPlayer ? 'Switch to Input Player' : 'Switch to Select Player';
+                        toggleImg.src = customPlayer ? 'images/assets/minus.svg' : 'images/assets/edit.svg';
 
                         // Rimuove il layout corrente e aggiunge il nuovo layout
                         if (customPlayer) {
@@ -670,6 +620,9 @@ function updateGraphicsOptions() {
                         const selectPlayer = document.createElement('select');
                         selectPlayer.id = 'goalPlayerSelect';
                         selectPlayer.name = 'goalPlayerSelect';
+
+                        const championship = championshipSelect.value;
+                        const players = jsondata.players[championship];
 
                         players.forEach(player => {
                             const option = document.createElement('option');
@@ -722,7 +675,67 @@ function updateGraphicsOptions() {
                     }
                     break;
 
-                case 'fulltime':
+                case 'fulltime':                
+
+                if (!isFulltimeHighlightsAdded) { // Controlla se è già stato aggiunto
+                    optionDiv.innerHTML += `
+                        <h3>Full Time - Highlights</h3>
+                        <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
+                            <div class="col col100" style="text-align: center; padding-top: 4px;">
+                                <div><label>Home score:</label></div>
+                                <div style="width: 140px"></div>
+                                <div><label>Away score:</label></div>
+                            </div>
+                            <div class="col col100" style="text-align: center;">
+                                <div>
+                                    <div class="cell100">
+                                        <input size="2" id="homeFullScore" type="number" class="homeFullScore number" min="0" placeholder="0" value="0">
+                                    </div>
+                                </div>
+                                <div style="width: 140px;">
+                                    <h2 style="color: black; margin: 0;">-</h2>
+                                </div>
+                                <div>
+                                    <div class="cell100">
+                                        <input type="number" id="awayFullScore" class="awayFullScore  number" min="0" placeholder="0" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    isFulltimeHighlightsAdded = true; // Imposta il flag su true
+                }
+
+                                    // Crea il contenitore div con la classe 'graphics-time'
+                    const graphicsTimeDiv2 = document.createElement('div');
+                    graphicsTimeDiv2.classList.add('graphics-time');
+
+                    // Crea il label
+                    const labelFull = document.createElement('label');
+                    labelFull.setAttribute('for', 'customFullOverlay');
+                    labelFull.setAttribute('id', 'customFullOverlayLabel');
+
+                    // Crea l'input di tipo checkbox
+                    const inputFull = document.createElement('input');
+                    inputFull.setAttribute('type', 'checkbox');
+                    inputFull.setAttribute('name', 'customFullOverlay');
+                    inputFull.setAttribute('id', 'customFullOverlay');
+
+                    // Aggiungi il testo al label
+                    labelFull.appendChild(inputFull);
+                    labelFull.appendChild(document.createTextNode(' Overlay Full Time'));
+
+                    // Aggiungi il label al div
+                    graphicsTimeDiv2.appendChild(labelFull);
+
+                    optionDiv.appendChild(graphicsTimeDiv2);
+
+                    inputFull.addEventListener('change', () => {
+                        customFullOverlay = inputFull.checked;
+                    });
+                break;
+
+
                 case 'highlights':
                     if (!isFulltimeHighlightsAdded) { // Controlla se è già stato aggiunto
                         optionDiv.innerHTML += `
@@ -754,6 +767,7 @@ function updateGraphicsOptions() {
                     }
                     break;
                 case 'halftime':
+
                     if (!isHalftimeHighlightsAdded) {
                     optionDiv.innerHTML += `
                         <h3>Half Time - Goal</h3>
@@ -782,47 +796,222 @@ function updateGraphicsOptions() {
                     `;
                     isHalftimeHighlightsAdded = true;
                     }
+
+                                        // Crea il contenitore div con la classe 'graphics-time'
+                                        const graphicsTimeDiv = document.createElement('div');
+                                        graphicsTimeDiv.classList.add('graphics-time');
+                    
+                                        // Crea il label
+                                        const label = document.createElement('label');
+                                        label.setAttribute('for', 'customHalfOverlay');
+                                        label.setAttribute('id', 'customHalfOverlayLabel');
+                    
+                                        // Crea l'input di tipo checkbox
+                                        const input = document.createElement('input');
+                                        input.setAttribute('type', 'checkbox');
+                                        input.setAttribute('name', 'customHalfOverlay');
+                                        input.setAttribute('id', 'customHalfOverlay');
+                    
+                                        // Aggiungi il testo al label
+                                        label.appendChild(input);
+                                        label.appendChild(document.createTextNode(' Overlay Half Time'));
+                    
+                                        // Aggiungi il label al div
+                                        graphicsTimeDiv.appendChild(label);
+                    
+                                        optionDiv.appendChild(graphicsTimeDiv);
+                    
+                    
+                                        input.addEventListener('change', () => {
+                                            customHalfOverlay = input.checked;
+                                        });
                     break;
 
                     case 'startingxi':
-                        optionDiv.innerHTML += `
-                            <h3>Starting XI</h3>
-                            <label>Player:</label>
-                            <div class="player-selection">
-                                ${generatePlayerSelects('p', 11)}
-                            </div>
-                    
-                            <label>Substitutes:</label>
-                            <div class="player-selection player-substitutes-selection">
-                                ${generatePlayerSelects('ps', 10)}
-                            </div>
-                        `;
-                    
-                        // Funzione per generare i select dei giocatori
-                        function generatePlayerSelects(prefix, count) {
-                            let selectsHTML = '';
-                            for (let i = 1; i <= count; i++) {
-                                selectsHTML += `
-                                    <div class="player-select-container">
-                                        <select id="${prefix}${i}" name="player" data-number="${i}">
-                                            <option value="">${i}</option>
-                                        </select>
-                                    </div>
-                                `;
-                            }
-                            return selectsHTML;
-                        }
-                    
-                        // Dopo aver aggiunto l'HTML, seleziona tutti i nuovi select e popolali
-                        const startingXISelects = optionDiv.querySelectorAll('select[name="player"]');
-                        startingXISelects.forEach(select => {
-                            populatePlayerSelect(select);
-                        });
-                    
-                        console.log(`Opzioni aggiunte per grafica: ${cb.value}`);
+    // Funzione per generare i campi dei giocatori (select o input)
+    function generatePlayerFields(prefix, count, isCustom) {
+        let fieldsHTML = '';
+        for (let i = 1; i <= count; i++) {
+            if (isCustom) {
+                fieldsHTML += `
+                    <div class="player-input-container">
+                        <input id="${prefix}${i}" name="player" data-number="${i}" placeholder="Player ${i}">
+                    </div>
+                `;
+            } else {
+                fieldsHTML += `
+                    <div class="player-select-container">
+                        <select id="${prefix}${i}" name="player" data-number="${i}">
+                            <option value="">${i}</option>
+                        </select>
+                    </div>
+                `;
+            }
+        }
+        return fieldsHTML;
+    }
 
-                    break;
+    // Genera la sezione Starting XI
+    optionDiv.innerHTML += `
+        <h3>Starting XI</h3>
+        <label>Player:</label>
+        <div class="player-selection">
+            ${generatePlayerFields('p', 11, customStartingXIPlayer)}
+            <label class="customStartingXI">
+                <img src="images/assets/edit_white.svg">
+                <input type="checkbox" name="customStartingXIPlayer" ${customStartingXIPlayer ? 'checked' : ''}>
+            </label>
+        </div>
+    `;
 
+    // Genera la sezione Substitutes
+    optionDiv.innerHTML += `
+        <label>Substitutes:</label>
+        <div class="player-selection player-substitutes-selection">
+            ${generatePlayerFields('ps', 15, customStartingXISubstitutes)}
+            <label class="customStartingXI">
+                <img src="images/assets/edit_white.svg">
+                <input type="checkbox" name="customStartingXISubstitutes" ${customStartingXISubstitutes ? 'checked' : ''}>
+            </label>
+        </div>
+    `;
+
+    // Funzione per gestire il toggle dei campi dei giocatori
+    function togglePlayerFields() {
+        customStartingXIPlayer = this.checked;
+        const playerSelectionDiv = optionDiv.querySelector('.player-selection');
+        playerSelectionDiv.innerHTML = `
+            ${generatePlayerFields('p', 11, customStartingXIPlayer)}
+            <label class="customStartingXI">
+                <img src="images/assets/edit_white.svg">
+                <input type="checkbox" name="customStartingXIPlayer" ${customStartingXIPlayer ? 'checked' : ''}>
+            </label>
+        `;
+
+        // Ricollega l'event listener
+        const newEditPlayerCheckbox = playerSelectionDiv.querySelector('input[name="customStartingXIPlayer"]');
+        newEditPlayerCheckbox.addEventListener('change', togglePlayerFields);
+
+        // Popola le select se non è custom
+        if (!customStartingXIPlayer) {
+            const startingXISelects = playerSelectionDiv.querySelectorAll('select[name="player"]');
+            startingXISelects.forEach(select => {
+                populatePlayerSelect(select);
+            });
+            showCaptainSelect();
+        } else {
+            hideCaptainSelect();
+        }
+    }
+
+    // Funzione per gestire il toggle dei campi dei sostituti
+    function toggleSubstitutesFields() {
+        customStartingXISubstitutes = this.checked;
+        const substitutesSelectionDiv = optionDiv.querySelector('.player-substitutes-selection');
+        substitutesSelectionDiv.innerHTML = `
+            ${generatePlayerFields('ps', 15, customStartingXISubstitutes)}
+            <label class="customStartingXI">
+                <img src="images/assets/edit_white.svg">
+                <input type="checkbox" name="customStartingXISubstitutes" ${customStartingXISubstitutes ? 'checked' : ''}>
+            </label>
+        `;
+
+        // Ricollega l'event listener
+        const newEditSubstitutesCheckbox = substitutesSelectionDiv.querySelector('input[name="customStartingXISubstitutes"]');
+        newEditSubstitutesCheckbox.addEventListener('change', toggleSubstitutesFields);
+
+        // Popola le select se non è custom
+        if (!customStartingXISubstitutes) {
+            const substitutesSelects = substitutesSelectionDiv.querySelectorAll('select[name="player"]');
+            substitutesSelects.forEach(select => {
+                populatePlayerSelect(select);
+            });
+        }
+    }
+
+    // Funzioni per mostrare o nascondere il select del capitano
+    function showCaptainSelect() {
+        let captainDiv = optionDiv.querySelector('.captain-selection');
+        if (!captainDiv) {
+            // Crea il select del Capitano
+            const label = document.createElement('label');
+            label.textContent = 'Captain:';
+
+            captainDiv = document.createElement('div');
+            captainDiv.className = 'captain-selection';
+
+            const outerDiv = document.createElement('div');
+            outerDiv.className = 'col';
+            outerDiv.style.margin = '10px 0';
+
+            const innerDiv = document.createElement('div');
+            innerDiv.className = 'div';
+
+            const arrowDiv = document.createElement('div');
+            arrowDiv.id = 'arrow';
+            arrowDiv.className = 'symbol-arrow';
+
+            const img = document.createElement('img');
+            img.src = 'images/assets/arrow.svg';
+
+            arrowDiv.appendChild(img);
+
+            const select = document.createElement('select');
+            select.id = 'captain';
+            select.style.margin = '0';
+
+            innerDiv.appendChild(arrowDiv);
+            innerDiv.appendChild(select);
+            outerDiv.appendChild(innerDiv);
+
+            captainDiv.appendChild(label);
+            captainDiv.appendChild(outerDiv);
+
+            optionDiv.appendChild(captainDiv);
+
+            populatePlayerSelect(select);
+        } else {
+            captainDiv.style.display = 'block';
+        }
+    }
+
+    function hideCaptainSelect() {
+        const captainDiv = optionDiv.querySelector('.captain-selection');
+        if (captainDiv) {
+            captainDiv.style.display = 'none';
+        }
+    }
+
+    // Collegamento iniziale degli event listener
+    const playerSelectionDiv = optionDiv.querySelector('.player-selection');
+    const editPlayerCheckbox = playerSelectionDiv.querySelector('input[name="customStartingXIPlayer"]');
+    editPlayerCheckbox.addEventListener('change', togglePlayerFields);
+
+    const substitutesSelectionDiv = optionDiv.querySelector('.player-substitutes-selection');
+    const editSubstitutesCheckbox = substitutesSelectionDiv.querySelector('input[name="customStartingXISubstitutes"]');
+    editSubstitutesCheckbox.addEventListener('change', toggleSubstitutesFields);
+
+    // Popola le select iniziali se non è custom
+    if (!customStartingXIPlayer) {
+        const startingXISelects = playerSelectionDiv.querySelectorAll('select[name="player"]');
+        startingXISelects.forEach(select => {
+            populatePlayerSelect(select);
+        });
+        showCaptainSelect();
+    } else {
+        hideCaptainSelect();
+    }
+
+    if (!customStartingXISubstitutes) {
+        const substitutesSelects = substitutesSelectionDiv.querySelectorAll('select[name="player"]');
+        substitutesSelects.forEach(select => {
+            populatePlayerSelect(select);
+        });
+    }
+
+    console.log(`Opzioni aggiunte per grafica: ${cb.value}`);
+
+    break;
 
                 // Aggiungi altri case per altre grafiche se necessario
                 default:
@@ -917,6 +1106,8 @@ function getFilenameForCanvas(canvas) {
 
     if (graphicName === 'livematch' || graphicName === 'highlights') {
         filename = `H_Live Match_${homeTeamName} vs ${awayTeamName}_${day}.png`;
+    } else if (graphicName === 'insta' || graphicName === 'tickets'){
+        filename = `${capitalizeFirstLetter(graphicName)}_${format}_${day}_.png`;
     } else {
         filename = `${capitalizeFirstLetter(graphicName)}_${homeTeamName} vs ${awayTeamName}_${format}_${day}_${timeZoneAbbreviation.toLowerCase()}.png`;
     }
@@ -926,34 +1117,40 @@ function getFilenameForCanvas(canvas) {
 
 
 
-/**
- * Funzione per formattare la data
- * @param {Date} dateObj - L'oggetto Date da formattare
- * @param {string} timeZoneAbbreviation - Abbreviazione del fuso orario (es. 'CET', 'WIB')
- * @param {string} locale - Locale per la formattazione della data (es. 'en-GB')
- * @returns {string} - La data formattata come "NOVEMBER 16 | 15:00 CET"
- */
-function formatDateMatch(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB') {
-    const optionsDate = { month: 'long', day: 'numeric' };
-    const formattedDate = dateObj.toLocaleDateString(locale, optionsDate).toUpperCase();
+function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', graphicName = '') {
+    function getOrdinalSuffix(day) {
+        if (day > 3 && day < 21) return 'TH';
+        switch (day % 10) {
+            case 1: return 'ST';
+            case 2: return 'ND';
+            case 3: return 'RD';
+            default: return 'TH';
+        }
+    }
+
+    const formatter = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric' });
+    const parts = formatter.formatToParts(dateObj);
+
+    let month = '';
+    let day = 0;
+
+    parts.forEach(part => {
+        if (part.type === 'month') {
+            month = part.value.toUpperCase();
+        }
+        if (part.type === 'day') {
+            day = parseInt(part.value, 10);
+        }
+    });
+
+    const dayWithSuffix = `${day}${getOrdinalSuffix(day)}`;
     const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
-    return `${formattedDate} | ${formattedTime} ${timeZoneAbbreviation}`;
-}
 
-
-
-/**
- * Funzione per formattare la data
- * @param {Date} dateObj - L'oggetto Date da formattare
- * @param {string} timeZoneAbbreviation - Abbreviazione del fuso orario (es. 'CET', 'WIB')
- * @param {string} locale - Locale per la formattazione della data (es. 'en-GB')
- * @returns {string} - La data formattata come "NOVEMBER 16 | 15:00 CET"
- */
-function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB') {
-    const optionsDate = { month: 'long', day: 'numeric' };
-    const formattedDate = dateObj.toLocaleDateString(locale, optionsDate).toUpperCase();
-    const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
-    return `${formattedDate} | ${formattedTime} ${timeZoneAbbreviation}`;
+    if (graphicName === 'livematch') {
+        return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
+    } else {
+        return `${month} ${dayWithSuffix} | ${formattedTime} ${timeZoneAbbreviation}`;
+    }
 }
 
 /**
@@ -1186,6 +1383,11 @@ async function generatePreviews() {
     console.log('generatePreviews called');
     await document.fonts.ready;
 
+    let currentPlayers = [];
+
+    const championship = championshipSelect.value;
+    currentPlayers = jsondata.players[championship];
+
     // Memorizza la grafica attualmente selezionata
     const activeTab = document.querySelector('.graphic-tab.active');
     let selectedGraphicName = activeTab ? activeTab.dataset.graphicName : null;
@@ -1257,15 +1459,20 @@ async function generatePreviews() {
 
             if (graphicName === 'goal') {
                 const playerSelect = document.getElementById('goalPlayerSelect');
-                const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
+                
+                // Trova il giocatore selezionato nell'array corrente
+                const selectedPlayer = currentPlayers.find(p => p.value === (playerSelect ? playerSelect.value : ''));
+                
+                // Ottieni il nome del giocatore formattato o usa un valore predefinito
                 const playerName = selectedPlayer ? selectedPlayer.text.replace(/\s+/g, '_').toLowerCase() : 'default_player';
+                
+                // Determina la posizione in base allo stato di `playerHome`
                 const position = playerHome ? 'home' : 'away';
-                bgImageSrc = backgroundImages['goal'] || `images/graphics/goal/player/${position}/${playerName}.png`;
+
+                bgImageSrc = backgroundImages['goal'] || `images/graphics/goal/player/${championshipSelect.value}/${position}/${playerName}.png`;
             }
 
             const overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
-
-            console.log(`Caricamento immagini: ${bgImageSrc}, ${overlayImageSrc}`);
 
             const [bgImage, overlayImage] = await Promise.all([
                 loadImage(bgImageSrc),
@@ -1302,10 +1509,26 @@ async function generatePreviews() {
 
                 ctx.drawImage(overlayImage, 0, 0, canvas.width, canvas.height);
 
+
+
+                if (graphicName === 'halftime') {
+                    if (customHalfOverlay) {
+                        const bgOverlayHalfImage = await removeBackground(bgImage);
+                        drawImageCover(ctx, bgOverlayHalfImage, canvas.width, canvas.height, graphicName, overlayName);
+                    }
+                } else if (graphicName === 'fulltime') {
+                    if (customFullOverlay) {
+                        const bgFullOverlayImage = await removeBackground(bgImage);
+                        drawImageCover(ctx, bgFullOverlayImage, canvas.width, canvas.height, graphicName, overlayName);
+                    }
+                }
+
                 // Ottieni lo stile specifico per questa grafica e formato
                 const style = graphicStyles[graphicName][overlayName];
                 if (style) {
                     if (graphicName === 'highlights') {
+                        // !HIGHLIGHTS
+
                         // Disegna i loghi e il testo combinato centralmente
                         if (style.homeLogo) {
                             const homeLogoSrc = homeTeamSelect.value === 'como 1907'
@@ -1342,31 +1565,57 @@ async function generatePreviews() {
                         ctx.textAlign = style.combinedScore.textAlign;
                         ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
                     } else if (graphicName === 'startingxi') {
-                        const startingXIStyle = style; // graphicStyles['startingxi'][overlayName]
+                        const startingXIStyle = style;
 
                         const playerStartY = startingXIStyle.playerStartY;
                         const playerSpacing = startingXIStyle.playerSpacing;
-
+                        
+                        const captainSelect = document.getElementById('captain');
+                        const captainValue = captainSelect.value;
+                        
                         const playerIds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11'];
                         const playerNames = playerIds.map(id => {
-                            const select = document.getElementById(id);
-                            const selectedOption = players.find(p => p.value === select.value);
-                            if (selectedOption && selectedOption.text.includes(' ')) {
-                                // Estrae solo il cognome
-                                return selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
-                            } else if (selectedOption) {
-                                // Se non c'è uno spazio, utilizza l'intero nome
-                                return selectedOption.text.toUpperCase();
+                            if (!customStartingXIPlayer) {
+                                // Caso in cui customStartingXIPlayer è false: utilizza i select
+                                const select = document.getElementById(id);
+                                const selectedOption = currentPlayers.find(p => p.value === select.value);
+                                if (selectedOption && selectedOption.text.includes(' ')) {
+                                    // Estrae solo il cognome
+                                    let lastName = selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                                    // Aggiungi '(C)' se è il capitano
+                                    if (select.value === captainValue) {
+                                        lastName += ' (C)';
+                                    }
+                                    return lastName;
+                                } else if (selectedOption) {
+                                    // Se non c'è uno spazio, utilizza l'intero nome
+                                    let name = selectedOption.text.toUpperCase();
+                                    // Aggiungi '(C)' se è il capitano
+                                    if (select.value === captainValue) {
+                                        name += ' (C)';
+                                    }
+                                    return name;
+                                }
+                            } else {
+                                // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
+                                const input = document.getElementById(id);
+                                let name = input.value.trim().toUpperCase();
+                                if (name) {
+                                    // Aggiungi '(C)' se è il capitano
+                                    if (name === captainValue.toUpperCase()) {
+                                        name += ' (C)';
+                                    }
+                                    return name;
+                                }
                             }
                             return '';
                         }).filter(name => name !== '');
-
                         // Imposta lo stile del testo dei giocatori
                         ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`; // Usa il font specificato
                         ctx.fillStyle = `white`; // Colore del testo
                         ctx.textAlign = 'left'; // Allineamento a sinistra
                         ctx.textBaseline = 'top'; // Allineamento verticale in alto
-
+                        
                         // Disegna ogni cognome del giocatore su una nuova linea, corrispondente all'ID p1-p11
                         playerNames.forEach((name, index) => {
                             const yPosition = playerStartY + index * playerSpacing;
@@ -1378,20 +1627,30 @@ async function generatePreviews() {
                         const canvas = ctx.canvas;
                         const canvasWidth = canvas.width;
 
-                        const substitutesIds = ['ps1', 'ps2', 'ps3', 'ps4', 'ps5', 'ps6', 'ps7', 'ps8', 'ps9', 'ps10'];
+                        const substitutesIds = ['ps1', 'ps2', 'ps3', 'ps4', 'ps5', 'ps6', 'ps7', 'ps8', 'ps9', 'ps10', 'ps11', 'ps12', 'ps13', 'ps14', 'ps15'];
                         const substitutesNames = substitutesIds.map(id => {
-                            const select = document.getElementById(id);
-                            const selectedOption = players.find(p => p.value === select.value);
-                            if (selectedOption && selectedOption.text.includes(' ')) {
-                                // Estrae solo il cognome
-                                return selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
-                            } else if (selectedOption) {
-                                // Se non c'è uno spazio, utilizza l'intero nome
-                                return selectedOption.text.toUpperCase();
+                            if (!customStartingXISubstitutes) {
+                                // Caso in cui customStartingXIPlayer è false: utilizza i select
+                                const select = document.getElementById(id);
+                                const selectedOption = currentPlayers.find(p => p.value === select.value);
+                                if (selectedOption && selectedOption.text.includes(' ')) {
+                                    // Estrae solo il cognome
+                                    return selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                                } else if (selectedOption) {
+                                    // Se non c'è uno spazio, utilizza l'intero nome
+                                    return selectedOption.text.toUpperCase();
+                                }
+                            } else {
+                                // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
+                                const input = document.getElementById(id);
+                                let name = input.value.trim().toUpperCase();
+                                if (name) {
+                                    return name;
+                                }
                             }
                             return '';
                         }).filter(name => name !== '');
-
+                        
                         // Unisci i nomi con il separatore ' | '
                         const substitutesText = substitutesNames.join(' | ');
 
@@ -1520,9 +1779,7 @@ async function generatePreviews() {
                             }
 
                     } else if (graphicName === 'nextmatch' || graphicName === 'matchday') {
-                        // Gestione specifica per la grafica 'nextmatch'
-
-                        // Disegna il titolo 'NEXT MATCH' se presente
+                        // !NEXTMATCH !MATCHDAY
                         if (style.nextMatchTitle) {
                             ctx.font = `bold ${style.nextMatchTitle.fontSize}px ${style.nextMatchTitle.font}`;
                             ctx.fillStyle = style.nextMatchTitle.color;
@@ -1534,7 +1791,7 @@ async function generatePreviews() {
                             }
                         }
 
-                        // Disegna il nome della squadra di casa e calcola la larghezza
+                        // Disegna il nome della squadra di casa
                         let homeTeamNameWidth;
                         if (style.homeTeamName) {
                             const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
@@ -1550,7 +1807,7 @@ async function generatePreviews() {
                             }
                         }
 
-                        // Calcola la posizione x per 'VS' in base alla larghezza del nome della squadra di casa
+                        // Calcola la posizione x per 'VS'
                         let vsTextX;
                         let vsTextWidth;
                         if (style.vsText && homeTeamNameWidth !== undefined) {
@@ -1583,7 +1840,7 @@ async function generatePreviews() {
 
                         // Disegna la data del match
                         if (style.dateTime) {
-                            const dateText = formatDateMatch(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
+                            const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB', graphicName);
                             ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
                             ctx.fillStyle = style.dateTime.color;
                             ctx.textAlign = 'left';
@@ -1630,24 +1887,18 @@ async function generatePreviews() {
                             }
                         }
                     } else if (graphicName === 'insta') {
-                        // *** Nuova Gestione per 'insta' ***
-                        // Disegna un rettangolo trasparente di 500x300px al centro del canvas
+                        // !INSTA
                         const rectWidth = 943.5;
                         const rectHeight = 1182;
                         const rectX = (canvas.width - rectWidth) / 2;
                         const rectY = (canvas.height - rectHeight) / 2;
-
-                        // Imposta il metodo di composizione per rendere il rettangolo trasparente
                         ctx.save();
                         ctx.globalCompositeOperation = 'destination-out';
-                        ctx.fillStyle = 'rgba(0,255,1)'; // Colore arbitrario, l'opacità verrà ignorata
+                        ctx.fillStyle = 'rgba(0,0,0.1)';
                         ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
                         ctx.restore();
-
-                        // Puoi aggiungere ulteriori elementi grafici o testo qui se necessario
                     } else {
-                        // Gestione delle altre grafiche
-                        // Disegna i loghi
+                        // !BASE
                         if (style.homeLogo) {
                             const homeLogoSrc = homeTeamSelect.value === 'como 1907'
                                 ? `images/badge/all/como.png`
@@ -1657,7 +1908,6 @@ async function generatePreviews() {
                                 ctx.drawImage(homeLogo, style.homeLogo.x, style.homeLogo.y, style.homeLogo.width, style.homeLogo.height);
                             }
                         }
-
                         if (style.awayLogo) {
                             const awayLogoSrc = awayTeamSelect.value === 'como 1907'
                                 ? `images/badge/all/como.png`
@@ -1690,7 +1940,7 @@ async function generatePreviews() {
 
                         // Disegna il testo con letter-spacing se specificato
                         if (style.dateTime) {
-                            const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB');
+                            const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB', graphicName);
                             ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
                             ctx.fillStyle = style.dateTime.color;
                             ctx.textAlign = 'left';
@@ -1724,19 +1974,29 @@ async function generatePreviews() {
                         }
 
                         if (style.playerName) {
-
-                            let playerName = '';
-
+                            let playerName = ''; // Dichiarazione variabile fuori dagli scope condizionali
+                        
                             if (customPlayer) {
-                                // Se customPlayer è true, ottieni il nome del giocatore dall'input di testo
+                                // Recupera il nome del giocatore da un input testuale
                                 const playerInput = document.getElementById('goalPlayerInput');
                                 playerName = playerInput ? playerInput.value.trim() : '';
                             } else {
-                                // Altrimenti, ottieni il nome del giocatore dal select
+                                // Recupera il nome del giocatore dal select
                                 const playerSelect = document.getElementById('goalPlayerSelect');
-                                const selectedPlayer = players.find(p => p.value === (playerSelect ? playerSelect.value : ''));
-                                playerName = selectedPlayer ? selectedPlayer.text : '';
+                                if (playerSelect) {
+                                    const selectedValue = playerSelect.value;
+                                    const selectedPlayer = currentPlayers.find(p => p.value === selectedValue);
+                        
+                                    if (selectedPlayer) {
+                                        playerName = selectedPlayer.text;
+                                    } else {
+                                        console.warn(`Giocatore con valore "${selectedValue}" non trovato nell'array corrente.`);
+                                    }
+                                }
                             }
+                        
+                            // Puoi ora usare `playerName` come richiesto
+                            console.log(`Nome del giocatore selezionato: ${playerName}`);
                             
                             ctx.font = `${style.playerName.fontSize}px ${style.playerName.font}`;
                             ctx.fillStyle = style.playerName.color;
@@ -1827,8 +2087,91 @@ async function generatePreviews() {
     } else {
         previewSection.classList.remove('visible');
     }
+}
 
-    console.log('generatePreviews completato');
+
+// Funzione per rimuovere il background dall'immagine e sfumare i bordi di 3 px
+async function removeBackground(image) {
+    // Carica il modello BodyPix
+    const net = await bodyPix.load();
+
+    // Segmenta l'immagine per ottenere la maschera del soggetto
+    const segmentation = await net.segmentPerson(image);
+
+    // Crea un canvas per elaborare l'immagine
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = image.width;
+    tempCanvas.height = image.height;
+    const tempCtx = tempCanvas.getContext('2d');
+
+    // Disegna l'immagine originale sul canvas
+    tempCtx.drawImage(image, 0, 0);
+
+    // Crea una maschera con i bordi sfumati di 3 px
+    const mask = bodyPix.toMask(
+        segmentation,
+        {r: 0, g: 0, b: 0, a: 255}, // Foreground opaco
+        {r: 0, g: 0, b: 0, a: 0}    // Background trasparente
+    );
+
+    // Applica la sfocatura alla maschera
+    const blurredMask = await applyBlurToMask(mask, 3);
+
+    // Applica la maschera sfumata all'immagine
+    applyMaskToImage(tempCtx, blurredMask);
+
+    // Crea una nuova immagine dal canvas
+    const resultImage = new Image();
+    resultImage.src = tempCanvas.toDataURL();
+
+    // Attendi che l'immagine sia caricata
+    await new Promise((resolve) => {
+        resultImage.onload = resolve;
+    });
+
+    return resultImage;
+}
+
+// Funzione per applicare la sfocatura alla maschera
+async function applyBlurToMask(mask, blurRadius) {
+    // Crea un canvas per la maschera
+    const maskCanvas = document.createElement('canvas');
+    maskCanvas.width = mask.width;
+    maskCanvas.height = mask.height;
+    const maskCtx = maskCanvas.getContext('2d');
+
+    // Disegna la maschera sul canvas della maschera
+    maskCtx.putImageData(mask, 0, 0);
+
+    // Applica la sfocatura
+    maskCtx.filter = `blur(${blurRadius}px)`;
+    maskCtx.drawImage(maskCanvas, 0, 0);
+
+    // Ottieni i dati della maschera sfocata
+    const blurredMaskData = maskCtx.getImageData(0, 0, maskCanvas.width, maskCanvas.height);
+
+    return blurredMaskData;
+}
+
+// Funzione per applicare la maschera sfumata all'immagine
+function applyMaskToImage(ctx, maskData) {
+    // Crea un canvas per la maschera sfumata
+    const maskCanvas = document.createElement('canvas');
+    maskCanvas.width = maskData.width;
+    maskCanvas.height = maskData.height;
+    const maskCtx = maskCanvas.getContext('2d');
+
+    // Inserisci i dati della maschera sfumata nel canvas
+    maskCtx.putImageData(maskData, 0, 0);
+
+    // Imposta l'operazione di composizione per conservare solo i pixel in cui la maschera è presente
+    ctx.globalCompositeOperation = 'destination-in';
+
+    // Applica la maschera sfumata al contesto dell'immagine
+    ctx.drawImage(maskCanvas, 0, 0);
+
+    // Ripristina l'operazione di composizione predefinita
+    ctx.globalCompositeOperation = 'source-over';
 }
 
 /**
@@ -2010,6 +2353,8 @@ function initializeTeams() {
     generatePreviews();
 }
 
+
+
 /**
  * Funzione per generare i campi di upload delle immagini di sfondo
  * Ora crea un solo campo di upload per grafica, indipendentemente dai formati
@@ -2086,7 +2431,6 @@ function addUploadItemListeners() {
     });
 }
 
-
   // Aumenta il valore
   increaseButton.addEventListener('click', () => {
     let currentValue = parseInt(matchDayInput.value, 10);
@@ -2127,7 +2471,8 @@ function capitalizeFirstLetter(string) {
 /**
  * Funzione per inizializzare tutto dopo il caricamento del DOM
  */
-function initialize() {
+async function initialize() {
+    await fetchData(); // Attendi che fetchData completi
     addAutoUpdateListeners();
     initializeTeams();
     generateBackgroundUploadFields();
