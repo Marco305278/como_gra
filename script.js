@@ -24,25 +24,20 @@ const fulltimeCheckbox = document.getElementById('customFullOverlay');
 
 let jsondata = {};
 
-/**
- * Function to fetch JSON data
- */
 async function fetchData() {
     try {
-        const response = await fetch('info.json'); // Adjust the path as needed
+        const response = await fetch('/data/info.json'); // Adjust the path as needed
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
         jsondata = data;
-        console.log('JSON data successfully loaded:', data);
     } catch (error) {
         console.error('Error fetching JSON data:', error);
     }
 }
 
 
-// Configurazione delle disposizioni degli elementi per ogni grafica e formato
 const graphicStyles = {
     'fulltime': {
         'overlay_4x5': {
@@ -307,19 +302,10 @@ const fixedTeam = {
     text: 'Como 1907'
 };
 
-// Variabile per memorizzare le squadre correnti
 let currentTeams = [];
-
-// Oggetto per memorizzare le immagini di sfondo caricate
-// Mappa graphicId a immagine (stringa Data URL)
 let backgroundImages = {};
 
-/**
- * Funzione per popolare un select con le squadre selezionabili
- * @param {HTMLElement} selectElement - L'elemento select da popolare
- * @param {Array} teams - L'array delle squadre disponibili
- * @param {string|null} selectedValue - Il valore da selezionare (opzionale)
- */
+
 function populateSelectableSelect(selectElement, teams, selectedValue = null) {
     selectElement.innerHTML = '';
 
@@ -348,12 +334,8 @@ function populateSelectableSelect(selectElement, teams, selectedValue = null) {
     }
 }
 
-/**
- * Funzione per popolare le squadre in base al campionato selezionato
- */
 function populateTeams() {
-    const championship = championshipSelect.value; // Ottieni il valore selezionato
-    console.log(`Selected Championship: "${championship}"`); // Log di debug
+    const championship = championshipSelect.value; 
 
     // Verifica che jsondata e jsondata.teams siano definiti
     if (!jsondata || !jsondata.teams) {
@@ -368,9 +350,7 @@ function populateTeams() {
         return;
     }
 
-    currentTeams = teams; // Aggiorna le squadre correnti
-
-    console.log('Current Teams:', currentTeams); // Log di debug
+    currentTeams = teams;
 
     if (isHomeFixed) {
         // Imposta il team fisso come squadra di casa
@@ -389,17 +369,11 @@ function populateTeams() {
         homeTeamSelect.disabled = false;
         populateSelectableSelect(homeTeamSelect, currentTeams);
     }
-
-    console.log(`Popolate le squadre per il campionato: "${championship}"`);
 }
 
-/**
- * Funzione per alternare lo stato dei team e mantenere la selezione
- */
 function toggleTeams() {
     if (isHomeFixed) {
         const selectedAwayTeam = awayTeamSelect.value;
-        console.log('Swapping: Selected Away Team before swap:', selectedAwayTeam);
 
         homeTeamSelect.disabled = false;
         populateSelectableSelect(homeTeamSelect, currentTeams, selectedAwayTeam);
@@ -408,7 +382,6 @@ function toggleTeams() {
         awayTeamSelect.disabled = true;
     } else {
         const selectedHomeTeam = homeTeamSelect.value;
-        console.log('Swapping: Selected Home Team before swap:', selectedHomeTeam);
 
         awayTeamSelect.disabled = false;
         populateSelectableSelect(awayTeamSelect, currentTeams, selectedHomeTeam);
@@ -423,11 +396,6 @@ function toggleTeams() {
     generatePreviews();
 }
 
-
-/**
- * Funzione per popolare un singolo select di giocatori
- * @param {HTMLElement} selectElement - L'elemento select da popolare
- */
 function populatePlayerSelect(selectElement) {
     // Pulisci le opzioni esistenti
     selectElement.innerHTML = '';
@@ -464,10 +432,6 @@ function populatePlayerSelect(selectElement) {
     });
 }
 
-
-/**
- * Funzione per aggiornare le opzioni grafiche
- */
 function updateGraphicsOptions() {
     // Salva i valori esistenti degli input
     const existingInputs = {};
@@ -577,8 +541,7 @@ function updateGraphicsOptions() {
 
                     // Event listener per swapHome
                     swapHome.addEventListener('click', (e) => {
-                        e.preventDefault(); // Prevenire il comportamento di default del pulsante se necessario
-                        console.log('Pulsante SwapHome premuto');
+                        e.preventDefault();
                         playerHome = !playerHome; // Inverti lo stato di playerHome
                         generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
                     });
@@ -637,9 +600,6 @@ function updateGraphicsOptions() {
                         // Rigenera le anteprime per riflettere il cambiamento
                         generatePreviews();
                     });
-
-
-                    console.log(`Opzioni aggiunte per grafica: ${cb.value}`);
 
 
                     if (!isHalftimeHighlightsAdded) {
@@ -1009,8 +969,6 @@ function updateGraphicsOptions() {
         });
     }
 
-    console.log(`Opzioni aggiunte per grafica: ${cb.value}`);
-
     break;
 
                 // Aggiungi altri case per altre grafiche se necessario
@@ -1020,7 +978,6 @@ function updateGraphicsOptions() {
             }
 
             graphicsOptionsDiv.appendChild(optionDiv);
-            console.log(`Opzioni aggiunte per grafica: ${cb.value}`);
         }
     });
 
@@ -1029,7 +986,6 @@ function updateGraphicsOptions() {
     newInputs.forEach(input => {
         if (existingInputs.hasOwnProperty(input.className)) {
             input.value = existingInputs[input.className];
-            console.log(`Ripristinato valore per ${input.className}: ${input.value}`);
         }
     });
 }
@@ -1091,8 +1047,6 @@ function downloadAllPreviews() {
 
 /**
  * Funzione per ottenere il nome del file per un canvas
- * @param {HTMLCanvasElement} canvas - Il canvas per il quale generare il nome del file
- * @returns {string} - Il nome del file
  */
 function getFilenameForCanvas(canvas) {
     const timeZoneAbbreviation = canvas.dataset.timeZoneAbbreviation || '';
@@ -1155,12 +1109,6 @@ function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', gra
 
 /**
  * Funzione per disegnare un'immagine di sfondo su canvas con posizionamento e scaling specifici.
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas.
- * @param {Image} img - L'immagine da disegnare.
- * @param {number} canvasWidth - La larghezza del canvas.
- * @param {number} canvasHeight - L'altezza del canvas.
- * @param {string} graphicName - Il nome della grafica.
- * @param {string} overlayName - Il nome del formato overlay.
  */
 function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', overlayName = '') {
     // Definisci il rettangolo per lo sfondo
@@ -1221,11 +1169,6 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
 
 /**
  * Funzione per disegnare testo con letter-spacing personalizzato
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {string} text - Il testo da disegnare
- * @param {number} x - Coordinata x iniziale
- * @param {number} y - Coordinata y iniziale
- * @param {number} letterSpacing - Spazio tra i caratteri in pixel
  */
 function drawTextWithLetterSpacing(ctx, text, x, y, letterSpacing) {
     const characters = text.split('');
@@ -1240,10 +1183,6 @@ function drawTextWithLetterSpacing(ctx, text, x, y, letterSpacing) {
 
 /**
  * Funzione per misurare la larghezza del testo con letter-spacing
- * @param {CanvasRenderingContext2D} ctx - Il contesto del canvas
- * @param {string} text - Il testo da misurare
- * @param {number} letterSpacing - Lo spazio tra le lettere
- * @returns {number} - La larghezza totale del testo
  */
 function measureTextWithLetterSpacing(ctx, text, letterSpacing) {
     const characters = text.split('');
@@ -1261,8 +1200,6 @@ function measureTextWithLetterSpacing(ctx, text, letterSpacing) {
 
 /**
  * Funzione per ottenere il nome visualizzabile della squadra
- * @param {string} teamValue - Il valore della squadra selezionata
- * @returns {string} - Il nome visualizzabile della squadra
  */
 function getTeamDisplayName(teamValue) {
     const team = currentTeams.find(t => t.value === teamValue);
@@ -1306,8 +1243,6 @@ function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
 }
 /**
  * Funzione per creare le tab delle grafiche
- * @param {Array} selectedGraphics - Array delle grafiche selezionate
- * @param {string|null} selectedGraphicName - Nome della grafica selezionata
  */
 function createGraphicTabs(selectedGraphics, selectedGraphicName) {
     const previewSection = document.querySelector('.preview-container');
@@ -1406,8 +1341,6 @@ async function generatePreviews() {
         matchDateObj = new Date();
     }
 
-    console.log(`Generazione delle anteprime per il match del: ${matchDateObj}`);
-
     let previewsGenerated = 0;
 
     const selectedGraphics = Array.from(graphicCheckboxes)
@@ -1419,7 +1352,6 @@ async function generatePreviews() {
 
     // Itera attraverso tutte le grafiche selezionate
     for (const graphicName of selectedGraphics) {
-        console.log(`Elaborazione grafica: ${graphicName}`);
         const graphicPreviewContainer = document.createElement('div');
         graphicPreviewContainer.classList.add('graphic-preview-container');
         graphicPreviewContainer.dataset.graphicName = graphicName;
@@ -1442,18 +1374,12 @@ async function generatePreviews() {
         const availableFormats = graphicsFormats[graphicName];
 
         if (!availableFormats || availableFormats.length === 0) {
-            console.log(`Nessun formato disponibile per la grafica ${graphicName}.`);
             continue;
         }
 
         // Itera attraverso i formati disponibili per questa grafica
         for (const overlayName of availableFormats) {
             const dimensions = formats[overlayName];
-
-            if (!dimensions) {
-                console.warn(`Dimensioni non definite per il formato ${overlayName}.`);
-                continue;
-            }
 
             let bgImageSrc = backgroundImages[graphicName.toLowerCase()] || `${graphicFolder}/1.png`;
 
@@ -1480,7 +1406,6 @@ async function generatePreviews() {
             ]);
 
             if (!overlayImage) {
-                console.log(`Overlay non trovato per la grafica ${graphicName} nel formato ${overlayName}. Salto questo formato.`);
                 continue;
             }
 
@@ -1653,9 +1578,6 @@ async function generatePreviews() {
                         
                         // Unisci i nomi con il separatore ' | '
                         const substitutesText = substitutesNames.join(' | ');
-
-                        // Log per debugging
-                        console.log(`Substitutes Text: "${substitutesText}"`);
 
                         // Imposta lo stile per i sostituti
                         const substitutesLineHeight = startingXIStyle.substitutesFontSize + 5; // Altezza di ogni linea
@@ -1996,7 +1918,6 @@ async function generatePreviews() {
                             }
                         
                             // Puoi ora usare `playerName` come richiesto
-                            console.log(`Nome del giocatore selezionato: ${playerName}`);
                             
                             ctx.font = `${style.playerName.fontSize}px ${style.playerName.font}`;
                             ctx.fillStyle = style.playerName.color;
@@ -2034,7 +1955,6 @@ async function generatePreviews() {
                         const formatSuffix = overlayName.replace('overlay_', ''); // Es: '5x8' da 'overlay_5x8'
                         const championship = championshipSelect.value; // Es: 'primavera' o 'women'
                         const titleImageSrc = `images/graphics/livematch/title/${championship}_${formatSuffix}.png`;
-                        console.log(`Caricamento titolo: ${titleImageSrc}`);
 
                         const titleImage = await loadImage(titleImageSrc);
                         if (titleImage) {
@@ -2042,9 +1962,6 @@ async function generatePreviews() {
                             // Modifica le coordinate (x, y) e le dimensioni se necessario
                             const titleX = (canvas.width - titleImage.width) / 2; // Centra orizzontalmente
                             ctx.drawImage(titleImage, titleX, 0, titleImage.width, titleImage.height);
-                            console.log(`Titolo disegnato: ${titleImageSrc}`);
-                        } else {
-                            console.warn(`Titolo non trovato: ${titleImageSrc}`);
                         }
                     }
                     // **Fine Modifica Livematch**
@@ -2072,7 +1989,6 @@ async function generatePreviews() {
                     // **Fine Aggiunta**
 
                     graphicPreviewContainer.appendChild(previewDiv);
-                    console.log(`Anteprima aggiunta per grafica: ${graphicName}, formato: ${overlayName}, fuso orario: ${timeVersion.timeZoneAbbreviation}`);
                     previewsGenerated++;
                 }
             }
@@ -2180,7 +2096,6 @@ function applyMaskToImage(ctx, maskData) {
 function addAutoUpdateListeners() {
     // Selezione del campionato
     championshipSelect.addEventListener('change', () => {
-        console.log('Campionato cambiato');
         // Popola le squadre quando cambia il campionato
         populateTeams();
         updateGraphicsOptions();
@@ -2192,20 +2107,17 @@ function addAutoUpdateListeners() {
 
     // Selezione della squadra di casa
     homeTeamSelect.addEventListener('change', () => {
-        console.log(`Home Team cambiato a: ${homeTeamSelect.value}`);
         generatePreviews();
     });
 
     // Selezione della squadra ospite
     awayTeamSelect.addEventListener('change', () => {
-        console.log(`Away Team cambiato a: ${awayTeamSelect.value}`);
         generatePreviews();
     });
 
     // Selezione delle grafiche
     graphicCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
-            console.log(`Grafica ${checkbox.value} cambiata: ${checkbox.checked}`);
             updateGraphicsOptions();
             toggleDateTimeSection();
             toggleMatchDaySection();
@@ -2217,13 +2129,11 @@ function addAutoUpdateListeners() {
 
     // Event listeners per le opzioni di personalizzazione delle grafiche
     graphicsOptionsDiv.addEventListener('input', () => {
-        console.log('Opzioni grafiche modificate');
         generatePreviews();
     });
 
     // Event listener per il pulsante Generate
     generateBtn.addEventListener('click', () => {
-        console.log('Pulsante Generate premuto');
         generatePreviews();
     });
 
@@ -2236,8 +2146,7 @@ function addAutoUpdateListeners() {
 
     // Event listener per il pulsante Swap
     swapBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevenire il comportamento di default del pulsante se necessario
-        console.log('Pulsante Swap premuto');
+        e.preventDefault();
         toggleTeams();
     });
 
@@ -2252,7 +2161,6 @@ function addAutoUpdateListeners() {
                 reader.onload = function(e) {
                     // Salva l'immagine caricata nell'oggetto backgroundImages
                     backgroundImages[graphicId] = e.target.result;
-                    console.log(`Immagine di sfondo caricata per ${graphicId}`);
 
                     // Rigenera le anteprime delle grafiche per applicare il nuovo sfondo
                     generatePreviews();
@@ -2264,18 +2172,15 @@ function addAutoUpdateListeners() {
 
     // Event listener per l'input della posizione dello stadio
     stadiumInput.addEventListener('input', () => {
-        console.log('Posizione dello stadio modificata');
         generatePreviews();
     });
 
     // Event listeners per gli input della data e dell'ora
     matchDateInput.addEventListener('change', () => {
-        console.log('Data del match cambiata');
         generatePreviews();
     });
 
     matchTimeInput.addEventListener('change', () => {
-        console.log('Ora del match cambiata');
         generatePreviews();
     });
 
@@ -2283,7 +2188,6 @@ function addAutoUpdateListeners() {
     const matchDayInput = document.getElementById('matchDay');
     if (matchDayInput) {
         matchDayInput.addEventListener('input', () => {
-            console.log('Matchday modificato');
             generatePreviews();
         });
     }
@@ -2476,7 +2380,6 @@ async function initialize() {
     addAutoUpdateListeners();
     initializeTeams();
     generateBackgroundUploadFields();
-    generatePreviews();
     updateImagesHeaderVisibility();
 }
 
