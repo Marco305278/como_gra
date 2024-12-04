@@ -567,12 +567,27 @@ button.active {
     margin: 10px;
 }
 
+.carousel-item a:hover{
+    color: #e04413;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+.carousel-item a:hover canvas{
+    border: 8px solid #e97b5a;
+}
+
+.carousel-item a{
+    transition: all 0.5s cubic-bezier(.215, .61, .355, 1);
+}
+
 canvas {
-    border: 6px solid #8eb2da;
+    border: 8px solid #8eb2da;
     border-radius: 16px;
     margin-top: 15px;
     max-width: 100%;
     height: auto;
+    transition: all 0.5s cubic-bezier(.215, .61, .355, 1);
 }
 
 select[readonly] {
