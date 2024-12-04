@@ -25,7 +25,7 @@
 @font-face {
     font-family: 'bodoni-72-book-italic';
     src: url('fonts/bodoni-72-book-italic.ttf') format('truetype');
-    font-weight: normal;
+    font-weight: 800;
     font-style: normal;
 }
 

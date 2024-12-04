@@ -185,16 +185,16 @@ const graphicStyles = {
         'overlay_4x5': {
             homeLogo: null,
             awayLogo: null,
-            championshipLogo: { x: 900, y: 40, width: 130, height: 212 },
+            championshipLogo: { x: 890, y: 0, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1240, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 800, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
-            nextMatchTitle: { x: 65, y: 160, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
+            dateTime: { x: 65, y: 1185, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 790, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            nextMatchTitle: { x: 60, y: 150, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
+            stadiumLocation: { x: 65, y: 1295, fontSize: 48, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
         },
         'overlay_9x16': {
             homeLogo: null,
@@ -202,13 +202,13 @@ const graphicStyles = {
             championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1240 + 415, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 800 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
-            nextMatchTitle: { x: 65, y: 200, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
+            dateTime: { x: 65, y: 1210 + 390, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 800 + 350, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            nextMatchTitle: { x: 60, y: 310, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
+            stadiumLocation: { x: 65, y: 1380 + 335, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
         }
     },
     'matchday': {
@@ -1098,8 +1098,30 @@ function getFilenameForCanvas(canvas) {
 }
 
 
-
 function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', graphicName = '') {
+
+    const formatter = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric' });
+    const parts = formatter.formatToParts(dateObj);
+
+    let month = '';
+    let day = 0;
+
+    parts.forEach(part => {
+        if (part.type === 'month') {
+            month = part.value.toUpperCase();
+        }
+        if (part.type === 'day') {
+            day = parseInt(part.value, 10);
+        }
+    });
+    const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
+
+    return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
+}
+
+
+// Funzione modificata per ottenere i componenti formattati della data
+function getFormattedDateParts(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', graphicName = '') {
     function getOrdinalSuffix(day) {
         if (day > 3 && day < 21) return 'TH';
         switch (day % 10) {
@@ -1125,14 +1147,16 @@ function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', gra
         }
     });
 
-    const dayWithSuffix = `${day}${getOrdinalSuffix(day)}`;
+    const ordinalSuffix = getOrdinalSuffix(day);
     const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
 
-    if (graphicName === 'livematch') {
-        return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
-    } else {
-        return `${month} ${dayWithSuffix} | ${formattedTime} ${timeZoneAbbreviation}`;
-    }
+    return {
+        month: month,
+        day: day,
+        ordinalSuffix: ordinalSuffix,
+        time: formattedTime,
+        timeZoneAbbreviation: timeZoneAbbreviation
+    };
 }
 
 /**
@@ -1446,7 +1470,9 @@ async function generatePreviews() {
             let timeVersions = [{ timeOffsetHours: 0, timeZoneAbbreviation: 'CET' }];
 
             if (['nextmatch', 'matchday', 'kickoff'].includes(graphicName)) {
-                timeVersions.push({ timeOffsetHours: 6, timeZoneAbbreviation: 'WIB' });
+                if (championshipSelect.value == 'primavera') {
+                    timeVersions.push({ timeOffsetHours: 6, timeZoneAbbreviation: 'WIB' });
+                }
             }
 
             for (const timeVersion of timeVersions) {
@@ -1546,7 +1572,7 @@ async function generatePreviews() {
                         
                                         if (selectedOption.text.includes(' ')) {
                                             // Estrae solo il cognome
-                                            name = selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                                            name = selectedOption.text.split(' ').slice(0, -1).join(' ').toUpperCase();
                                         } else {
                                             // Se non c'è uno spazio, utilizza l'intero nome
                                             name = selectedOption.text.toUpperCase();
@@ -1598,7 +1624,7 @@ async function generatePreviews() {
                         
                                         if (selectedOption.text.includes(' ')) {
                                             // Estrae solo il cognome
-                                            name = selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                                            name = selectedOption.text.split(' ').slice(0, -1).join(' ').toUpperCase();
                                         } else {
                                             // Se non c'è uno spazio, utilizza l'intero nome
                                             name = selectedOption.text.toUpperCase();
@@ -1899,15 +1925,65 @@ async function generatePreviews() {
 
                         // Disegna la data del match
                         if (style.dateTime) {
-                            const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB', graphicName);
-                            ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                            ctx.fillStyle = style.dateTime.color;
-                            ctx.textAlign = 'left';
-                            if (style.dateTime.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-                            } else {
-                                ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
-                            }
+                            // Ottieni i componenti formattati della data
+const dateParts = getFormattedDateParts(
+    adjustedDateObj,
+    timeVersion.timeZoneAbbreviation,
+    'en-GB',
+    graphicName
+  );
+  
+  // Prepara i testi da disegnare
+  const dateText = `${dateParts.month} ${dateParts.day}`;
+  const suffix = dateParts.ordinalSuffix;
+  let timeText = ``;
+
+  if (championship == 'primavera') {
+    timeText = ` | ${dateParts.time} ${timeVersion.timeZoneAbbreviation}`;
+  } else {
+    timeText = ` | ${dateParts.time}`;
+  }
+  
+  // Imposta lo stile per il mese e il giorno
+  ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+  ctx.fillStyle = style.dateTime.color;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  
+  // Calcola le metriche del testo del mese e del giorno
+  const dateMetrics = ctx.measureText(dateText);
+  const dateTextWidth = dateMetrics.width + 5;
+  const dateAscent = dateMetrics.actualBoundingBoxAscent;
+  
+  // Calcola la posizione y per il testo in base alla baseline
+  const y = style.dateTime.y + dateAscent;
+  
+  // Disegna il testo del mese e del giorno
+  ctx.fillText(dateText, style.dateTime.x, y);
+  
+  // Imposta lo stile per il suffisso in small-caps e dimensione ridotta
+  const suffixFontSize = style.dateTime.fontSize * 0.7;
+  ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
+  ctx.font = ctx.font.replace('normal', 'small-caps');
+  
+  // Calcola le metriche del suffisso
+  const suffixMetrics = ctx.measureText(suffix);
+  const suffixAscent = suffixMetrics.actualBoundingBoxAscent;
+  
+  // Calcola l'offset verticale per allineare il suffisso
+  const suffixOffsetY = y;
+  
+  // Disegna il suffisso immediatamente dopo il giorno
+  ctx.fillText(suffix, style.dateTime.x + dateTextWidth, suffixOffsetY);
+  
+  // Calcola la larghezza del suffisso
+  const suffixWidth = suffixMetrics.width;
+  
+  // Ripristina lo stile del font per il testo successivo (ora)
+  ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+  
+  // Disegna il testo dell'ora dopo il suffisso
+  ctx.fillText(timeText, style.dateTime.x + dateTextWidth + suffixWidth, y);
                         }
 
                         // Disegna il matchday
@@ -2047,7 +2123,7 @@ async function generatePreviews() {
                                     const selectedPlayer = currentPlayers.find(p => p.value === selectedValue);
                         
                                     if (selectedPlayer) {
-                                        playerName = selectedPlayer.value;
+                                        playerName = selectedPlayer.text;
                                     } else {
                                         console.warn(`Giocatore con valore "${selectedValue}" non trovato nell'array corrente.`);
                                     }
