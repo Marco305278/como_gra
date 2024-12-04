@@ -81,21 +81,21 @@ const graphicStyles = {
     },
     'kickoff': {
         'overlay_4x5': {
-            homeLogo: { x: 70, y: 950, width: 165, height: 165 },
-            awayLogo: { x: 250, y: 950, width: 165, height: 165 },
-            championshipLogo: { x: 70, y: 45, width: 130, height: 212 },
+            homeLogo: { x: 80, y: 980, width: 165, height: 165 },
+            awayLogo: { x: 285, y: 980, width: 165, height: 165 },
+            championshipLogo: { x: 70, y: 0, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 70, y: 335, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
+            dateTime: { x: 70, y: 295, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             matchDay: null
         },
         'overlay_9x16': {
-            homeLogo: { x: 70, y: 1250, width: 165, height: 165 },
-            awayLogo: { x: 250, y: 1250, width: 165, height: 165 },
-            championshipLogo: { x: 70, y: 325, width: 130, height: 212 },
+            homeLogo: { x: 80, y: 1280, width: 165, height: 165 },
+            awayLogo: { x: 285, y: 1280, width: 165, height: 165 },
+            championshipLogo: { x: 65, y: 290, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 70, y: 600, fontSize: 68, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
+            dateTime: { x: 70, y: 590, fontSize: 68, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             matchDay: null
         }
     },
@@ -194,7 +194,7 @@ const graphicStyles = {
             homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1295, fontSize: 48, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
+            stadiumLocation: { x: 65, y: 1295, fontSize: 48, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
         },
         'overlay_9x16': {
             homeLogo: null,
@@ -203,28 +203,28 @@ const graphicStyles = {
             homeScore: null,
             awayScore: null,
             dateTime: { x: 65, y: 1210 + 390, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 800 + 350, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            matchDay: { x: 65, y: 800 + 350, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 8 },
             nextMatchTitle: { x: 60, y: 310, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1380 + 335, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
+            stadiumLocation: { x: 65, y: 1380 + 335, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
         }
     },
     'matchday': {
         'overlay_4x5': {
             homeLogo: null,
             awayLogo: null,
-            championshipLogo: { x: 900, y: 40, width: 130, height: 212 },
+            championshipLogo: { x: 65, y: 140, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1240, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 800, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            dateTime: { x: 65, y: 1100, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 700, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: null,
-            homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 970, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
-            awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
+            homeTeamName: { x: 60, y: 885, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
+            vsText: { x: null, y: 885, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            awayTeamName: { x: 60, y: 1030, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 65, y: 1205, fontSize: 48, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
         },
         'overlay_9x16': {
             homeLogo: null,
@@ -232,13 +232,13 @@ const graphicStyles = {
             championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1240 + 415, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 800 + 370, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            dateTime: { x: 65, y: 1210 + 390, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            matchDay: { x: 65, y: 800 + 350, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 8 },
             nextMatchTitle: null,
             homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1310 + 415, fontSize: 60, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 }
+            stadiumLocation: { x: 65, y: 1380 + 335, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
         }
     },
     'insta': {
@@ -1098,7 +1098,7 @@ function getFilenameForCanvas(canvas) {
 }
 
 
-function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', graphicName = '') {
+function formatDate(dateObj, locale = 'en-GB', graphicName = '') {
 
     const formatter = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric' });
     const parts = formatter.formatToParts(dateObj);
@@ -1116,7 +1116,7 @@ function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', gra
     });
     const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
 
-    return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
+    return `${month} ${day} | ${formattedTime}`;
 }
 
 
@@ -1926,65 +1926,65 @@ async function generatePreviews() {
                         // Disegna la data del match
                         if (style.dateTime) {
                             // Ottieni i componenti formattati della data
-const dateParts = getFormattedDateParts(
-    adjustedDateObj,
-    timeVersion.timeZoneAbbreviation,
-    'en-GB',
-    graphicName
-  );
-  
-  // Prepara i testi da disegnare
-  const dateText = `${dateParts.month} ${dateParts.day}`;
-  const suffix = dateParts.ordinalSuffix;
-  let timeText = ``;
+                        const dateParts = getFormattedDateParts(
+                            adjustedDateObj,
+                            timeVersion.timeZoneAbbreviation,
+                            'en-GB',
+                            graphicName
+                        );
+                        
+                        // Prepara i testi da disegnare
+                        const dateText = `${dateParts.month} ${dateParts.day}`;
+                        const suffix = dateParts.ordinalSuffix;
+                        let timeText = ``;
 
-  if (championship == 'primavera') {
-    timeText = ` | ${dateParts.time} ${timeVersion.timeZoneAbbreviation}`;
-  } else {
-    timeText = ` | ${dateParts.time}`;
-  }
-  
-  // Imposta lo stile per il mese e il giorno
-  ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-  ctx.fillStyle = style.dateTime.color;
-  ctx.textAlign = 'left';
-  ctx.textBaseline = 'alphabetic';
-  
-  // Calcola le metriche del testo del mese e del giorno
-  const dateMetrics = ctx.measureText(dateText);
-  const dateTextWidth = dateMetrics.width + 5;
-  const dateAscent = dateMetrics.actualBoundingBoxAscent;
-  
-  // Calcola la posizione y per il testo in base alla baseline
-  const y = style.dateTime.y + dateAscent;
-  
-  // Disegna il testo del mese e del giorno
-  ctx.fillText(dateText, style.dateTime.x, y);
-  
-  // Imposta lo stile per il suffisso in small-caps e dimensione ridotta
-  const suffixFontSize = style.dateTime.fontSize * 0.7;
-  ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
-  ctx.font = ctx.font.replace('normal', 'small-caps');
-  
-  // Calcola le metriche del suffisso
-  const suffixMetrics = ctx.measureText(suffix);
-  const suffixAscent = suffixMetrics.actualBoundingBoxAscent;
-  
-  // Calcola l'offset verticale per allineare il suffisso
-  const suffixOffsetY = y;
-  
-  // Disegna il suffisso immediatamente dopo il giorno
-  ctx.fillText(suffix, style.dateTime.x + dateTextWidth, suffixOffsetY);
-  
-  // Calcola la larghezza del suffisso
-  const suffixWidth = suffixMetrics.width;
-  
-  // Ripristina lo stile del font per il testo successivo (ora)
-  ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-  
-  // Disegna il testo dell'ora dopo il suffisso
-  ctx.fillText(timeText, style.dateTime.x + dateTextWidth + suffixWidth, y);
+                        if (championship == 'primavera') {
+                            timeText = ` | ${dateParts.time} ${timeVersion.timeZoneAbbreviation}`;
+                        } else {
+                            timeText = ` | ${dateParts.time}`;
                         }
+                        
+                        // Imposta lo stile per il mese e il giorno
+                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                        ctx.fillStyle = style.dateTime.color;
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'alphabetic';
+                        
+                        // Calcola le metriche del testo del mese e del giorno
+                        const dateMetrics = ctx.measureText(dateText);
+                        const dateTextWidth = dateMetrics.width + 5;
+                        const dateAscent = dateMetrics.actualBoundingBoxAscent;
+                        
+                        // Calcola la posizione y per il testo in base alla baseline
+                        const y = style.dateTime.y + dateAscent;
+                        
+                        // Disegna il testo del mese e del giorno
+                        ctx.fillText(dateText, style.dateTime.x, y);
+                        
+                        // Imposta lo stile per il suffisso in small-caps e dimensione ridotta
+                        const suffixFontSize = style.dateTime.fontSize * 0.7;
+                        ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
+                        ctx.font = ctx.font.replace('normal', 'small-caps');
+                        
+                        // Calcola le metriche del suffisso
+                        const suffixMetrics = ctx.measureText(suffix);
+                        const suffixAscent = suffixMetrics.actualBoundingBoxAscent;
+                        
+                        // Calcola l'offset verticale per allineare il suffisso
+                        const suffixOffsetY = y;
+                        
+                        // Disegna il suffisso immediatamente dopo il giorno
+                        ctx.fillText(suffix, style.dateTime.x + dateTextWidth, suffixOffsetY);
+                        
+                        // Calcola la larghezza del suffisso
+                        const suffixWidth = suffixMetrics.width;
+                        
+                        // Ripristina lo stile del font per il testo successivo (ora)
+                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                        
+                        // Disegna il testo dell'ora dopo il suffisso
+                        ctx.fillText(timeText, style.dateTime.x + dateTextWidth + suffixWidth, y);
+                                                }
 
                         // Disegna il matchday
                         if (style.matchDay) {
