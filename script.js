@@ -2464,16 +2464,28 @@ async function generatePreviews() {
                     // Crea un div per l'anteprima e aggiungi il canvas
                     const previewDiv = document.createElement('div');
                     previewDiv.classList.add('carousel-item');
-                    
+                    previewDiv.appendChild(canvas);
 
-                    // **Aggiunta del pulsante di download individuale**
-                    const downloadLink = document.createElement('a');
-                    downloadLink.textContent = 'Download';
-                    downloadLink.href = canvas.toDataURL('image/png');
-                    downloadLink.download = getFilenameForCanvas(canvas);
-                    downloadLink.classList.add('download-link');
-                    previewDiv.appendChild(downloadLink);
-                    downloadlink.appendChild(canvas);
+// **Aggiunta del pulsante di download individuale**
+const downloadLink = document.createElement('a');
+
+// Inserimento del canvas all'interno del tag <a>
+downloadLink.appendChild(canvas);
+
+// Aggiunta del tag <br> per andare a capo
+downloadLink.appendChild(document.createElement('br'));
+
+// Testo "Download"
+const downloadText = document.createTextNode('Download');
+downloadLink.appendChild(downloadText);
+
+// Impostazione delle proprietà per il download
+downloadLink.href = canvas.toDataURL('image/png');
+downloadLink.download = getFilenameForCanvas(canvas);
+downloadLink.classList.add('download-link');
+
+// Aggiunta del link al contenitore principale
+previewDiv.appendChild(downloadLink);
                     // **Fine Aggiunta**
 
                     graphicPreviewContainer.appendChild(previewDiv);
