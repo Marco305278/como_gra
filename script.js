@@ -165,10 +165,10 @@ const graphicStyles = {
     },
     'highlights': {
         'overlay_5x8': {
-            homeLogo: { x: 55, y: 655, width: 150, height: 150 },
-            awayLogo: { x: 375, y: 655, width: 150, height: 150 },
+            homeLogo: { x: 55, y: 660, width: 150, height: 150 },
+            awayLogo: { x: 375, y: 660, width: 150, height: 150 },
             championshipLogo: null,
-            combinedScore: { x: 291, y: 760, fontSize: 72, color: 'white', font: 'MazzardH-Light', letterSpacing: -10, textAlign: 'center' },
+            combinedScore: { x: 291, y: 765, fontSize: 64, color: 'white', font: 'MazzardH-Light', letterSpacing: -10, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
@@ -176,7 +176,7 @@ const graphicStyles = {
             homeLogo: { x: 960, y: 430, width: 260, height: 260 },
             awayLogo: { x: 1545, y: 430, width: 260, height: 260 },
             championshipLogo: null,
-            combinedScore: { x: 1400, y: 590, fontSize: 130, color: 'white', font: 'MazzardH-Light', letterSpacing: 0, textAlign: 'center' },
+            combinedScore: { x: 1400, y: 600, fontSize: 125, color: 'white', font: 'MazzardH-Light', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
@@ -188,11 +188,11 @@ const graphicStyles = {
             championshipLogo: { x: 890, y: 0, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1185, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            dateTime: { x: 65, y: 1185, sety: 1185+55, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             matchDay: { x: 65, y: 790, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
             nextMatchTitle: { x: 60, y: 150, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 970, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            vsText: { x: null, y: 960, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             stadiumLocation: { x: 65, y: 1295, fontSize: 48, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
         },
@@ -202,11 +202,11 @@ const graphicStyles = {
             championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1210 + 390, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            dateTime: { x: 65, y: 1210 + 390, sety: 1210 + 390 + 55, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             matchDay: { x: 65, y: 800 + 350, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 8 },
             nextMatchTitle: { x: 60, y: 310, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
             homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            vsText: { x: null, y: 960 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
             awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
             stadiumLocation: { x: 65, y: 1380 + 335, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
         }
@@ -1098,8 +1098,7 @@ function getFilenameForCanvas(canvas) {
 }
 
 
-function formatDate(dateObj, locale = 'en-GB', graphicName = '') {
-
+function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', graphicName = '') {
     const formatter = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric' });
     const parts = formatter.formatToParts(dateObj);
 
@@ -1116,7 +1115,11 @@ function formatDate(dateObj, locale = 'en-GB', graphicName = '') {
     });
     const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
 
-    return `${month} ${day} | ${formattedTime}`;
+    if (graphicName === 'kickoff') {
+        return `${month} ${day} | ${formattedTime}`;
+    } else {
+        return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
+    }
 }
 
 
@@ -1293,6 +1296,7 @@ function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
         ctx.fillText(line3, x, y + 2 * lineHeight);
     }
 }
+
 /**
  * Funzione per creare le tab delle grafiche
  */
@@ -1455,7 +1459,15 @@ async function generatePreviews() {
                 }
             }
 
-            const overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
+            let overlayImageSrc = ''
+
+            overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
+
+            if (graphicName === 'nextmatch') {
+                if (championshipSelect.value == 'seriea') {
+                    overlayImageSrc = `${graphicFolder}/${overlayName}_right.png`;
+                }
+            }
 
             const [bgImage, overlayImage] = await Promise.all([
                 loadImage(bgImageSrc),
@@ -1876,7 +1888,120 @@ async function generatePreviews() {
                             }
                         }
 
-                        // Disegna il nome della squadra di casa
+                        if (graphicName === 'nextmatch') {
+                            if (championshipSelect.value === 'seriea') {
+
+                                // !SERIE A
+
+                                // Disegna il nome della squadra di casa
+                        let homeTeamNameWidth;
+                        if (style.homeTeamName) {
+                            const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+                            ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+                            ctx.fillStyle = style.homeTeamName.color;
+                            ctx.textAlign = 'left';
+                            homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+                            drawTextWithLetterSpacing(ctx, homeTeamText, canvas.width - style.homeTeamName.x - homeTeamNameWidth, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+                        }
+
+                        // Disegna il nome della squadra ospite
+                        if (style.awayTeamName) {
+                            const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+                            ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+                            ctx.fillStyle = style.awayTeamName.color;
+                            ctx.textAlign = 'left';
+                            awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+                            drawTextWithLetterSpacing(ctx, awayTeamText, canvas.width - style.awayTeamName.x - awayTeamNameWidth, style.awayTeamName.y, style.awayTeamName.letterSpacing);
+                        }
+
+                        // Calcola la posizione x per 'VS'
+                        let vsTextX;
+                        let vsTextWidth;
+                        if (style.vsText && homeTeamNameWidth !== undefined) {
+                            vsTextX = canvas.width - style.homeTeamName.x - awayTeamNameWidth;
+                            ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+                            ctx.fillStyle = style.vsText.color;
+                            ctx.textAlign = 'right';
+                                ctx.fillText('vs.', vsTextX, style.vsText.y + 80);
+                                vsTextWidth = ctx.measureText('vs.').width;
+                        }
+
+                        // Disegna la data del match
+                        if (style.dateTime) {
+                            // Ottieni i componenti formattati della data
+                        const dateParts = getFormattedDateParts(
+                            adjustedDateObj,
+                            timeVersion.timeZoneAbbreviation,
+                            'en-GB',
+                            graphicName
+                        );
+                        
+                        // Prepara i testi da disegnare
+                        const dateText = `${dateParts.month} ${dateParts.day}`;
+                        const suffix = dateParts.ordinalSuffix;
+                        const timeText = ` | ${dateParts.time}`;
+
+
+                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                        ctx.fillStyle = style.dateTime.color;
+                        ctx.textAlign = 'right';
+                        ctx.textBaseline = 'alphabetic';
+                        ctx.fillText(timeText, canvas.width - style.dateTime.x, style.dateTime.sety);
+
+                        const hoursWidth = ctx.measureText(timeText);
+
+                        // Imposta lo stile per il suffisso in small-caps e dimensione ridotta
+                        const suffixFontSize = style.dateTime.fontSize * 0.7;
+                        ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
+                        ctx.font = ctx.font.replace('normal', 'small-caps');
+                        ctx.fillText(suffix, canvas.width - style.dateTime.x - hoursWidth.width, style.dateTime.sety);
+
+                        const suffixWidth = ctx.measureText(suffix);
+
+                        // Imposta lo stile per il mese e il giorno
+                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                        ctx.fillText(dateText, canvas.width - style.dateTime.x - hoursWidth.width - suffixWidth.width - 3, style.dateTime.sety);  
+                    
+                    }
+
+                        // Disegna il matchday
+                        if (style.matchDay) {
+                            const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+                            const matchDayText = `MATCHDAY ${matchDayValue}`;
+                            let matchDayWidth = 0
+                            ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+                            ctx.fillStyle = style.matchDay.color;
+                            ctx.textAlign = 'left';
+                                matchDayWidth = measureTextWithLetterSpacing(ctx, matchDayText, style.matchDay.letterSpacing);
+                                drawTextWithLetterSpacing(ctx, matchDayText, canvas.width - style.matchDay.x - matchDayWidth, style.matchDay.y, style.matchDay.letterSpacing);
+                        }
+
+                        // Disegna la posizione dello stadio
+                        if (style.stadiumLocation) {
+                            const stadiumLocationValue = stadiumInput.value.trim() || '';
+                            let stadiumLocationWidth = 0
+                            ctx.font = `${style.stadiumLocation.fontSize}px ${style.stadiumLocation.font}`;
+                            ctx.fillStyle = style.stadiumLocation.color;
+                            ctx.textAlign = 'left';
+                                stadiumLocationWidth = measureTextWithLetterSpacing(ctx, stadiumLocationValue, style.stadiumLocation.letterSpacing);
+                                drawTextWithLetterSpacing(ctx, stadiumLocationValue, canvas.width -  style.stadiumLocation.x - stadiumLocationWidth, style.stadiumLocation.y, style.stadiumLocation.letterSpacing);
+                        }
+
+                        // Disegna il logo del campionato se presente
+                        if (style.championshipLogo) {
+                            const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
+                            const championshipLogo = await loadImage(championshipLogoSrc);
+                            if (championshipLogo) {
+                                ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
+                            }
+                        }
+
+
+
+
+
+                            } else {
+                                // Disegna il nome della squadra di casa
                         let homeTeamNameWidth;
                         if (style.homeTeamName) {
                             const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
@@ -2021,6 +2146,155 @@ async function generatePreviews() {
                                 ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
                             }
                         }
+                            }
+                        } else {
+                            // Disegna il nome della squadra di casa
+                        let homeTeamNameWidth;
+                        if (style.homeTeamName) {
+                            const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+                            ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+                            ctx.fillStyle = style.homeTeamName.color;
+                            ctx.textAlign = 'left';
+                            if (style.homeTeamName.letterSpacing) {
+                                homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+                                drawTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.x, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+                            } else {
+                                ctx.fillText(homeTeamText, style.homeTeamName.x, style.homeTeamName.y);
+                                homeTeamNameWidth = ctx.measureText(homeTeamText).width;
+                            }
+                        }
+
+                        // Calcola la posizione x per 'VS'
+                        let vsTextX;
+                        let vsTextWidth;
+                        if (style.vsText && homeTeamNameWidth !== undefined) {
+                            const spacingAfterHomeTeamName = 10; // Spazio tra il nome della squadra e 'VS'
+                            vsTextX = style.homeTeamName.x + homeTeamNameWidth + spacingAfterHomeTeamName;
+                            ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+                            ctx.fillStyle = style.vsText.color;
+                            ctx.textAlign = 'left';
+                            if (style.vsText.letterSpacing) {
+                                vsTextWidth = measureTextWithLetterSpacing(ctx, 'vs.', style.vsText.letterSpacing);
+                                drawTextWithLetterSpacing(ctx, 'vs.', vsTextX, style.vsText.y, style.vsText.letterSpacing);
+                            } else {
+                                ctx.fillText('vs.', vsTextX, style.vsText.y);
+                                vsTextWidth = ctx.measureText('vs.').width;
+                            }
+                        }
+
+                        // Disegna il nome della squadra ospite
+                        if (style.awayTeamName) {
+                            const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+                            ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+                            ctx.fillStyle = style.awayTeamName.color;
+                            ctx.textAlign = 'left';
+                            if (style.awayTeamName.letterSpacing) {
+                                drawTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.x, style.awayTeamName.y, style.awayTeamName.letterSpacing);
+                            } else {
+                                ctx.fillText(awayTeamText, style.awayTeamName.x, style.awayTeamName.y);
+                            }
+                        }
+
+                        // Disegna la data del match
+                        if (style.dateTime) {
+                            // Ottieni i componenti formattati della data
+                        const dateParts = getFormattedDateParts(
+                            adjustedDateObj,
+                            timeVersion.timeZoneAbbreviation,
+                            'en-GB',
+                            graphicName
+                        );
+                        
+                        // Prepara i testi da disegnare
+                        const dateText = `${dateParts.month} ${dateParts.day}`;
+                        const suffix = dateParts.ordinalSuffix;
+                        let timeText = ``;
+
+                        if (championship == 'primavera') {
+                            timeText = ` | ${dateParts.time} ${timeVersion.timeZoneAbbreviation}`;
+                        } else {
+                            timeText = ` | ${dateParts.time}`;
+                        }
+                        
+                        // Imposta lo stile per il mese e il giorno
+                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                        ctx.fillStyle = style.dateTime.color;
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'alphabetic';
+                        
+                        // Calcola le metriche del testo del mese e del giorno
+                        const dateMetrics = ctx.measureText(dateText);
+                        const dateTextWidth = dateMetrics.width + 5;
+                        const dateAscent = dateMetrics.actualBoundingBoxAscent;
+                        
+                        // Calcola la posizione y per il testo in base alla baseline
+                        const y = style.dateTime.y + dateAscent;
+                        
+                        // Disegna il testo del mese e del giorno
+                        ctx.fillText(dateText, style.dateTime.x, y);
+                        
+                        // Imposta lo stile per il suffisso in small-caps e dimensione ridotta
+                        const suffixFontSize = style.dateTime.fontSize * 0.7;
+                        ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
+                        ctx.font = ctx.font.replace('normal', 'small-caps');
+                        
+                        // Calcola le metriche del suffisso
+                        const suffixMetrics = ctx.measureText(suffix);
+                        const suffixAscent = suffixMetrics.actualBoundingBoxAscent;
+                        
+                        // Calcola l'offset verticale per allineare il suffisso
+                        const suffixOffsetY = y;
+                        
+                        // Disegna il suffisso immediatamente dopo il giorno
+                        ctx.fillText(suffix, style.dateTime.x + dateTextWidth, suffixOffsetY);
+                        
+                        // Calcola la larghezza del suffisso
+                        const suffixWidth = suffixMetrics.width;
+                        
+                        // Ripristina lo stile del font per il testo successivo (ora)
+                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                        
+                        // Disegna il testo dell'ora dopo il suffisso
+                        ctx.fillText(timeText, style.dateTime.x + dateTextWidth + suffixWidth, y);
+                                                }
+
+                        // Disegna il matchday
+                        if (style.matchDay) {
+                            const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+                            const matchDayText = `MATCHDAY ${matchDayValue}`;
+                            ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+                            ctx.fillStyle = style.matchDay.color;
+                            ctx.textAlign = 'left';
+                            if (style.matchDay.letterSpacing) {
+                                drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
+                            } else {
+                                ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
+                            }
+                        }
+
+                        // Disegna la posizione dello stadio
+                        if (style.stadiumLocation) {
+                            const stadiumLocationValue = stadiumInput.value.trim() || '';
+                            ctx.font = `${style.stadiumLocation.fontSize}px ${style.stadiumLocation.font}`;
+                            ctx.fillStyle = style.stadiumLocation.color;
+                            ctx.textAlign = 'left';
+                            if (style.stadiumLocation.letterSpacing) {
+                                drawTextWithLetterSpacing(ctx, stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y, style.stadiumLocation.letterSpacing);
+                            } else {
+                                ctx.fillText(stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y);
+                            }
+                        }
+
+                        // Disegna il logo del campionato se presente
+                        if (style.championshipLogo) {
+                            const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
+                            const championshipLogo = await loadImage(championshipLogoSrc);
+                            if (championshipLogo) {
+                                ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
+                            }
+                        }
+                        }
+
                     } else if (graphicName === 'insta') {
                         // !INSTA
                         const rectWidth = 943.5;
