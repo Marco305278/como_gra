@@ -32,7 +32,7 @@
 @font-face {
     font-family: 'bodoni-72-bold';
     src: url('fonts/bodoni-72-bold.ttf') format('truetype');
-    font-weight: bold;
+    font-weight: 800;
     font-style: normal;
 }
 
