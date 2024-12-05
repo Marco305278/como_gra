@@ -1446,7 +1446,13 @@ async function generatePreviews() {
                 const selectedPlayer = currentPlayers.find(p => p.value === (playerSelect ? playerSelect.value : ''));
                 
                 // Ottieni il nome del giocatore formattato o usa un valore predefinito
-                const playerName = selectedPlayer ? selectedPlayer.text.replace(/\s+/g, '_').toLowerCase() : 'default_player';
+                const playerName = selectedPlayer
+                ? selectedPlayer.text
+                    .normalize("NFD") // Normalizza il testo per separare i caratteri accentati
+                    .replace(/[\u0300-\u036f]/g, '') // Rimuove i diacritici
+                    .replace(/\s+/g, '_') // Sostituisce gli spazi con underscore
+                    .toLowerCase() // Converte tutto in minuscolo
+                : 'default_player';
                 
                 // Determina la posizione in base allo stato di `playerHome`
                 const position = playerHome ? 'home' : 'away';
