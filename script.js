@@ -1500,7 +1500,6 @@ async function generatePreviews() {
                 } else {
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    console.warn(`Immagine di sfondo non caricata per ${graphicName} nel formato ${overlayName}. Canvas riempito con bianco.`);
                 }
 
                 ctx.drawImage(overlayImage, 0, 0, canvas.width, canvas.height);
