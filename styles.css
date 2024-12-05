@@ -780,6 +780,17 @@ select:disabled {
     opacity: 0.6; /* Aggiunge un effetto visivo di trasparenza */
 }
 
+label.label-text{
+    color: #c86f51 !important;
+    padding: 0 !important;
+    background: none !important;
+}
+
+label.label-text:hover{
+    transform: scale(1) !important;
+    cursor: not-allowed;
+}
+
 label.work {
     font-size: 12px;
     font-weight: 700;
@@ -896,3 +907,4 @@ input[type="checkbox"].work:checked + label {
     background: #c0d6e4; /* Leggermente più scuro al passaggio del mouse */
     transform: scale(0.97);
 }
+

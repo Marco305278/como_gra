@@ -22,6 +22,7 @@ const increaseButton = document.getElementById('increase');
 const halftimeCheckbox = document.getElementById('customHalfOverlay');
 const fulltimeCheckbox = document.getElementById('customFullOverlay');
 
+
 let jsondata = {};
 
 async function fetchData() {
@@ -37,6 +38,7 @@ async function fetchData() {
     }
 }
 
+const apiKey = 'fYNS8MDcLq2LpqLMAZ83GwbN';
 
 const graphicStyles = {
     'fulltime': {
@@ -294,9 +296,17 @@ let customStartingXISubstitutes = false;
 let customHalfOverlay = false;
 let customFullOverlay = false;
 
+let advCustomHalfOverlay = false;
+let advCustomFullOverlay = false;
+
+let advCustomHalfOverlayActive = false;
+let advCustomFullOverlayActive = false;
+
 let playerHome = true;
 
 let playerFotoNumber = false
+
+let freeCalls = 50;
 
 // Definizione del team fisso
 const fixedTeam = {
@@ -307,6 +317,29 @@ const fixedTeam = {
 let currentTeams = [];
 let backgroundImages = {};
 
+
+async function mostraCreditiRimanenti() {
+    try {
+        const response = await fetch('https://api.remove.bg/v1.0/account', {
+            method: 'GET',
+            headers: {
+                'X-Api-Key': apiKey
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Errore nella risposta dell'API: ${response.status}`);
+        }
+
+        const data = await response.json();
+        freeCalls = data.data.attributes.api.free_calls;
+    } catch (error) {
+        console.error('Errore nel recupero dei crediti rimanenti:', error);
+        alert('Impossibile recuperare i crediti rimanenti.');
+    }
+}
+
+mostraCreditiRimanenti()
 
 function populateSelectableSelect(selectElement, teams, selectedValue = null) {
     selectElement.innerHTML = '';
@@ -708,6 +741,7 @@ function updateGraphicsOptions() {
                     inputFull.setAttribute('type', 'checkbox');
                     inputFull.setAttribute('name', 'customFullOverlay');
                     inputFull.setAttribute('id', 'customFullOverlay');
+                    inputFull.checked = customFullOverlay;
 
                     // Aggiungi il testo al label
                     labelFull.appendChild(inputFull);
@@ -720,7 +754,42 @@ function updateGraphicsOptions() {
 
                     inputFull.addEventListener('change', () => {
                         customFullOverlay = inputFull.checked;
+                        advCustomFullOverlay = inputFull.checked;
+                        updateGraphicsOptions()
                     });
+
+                    if (advCustomFullOverlay) {
+                        // Crea il contenitore div con la classe 'graphics-time'
+                        const graphicsTimeDivadv2 = document.createElement('div');
+                        graphicsTimeDivadv2.classList.add('graphics-time');
+    
+                        // Crea il label
+                        const labeladv2 = document.createElement('label');
+                        labeladv2.setAttribute('for', 'advCustomHalfOverlay');
+                        labeladv2.setAttribute('id', 'customHalfOverlayLabel');
+                        labeladv2.classList.add('label-text')
+    2
+                        // Crea l'input di tipo checkbox
+                        const inputadv2 = document.createElement('input');
+                        inputadv2.setAttribute('type', 'checkbox');
+                        inputadv2.setAttribute('name', 'advCustomHalfOverlay');
+                        inputadv2.setAttribute('id', 'advCustomHalfOverlay');
+                        inputadv2.checked = advCustomFullOverlayActive
+    
+                        // Aggiungi il testo al label
+                        labeladv2.appendChild(inputadv2);
+                        labeladv2.appendChild(document.createTextNode(`R: ${freeCalls}`));
+    
+                        // Aggiungi il label al div
+                        graphicsTimeDiv2.appendChild(labeladv2);
+    
+                        optionDiv.appendChild(graphicsTimeDivadv2);
+    
+    
+                        inputadv2.addEventListener('change', () => {
+                            advCustomFullOverlayActive = inputadv2.checked;
+                        });
+                    }
                 break;
 
 
@@ -799,6 +868,7 @@ function updateGraphicsOptions() {
                                         input.setAttribute('type', 'checkbox');
                                         input.setAttribute('name', 'customHalfOverlay');
                                         input.setAttribute('id', 'customHalfOverlay');
+                                        input.checked = customHalfOverlay;
                     
                                         // Aggiungi il testo al label
                                         label.appendChild(input);
@@ -812,7 +882,42 @@ function updateGraphicsOptions() {
                     
                                         input.addEventListener('change', () => {
                                             customHalfOverlay = input.checked;
+                                            advCustomHalfOverlay = input.checked;
+                                            updateGraphicsOptions()
                                         });
+
+                                        if (advCustomHalfOverlay) {
+                                            // Crea il contenitore div con la classe 'graphics-time'
+                                            const graphicsTimeDivadv = document.createElement('div');
+                                            graphicsTimeDivadv.classList.add('graphics-time');
+                        
+                                            // Crea il label
+                                            const labeladv = document.createElement('label');
+                                            labeladv.setAttribute('for', 'advCustomHalfOverlay');
+                                            labeladv.setAttribute('id', 'customHalfOverlayLabel');
+                                            labeladv.classList.add('label-text')
+                        
+                                            // Crea l'input di tipo checkbox
+                                            const inputadv = document.createElement('input');
+                                            inputadv.setAttribute('type', 'checkbox');
+                                            inputadv.setAttribute('name', 'advCustomHalfOverlay');
+                                            inputadv.setAttribute('id', 'advCustomHalfOverlay');
+                                            inputadv.checked = advCustomHalfOverlayActive
+                        
+                                            // Aggiungi il testo al label
+                                            labeladv.appendChild(inputadv);
+                                            labeladv.appendChild(document.createTextNode(`R: ${freeCalls}`));
+                        
+                                            // Aggiungi il label al div
+                                            graphicsTimeDiv.appendChild(labeladv);
+                        
+                                            optionDiv.appendChild(graphicsTimeDivadv);
+                        
+                        
+                                            inputadv.addEventListener('change', () => {
+                                                advCustomHalfOverlayActive = inputadv.checked;
+                                            });
+                                        }
                     break;
 
                     case 'startingxi':
@@ -1514,13 +1619,23 @@ async function generatePreviews() {
 
                 if (graphicName === 'halftime') {
                     if (customHalfOverlay) {
-                        const bgOverlayHalfImage = await removeBackground(bgImage);
-                        drawImageCover(ctx, bgOverlayHalfImage, canvas.width, canvas.height, graphicName, overlayName);
+                        if (advCustomHalfOverlayActive) {
+                            const bgOverlayHalfImage = await removeBackground(bgImage);
+                            drawImageCover(ctx, bgOverlayHalfImage, canvas.width, canvas.height, graphicName, overlayName);
+                        } else {
+                            const bgOverlayHalfImage = await removeBackgroundLocally(bgImage);
+                            drawImageCover(ctx, bgOverlayHalfImage, canvas.width, canvas.height, graphicName, overlayName);
+                        }
                     }
                 } else if (graphicName === 'fulltime') {
                     if (customFullOverlay) {
-                        const bgFullOverlayImage = await removeBackground(bgImage);
-                        drawImageCover(ctx, bgFullOverlayImage, canvas.width, canvas.height, graphicName, overlayName);
+                        if (advCustomFullOverlayActive) {
+                            const bgFullOverlayImage = await removeBackground(bgImage);
+                            drawImageCover(ctx, bgFullOverlayImage, canvas.width, canvas.height, graphicName, overlayName);
+                        } else {
+                            const bgFullOverlayImage = await removeBackgroundLocally(bgImage);
+                            drawImageCover(ctx, bgFullOverlayImage, canvas.width, canvas.height, graphicName, overlayName);
+                        }
                     }
                 }
 
@@ -2510,9 +2625,128 @@ async function generatePreviews() {
     }
 }
 
-
-// Funzione per rimuovere il background dall'immagine e sfumare i bordi di 3 px
 async function removeBackground(image) {
+    try {
+        // 1. Converti l'immagine originale in un blob
+        const originalBlob = await fetch(image.src).then(res => res.blob());
+
+        // 2. Crea un form data per l'API di remove.bg
+        const formData = new FormData();
+        formData.append('image_file', originalBlob);
+        formData.append('size', 'auto'); // Opzioni: 'auto', 'preview', 'small', 'regular', 'full'
+
+        // 3. Effettua la richiesta all'API di remove.bg
+        const response = await fetch('https://api.remove.bg/v1.0/removebg', {
+            method: 'POST',
+            headers: {
+                'X-Api-Key': apiKey
+            },
+            body: formData
+        });
+
+        // 4. Verifica la risposta dell'API
+        if (!response.ok) {
+            throw new Error('Errore nella risposta dell\'API: ' + response.statusText);
+        }
+
+        // 5. Ottieni l'immagine con il canale alpha dall'API
+        const resultBlob = await response.blob();
+        const resultImage = new Image();
+        resultImage.src = URL.createObjectURL(resultBlob);
+
+        // 6. Attendi che l'immagine sia caricata
+        await new Promise((resolve) => {
+            resultImage.onload = resolve;
+        });
+
+        // 7. Crea un canvas per l'immagine originale
+        const originalCanvas = document.createElement('canvas');
+        originalCanvas.width = image.width;
+        originalCanvas.height = image.height;
+        const originalCtx = originalCanvas.getContext('2d');
+        originalCtx.drawImage(image, 0, 0);
+
+        // 8. Crea un canvas per l'immagine con il canale alpha
+        const alphaCanvas = document.createElement('canvas');
+        alphaCanvas.width = image.width;
+        alphaCanvas.height = image.height;
+        const alphaCtx = alphaCanvas.getContext('2d');
+
+        // 9. Ridimensiona l'immagine restituita da remove.bg per corrispondere alle dimensioni originali
+        alphaCtx.drawImage(resultImage, 0, 0, image.width, image.height);
+
+        // 10. Estrai il canale alpha dall'immagine ridimensionata
+        const alphaImageData = alphaCtx.getImageData(0, 0, alphaCanvas.width, alphaCanvas.height);
+        const alphaData = alphaImageData.data;
+
+        // --- Nuovi Passaggi per Sfocare il Canale Alpha verso l'Interno ---
+
+        // 11. Inverti il canale alpha
+        for (let i = 0; i < alphaData.length; i += 4) {
+            alphaData[i + 3] = 255 - alphaData[i + 3]; // Inverti il canale alpha
+        }
+
+        // 12. Aggiorna l'immagine alpha invertita
+        alphaCtx.putImageData(alphaImageData, 0, 0);
+
+        // 13. Crea un canvas temporaneo per applicare la sfocatura
+        const blurredAlphaCanvas = document.createElement('canvas');
+        blurredAlphaCanvas.width = alphaCanvas.width;
+        blurredAlphaCanvas.height = alphaCanvas.height;
+        const blurredAlphaCtx = blurredAlphaCanvas.getContext('2d');
+
+        // 14. Disegna il canale alpha invertito sul canvas temporaneo
+        blurredAlphaCtx.drawImage(alphaCanvas, 0, 0);
+
+        // 15. Applica un filtro di sfocatura (ad esempio, 5px)
+        blurredAlphaCtx.filter = 'blur(5px)';
+        blurredAlphaCtx.drawImage(blurredAlphaCanvas, 0, 0);
+
+        // 16. Ottieni i dati dell'immagine alpha sfocata invertita
+        const blurredAlphaImageData = blurredAlphaCtx.getImageData(0, 0, blurredAlphaCanvas.width, blurredAlphaCanvas.height);
+        const blurredAlphaData = blurredAlphaImageData.data;
+
+        // 17. Inverti nuovamente il canale alpha sfocato
+        for (let i = 0; i < blurredAlphaData.length; i += 4) {
+            blurredAlphaData[i + 3] = 255 - blurredAlphaData[i + 3]; // Inverto nuovamente il canale alpha
+        }
+
+        // 18. Applica il canale alpha sfocato all'immagine originale
+        const imageData = originalCtx.getImageData(0, 0, originalCanvas.width, originalCanvas.height);
+        const originalData = imageData.data;
+
+        for (let i = 0; i < blurredAlphaData.length; i += 4) {
+            const alpha = blurredAlphaData[i + 3]; // Canale alpha sfocato
+            originalData[i + 3] = alpha; // Imposta il canale alpha dell'immagine originale
+        }
+
+        // 19. Aggiorna i dati dell'immagine originale con il nuovo canale alpha sfocato
+        originalCtx.putImageData(imageData, 0, 0);
+
+        // 20. Crea l'immagine finale
+        const finalImage = new Image();
+        finalImage.src = originalCanvas.toDataURL();
+
+        // 21. Attendi che l'immagine finale sia caricata
+        await new Promise((resolve) => {
+            finalImage.onload = resolve;
+        });
+
+        // 22. Aggiorna l'interfaccia utente o esegui altre operazioni necessarie
+        mostraCreditiRimanenti();
+        updateGraphicsOptions();
+
+        return finalImage;
+
+    } catch (error) {
+        console.error('Errore durante la rimozione dello sfondo:', error);
+        alert('Errore con l\'API di remove.bg: ' + error.message);
+        // Se c'è un errore, utilizza il metodo alternativo
+        return await removeBackgroundLocally(image);
+    }
+}
+
+async function removeBackgroundLocally(image) {
     // Carica il modello BodyPix
     const net = await bodyPix.load();
 
@@ -2531,8 +2765,8 @@ async function removeBackground(image) {
     // Crea una maschera con i bordi sfumati di 3 px
     const mask = bodyPix.toMask(
         segmentation,
-        {r: 0, g: 0, b: 0, a: 255}, // Foreground opaco
-        {r: 0, g: 0, b: 0, a: 0}    // Background trasparente
+        {r: 0, g: 0, b: 0, a: 255}, // Primo piano opaco
+        {r: 0, g: 0, b: 0, a: 0}    // Sfondo trasparente
     );
 
     // Applica la sfocatura alla maschera
