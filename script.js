@@ -1748,7 +1748,11 @@ async function generatePreviews() {
                             } else {
                                 // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
                                 const input = document.getElementById(id);
-                                let name = input.value.trim().toUpperCase();
+                                let name = ''
+                                if (selectedOption.text.includes(' ')) {
+                                    // Estrae solo il cognome
+                                    name = selectedOption.text.split(' ').slice(0, -1).join(' ').toUpperCase();
+                                }
                                 if (name) {
                                     return name;
                                 }
