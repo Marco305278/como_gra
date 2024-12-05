@@ -1446,7 +1446,7 @@ async function generatePreviews() {
                 const selectedPlayer = currentPlayers.find(p => p.value === (playerSelect ? playerSelect.value : ''));
                 
                 // Ottieni il nome del giocatore formattato o usa un valore predefinito
-                const playerName = selectedPlayer ? selectedPlayer.value.replace(/\s+/g, '_').toLowerCase() : 'default_player';
+                const playerName = selectedPlayer ? selectedPlayer.text.replace(/\s+/g, '_').toLowerCase() : 'default_player';
                 
                 // Determina la posizione in base allo stato di `playerHome`
                 const position = playerHome ? 'home' : 'away';
