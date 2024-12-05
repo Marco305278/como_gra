@@ -1641,7 +1641,7 @@ async function generatePreviews() {
                         
                                         if (selectedOption.text.includes(' ')) {
                                             // Estrae solo il cognome
-                                            name = selectedOption.text.split(' ').slice(0, -1).join(' ').toUpperCase();
+                                            name = selectedOption.value.split(' ').slice(0, -1).join(' ').toUpperCase();
                                         } else {
                                             // Se non c'è uno spazio, utilizza l'intero nome
                                             name = selectedOption.text.toUpperCase();
@@ -1740,7 +1740,7 @@ async function generatePreviews() {
                                 const selectedOption = currentPlayers.find(p => p.value === select.value);
                                 if (selectedOption && selectedOption.text.includes(' ')) {
                                     // Estrae solo il cognome
-                                    return selectedOption.text.split(' ').slice(-1)[0].toUpperCase();
+                                    return selectedOption.value.split(' ').slice(0, -1).join(' ').toUpperCase();
                                 } else if (selectedOption) {
                                     // Se non c'è uno spazio, utilizza l'intero nome
                                     return selectedOption.text.toUpperCase();
@@ -1748,11 +1748,7 @@ async function generatePreviews() {
                             } else {
                                 // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
                                 const input = document.getElementById(id);
-                                let name = ''
-                                if (selectedOption.text.includes(' ')) {
-                                    // Estrae solo il cognome
-                                    name = selectedOption.text.split(' ').slice(0, -1).join(' ').toUpperCase();
-                                }
+                                let name = input.value.trim().toUpperCase();
                                 if (name) {
                                     return name;
                                 }
