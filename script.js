@@ -102,6 +102,16 @@ const graphicStyles = {
             matchDay: null
         }
     },
+    'kickoffworld': {
+        'overlay_4x5': {
+            homeLogo: { x: 400, y: 1160, width: 130, height: 130 },
+            awayLogo: { x: 570, y: 1160, width: 130, height: 130 },
+        },
+        'overlay_9x16': {
+            homeLogo: { x: 400, y: 1670, width: 130, height: 130 },
+            awayLogo: { x: 570, y: 1670, width: 130, height: 130 },
+        }
+    },
     'startingxi': {
         'overlay_4x5': {
             homeTeamName: { y: 295, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
@@ -268,6 +278,7 @@ const graphicsFormats = {
     'fulltime': ['overlay_4x5', 'overlay_9x16'],
     'halftime': ['overlay_4x5', 'overlay_9x16'],
     'kickoff': ['overlay_4x5', 'overlay_9x16'],
+    'kickoffworld': ['overlay_4x5', 'overlay_9x16'],
     'startingxi': ['overlay_4x5', 'overlay_9x16'],
     'goal': ['overlay_4x5', 'overlay_9x16'],
     'livematch': ['overlay_5x8', 'overlay_16x9'],
@@ -279,12 +290,10 @@ const graphicsFormats = {
 };
 
 // Definizione delle grafiche che richiedono l'uso dei loghi delle squadre
-const graphicsWithLogos = ['livematch', 'highlights', 'halftime', 'fulltime', 'goal', 'kickoff'];
-const graphicsRequireDateTime = ['kickoff', 'matchday', 'nextmatch', 'livematch'];
+const graphicsWithLogos = ['livematch', 'highlights', 'halftime', 'fulltime', 'goal', 'kickoff', 'kickoffworld'];
+const graphicsRequireDateTime = ['kickoff', 'matchday', 'nextmatch', 'livematch', 'kickoffworld'];
 const graphicsRequireMatchDay = ['matchday', 'nextmatch'];
-const graphicsRequireStadiumLocation = ['nextmatch', 'matchday']; // Grafiche che richiedono la posizione dello stadio
-
-// Definizione delle grafiche che richiedono solo il logo del campionato
+const graphicsRequireStadiumLocation = ['nextmatch', 'matchday'];
 const graphicsWithChampionshipLogo = ['nextmatch', 'matchday'];
 
 let isHomeFixed = true;
@@ -1287,6 +1296,10 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
         rectY = 0;
         rectWidth = canvasWidth - 400; // Riduci 180px sul lato lungo (larghezza)
         rectHeight = canvasHeight;
+    }
+
+    if (graphicName === 'kickoffworld' && overlayName === 'overlay_4x5') {
+        rectY = -45;
     }
     
 
