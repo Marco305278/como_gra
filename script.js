@@ -2707,9 +2707,6 @@ async function generatePreviews() {
     } else {
         previewSection.classList.remove('visible');
     }
-
-    mostraCreditiRimanenti();
-    updateGraphicsOptions();
 }
 
 async function removeBackground(image) {
