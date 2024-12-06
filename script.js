@@ -3014,12 +3014,10 @@ function addAutoUpdateListeners() {
         }
     });
 
-    // Event listener per l'input della posizione dello stadio
     stadiumInput.addEventListener('input', () => {
         generatePreviews();
     });
 
-    // Event listeners per gli input della data e dell'ora
     matchDateInput.addEventListener('change', () => {
         generatePreviews();
     });
@@ -3037,10 +3035,6 @@ function addAutoUpdateListeners() {
     }
 }
 
-
-/**
- * Funzione per alternare la sezione Data e Ora
- */
 function toggleDateTimeSection() {
     const selectedGraphics = Array.from(graphicCheckboxes)
         .filter(cb => cb.checked)
@@ -3055,9 +3049,6 @@ function toggleDateTimeSection() {
     }
 }
 
-/**
- * Funzione per alternare la sezione Match Day
- */
 function toggleMatchDaySection() {
     const selectedGraphics = Array.from(graphicCheckboxes)
         .filter(cb => cb.checked)
@@ -3072,9 +3063,6 @@ function toggleMatchDaySection() {
     }
 }
 
-/**
- * Funzione per alternare la sezione Posizione dello Stadio
- */
 function toggleStadiumLocationSection() {
     const selectedGraphics = Array.from(graphicCheckboxes)
         .filter(cb => cb.checked)
@@ -3089,9 +3077,6 @@ function toggleStadiumLocationSection() {
     }
 }
 
-/**
- * Funzione per inizializzare lo stato dei team dopo il caricamento iniziale
- */
 function initializeTeams() {
     populateTeams();
     updateGraphicsOptions();
@@ -3101,12 +3086,6 @@ function initializeTeams() {
     generatePreviews();
 }
 
-
-
-/**
- * Funzione per generare i campi di upload delle immagini di sfondo
- * Ora crea un solo campo di upload per grafica, indipendentemente dai formati
- */
 function generateBackgroundUploadFields() {
     graphicCheckboxes.forEach(cb => {
         if (cb.checked) {
@@ -3149,13 +3128,9 @@ function generateBackgroundUploadFields() {
         }
     });
 
-    // Dopo aver generato i campi di upload, aggiungi i listener per gestire l'opacità
     addUploadItemListeners();
 }
 
-/**
- * Funzione per gestire la generazione dei campi di upload quando le grafiche cambiano
- */
 function handleGraphicsChange() {
     generateBackgroundUploadFields();
     generatePreviews();
@@ -3165,9 +3140,6 @@ function handleGraphicsChange() {
    updateGraphicsOptions()
 }
 
-/**
- * Funzione per aggiungere gli event listeners per gli upload-item
- */
 function addUploadItemListeners() {
     const uploadItems = document.querySelectorAll('.upload-item input[type="file"]');
 
@@ -3183,7 +3155,6 @@ function addUploadItemListeners() {
     });
 }
 
-  // Aumenta il valore
   increaseButton.addEventListener('click', () => {
     let currentValue = parseInt(matchDayInput.value, 10);
     if (!isNaN(currentValue)) {
@@ -3191,7 +3162,6 @@ function addUploadItemListeners() {
     }
   });
   
-  // Diminuisce il valore
   decreaseButton.addEventListener('click', () => {
     let currentValue = parseInt(matchDayInput.value, 10);
     if (!isNaN(currentValue) && currentValue > 0) {
@@ -3210,19 +3180,10 @@ function addUploadItemListeners() {
     }
 }
 
-
-/**
- * Funzione per capitalizzare la prima lettera di una stringa
- * @param {string} string - La stringa da capitalizzare
- * @returns {string} - La stringa con la prima lettera capitalizzata
- */
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-/**
- * Funzione per inizializzare tutto dopo il caricamento del DOM
- */
 async function initialize() {
     await fetchData(); // Attendi che fetchData completi
     addAutoUpdateListeners();
