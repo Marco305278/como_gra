@@ -2111,7 +2111,11 @@ async function generatePreviews() {
                             const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
                             const championshipLogo = await loadImage(championshipLogoSrc);
                             if (championshipLogo) {
-                                ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
+                                if (overlayName === 'overlay_9x16') {
+                                    ctx.drawImage(championshipLogo, canvas.width - style.championshipLogo.x - style.championshipLogo.width, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
+                                } else {
+                                    ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
+                                }
                             }
                         }
 
