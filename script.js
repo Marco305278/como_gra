@@ -2447,6 +2447,19 @@ async function generatePreviews() {
                         ctx.fillStyle = 'rgba(0,0,0.1)';
                         ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
                         ctx.restore();
+                    } else if (graphicName === 'kickoffworld') {
+                        if (style.dateTime) {
+                            // Ottieni i componenti formattati della data
+                            const dateParts = getFormattedDateParts(
+                                adjustedDateObj,
+                                timeVersion.timeZoneAbbreviation,
+                                'en-GB',
+                                graphicName
+                            );
+                        }
+
+
+
                     } else {
                         // !BASE
                         if (style.homeLogo) {
