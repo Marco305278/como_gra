@@ -784,11 +784,14 @@ label.label-text{
     color: #c86f51 !important;
     padding: 0 !important;
     background: none !important;
+    opacity: 0.8;
+    margin-left: auto !important;
 }
 
 label.label-text:hover{
     transform: scale(1) !important;
-    cursor: not-allowed;
+    cursor: default ;
+    opacity: 0.4;
 }
 
 label.work {
@@ -884,6 +887,7 @@ input[type="checkbox"].work:checked + label {
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
+    width: 100%;
 }
 
 .graphics-time label {

@@ -768,7 +768,7 @@ function updateGraphicsOptions() {
                         labeladv2.setAttribute('for', 'advCustomHalfOverlay');
                         labeladv2.setAttribute('id', 'customHalfOverlayLabel');
                         labeladv2.classList.add('label-text')
-    2
+                        
                         // Crea l'input di tipo checkbox
                         const inputadv2 = document.createElement('input');
                         inputadv2.setAttribute('type', 'checkbox');
@@ -782,7 +782,6 @@ function updateGraphicsOptions() {
     
                         // Aggiungi il label al div
                         graphicsTimeDiv2.appendChild(labeladv2);
-    
                         optionDiv.appendChild(graphicsTimeDivadv2);
     
     
@@ -2623,6 +2622,9 @@ async function generatePreviews() {
     } else {
         previewSection.classList.remove('visible');
     }
+
+    mostraCreditiRimanenti();
+    updateGraphicsOptions();
 }
 
 async function removeBackground(image) {
@@ -2732,7 +2734,6 @@ async function removeBackground(image) {
             finalImage.onload = resolve;
         });
 
-        // 22. Aggiorna l'interfaccia utente o esegui altre operazioni necessarie
         mostraCreditiRimanenti();
         updateGraphicsOptions();
 
@@ -3054,6 +3055,10 @@ function generateBackgroundUploadFields() {
 function handleGraphicsChange() {
     generateBackgroundUploadFields();
     generatePreviews();
+    advCustomHalfOverlay = false;
+    advCustomFullOverlay = false;
+
+   updateGraphicsOptions()
 }
 
 /**
