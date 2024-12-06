@@ -106,10 +106,14 @@ const graphicStyles = {
         'overlay_4x5': {
             homeLogo: { x: 400, y: 1160, width: 130, height: 130 },
             awayLogo: { x: 570, y: 1160, width: 130, height: 130 },
+            dateTime: { x: 265, y: 465, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            spacing: 84,
         },
         'overlay_9x16': {
             homeLogo: { x: 400, y: 1670, width: 130, height: 130 },
             awayLogo: { x: 570, y: 1670, width: 130, height: 130 },
+            dateTime: { x: 265, y: 705, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            spacing: 84,
         }
     },
     'startingxi': {
@@ -913,7 +917,7 @@ function updateGraphicsOptions() {
                                             inputadv.setAttribute('id', 'advCustomHalfOverlay');
                                             inputadv.checked = advCustomHalfOverlayActive
                         
-                                            // Aggiungi il testo al label
+                                            x// Aggiungi il testo al label
                                             labeladv.appendChild(inputadv);
                                             labeladv.appendChild(document.createTextNode(`R: ${freeCalls}`));
                         
@@ -1299,7 +1303,7 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
     }
 
     if (graphicName === 'kickoffworld' && overlayName === 'overlay_4x5') {
-        rectY = -45;
+        //EDIT rectY = -45;
     }
     
 
@@ -2447,18 +2451,64 @@ async function generatePreviews() {
                         ctx.fillStyle = 'rgba(0,0,0.1)';
                         ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
                         ctx.restore();
+
+
                     } else if (graphicName === 'kickoffworld') {
                         if (style.dateTime) {
-                            // Ottieni i componenti formattati della data
-                            const dateParts = getFormattedDateParts(
-                                adjustedDateObj,
-                                timeVersion.timeZoneAbbreviation,
-                                'en-GB',
-                                graphicName
-                            );
+                            const spacing = style.spacing;
+                            const baseX = style.dateTime.x;      // coordinata X di base per l'ora
+                            const baseY = style.dateTime.y;      // coordinata Y di base per la prima voce (COMO)
+                            const cityColumnOffset = 210;        // distanza orizzontale tra la colonna dell'ora e la colonna delle città
+                    
+                            // Array di città con offset (in ore) rispetto a COMO
+                            const cities = [
+                                { name: 'COMO', offset: 0 },
+                                { name: 'LONDON', offset: -1 },
+                                { name: 'NEW YORK', offset: -6 },
+                                { name: 'SÃO PAULO', offset: -4 },
+                                { name: 'BAGHDAD', offset: 2 },
+                                { name: 'JAKARTA', offset: 6 }
+                            ];
+                    
+                            // Imposta lo stile del testo per l'ora
+                            ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                            ctx.fillStyle = style.dateTime.color;
+                            ctx.textAlign = 'right';
+                            ctx.textBaseline = 'middle';
+                    
+                            // Per ogni città calcoliamo l'ora locale
+                            cities.forEach((city, index) => {
+                                // Crea un nuovo oggetto data per questa città aggiungendo l’offset
+                                const cityDate = new Date(adjustedDateObj.getTime() + city.offset * 3600000);
+                    
+                                // Ottieni i dateParts per questa città
+                                const cityDateParts = getFormattedDateParts(cityDate, timeVersion.timeZoneAbbreviation, 'en-GB', graphicName);
+                    
+                                // Calcolo la posizione Y per questa riga
+                                const yPos = baseY + (index * spacing);
+                    
+                                // Disegna l'ora
+                                if (style.dateTime.letterSpacing) {
+                                    drawTextWithLetterSpacing(ctx, cityDateParts.time, baseX, yPos, style.dateTime.letterSpacing);
+                                } else {
+                                    ctx.fillText(cityDateParts.time, baseX, yPos);
+                                }
+                    
+                                // Ora disegniamo il nome della città in maiuscolo sulla stessa linea, spostandoci a destra
+                                ctx.textAlign = 'center'; // allineamento a sinistra per il nome città
+                                const cityName = city.name.toUpperCase();
+                    
+                                // Se serve letterSpacing anche per il nome della città, puoi replicare la logica:
+                                if (style.dateTime.letterSpacing) {
+                                    drawTextWithLetterSpacing(ctx, cityName, baseX + cityColumnOffset, yPos, style.dateTime.letterSpacing);
+                                } else {
+                                    ctx.fillText(cityName, baseX + cityColumnOffset, yPos);
+                                }
+                    
+                                // Ripristiniamo l'allineamento a destra per la prossima iterazione (l'ora)
+                                ctx.textAlign = 'right';
+                            });
                         }
-
-
 
                     } else {
                         // !BASE
