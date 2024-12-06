@@ -917,7 +917,7 @@ function updateGraphicsOptions() {
                                             inputadv.setAttribute('id', 'advCustomHalfOverlay');
                                             inputadv.checked = advCustomHalfOverlayActive
                         
-                                            x// Aggiungi il testo al label
+                                            // Aggiungi il testo al label
                                             labeladv.appendChild(inputadv);
                                             labeladv.appendChild(document.createTextNode(`R: ${freeCalls}`));
                         
