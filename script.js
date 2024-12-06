@@ -38,8 +38,7 @@ async function fetchData() {
     }
 }
 
-const apiKey = 'fYNS8MDcLq2LpqLMAZ83GwbN';
-// const apiKey = '29CqKVDrjSrQKCmAC5qXHayL';
+const apiKey = '29CqKVDrjSrQKCmAC5qXHayL';
 
 const graphicStyles = {
     'fulltime': {
@@ -1707,8 +1706,11 @@ async function generatePreviews() {
                         const playerStartY = startingXIStyle.playerStartY;
                         const playerSpacing = startingXIStyle.playerSpacing;
                         
-                        const captainSelect = document.getElementById('captain');
-                        const captainValue = captainSelect.value;
+                        if (!customStartingXIPlayer) {
+                            const captainSelect = document.getElementById('captain');
+                            const captainValue = captainSelect.value;
+                        }
+                        
                         
                         const playerIds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11'];
 
