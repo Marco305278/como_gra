@@ -931,7 +931,7 @@ function updateGraphicsOptions() {
                                             });
                                         }
                     break;
-
+                    
                     case 'startingxi':
     // Funzione per generare i campi dei giocatori (select o input)
     function generatePlayerFields(prefix, count, isCustom) {
