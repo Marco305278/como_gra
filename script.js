@@ -1302,7 +1302,7 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
     }
 
     if (graphicName === 'kickoffworld' && overlayName === 'overlay_4x5') {
-        //EDIT rectY = -45;
+        rectY = -45;
     }
     
 
@@ -2510,8 +2510,28 @@ async function generatePreviews() {
                                 // Ripristiniamo l'allineamento a destra per la prossima iterazione (l'ora)
                                 ctx.textAlign = 'right';
                             });
+                            
                         }
-
+                        
+                        if (style.homeLogo) {
+                            const homeLogoSrc = homeTeamSelect.value === 'como 1907'
+                                ? `images/badge/all/como.png`
+                                : `images/badge/${championshipSelect.value}/${homeTeamSelect.value}.png`;
+                            const homeLogo = await loadImage(homeLogoSrc);
+                            if (homeLogo) {
+                                ctx.drawImage(homeLogo, style.homeLogo.x, style.homeLogo.y, style.homeLogo.width, style.homeLogo.height);
+                            }
+                        }
+                        if (style.awayLogo) {
+                            const awayLogoSrc = awayTeamSelect.value === 'como 1907'
+                                ? `images/badge/all/como.png`
+                                : `images/badge/${championshipSelect.value}/${awayTeamSelect.value}.png`;
+                            const awayLogo = await loadImage(awayLogoSrc);
+                            if (awayLogo) {
+                                ctx.drawImage(awayLogo, style.awayLogo.x, style.awayLogo.y, style.awayLogo.width, style.awayLogo.height);
+                            }
+                        }
+                        
                     } else {
                         // !BASE
                         if (style.homeLogo) {
