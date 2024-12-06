@@ -128,31 +128,7 @@
         { "value": "William Feola", "text": "William Feola" }
       ],
       "women": [
-        { "value": "Ali Jasim", "text": "Ali Jasim" },
-        { "value": "Ben Kone", "text": "Ben Kone" },
-        { "value": "Cristian Mazzara", "text": "Cristian Mazzara" },
-        { "value": "Dennis Brasolin", "text": "Dennis Brasolin" },
-        { "value": "Dinay Bierstekers", "text": "Dinay Bierstekers" },
-        { "value": "Enea Bernasconi", "text": "Enea Bernasconi" },
-        { "value": "Fabio Ronchetti", "text": "Fabio Ronchetti" },
-        { "value": "Felippe Jack", "text": "Felippe Jack" },
-        { "value": "Federico Chinetti", "text": "Federico Chinetti" },
-        { "value": "Federico Grilli", "text": "Federico Grilli" },
-        { "value": "Filippo Galafassi", "text": "Filippo Galafassi" },
-        { "value": "Francesco Andrealli", "text": "Francesco Andrealli" },
-        { "value": "Giuseppe Mazzaglia", "text": "Giuseppe Mazzaglia" },
-        { "value": "Italo Bulgheroni", "text": "Italo Bulgheroni" },
-        { "value": "Jean Castegnaro", "text": "Jean Castegnaro" },
-        { "value": "João Cardozo", "text": "João Cardozo" },
-        { "value": "Mattia Arioli", "text": "Mattia Arioli" },
-        { "value": "Matteo Papaccioli", "text": "Matteo Papaccioli" },
-        { "value": "Manuel Pisano", "text": "Manuel Pisano" },
-        { "value": "Marco ortelli", "text": "Marco ortelli" },
-        { "value": "Naj Razi", "text": "Naj Razi" },
-        { "value": "Omar Lebyad", "text": "Omar Lebyad" },
-        { "value": "Pasquale Piscitelli", "text": "Pasquale Piscitelli" },
-        { "value": "Silvano Biggi", "text": "Silvano Biggi" },
-        { "value": "William Feola", "text": "William Feola" }
+        { "value": "EDIT BUTTON", "text": "EDIT BUTTON" }
       ]
     }
   }
