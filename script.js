@@ -39,13 +39,14 @@ async function fetchData() {
 }
 
 const apiKey = 'fYNS8MDcLq2LpqLMAZ83GwbN';
+// const apiKey = '29CqKVDrjSrQKCmAC5qXHayL';
 
 const graphicStyles = {
     'fulltime': {
         'overlay_4x5': {
             homeLogo: { x: 70, y: 970, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1145, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
+            championshipLogo: { x: 70, y: 85, width: 130, height: 212 },
             homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
@@ -54,7 +55,7 @@ const graphicStyles = {
         'overlay_9x16': {
             homeLogo: { x: 70, y: 1470, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1645, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
+            championshipLogo: { x: 70, y: 150, width: 130, height: 212 },
             homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
@@ -65,7 +66,7 @@ const graphicStyles = {
         'overlay_4x5': {
             homeLogo: { x: 70, y: 970, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1145, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
+            championshipLogo: { x: 70, y: 85, width: 130, height: 212 },
             homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
@@ -74,7 +75,7 @@ const graphicStyles = {
         'overlay_9x16': {
             homeLogo: { x: 70, y: 1470, width: 150, height: 150 },
             awayLogo: { x: 70, y: 1645, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
+            championshipLogo: { x: 70, y: 150, width: 130, height: 212 },
             homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
             dateTime: null,
@@ -1220,7 +1221,11 @@ function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', gra
     const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
 
     if (graphicName === 'kickoff') {
-        return `${month} ${day} | ${formattedTime}`;
+        if (championshipSelect.value == 'primavera') {
+            return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
+        } else {
+            return `${month} ${day} | ${formattedTime}`;
+        }
     } else {
         return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
     }
