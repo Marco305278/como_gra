@@ -642,6 +642,26 @@ select[readonly] {
     gap: 15px;
 }
 
+.upload-container-title {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.upload-container-title input {
+    font-size: 18px;
+    width: 50px;
+    color: #1d3b62;
+}
+
+.upload-container-title label {
+    padding-right: 0!important;
+}
+
+.upload-container-title label:nth-of-type(2) {
+    margin-left: auto;
+}
+
 .upload-item {
     flex-grow: 1;
     display: flex;
@@ -676,9 +696,25 @@ select[readonly] {
 .upload-item.selected {
     border: 2px solid #1d3b62;
     background: #1d3b62;
-    color: white;
+    color: white !important;
 }
 
+.upload-item.selected input {
+    color: white !important;
+}
+
+.upload-item.selected input::placeholder {
+    color: white !important;
+    opacity: 0.8;
+}
+
+.upload-item.selected .st0,
+.upload-item.selected .st1,
+.upload-item.selected .cls-1,
+.upload-item.selected .cls-2 {
+    fill: white !important;
+    stroke: white !important;
+}
 
 .nextmatch-title {
     font-size: 36px;
