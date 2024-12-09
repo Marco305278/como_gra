@@ -38,8 +38,7 @@ async function fetchData() {
     }
 }
 
-const apiKey = 'shrqhpJ8HY9k5syeXfTNLU8U';
-// const apiKey = '29CqKVDrjSrQKCmAC5qXHayL';
+const apiKey = '29CqKVDrjSrQKCmAC5qXHayL';
 
 const graphicStyles = {
     'fulltime': {
@@ -316,16 +315,17 @@ let advCustomFullOverlay = false;
 let advCustomHalfOverlayActive = false;
 let advCustomFullOverlayActive = false;
 
-let lastbgOverlayHalfImage = []
-let lastbgOverlayFullImage = []
-
 let playerHome = true;
 
 let playerFotoNumber = false
 
 let freeCalls = 50;
 
-const fixedTeam = {value: 'como 1907', text: 'Como 1907' };
+// Definizione del team fisso
+const fixedTeam = {
+    value: 'como 1907',
+    text: 'Como 1907'
+};
 
 let currentTeams = [];
 let backgroundImages = {};
@@ -1565,17 +1565,22 @@ async function generatePreviews() {
             let bgImageSrc = backgroundImages[graphicName.toLowerCase()] || `${graphicFolder}/1.png`;
 
             if (graphicName === 'goal') {
-                
-                const position = playerHome ? 'home' : 'away';
                 const playerSelect = document.getElementById('goalPlayerSelect');
+                
+                // Trova il giocatore selezionato nell'array corrente
                 const selectedPlayer = currentPlayers.find(p => p.value === (playerSelect ? playerSelect.value : ''));
+                
+                // Ottieni il nome del giocatore formattato o usa un valore predefinito
                 const playerName = selectedPlayer
                 ? selectedPlayer.text
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, '')
-                    .replace(/\s+/g, '_')
-                    .toLowerCase()
+                    .normalize("NFD") // Normalizza il testo per separare i caratteri accentati
+                    .replace(/[\u0300-\u036f]/g, '') // Rimuove i diacritici
+                    .replace(/\s+/g, '_') // Sostituisce gli spazi con underscore
+                    .toLowerCase() // Converte tutto in minuscolo
                 : 'default_player';
+                
+                // Determina la posizione in base allo stato di `playerHome`
+                const position = playerHome ? 'home' : 'away';
 
                 if (championshipSelect.value == 'seriea') { 
                     const goalfotonumber = playerFotoNumber ? '_2' : '';
@@ -1585,7 +1590,9 @@ async function generatePreviews() {
                 }
             }
 
-            let overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
+            let overlayImageSrc = ''
+
+            overlayImageSrc = `${graphicFolder}/${overlayName}.png`;
 
             if (graphicName === 'nextmatch') {
                 if (championshipSelect.value == 'seriea') {
@@ -1598,6 +1605,10 @@ async function generatePreviews() {
                 loadImage(overlayImageSrc)
             ]);
 
+            if (!overlayImage) {
+                continue;
+            }
+
             // Determina se generare entrambe le versioni
             let timeVersions = [{ timeOffsetHours: 0, timeZoneAbbreviation: 'CET' }];
 
@@ -1608,7 +1619,6 @@ async function generatePreviews() {
             }
 
             for (const timeVersion of timeVersions) {
-
                 const adjustedDateObj = new Date(matchDateObj.getTime() + timeVersion.timeOffsetHours * 3600000);
 
                 const canvas = document.createElement('canvas');
@@ -1625,15 +1635,13 @@ async function generatePreviews() {
 
                 ctx.drawImage(overlayImage, 0, 0, canvas.width, canvas.height);
 
+
+
                 if (graphicName === 'halftime') {
                     if (customHalfOverlay) {
                         if (advCustomHalfOverlayActive) {
-                            if (overlayName === 'overlay_4x5') {
-                                lastbgOverlayHalfImage = await removeBackground(bgImage);
-                                drawImageCover(ctx, lastbgOverlayHalfImage, canvas.width, canvas.height, graphicName, overlayName);
-                            } else {
-                                drawImageCover(ctx, lastbgOverlayHalfImage, canvas.width, canvas.height, graphicName, overlayName);
-                            }
+                            const bgOverlayHalfImage = await removeBackground(bgImage);
+                            drawImageCover(ctx, bgOverlayHalfImage, canvas.width, canvas.height, graphicName, overlayName);
                         } else {
                             const bgOverlayHalfImage = await removeBackgroundLocally(bgImage);
                             drawImageCover(ctx, bgOverlayHalfImage, canvas.width, canvas.height, graphicName, overlayName);
@@ -1642,12 +1650,8 @@ async function generatePreviews() {
                 } else if (graphicName === 'fulltime') {
                     if (customFullOverlay) {
                         if (advCustomFullOverlayActive) {
-                            if (overlayName === 'overlay_4x5') {
-                                lastbgOverlayFullImage = await removeBackground(bgImage);
-                                drawImageCover(ctx, lastbgOverlayFullImage, canvas.width, canvas.height, graphicName, overlayName);
-                            } else {
-                                drawImageCover(ctx, lastbgOverlayFullImage, canvas.width, canvas.height, graphicName, overlayName);
-                            }
+                            const bgFullOverlayImage = await removeBackground(bgImage);
+                            drawImageCover(ctx, bgFullOverlayImage, canvas.width, canvas.height, graphicName, overlayName);
                         } else {
                             const bgFullOverlayImage = await removeBackgroundLocally(bgImage);
                             drawImageCover(ctx, bgFullOverlayImage, canvas.width, canvas.height, graphicName, overlayName);
@@ -1655,11 +1659,13 @@ async function generatePreviews() {
                     }
                 }
 
+                // Ottieni lo stile specifico per questa grafica e formato
                 const style = graphicStyles[graphicName][overlayName];
                 if (style) {
                     if (graphicName === 'highlights') {
-
                         // !HIGHLIGHTS
+
+                        // Disegna i loghi e il testo combinato centralmente
                         if (style.homeLogo) {
                             const homeLogoSrc = homeTeamSelect.value === 'como 1907'
                                 ? `images/badge/all/como.png`
@@ -1694,60 +1700,68 @@ async function generatePreviews() {
                         ctx.fillStyle = style.combinedScore.color;
                         ctx.textAlign = style.combinedScore.textAlign;
                         ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
-
                     } else if (graphicName === 'startingxi') {
-
                         const startingXIStyle = style;
+
                         const playerStartY = startingXIStyle.playerStartY;
                         const playerSpacing = startingXIStyle.playerSpacing;
-                        const playerIds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11'];
                         
                         if (!customStartingXIPlayer) {
                             const captainSelect = document.getElementById('captain');
                             const captainValue = captainSelect.value;
                         }
+                        
+                        
+                        const playerIds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11'];
 
                         const playerNames = playerIds.map(id => {
                             if (championshipSelect.value == 'primavera') {
                                 if (!customStartingXIPlayer) {
-                                    
+                                    // Caso in cui customStartingXIPlayer è false: utilizza i select
                                     const select = document.getElementById(id);
                                     const selectedOption = currentPlayers.find(p => p.value === select.value);
                                     if (selectedOption) {
                                         let name = '';
-
+                                        // Estrai il numero dal data-number
                                         const number = select.dataset.number || '';
                         
                                         if (selectedOption.text.includes(' ')) {
+                                            // Estrae solo il cognome
                                             name = selectedOption.text.split(' ').slice(0, -1).join(' ').toUpperCase();
                                         } else {
+                                            // Se non c'è uno spazio, utilizza l'intero nome
                                             name = selectedOption.text.toUpperCase();
                                         }
                         
+                                        // Aggiungi '[C]' se è il capitano
                                         if (select.value === captainValue) {
                                             name += ' [C]';
                                         }
                         
                                         return { number, name };
                                     }
-
                                 } else {
+                                    // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
                                     const input = document.getElementById(id);
                                     const inputValue = input.value.trim().toUpperCase();
-
                                     if (inputValue) {
+                                        // Suddividi l'input in 'number' e 'name' basandoti sul primo spazio
                                         const firstSpaceIndex = inputValue.indexOf(' ');
-
+                                        
+                                        // Verifica se c'è almeno uno spazio nell'input
                                         if (firstSpaceIndex !== -1) {
                                             const number = inputValue.substring(0, firstSpaceIndex);
                                             let name = inputValue.substring(firstSpaceIndex + 1);
                         
+                                            // Aggiungi '[C]' se è il capitano
                                             if (name === captainValue.toUpperCase()) {
                                                 name += ' [C]';
                                             }
                         
                                             return { number, name };
                                         } else {
+                                            // Gestisci il caso in cui non ci sia uno spazio nell'input
+                                            console.warn(`Input invalido per l'ID "${id}". Formato atteso: "numero nome".`);
                                             return null;
                                         }
                                     }
@@ -1755,20 +1769,23 @@ async function generatePreviews() {
                                 return null;
                             } else {
                                 if (!customStartingXIPlayer) {
-                                    
+                                    // Caso in cui customStartingXIPlayer è false: utilizza i select
                                     const select = document.getElementById(id);
                                     const selectedOption = currentPlayers.find(p => p.value === select.value);
-
                                     if (selectedOption) {
                                         let name = '';
+                                        // Estrai il numero direttamente dal campo 'number' dell'oggetto JSON
                                         const number = selectedOption.number || '';
                         
                                         if (selectedOption.text.includes(' ')) {
+                                            // Estrae solo il cognome
                                             name = selectedOption.value.split(' ').slice(0, -1).join(' ').toUpperCase();
                                         } else {
+                                            // Se non c'è uno spazio, utilizza l'intero nome
                                             name = selectedOption.text.toUpperCase();
                                         }
                         
+                                        // Aggiungi '[C]' se è il capitano
                                         if (select.value === captainValue) {
                                             name += ' [C]';
                                         }
@@ -1776,22 +1793,28 @@ async function generatePreviews() {
                                         return { number, name };
                                     }
                                 } else {
+                                    // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
                                     const input = document.getElementById(id);
                                     const inputValue = input.value.trim().toUpperCase();
                         
                                     if (inputValue) {
+                                        // Suddividi l'input in 'number' e 'name' basandoti sul primo spazio
                                         const firstSpaceIndex = inputValue.indexOf(' ');
                                         
+                                        // Verifica se c'è almeno uno spazio nell'input
                                         if (firstSpaceIndex !== -1) {
                                             const number = inputValue.substring(0, firstSpaceIndex);
                                             let name = inputValue.substring(firstSpaceIndex + 1);
                         
+                                            // Aggiungi '[C]' se è il capitano
                                             if (name === captainValue.toUpperCase()) {
                                                 name += ' [C]';
                                             }
                         
                                             return { number, name };
                                         } else {
+                                            // Gestisci il caso in cui non ci sia uno spazio nell'input
+                                            console.warn(`Input invalido per l'ID "${id}". Formato atteso: "numero nome".`);
                                             return null;
                                         }
                                     }
@@ -1800,39 +1823,49 @@ async function generatePreviews() {
                             }
                         }).filter(player => player !== null);
                         
+                        /* --- Parte di Disegno sul Canvas --- */
+                        
                         // Imposta lo stile del testo dei giocatori
-                        ctx.font = `bold ${startingXIStyle.playerFontSize}px bodoni-72-book-italic`;
-                        ctx.fillStyle = `white`;
-                        ctx.textAlign = 'right';
-                        ctx.textBaseline = 'top';
+                        ctx.font = `bold ${startingXIStyle.playerFontSize}px bodoni-72-book-italic`; // Usa il font specificato
+                        ctx.fillStyle = `white`; // Colore del testo
+                        ctx.textAlign = 'right'; // Allineamento a destra per i numeri
+                        ctx.textBaseline = 'top'; // Allineamento verticale in alto
 
                         if (championshipSelect.value == 'primavera') {
+                            // Disegna i numeri dei giocatori
                             playerNames.forEach(player => {
-                                const yPosition = playerStartY + (player.number - 1) * playerSpacing;
+                                const yPosition = playerStartY + (player.number - 1) * playerSpacing; // Assumendo che number sia da 1 a 11
                                 ctx.fillText(player.number, 380, yPosition);
                             });
 
-                            ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`;
-                            ctx.textAlign = 'left';
+                            ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`; // Usa il font specificato
+                            ctx.textAlign = 'left'; // Allineamento a sinistra per i nomi
 
+                            // Disegna i nomi dei giocatori
                             playerNames.forEach(player => {
-                                const yPosition = playerStartY + (player.number - 1) * playerSpacing
-                                ctx.fillText(player.name, 420, yPosition);
+                                const yPosition = playerStartY + (player.number - 1) * playerSpacing; // Allinea i nomi con i numeri
+                                ctx.fillText(player.name, 420, yPosition); // Posiziona i nomi leggermente a destra dei numeri
                             });
                         } else {
+                            // Disegna i numeri dei giocatori
                             playerNames.forEach((player, index) => {
-                                const yPosition = playerStartY + index * playerSpacing;
+                                const yPosition = playerStartY + index * playerSpacing; // Assumendo che number sia da 1 a 11
                                 ctx.fillText(player.number, 380, yPosition);
                             });
 
-                            ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`;
-                            ctx.textAlign = 'left';
+                            ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`; // Usa il font specificato
+                            ctx.textAlign = 'left'; // Allineamento a sinistra per i nomi
 
+                            // Disegna i nomi dei giocatori
                             playerNames.forEach((player, index) => {
-                                const yPosition = playerStartY + index * playerSpacing;
-                                ctx.fillText(player.name, 420, yPosition);
+                                const yPosition = playerStartY + index * playerSpacing; // Allinea i nomi con i numeri
+                                ctx.fillText(player.name, 420, yPosition); // Posiziona i nomi leggermente a destra dei numeri
                             });
                         }
+                        
+                        
+
+
 
                         const canvas = ctx.canvas;
                         const canvasWidth = canvas.width;
@@ -1844,11 +1877,14 @@ async function generatePreviews() {
                                 const select = document.getElementById(id);
                                 const selectedOption = currentPlayers.find(p => p.value === select.value);
                                 if (selectedOption && selectedOption.text.includes(' ')) {
+                                    // Estrae solo il cognome
                                     return selectedOption.value.split(' ').slice(0, -1).join(' ').toUpperCase();
                                 } else if (selectedOption) {
+                                    // Se non c'è uno spazio, utilizza l'intero nome
                                     return selectedOption.text.toUpperCase();
                                 }
                             } else {
+                                // Caso in cui customStartingXIPlayer è true: utilizza gli input di testo
                                 const input = document.getElementById(id);
                                 let name = input.value.trim().toUpperCase();
                                 if (name) {
@@ -1858,19 +1894,34 @@ async function generatePreviews() {
                             return '';
                         }).filter(name => name !== '');
                         
+                        // Unisci i nomi con il separatore ' | '
                         const substitutesText = substitutesNames.join(' | ');
 
-                        const substitutesLineHeight = startingXIStyle.substitutesFontSize + 5;
-                        ctx.font = `bold ${startingXIStyle.substitutesFontSize}px ${startingXIStyle.playerFont}`;
-                        ctx.fillStyle = `white`;
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'top';
+                        // Imposta lo stile per i sostituti
+                        const substitutesLineHeight = startingXIStyle.substitutesFontSize + 5; // Altezza di ogni linea
+                        ctx.font = `bold ${startingXIStyle.substitutesFontSize}px ${startingXIStyle.playerFont}`; // Usa lo stesso font dei titolari
+                        ctx.fillStyle = `white`; // Colore del testo
+                        ctx.textAlign = 'center'; // Allineamento centrale
+                        ctx.textBaseline = 'top'; // Allineamento verticale in alto
 
+                        // Calcola la larghezza massima consentita
                         const maxWidth = 600;
-                        const spacing = 10;
-                        const substitutesYPosition = startingXIStyle.substitutesStartY;
 
+                        // Calcola la posizione y per i sostituti in base ai titolari
+                        const substitutesYPosition = startingXIStyle.substitutesStartY; // 20 pixel di margine dopo i titolari
+
+                        // Disegna il testo suddiviso in tre linee, con la linea centrale più lunga
                         drawThreeLineCenteredText(ctx, substitutesText, maxWidth, canvas.width / 2, substitutesYPosition, substitutesLineHeight);
+
+
+
+
+
+
+                            // Definisci uno spazio tra i testi
+                            const spacing = 10; // Puoi regolare questo valore secondo le tue preferenze
+
+                            // Disegna il nome della squadra di casa e calcola la larghezza
                             let homeTeamNameWidth = 0;
                             let homeTeamText = '';
                             if (style.homeTeamName) {
@@ -1887,14 +1938,15 @@ async function generatePreviews() {
                                 }
                             }
 
+                            // Disegna il testo 'vs.' e calcola la larghezza
                             let vsTextWidth = 0;
                             let vsText = '';
                             if (style.vsText) {
                                 vsText = 'vs.';
                                 ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
                                 ctx.fillStyle = style.vsText.color;
-                                ctx.textAlign = 'left';
-                                ctx.textBaseline = 'middle';
+                                ctx.textAlign = 'left'; // Impostiamo l'allineamento a sinistra per facilitare il calcolo
+                                ctx.textBaseline = 'middle'; // Allineamento verticale al centro
 
                                 if (style.vsText.letterSpacing) {
                                     vsTextWidth = measureTextWithLetterSpacing(ctx, vsText, style.vsText.letterSpacing);
@@ -1903,14 +1955,15 @@ async function generatePreviews() {
                                 }
                             }
 
+                            // Disegna il nome della squadra ospite e calcola la larghezza
                             let awayTeamNameWidth = 0;
                             let awayTeamText = '';
                             if (style.awayTeamName) {
                                 awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
                                 ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
                                 ctx.fillStyle = style.awayTeamName.color;
-                                ctx.textAlign = 'left';
-                                ctx.textBaseline = 'middle';
+                                ctx.textAlign = 'left'; // Impostiamo l'allineamento a sinistra per facilitare il calcolo
+                                ctx.textBaseline = 'middle'; // Allineamento verticale al centro
 
                                 if (style.awayTeamName.letterSpacing) {
                                     awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
@@ -1919,12 +1972,16 @@ async function generatePreviews() {
                                 }
                             }
 
+                            // Calcola la larghezza totale del blocco
                             const totalBlockWidth = homeTeamNameWidth + spacing + vsTextWidth + spacing + awayTeamNameWidth;
+
+                            // Calcola la posizione x iniziale per centrare il blocco
                             const startX = (canvasWidth - totalBlockWidth) / 2;
 
+                            // Disegna il nome della squadra di casa
                             if (style.homeTeamName) {
                                 const homeX = startX;
-                                ctx.textAlign = 'left';
+                                ctx.textAlign = 'left'; // Allineamento a sinistra per la squadra di casa
                                 ctx.fillStyle = style.homeTeamName.color;
                                 ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
                                 if (style.homeTeamName.letterSpacing) {
@@ -1934,12 +1991,13 @@ async function generatePreviews() {
                                 }
                             }
 
+                            // Disegna il testo 'vs.'
                             if (style.vsText) {
                                 const vsX = startX + homeTeamNameWidth + spacing;
-                                ctx.textAlign = 'left';
+                                ctx.textAlign = 'left'; // Allineamento a sinistra per 'vs.'
                                 ctx.fillStyle = style.vsText.color;
                                 ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
-                                ctx.textBaseline = 'middle';
+                                ctx.textBaseline = 'middle'; // Allinea verticalmente al centro
                                 if (style.vsText.letterSpacing) {
                                     drawTextWithLetterSpacing(ctx, vsText, vsX, style.vsText.y, style.vsText.letterSpacing);
                                 } else {
@@ -1947,9 +2005,10 @@ async function generatePreviews() {
                                 }
                             }
 
+                            // Disegna il nome della squadra ospite
                             if (style.awayTeamName) {
                                 const awayX = startX + homeTeamNameWidth + spacing + vsTextWidth + spacing;
-                                ctx.textAlign = 'left';
+                                ctx.textAlign = 'left'; // Allineamento a sinistra per la squadra ospite
                                 ctx.fillStyle = style.awayTeamName.color;
                                 ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
                                 if (style.awayTeamName.letterSpacing) {
@@ -1974,69 +2033,81 @@ async function generatePreviews() {
 
                         if (graphicName === 'nextmatch') {
                             if (championshipSelect.value === 'seriea') {
-                                let homeTeamNameWidth;
-                                if (style.homeTeamName) {
-                                    const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
-                                    ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
-                                    ctx.fillStyle = style.homeTeamName.color;
-                                    ctx.textAlign = 'left';
-                                    homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
-                                    drawTextWithLetterSpacing(ctx, homeTeamText, canvas.width - style.homeTeamName.x - homeTeamNameWidth, style.homeTeamName.y, style.homeTeamName.letterSpacing);
-                                }
 
-                                if (style.awayTeamName) {
-                                    const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
-                                    ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
-                                    ctx.fillStyle = style.awayTeamName.color;
-                                    ctx.textAlign = 'left';
-                                    awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
-                                    drawTextWithLetterSpacing(ctx, awayTeamText, canvas.width - style.awayTeamName.x - awayTeamNameWidth, style.awayTeamName.y, style.awayTeamName.letterSpacing);
-                                }
+                                // !SERIE A
 
-                                let vsTextX;
-                                let vsTextWidth;
-                                if (style.vsText && homeTeamNameWidth !== undefined) {
-                                    vsTextX = canvas.width - style.homeTeamName.x - awayTeamNameWidth;
-                                    ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
-                                    ctx.fillStyle = style.vsText.color;
-                                    ctx.textAlign = 'right';
-                                        ctx.fillText('vs.', vsTextX, style.vsText.y + 80);
-                                        vsTextWidth = ctx.measureText('vs.').width;
-                                }
+                                // Disegna il nome della squadra di casa
+                        let homeTeamNameWidth;
+                        if (style.homeTeamName) {
+                            const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+                            ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+                            ctx.fillStyle = style.homeTeamName.color;
+                            ctx.textAlign = 'left';
+                            homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+                            drawTextWithLetterSpacing(ctx, homeTeamText, canvas.width - style.homeTeamName.x - homeTeamNameWidth, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+                        }
 
-                                if (style.dateTime) {
-                                const dateParts = getFormattedDateParts(
-                                    adjustedDateObj,
-                                    timeVersion.timeZoneAbbreviation,
-                                    'en-GB',
-                                    graphicName
-                                );
-                                
-                                const dateText = `${dateParts.month} ${dateParts.day}`;
-                                const suffix = dateParts.ordinalSuffix;
-                                const timeText = ` | ${dateParts.time}`;
+                        // Disegna il nome della squadra ospite
+                        if (style.awayTeamName) {
+                            const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+                            ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+                            ctx.fillStyle = style.awayTeamName.color;
+                            ctx.textAlign = 'left';
+                            awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+                            drawTextWithLetterSpacing(ctx, awayTeamText, canvas.width - style.awayTeamName.x - awayTeamNameWidth, style.awayTeamName.y, style.awayTeamName.letterSpacing);
+                        }
+
+                        // Calcola la posizione x per 'VS'
+                        let vsTextX;
+                        let vsTextWidth;
+                        if (style.vsText && homeTeamNameWidth !== undefined) {
+                            vsTextX = canvas.width - style.homeTeamName.x - awayTeamNameWidth;
+                            ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+                            ctx.fillStyle = style.vsText.color;
+                            ctx.textAlign = 'right';
+                                ctx.fillText('vs.', vsTextX, style.vsText.y + 80);
+                                vsTextWidth = ctx.measureText('vs.').width;
+                        }
+
+                        // Disegna la data del match
+                        if (style.dateTime) {
+                            // Ottieni i componenti formattati della data
+                        const dateParts = getFormattedDateParts(
+                            adjustedDateObj,
+                            timeVersion.timeZoneAbbreviation,
+                            'en-GB',
+                            graphicName
+                        );
+                        
+                        // Prepara i testi da disegnare
+                        const dateText = `${dateParts.month} ${dateParts.day}`;
+                        const suffix = dateParts.ordinalSuffix;
+                        const timeText = ` | ${dateParts.time}`;
 
 
-                                ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                                ctx.fillStyle = style.dateTime.color;
-                                ctx.textAlign = 'right';
-                                ctx.textBaseline = 'alphabetic';
-                                ctx.fillText(timeText, canvas.width - style.dateTime.x, style.dateTime.sety);
+                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                        ctx.fillStyle = style.dateTime.color;
+                        ctx.textAlign = 'right';
+                        ctx.textBaseline = 'alphabetic';
+                        ctx.fillText(timeText, canvas.width - style.dateTime.x, style.dateTime.sety);
 
-                                const hoursWidth = ctx.measureText(timeText);
+                        const hoursWidth = ctx.measureText(timeText);
 
-                                const suffixFontSize = style.dateTime.fontSize * 0.7;
-                                ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
-                                ctx.font = ctx.font.replace('normal', 'small-caps');
-                                ctx.fillText(suffix, canvas.width - style.dateTime.x - hoursWidth.width, style.dateTime.sety);
+                        // Imposta lo stile per il suffisso in small-caps e dimensione ridotta
+                        const suffixFontSize = style.dateTime.fontSize * 0.7;
+                        ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
+                        ctx.font = ctx.font.replace('normal', 'small-caps');
+                        ctx.fillText(suffix, canvas.width - style.dateTime.x - hoursWidth.width, style.dateTime.sety);
 
-                                const suffixWidth = ctx.measureText(suffix);
+                        const suffixWidth = ctx.measureText(suffix);
 
-                                // Imposta lo stile per il mese e il giorno
-                                ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                                ctx.fillText(dateText, canvas.width - style.dateTime.x - hoursWidth.width - suffixWidth.width - 3, style.dateTime.sety);  
-                            }
+                        // Imposta lo stile per il mese e il giorno
+                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                        ctx.fillText(dateText, canvas.width - style.dateTime.x - hoursWidth.width - suffixWidth.width - 3, style.dateTime.sety);  
+                    
+                    }
 
+                        // Disegna il matchday
                         if (style.matchDay) {
                             const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
                             const matchDayText = `MATCHDAY ${matchDayValue}`;
@@ -2048,6 +2119,7 @@ async function generatePreviews() {
                                 drawTextWithLetterSpacing(ctx, matchDayText, canvas.width - style.matchDay.x - matchDayWidth, style.matchDay.y, style.matchDay.letterSpacing);
                         }
 
+                        // Disegna la posizione dello stadio
                         if (style.stadiumLocation) {
                             const stadiumLocationValue = stadiumInput.value.trim() || '';
                             let stadiumLocationWidth = 0
@@ -2058,6 +2130,7 @@ async function generatePreviews() {
                                 drawTextWithLetterSpacing(ctx, stadiumLocationValue, canvas.width -  style.stadiumLocation.x - stadiumLocationWidth, style.stadiumLocation.y, style.stadiumLocation.letterSpacing);
                         }
 
+                        // Disegna il logo del campionato se presente
                         if (style.championshipLogo) {
                             const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
                             const championshipLogo = await loadImage(championshipLogoSrc);
@@ -2069,7 +2142,13 @@ async function generatePreviews() {
                                 }
                             }
                         }
-                    } else {
+
+
+
+
+
+                            } else {
+                                // Disegna il nome della squadra di casa
                         let homeTeamNameWidth;
                         if (style.homeTeamName) {
                             const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
@@ -2085,6 +2164,7 @@ async function generatePreviews() {
                             }
                         }
 
+                        // Calcola la posizione x per 'VS'
                         let vsTextX;
                         let vsTextWidth;
                         if (style.vsText && homeTeamNameWidth !== undefined) {
@@ -2102,6 +2182,7 @@ async function generatePreviews() {
                             }
                         }
 
+                        // Disegna il nome della squadra ospite
                         if (style.awayTeamName) {
                             const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
                             ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
@@ -2114,7 +2195,9 @@ async function generatePreviews() {
                             }
                         }
 
+                        // Disegna la data del match
                         if (style.dateTime) {
+                            // Ottieni i componenti formattati della data
                         const dateParts = getFormattedDateParts(
                             adjustedDateObj,
                             timeVersion.timeZoneAbbreviation,
@@ -2122,6 +2205,7 @@ async function generatePreviews() {
                             graphicName
                         );
                         
+                        // Prepara i testi da disegnare
                         const dateText = `${dateParts.month} ${dateParts.day}`;
                         const suffix = dateParts.ordinalSuffix;
                         let timeText = ``;
@@ -2132,69 +2216,86 @@ async function generatePreviews() {
                             timeText = ` | ${dateParts.time}`;
                         }
                         
+                        // Imposta lo stile per il mese e il giorno
                         ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
                         ctx.fillStyle = style.dateTime.color;
                         ctx.textAlign = 'left';
                         ctx.textBaseline = 'alphabetic';
                         
+                        // Calcola le metriche del testo del mese e del giorno
                         const dateMetrics = ctx.measureText(dateText);
                         const dateTextWidth = dateMetrics.width + 5;
                         const dateAscent = dateMetrics.actualBoundingBoxAscent;
+                        
+                        // Calcola la posizione y per il testo in base alla baseline
                         const y = style.dateTime.y + dateAscent;
                         
+                        // Disegna il testo del mese e del giorno
                         ctx.fillText(dateText, style.dateTime.x, y);
                         
+                        // Imposta lo stile per il suffisso in small-caps e dimensione ridotta
                         const suffixFontSize = style.dateTime.fontSize * 0.7;
                         ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
                         ctx.font = ctx.font.replace('normal', 'small-caps');
                         
+                        // Calcola le metriche del suffisso
                         const suffixMetrics = ctx.measureText(suffix);
                         const suffixAscent = suffixMetrics.actualBoundingBoxAscent;
+                        
+                        // Calcola l'offset verticale per allineare il suffisso
                         const suffixOffsetY = y;
                         
+                        // Disegna il suffisso immediatamente dopo il giorno
                         ctx.fillText(suffix, style.dateTime.x + dateTextWidth, suffixOffsetY);
                         
+                        // Calcola la larghezza del suffisso
                         const suffixWidth = suffixMetrics.width;
                         
+                        // Ripristina lo stile del font per il testo successivo (ora)
                         ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
                         
+                        // Disegna il testo dell'ora dopo il suffisso
                         ctx.fillText(timeText, style.dateTime.x + dateTextWidth + suffixWidth, y);
-                    }
+                                                }
 
-                    if (style.matchDay) {
-                        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                        const matchDayText = `MATCHDAY ${matchDayValue}`;
-                        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-                        ctx.fillStyle = style.matchDay.color;
-                        ctx.textAlign = 'left';
-                        if (style.matchDay.letterSpacing) {
-                            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
+                        // Disegna il matchday
+                        if (style.matchDay) {
+                            const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+                            const matchDayText = `MATCHDAY ${matchDayValue}`;
+                            ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+                            ctx.fillStyle = style.matchDay.color;
+                            ctx.textAlign = 'left';
+                            if (style.matchDay.letterSpacing) {
+                                drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
+                            } else {
+                                ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
+                            }
+                        }
+
+                        // Disegna la posizione dello stadio
+                        if (style.stadiumLocation) {
+                            const stadiumLocationValue = stadiumInput.value.trim() || '';
+                            ctx.font = `${style.stadiumLocation.fontSize}px ${style.stadiumLocation.font}`;
+                            ctx.fillStyle = style.stadiumLocation.color;
+                            ctx.textAlign = 'left';
+                            if (style.stadiumLocation.letterSpacing) {
+                                drawTextWithLetterSpacing(ctx, stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y, style.stadiumLocation.letterSpacing);
+                            } else {
+                                ctx.fillText(stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y);
+                            }
+                        }
+
+                        // Disegna il logo del campionato se presente
+                        if (style.championshipLogo) {
+                            const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
+                            const championshipLogo = await loadImage(championshipLogoSrc);
+                            if (championshipLogo) {
+                                ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
+                            }
+                        }
+                            }
                         } else {
-                            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-                        }
-                    }
-                    if (style.stadiumLocation) {
-                       const stadiumLocationValue = stadiumInput.value.trim() || '';
-                        ctx.font = `${style.stadiumLocation.fontSize}px ${style.stadiumLocation.font}`;
-                        ctx.fillStyle = style.stadiumLocation.color;
-                        ctx.textAlign = 'left';
-                        if (style.stadiumLocation.letterSpacing) {
-                            drawTextWithLetterSpacing(ctx, stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y, style.stadiumLocation.letterSpacing);
-                        } else {
-                            ctx.fillText(stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y);
-                        }
-                    }
-
-                    if (style.championshipLogo) {
-                        const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
-                        const championshipLogo = await loadImage(championshipLogoSrc);
-                        if (championshipLogo) {
-                            ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
-                        }
-                    }
-                }
-            } else {
-
+                            // Disegna il nome della squadra di casa
                         let homeTeamNameWidth;
                         if (style.homeTeamName) {
                             const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
