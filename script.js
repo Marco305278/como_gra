@@ -309,15 +309,19 @@ let customStartingXISubstitutes = false;
 
 let customHalfOverlay = false;
 let customFullOverlay = false;
+let customGoalOverlay = false;
 
 let advCustomHalfOverlay = false;
 let advCustomFullOverlay = false;
+let advCustomGoalOverlay = false;
 
 let advCustomHalfOverlayActive = false;
 let advCustomFullOverlayActive = false;
+let advCustomGoalOverlayActive = false;
 
 let lastbgOverlayHalfImage = []
 let lastbgOverlayFullImage = []
+let lastbgOverlayGoalImage = []
 
 let playerHome = true;
 
@@ -707,6 +711,76 @@ function updateGraphicsOptions() {
                         optionDiv.appendChild(halftimeDiv);
                         isHalftimeHighlightsAdded = true;
                     }
+
+
+                    // Crea il contenitore div con la classe 'graphics-time'
+                    const graphicsTimeDiv22 = document.createElement('div');
+                    graphicsTimeDiv22.classList.add('graphics-time');
+
+                    // Crea il label
+                    const labelFull3 = document.createElement('label');
+                    labelFull3.setAttribute('for', 'customGoalOverlay');
+                    labelFull3.setAttribute('id', 'customGoalOverlayLabel');
+
+                    // Crea l'input di tipo checkbox
+                    const inputFull3 = document.createElement('input');
+                    inputFull3.setAttribute('type', 'checkbox');
+                    inputFull3.setAttribute('name', 'customGoalOverlay');
+                    inputFull3.setAttribute('id', 'customGoalOverlay');
+                    inputFull3.checked = customGoalOverlay;
+
+                    // Aggiungi il testo al label
+                    labelFull3.appendChild(inputFull3);
+                    labelFull3.appendChild(document.createTextNode(' Overlay Goal'));
+
+                    // Aggiungi il label al div
+                    graphicsTimeDiv22.appendChild(labelFull3);
+
+                    optionDiv.appendChild(graphicsTimeDiv22);
+
+                    inputFull3.addEventListener('change', () => {
+                        customGoalOverlay = inputFull3.checked;
+                        advCustomGoalOverlay = inputFull3.checked;
+                        updateGraphicsOptions()
+                    });
+
+
+                    if (advCustomGoalOverlay) {
+                        // Crea il contenitore div con la classe 'graphics-time'
+                        const graphicsTimeDivadv22 = document.createElement('div');
+                        graphicsTimeDivadv22.classList.add('graphics-time');
+    
+                        // Crea il label
+                        const labeladv22 = document.createElement('label');
+                        labeladv22.setAttribute('for', 'advCustomHalfOverlay');
+                        labeladv22.setAttribute('id', 'customHalfOverlayLabel');
+                        labeladv22.classList.add('label-text')
+                        
+                        // Crea l'input di tipo checkbox
+                        const inputadv22 = document.createElement('input');
+                        inputadv22.setAttribute('type', 'checkbox');
+                        inputadv22.setAttribute('name', 'advCustomHalfOverlay');
+                        inputadv22.setAttribute('id', 'advCustomHalfOverlay');
+                        inputadv22.checked = advCustomGoalOverlayActive
+    
+                        // Aggiungi il testo al label
+                        labeladv22.appendChild(inputadv22);
+                        labeladv22.appendChild(document.createTextNode(`R: ${freeCalls}`));
+    
+                        // Aggiungi il label al div
+                        graphicsTimeDiv22.appendChild(labeladv22);
+                        optionDiv.appendChild(graphicsTimeDivadv22);
+    
+    
+                        inputadv22.addEventListener('change', () => {
+                            advCustomGoalOverlayActive = inputadv22.checked;
+                        });
+                    }
+
+
+
+
+
                     break;
 
                 case 'fulltime':                
@@ -2495,14 +2569,6 @@ async function generatePreviews() {
                             }
                         }
 
-                        if (style.championshipLogo) {
-                            const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
-                            const championshipLogo = await loadImage(championshipLogoSrc);
-                            if (championshipLogo) {
-                                ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
-                            }
-                        }
-
                         // Recupera i punteggi corretti in base alla grafica
                         let homeScore = '0';
                         let awayScore = '0';
@@ -2595,6 +2661,31 @@ async function generatePreviews() {
                                 drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
                             } else {
                                 ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
+                            }
+                        }
+
+                        if (graphicName === 'goal') {
+                            if (customGoalOverlay) {
+                                if (advCustomGoalOverlayActive) {
+                                    if (overlayName === 'overlay_4x5') {
+                                        lastbgOverlayGoalImage = await removeBackground(bgImage);
+                                        drawImageCover(ctx, lastbgOverlayGoalImage, canvas.width, canvas.height, graphicName, overlayName);
+                                    } else {
+                                        drawImageCover(ctx, lastbgOverlayGoalImage, canvas.width, canvas.height, graphicName, overlayName);
+                                    }
+                                } else {
+                                    const bgGoalOverlayImage = await removeBackgroundLocally(bgImage);
+                                    drawImageCover(ctx, bgGoalOverlayImage, canvas.width, canvas.height, graphicName, overlayName);
+                                }
+                                ctx.drawImage(overlayImage, 0, 0, canvas.width, canvas.height);
+                            }
+                        }
+
+                        if (style.championshipLogo) {
+                            const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
+                            const championshipLogo = await loadImage(championshipLogoSrc);
+                            if (championshipLogo) {
+                                ctx.drawImage(championshipLogo, style.championshipLogo.x, style.championshipLogo.y, style.championshipLogo.width, style.championshipLogo.height);
                             }
                         }
 

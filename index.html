@@ -47,6 +47,21 @@ marco305278.github.io/como_gra
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
 
+    <script>
+        function reloadAndClick() {
+            // Ricarica la pagina
+            window.location.reload();
+
+            // Dopo il caricamento, clicca su un elemento specifico
+            window.onload = function () {
+                const targetElement = document.querySelector("#myButton"); // Modifica con il selettore corretto
+                if (targetElement) {
+                    targetElement.click();
+                }
+            };
+        }
+    </script>
+
 
     <style>
         /* Nasconde inizialmente la sezione Data e Ora */
@@ -63,7 +78,7 @@ marco305278.github.io/como_gra
     <div class="content">
         <div class="title">
             <h4>Graphics</h4>
-            <a href="../como_gra/"><div><img src="images/assets/logo.png" alt="Logo" width="64" class="logo"><h1>Como 1907</h1></div></a>
+            <a href="#" onclick="reloadAndClick()"><div><img src="images/assets/logo.png" alt="Logo" width="64" class="logo"><h1>Como 1907</h1></div></a>
         </div>
         <p style="font-size: 0.1px; opacity: 0; line-height: 0; cursor: none;"><b style="font-family: 'DrukText-Medium-Trial';">a</b><b style="font-family: 'MazzardH-Medium';">a</b><b style="font-family: 'MazzardH-Light';">a</b><b style="font-family: 'bodoni-72-book-italic';">a</b><b style="font-family: 'bodoni-72-bold';">a</b><b style="font-family: 'Saturday-Lovin';">a</b></p>
 

@@ -128,7 +128,33 @@
         { "value": "William Feola", "text": "William Feola" }
       ],
       "women": [
-        { "value": "EDIT BUTTON", "text": "EDIT BUTTON" }
+        {"value": "Messori Chiara", "text": "Chiara Messori", "number": ""},
+        {"value": "Guidi Emma", "text": "Emma Guidi", "number": ""},
+        {"value": "Bargna Chiara", "text": "Chiara Bargna", "number": ""},
+        {"value": "Malacrida Sara", "text": "Sara Malacrida", "number": ""},
+        {"value": "Pede Letizia", "text": "Letizia Pede", "number": ""},
+        {"value": "Mboup Anna", "text": "Anna Mboup", "number": ""},
+        {"value": "Pozzoli Giulia", "text": "Giulia Pozzoli", "number": ""},
+        {"value": "Meroni Sara", "text": "Sara Meroni", "number": ""},
+        {"value": "Ledri Michela", "text": "Michela Ledri", "number": ""},
+        {"value": "Caccia Alice", "text": "Alice Caccia", "number": ""},
+        {"value": "Galvan Giulia", "text": "Giulia Galvan", "number": ""},
+        {"value": "Serio Ludovica", "text": "Ludovica Serio", "number": ""},
+        {"value": "Cazzetta Alessia", "text": "Alessia Cazzetta", "number": ""},
+        {"value": "Carrer Kristin", "text": "Kristin Carrer", "number": ""},
+        {"value": "Gomez Alessia", "text": "Alessia Gomez", "number": ""},
+        {"value": "Fadini Matilde", "text": "Matilde Fadini", "number": ""},
+        {"value": "Magni Erika", "text": "Erika Magni", "number": ""},
+        {"value": "Sardu Rossella", "text": "Rossella Sardu", "number": ""},
+        {"value": "Wagner Florin", "text": "Florin Wagner", "number": ""},
+        {"value": "Pecce Beatrice", "text": "Beatrice Pecce", "number": ""},
+        {"value": "Pedron Erika", "text": "Erika Pedron", "number": ""},
+        {"value": "Rocco Alessia", "text": "Alessia Rocco", "number": ""},
+        {"value": "Zorzetto Claudia", "text": "Claudia Zorzetto", "number": ""},
+        {"value": "Bruno Marianna", "text": "Marianna Bruno", "number": ""},
+        {"value": "Formento Marta", "text": "Marta Formento", "number": ""},
+        {"value": "Gissi Maylis", "text": "Maylis Gissi", "number": ""},
+        {"value": "Luijks Corina", "text": "Corina Luijks", "number": ""}
       ]
     }
   }
