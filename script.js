@@ -1270,7 +1270,6 @@ function downloadAllPreviews() {
 function getFilenameForCanvas(canvas) {
     const timeZoneAbbreviation = canvas.dataset.timeZoneAbbreviation || '';
     const graphicName = canvas.dataset.graphicName || 'graphic';
-    const overlayName = canvas.dataset.overlayName || 'overlay_4x5';
     const format = canvas.dataset.format || '';
     const homeTeamName = canvas.dataset.homeTeamName || '';
     const awayTeamName = canvas.dataset.awayTeamName || '';
@@ -1279,7 +1278,7 @@ function getFilenameForCanvas(canvas) {
     let filename = '';
 
     if (graphicName === 'livematch' || graphicName === 'highlights') {
-        if (overlayName === 'overlay_9x16') {
+        if (format === '5x8') {
             filename = `V_Live Match_${homeTeamName} vs ${awayTeamName}_${day}.png`;
         } else {
             filename = `H_Live Match_${homeTeamName} vs ${awayTeamName}_${day}.png`;
