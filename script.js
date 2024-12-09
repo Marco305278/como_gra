@@ -1278,7 +1278,11 @@ function getFilenameForCanvas(canvas) {
     let filename = '';
 
     if (graphicName === 'livematch' || graphicName === 'highlights') {
-        filename = `H_Live Match_${homeTeamName} vs ${awayTeamName}_${day}.png`;
+        if (overlayName === 'overlay_9x16') {
+            filename = `V_Live Match_${homeTeamName} vs ${awayTeamName}_${day}.png`;
+        } else {
+            filename = `H_Live Match_${homeTeamName} vs ${awayTeamName}_${day}.png`;
+        }
     } else if (graphicName === 'insta' || graphicName === 'tickets'){
         filename = `${capitalizeFirstLetter(graphicName)}_${format}_${day}_.png`;
     } else {
