@@ -1270,6 +1270,7 @@ function downloadAllPreviews() {
 function getFilenameForCanvas(canvas) {
     const timeZoneAbbreviation = canvas.dataset.timeZoneAbbreviation || '';
     const graphicName = canvas.dataset.graphicName || 'graphic';
+    const overlayName = canvas.dataset.overlayName || 'overlay_4x5';
     const format = canvas.dataset.format || '';
     const homeTeamName = canvas.dataset.homeTeamName || '';
     const awayTeamName = canvas.dataset.awayTeamName || '';
