@@ -1232,15 +1232,7 @@ function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', gra
     });
     const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
 
-    if (graphicName === 'kickoff') {
-        if (championshipSelect.value == 'primavera') {
-            return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
-        } else {
-            return `${month} ${day} | ${formattedTime}`;
-        }
-    } else {
-        return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
-    }
+    return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
 }
 
 
@@ -1388,38 +1380,61 @@ function getTeamDisplayName(teamValue) {
 
 function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
     const names = text.split(' | ');
-    const totalNames = names.length;
+    const lines = [];
+    let currentLine = '';
 
-    if (totalNames === 0) {
-        return;
+    // Funzione per aggiungere un nome alla linea corrente con controllo della larghezza
+    function addNameToLine(name) {
+        const separator = currentLine ? ' | ' : '';
+        const testLine = currentLine + separator + name;
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+
+        if (testWidth > maxWidth && currentLine) {
+            lines.push(currentLine);
+            currentLine = name;
+        } else {
+            currentLine = testLine;
+        }
     }
 
-    // Determina il numero base di nomi per la prima e terza linea
-    const baseCount = Math.floor(totalNames / 3);
-    const line1Count = baseCount;
-    const line3Count = baseCount;
-    const line2Count = totalNames - (line1Count + line3Count);
+    // Costruisci le linee con word wrapping
+    names.forEach(name => {
+        addNameToLine(name);
+    });
 
-    const line1 = names.slice(0, line1Count).join('  |  ');
-    const line2 = names.slice(line1Count, line1Count + line2Count).join('  |  ');
-    const line3 = names.slice(line1Count + line2Count).join('  |  ');
+    // Aggiungi l'ultima linea se non vuota
+    if (currentLine) {
+        lines.push(currentLine);
+    }
+
+    // Se ci sono più di tre linee, non fare nulla (le linee extra verranno aggiunte successivamente)
+    // Tuttavia, se vuoi limitare a tre linee e aggiungere una quarta solo quando necessario,
+    // puoi gestire questo caso specifico.
+
+    // Determina se è necessario aggiungere linee extra
+    const primaryLines = [];
+    let extraLines = [];
+
+    // Suddividi le prime tre linee e le eventuali linee extra
+    primaryLines.push(...lines.slice(0, 3));
+    if (lines.length > 3) {
+        extraLines = lines.slice(3);
+    }
+
+    // Combina le linee extra in una singola quarta linea se necessario
+    if (extraLines.length > 0) {
+        primaryLines.push(extraLines.join(' | '));
+    }
 
     // Imposta l'allineamento del testo al centro
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
 
-    // Disegna le tre linee
-    if (line1) {
-        ctx.fillText(line1, x, y);
-    }
-
-    if (line2) {
-        ctx.fillText(line2, x, y + lineHeight);
-    }
-
-    if (line3) {
-        ctx.fillText(line3, x, y + 2 * lineHeight);
-    }
+    // Disegna le linee principali
+    primaryLines.forEach((line, index) => {
+        ctx.fillText(line, x, y + index * lineHeight);
+    });
 }
 
 /**
@@ -1702,10 +1717,8 @@ async function generatePreviews() {
                         const playerSpacing = startingXIStyle.playerSpacing;
                         const playerIds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'p11'];
                         
-                        if (!customStartingXIPlayer) {
-                            const captainSelect = document.getElementById('captain');
-                            const captainValue = captainSelect.value;
-                        }
+                        const captainSelect = document.getElementById('captain');
+                        const captainValue = captainSelect.value;
 
                         const playerNames = playerIds.map(id => {
                             if (championshipSelect.value == 'primavera') {
@@ -1866,7 +1879,7 @@ async function generatePreviews() {
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'top';
 
-                        const maxWidth = 600;
+                        const maxWidth = 1000;
                         const spacing = 10;
                         const substitutesYPosition = startingXIStyle.substitutesStartY;
 
@@ -2502,17 +2515,65 @@ async function generatePreviews() {
                             awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
                         }
 
-                        // Disegna il testo con letter-spacing se specificato
-                        if (style.dateTime) {
-                            const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB', graphicName);
-                            ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                            ctx.fillStyle = style.dateTime.color;
-                            ctx.textAlign = 'left';
-                            if (style.dateTime.letterSpacing) {
-                                ctx.textBaseline = 'top';
-                                drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
-                            } else {
-                                ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
+                        if (graphicName === 'kickoff') {
+                            if (style.dateTime) {
+                                    const dateParts = getFormattedDateParts(
+                                        adjustedDateObj,
+                                        timeVersion.timeZoneAbbreviation,
+                                        'en-GB',
+                                        graphicName
+                                    );
+                                    
+                                    const dateText = `${dateParts.month} ${dateParts.day}`;
+                                    const suffix = dateParts.ordinalSuffix;
+                                    let timeText = ``;
+            
+                                    if (championship == 'primavera') {
+                                        timeText = ` | ${dateParts.time} ${timeVersion.timeZoneAbbreviation}`;
+                                    } else {
+                                        timeText = ` | ${dateParts.time}`;
+                                    }
+                                    
+                                    ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                                    ctx.fillStyle = style.dateTime.color;
+                                    ctx.textAlign = 'left';
+                                    ctx.textBaseline = 'alphabetic';
+                                    
+                                    const dateMetrics = ctx.measureText(dateText);
+                                    const dateTextWidth = dateMetrics.width + 5;
+                                    const dateAscent = dateMetrics.actualBoundingBoxAscent;
+                                    const y = style.dateTime.y + dateAscent;
+                                    
+                                    ctx.fillText(dateText, style.dateTime.x, y);
+                                    
+                                    const suffixFontSize = style.dateTime.fontSize * 0.7;
+                                    ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
+                                    ctx.font = ctx.font.replace('normal', 'small-caps');
+                                    
+                                    const suffixMetrics = ctx.measureText(suffix);
+                                    const suffixAscent = suffixMetrics.actualBoundingBoxAscent;
+                                    const suffixOffsetY = y;
+                                    
+                                    ctx.fillText(suffix, style.dateTime.x + dateTextWidth, suffixOffsetY);
+                                    
+                                    const suffixWidth = suffixMetrics.width;
+                                    
+                                    ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                                    
+                                    ctx.fillText(timeText, style.dateTime.x + dateTextWidth + suffixWidth, y);
+                            }
+                        } else {
+                            if (style.dateTime) {
+                                const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB', graphicName);
+                                ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                                ctx.fillStyle = style.dateTime.color;
+                                ctx.textAlign = 'left';
+                                if (style.dateTime.letterSpacing) {
+                                    ctx.textBaseline = 'top';
+                                    drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
+                                } else {
+                                    ctx.fillText(dateText, style.dateTime.x, style.dateTime.y);
+                                }
                             }
                         }
 
