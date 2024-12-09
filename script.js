@@ -2357,9 +2357,9 @@ async function generatePreviews() {
                     } else if (graphicName === 'kickoffworld') {
                         if (style.dateTime) {
                             const spacing = style.spacing;
-                            const baseX = style.dateTime.x;      // coordinata X di base per l'ora
-                            const baseY = style.dateTime.y;      // coordinata Y di base per la prima voce (COMO)
-                            const cityColumnOffset = 210;        // distanza orizzontale tra la colonna dell'ora e la colonna delle città
+                            const baseX = style.dateTime.x;      // Coordinata X di base per l'ora
+                            const baseY = style.dateTime.y;      // Coordinata Y di base per la prima voce (COMO)
+                            const cityColumnOffset = 210;        // Distanza orizzontale tra la colonna dell'ora e la colonna delle città
                     
                             // Array di città con offset (in ore) rispetto a COMO
                             const cities = [
@@ -2377,6 +2377,9 @@ async function generatePreviews() {
                             ctx.textAlign = 'right';
                             ctx.textBaseline = 'middle';
                     
+                            // Ottieni la data base senza offset
+                            const baseDate = new Date(adjustedDateObj.getTime());
+                    
                             // Per ogni città calcoliamo l'ora locale
                             cities.forEach((city, index) => {
                                 // Crea un nuovo oggetto data per questa città aggiungendo l’offset
@@ -2388,15 +2391,43 @@ async function generatePreviews() {
                                 // Calcolo la posizione Y per questa riga
                                 const yPos = baseY + (index * spacing);
                     
-                                // Disegna l'ora
+                                // Determina se la data della città è diversa dalla data base
+                                const dayDifference = cityDate.getDate() - baseDate.getDate();
+                                let dayIndicator = '';
+                                if (dayDifference === 1) {
+                                    dayIndicator = ' +1';
+                                } else if (dayDifference === -1) {
+                                    dayIndicator = ' -1';
+                                } else if (dayDifference > 1) {
+                                    dayIndicator = ` +${dayDifference}`;
+                                } else if (dayDifference < -1) {
+                                    dayIndicator = ` ${dayDifference}`;
+                                }
+                    
+                                // Disegna l'ora principale
                                 if (style.dateTime.letterSpacing) {
                                     drawTextWithLetterSpacing(ctx, cityDateParts.time, baseX, yPos, style.dateTime.letterSpacing);
                                 } else {
                                     ctx.fillText(cityDateParts.time, baseX, yPos);
                                 }
                     
+                                // Disegna l'indicatore del giorno se necessario
+                                if (dayIndicator !== '') {
+                                    // Salva lo stile corrente del contesto
+                                    ctx.save();
+                    
+                                    // Imposta un font più piccolo per l'indicatore
+                                    ctx.font = `${style.dateTime.fontSize / 1.7}px ${style.dateTime.font}`;
+                                    ctx.textAlign = 'left'; // Allinea l'indicatore a sinistra rispetto all'ora
+                                    ctx.textBaseline = 'middle';
+                                    ctx.fillText(dayIndicator, baseX  - 4, yPos + 2); // Regola la posizione X se necessario
+                    
+                                    // Ripristina lo stile originale del contesto
+                                    ctx.restore();
+                                }
+                    
                                 // Ora disegniamo il nome della città in maiuscolo sulla stessa linea, spostandoci a destra
-                                ctx.textAlign = 'center'; // allineamento a sinistra per il nome città
+                                ctx.textAlign = 'center'; // Allineamento centrale per il nome città
                                 const cityName = city.name.toUpperCase();
                     
                                 // Se serve letterSpacing anche per il nome della città, puoi replicare la logica:
@@ -2409,7 +2440,6 @@ async function generatePreviews() {
                                 // Ripristiniamo l'allineamento a destra per la prossima iterazione (l'ora)
                                 ctx.textAlign = 'right';
                             });
-                            
                         }
                         
                         if (style.homeLogo) {
