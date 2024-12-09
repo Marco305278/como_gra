@@ -121,9 +121,9 @@ const graphicStyles = {
             homeTeamName: { y: 295, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
             vsText: { y: 295, fontSize: 82, color: 'white', font: 'bodoni-72-book-italic' },
             awayTeamName: { y: 295, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
-            playerFontSize: 47,          // Dimensione del font per i nomi dei giocatori
-            playerSpacing: 57,           // Spaziatura verticale tra i nomi dei giocatori
-            playerStartY: 400,            // Posizione y iniziale per il primo nome
+            playerFontSize: 47,
+            playerSpacing: 57,
+            playerStartY: 400,
             substitutesStartY: 1140,
             substitutesFontSize: 34
         },
@@ -131,9 +131,9 @@ const graphicStyles = {
             homeTeamName: { x: 960, y: 485, fontSize: 82, color: 'white', font: 'DrukText-Medium-Trial', textAlign: 'right' },
             vsText: { text: 'VS', x: 600, y: 485, fontSize: 86, color: 'white', font: 'bodoni-72-book-italic', textAlign: 'center' },
             awayTeamName: { x: 960, y: 485, fontSize: 82, color: 'white', font: 'DrukText-Medium-Trial', textAlign: 'center' },
-            playerFontSize: 52,          // Dimensione del font per i nomi dei giocatori
-            playerSpacing: 67,           // Spaziatura verticale tra i nomi dei giocatori
-            playerStartY: 675,      // Posizione y iniziale per il primo nome
+            playerFontSize: 52,
+            playerSpacing: 67,
+            playerStartY: 675,
             substitutesStartY: 1575,
             substitutesFontSize: 45
         }
