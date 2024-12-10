@@ -1445,16 +1445,17 @@ function getTeamDisplayName(teamValue) {
 }
 
 function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
-    const names = text.split(' | ');
+    const splitSeparator = ' | ';      // Separatore utilizzato per suddividere i nomi
+    const displaySeparator = '  |  ';  // Separatore utilizzato per visualizzare i nomi
+    const names = text.split(splitSeparator).filter(name => name.trim() !== '');
     const lines = [];
     let currentLine = '';
 
     // Funzione per aggiungere un nome alla linea corrente con controllo della larghezza
     function addNameToLine(name) {
-        const separator = currentLine ? ' | ' : '';
+        const separator = currentLine ? displaySeparator : '';
         const testLine = currentLine + separator + name;
-        const metrics = ctx.measureText(testLine);
-        const testWidth = metrics.width;
+        const testWidth = ctx.measureText(testLine).width;
 
         if (testWidth > maxWidth && currentLine) {
             // Se la linea corrente supera la larghezza, la chiudiamo e iniziamo una nuova
@@ -1481,7 +1482,7 @@ function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
 
     // Combina eventuali linee extra
     if (extraLines.length > 0) {
-        primaryLines.push(extraLines.join(' | '));
+        primaryLines.push(extraLines.join(displaySeparator));
     }
 
     // Disegno delle linee
