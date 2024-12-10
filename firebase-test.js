@@ -1,3 +1,3 @@
 function savePreviewOnFireBase(canvas, filename) {
-    console.log(`TEST-MODE canvas:${canvas} filename:${filename}`);
+    console.log(`--test mode-- canvas:${canvas} filename:${filename}`);
 }
