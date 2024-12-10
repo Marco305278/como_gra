@@ -73,40 +73,50 @@
         const storage = getStorage(app); // Corretto: Usa getStorage invece di getAnalytics
 
         // Funzione per salvare il canvas su Firebase Storage
-        document.getElementById('saveButton').addEventListener('click', function() {
-            const canvas = document.getElementById('myCanvas');
+        document.addEventListener('DOMContentLoaded', function() {
+            const saveButton = document.getElementById('saveButton');
+            if (saveButton) {
+                saveButton.addEventListener('click', function() {
+                    const canvas = document.getElementById('myCanvas');
 
-            // Disegna qualcosa sul canvas (opzionale)
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = "#FF0000";
-            ctx.fillRect(50, 50, 150, 100);
+                    // Disegna qualcosa sul canvas (opzionale)
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = "#FF0000";
+                    ctx.fillRect(50, 50, 150, 100);
 
-            // Converti il canvas in Blob
-            canvas.toBlob(async function(blob) {
-                try {
-                    // Crea un riferimento a Firebase Storage
-                    const storageRef = ref(storage, 'images/canvasImage_' + Date.now() + '.png');
+                    // Converti il canvas in Blob
+                    canvas.toBlob(async function(blob) {
+                        if (blob) {
+                            try {
+                                // Crea un riferimento a Firebase Storage
+                                const storageRef = ref(storage, 'images/canvasImage_' + Date.now() + '.png');
 
-                    // Carica il Blob su Firebase Storage
-                    const snapshot = await uploadBytes(storageRef, blob);
-                    console.log('Immagine caricata con successo!');
+                                // Carica il Blob su Firebase Storage
+                                const snapshot = await uploadBytes(storageRef, blob);
+                                console.log('Immagine caricata con successo!');
 
-                    // Ottieni l'URL scaricabile
-                    const downloadURL = await getDownloadURL(snapshot.ref);
-                    console.log('URL dell\'immagine:', downloadURL);
+                                // Ottieni l'URL scaricabile
+                                const downloadURL = await getDownloadURL(snapshot.ref);
+                                console.log('URL dell\'immagine:', downloadURL);
 
-                    // Visualizza l'immagine caricata (opzionale)
-                    const img = document.createElement('img');
-                    img.src = downloadURL;
-                    document.body.appendChild(img);
-                } catch (error) {
-                    console.error('Errore nel caricamento dell\'immagine:', error);
-                }
-            }, 'image/png');
+                                // Visualizza l'immagine caricata (opzionale)
+                                const img = document.createElement('img');
+                                img.src = downloadURL;
+                                document.body.appendChild(img);
+                            } catch (error) {
+                                console.error('Errore nel caricamento dell\'immagine:', error);
+                            }
+                        } else {
+                            console.error('Impossibile convertire il canvas in Blob.');
+                        }
+                    }, 'image/png');
+                });
+            } else {
+                console.error('Elemento con id "saveButton" non trovato.');
+            }
         });
     </script>
 
     <!-- Rimuovi questo script se non è necessario -->
-    <script src="script.js"></script>
 </body>
 </html>
