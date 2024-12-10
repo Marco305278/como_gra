@@ -38,8 +38,9 @@ async function fetchData() {
     }
 }
 
-const apiKey = 'shrqhpJ8HY9k5syeXfTNLU8U';
-// const apiKey = '29CqKVDrjSrQKCmAC5qXHayL';
+const apiKeyFirst = 'fYNS8MDcLq2LpqLMAZ83GwbN';
+const apiKeySecond = 'shrqhpJ8HY9k5syeXfTNLU8U';
+const apiKeyThird = '29CqKVDrjSrQKCmAC5qXHayL';
 
 const graphicStyles = {
     'fulltime': {
@@ -327,7 +328,10 @@ let playerHome = true;
 
 let playerFotoNumber = false
 
-let freeCalls = 50;
+let ApiKeyUseFirst = 50;
+let ApiKeyUseSecond = 50;
+let ApiKeyUseThird = 50;
+let ApiKeyUseTotal = 100;
 
 const fixedTeam = {value: 'como 1907', text: 'Como 1907' };
 
@@ -335,28 +339,42 @@ let currentTeams = [];
 let backgroundImages = {};
 
 
-async function mostraCreditiRimanenti() {
+async function GetApiKeyUse() {
     try {
-        const response = await fetch('https://api.remove.bg/v1.0/account', {
+        const responseFirst = await fetch('https://api.remove.bg/v1.0/account', {
             method: 'GET',
             headers: {
-                'X-Api-Key': apiKey
+                'X-Api-Key': apiKeyFirst
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`Errore nella risposta dell'API: ${response.status}`);
-        }
+        const responseSecond = await fetch('https://api.remove.bg/v1.0/account', {
+            method: 'GET',
+            headers: {
+                'X-Api-Key': apiKeySecond
+            }
+        });
 
-        const data = await response.json();
-        freeCalls = data.data.attributes.api.free_calls;
+        const responseThird = await fetch('https://api.remove.bg/v1.0/account', {
+            method: 'GET',
+            headers: {
+                'X-Api-Key': apiKeyThird
+            }
+        });
+
+        const dataFirst = await responseFirst.json();
+        const dataSecond = await responseSecond.json();
+        const dataThird = await responseThird.json();
+        ApiKeyUseFirst = dataFirst.data.attributes.api.free_calls;
+        ApiKeyUseSecond = dataSecond.data.attributes.api.free_calls;
+        ApiKeyUseThird = dataThird.data.attributes.api.free_calls;
+        
+        ApiKeyUseTotal = ApiKeyUseFirst + ApiKeyUseSecond + ApiKeyUseThird
+
     } catch (error) {
         console.error('Errore nel recupero dei crediti rimanenti:', error);
-        alert('Impossibile recuperare i crediti rimanenti.');
     }
 }
-
-mostraCreditiRimanenti()
 
 function populateSelectableSelect(selectElement, teams, selectedValue = null) {
     selectElement.innerHTML = '';
@@ -492,6 +510,8 @@ function updateGraphicsOptions() {
     inputs.forEach(input => {
         existingInputs[input.className] = input.value;
     });
+
+    GetApiKeyUse()
 
     graphicsOptionsDiv.innerHTML = ''; // Pulisce le opzioni esistenti
 
@@ -765,7 +785,7 @@ function updateGraphicsOptions() {
     
                         // Aggiungi il testo al label
                         labeladv22.appendChild(inputadv22);
-                        labeladv22.appendChild(document.createTextNode(`R: ${freeCalls}`));
+                        labeladv22.appendChild(document.createTextNode(`R: ${ApiKeyUseTotal}`));
     
                         // Aggiungi il label al div
                         graphicsTimeDiv22.appendChild(labeladv22);
@@ -865,7 +885,7 @@ function updateGraphicsOptions() {
     
                         // Aggiungi il testo al label
                         labeladv2.appendChild(inputadv2);
-                        labeladv2.appendChild(document.createTextNode(`R: ${freeCalls}`));
+                        labeladv2.appendChild(document.createTextNode(`R: ${ApiKeyUseTotal}`));
     
                         // Aggiungi il label al div
                         graphicsTimeDiv2.appendChild(labeladv2);
@@ -992,7 +1012,7 @@ function updateGraphicsOptions() {
                         
                                             // Aggiungi il testo al label
                                             labeladv.appendChild(inputadv);
-                                            labeladv.appendChild(document.createTextNode(`R: ${freeCalls}`));
+                                            labeladv.appendChild(document.createTextNode(`R: ${ApiKeyUseTotal}`));
                         
                                             // Aggiungi il label al div
                                             graphicsTimeDiv.appendChild(labeladv);
@@ -2806,122 +2826,141 @@ async function generatePreviews() {
 }
 
 async function removeBackground(image) {
-    try {
-        // 1. Converti l'immagine originale in un blob
-        const originalBlob = await fetch(image.src).then(res => res.blob());
-
-        // 2. Crea un form data per l'API di remove.bg
-        const formData = new FormData();
-        formData.append('image_file', originalBlob);
-        formData.append('size', 'auto'); // Opzioni: 'auto', 'preview', 'small', 'regular', 'full'
-
-        // 3. Effettua la richiesta all'API di remove.bg
-        const response = await fetch('https://api.remove.bg/v1.0/removebg', {
-            method: 'POST',
-            headers: {
-                'X-Api-Key': apiKey
-            },
-            body: formData
-        });
-
-        // 4. Verifica la risposta dell'API
-        if (!response.ok) {
-            throw new Error('Errore nella risposta dell\'API: ' + response.statusText);
-        }
-
-        // 5. Ottieni l'immagine con il canale alpha dall'API
-        const resultBlob = await response.blob();
-        const resultImage = new Image();
-        resultImage.src = URL.createObjectURL(resultBlob);
-
-        // 6. Attendi che l'immagine sia caricata
-        await new Promise((resolve) => {
-            resultImage.onload = resolve;
-        });
-
-        // 7. Crea un canvas per l'immagine originale
-        const originalCanvas = document.createElement('canvas');
-        originalCanvas.width = image.width;
-        originalCanvas.height = image.height;
-        const originalCtx = originalCanvas.getContext('2d');
-        originalCtx.drawImage(image, 0, 0);
-
-        // 8. Crea un canvas per l'immagine con il canale alpha
-        const alphaCanvas = document.createElement('canvas');
-        alphaCanvas.width = image.width;
-        alphaCanvas.height = image.height;
-        const alphaCtx = alphaCanvas.getContext('2d');
-
-        // 9. Ridimensiona l'immagine restituita da remove.bg per corrispondere alle dimensioni originali
-        alphaCtx.drawImage(resultImage, 0, 0, image.width, image.height);
-
-        // 10. Estrai il canale alpha dall'immagine ridimensionata
-        const alphaImageData = alphaCtx.getImageData(0, 0, alphaCanvas.width, alphaCanvas.height);
-        const alphaData = alphaImageData.data;
-
-        // --- Nuovi Passaggi per Sfocare il Canale Alpha verso l'Interno ---
-
-        // 11. Inverti il canale alpha
-        for (let i = 0; i < alphaData.length; i += 4) {
-            alphaData[i + 3] = 255 - alphaData[i + 3]; // Inverti il canale alpha
-        }
-
-        // 12. Aggiorna l'immagine alpha invertita
-        alphaCtx.putImageData(alphaImageData, 0, 0);
-
-        // 13. Crea un canvas temporaneo per applicare la sfocatura
-        const blurredAlphaCanvas = document.createElement('canvas');
-        blurredAlphaCanvas.width = alphaCanvas.width;
-        blurredAlphaCanvas.height = alphaCanvas.height;
-        const blurredAlphaCtx = blurredAlphaCanvas.getContext('2d');
-
-        // 14. Disegna il canale alpha invertito sul canvas temporaneo
-        blurredAlphaCtx.drawImage(alphaCanvas, 0, 0);
-
-        // 15. Applica un filtro di sfocatura (ad esempio, 5px)
-        blurredAlphaCtx.filter = 'blur(5px)';
-        blurredAlphaCtx.drawImage(blurredAlphaCanvas, 0, 0);
-
-        // 16. Ottieni i dati dell'immagine alpha sfocata invertita
-        const blurredAlphaImageData = blurredAlphaCtx.getImageData(0, 0, blurredAlphaCanvas.width, blurredAlphaCanvas.height);
-        const blurredAlphaData = blurredAlphaImageData.data;
-
-        // 17. Inverti nuovamente il canale alpha sfocato
-        for (let i = 0; i < blurredAlphaData.length; i += 4) {
-            blurredAlphaData[i + 3] = 255 - blurredAlphaData[i + 3]; // Inverto nuovamente il canale alpha
-        }
-
-        // 18. Applica il canale alpha sfocato all'immagine originale
-        const imageData = originalCtx.getImageData(0, 0, originalCanvas.width, originalCanvas.height);
-        const originalData = imageData.data;
-
-        for (let i = 0; i < blurredAlphaData.length; i += 4) {
-            const alpha = blurredAlphaData[i + 3]; // Canale alpha sfocato
-            originalData[i + 3] = alpha; // Imposta il canale alpha dell'immagine originale
-        }
-
-        // 19. Aggiorna i dati dell'immagine originale con il nuovo canale alpha sfocato
-        originalCtx.putImageData(imageData, 0, 0);
-
-        // 20. Crea l'immagine finale
-        const finalImage = new Image();
-        finalImage.src = originalCanvas.toDataURL();
-
-        // 21. Attendi che l'immagine finale sia caricata
-        await new Promise((resolve) => {
-            finalImage.onload = resolve;
-        });
-
-        mostraCreditiRimanenti();
-        updateGraphicsOptions();
-
-        return finalImage;
-
-    } catch (error) {
-        console.error('Errore durante la rimozione dello sfondo:', error);
-        alert('Errore con l\'API di remove.bg: ' + error.message);
-        // Se c'è un errore, utilizza il metodo alternativo
+    if (ApiKeyUseTotal === 0) {
         return await removeBackgroundLocally(image);
+    } else {
+        try {
+            // 1. Converti l'immagine originale in un blob
+            const originalBlob = await fetch(image.src).then(res => res.blob());
+    
+            // 2. Crea un form data per l'API di remove.bg
+            const formData = new FormData();
+            formData.append('image_file', originalBlob);
+            formData.append('size', 'auto'); // Opzioni: 'auto', 'preview', 'small', 'regular', 'full'
+    
+            let response = [];
+    
+            // 3. Effettua la richiesta all'API di remove.bg
+            if (ApiKeyUseFirst > 0) {
+                response = await fetch('https://api.remove.bg/v1.0/removebg', {
+                    method: 'POST',
+                    headers: {
+                        'X-Api-Key': apiKeyFirst
+                    },
+                    body: formData
+                });
+            } else if (ApiKeyUseSecond > 0) {
+                response = await fetch('https://api.remove.bg/v1.0/removebg', {
+                    method: 'POST',
+                    headers: {
+                        'X-Api-Key': apiKeySecond
+                    },
+                    body: formData
+                });
+            } else {
+                response = await fetch('https://api.remove.bg/v1.0/removebg', {
+                    method: 'POST',
+                    headers: {
+                        'X-Api-Key': apiKeyThird
+                    },
+                    body: formData
+                });
+            }
+    
+            // 5. Ottieni l'immagine con il canale alpha dall'API
+            const resultBlob = await response.blob();
+            const resultImage = new Image();
+            resultImage.src = URL.createObjectURL(resultBlob);
+    
+            // 6. Attendi che l'immagine sia caricata
+            await new Promise((resolve) => {
+                resultImage.onload = resolve;
+            });
+    
+            // 7. Crea un canvas per l'immagine originale
+            const originalCanvas = document.createElement('canvas');
+            originalCanvas.width = image.width;
+            originalCanvas.height = image.height;
+            const originalCtx = originalCanvas.getContext('2d');
+            originalCtx.drawImage(image, 0, 0);
+    
+            // 8. Crea un canvas per l'immagine con il canale alpha
+            const alphaCanvas = document.createElement('canvas');
+            alphaCanvas.width = image.width;
+            alphaCanvas.height = image.height;
+            const alphaCtx = alphaCanvas.getContext('2d');
+    
+            // 9. Ridimensiona l'immagine restituita da remove.bg per corrispondere alle dimensioni originali
+            alphaCtx.drawImage(resultImage, 0, 0, image.width, image.height);
+    
+            // 10. Estrai il canale alpha dall'immagine ridimensionata
+            const alphaImageData = alphaCtx.getImageData(0, 0, alphaCanvas.width, alphaCanvas.height);
+            const alphaData = alphaImageData.data;
+    
+            // --- Nuovi Passaggi per Sfocare il Canale Alpha verso l'Interno ---
+    
+            // 11. Inverti il canale alpha
+            for (let i = 0; i < alphaData.length; i += 4) {
+                alphaData[i + 3] = 255 - alphaData[i + 3]; // Inverti il canale alpha
+            }
+    
+            // 12. Aggiorna l'immagine alpha invertita
+            alphaCtx.putImageData(alphaImageData, 0, 0);
+    
+            // 13. Crea un canvas temporaneo per applicare la sfocatura
+            const blurredAlphaCanvas = document.createElement('canvas');
+            blurredAlphaCanvas.width = alphaCanvas.width;
+            blurredAlphaCanvas.height = alphaCanvas.height;
+            const blurredAlphaCtx = blurredAlphaCanvas.getContext('2d');
+    
+            // 14. Disegna il canale alpha invertito sul canvas temporaneo
+            blurredAlphaCtx.drawImage(alphaCanvas, 0, 0);
+    
+            // 15. Applica un filtro di sfocatura (ad esempio, 5px)
+            blurredAlphaCtx.filter = 'blur(5px)';
+            blurredAlphaCtx.drawImage(blurredAlphaCanvas, 0, 0);
+    
+            // 16. Ottieni i dati dell'immagine alpha sfocata invertita
+            const blurredAlphaImageData = blurredAlphaCtx.getImageData(0, 0, blurredAlphaCanvas.width, blurredAlphaCanvas.height);
+            const blurredAlphaData = blurredAlphaImageData.data;
+    
+            // 17. Inverti nuovamente il canale alpha sfocato
+            for (let i = 0; i < blurredAlphaData.length; i += 4) {
+                blurredAlphaData[i + 3] = 255 - blurredAlphaData[i + 3]; // Inverto nuovamente il canale alpha
+            }
+    
+            // 18. Applica il canale alpha sfocato all'immagine originale
+            const imageData = originalCtx.getImageData(0, 0, originalCanvas.width, originalCanvas.height);
+            const originalData = imageData.data;
+    
+            for (let i = 0; i < blurredAlphaData.length; i += 4) {
+                const alpha = blurredAlphaData[i + 3]; // Canale alpha sfocato
+                originalData[i + 3] = alpha; // Imposta il canale alpha dell'immagine originale
+            }
+    
+            // 19. Aggiorna i dati dell'immagine originale con il nuovo canale alpha sfocato
+            originalCtx.putImageData(imageData, 0, 0);
+    
+            // 20. Crea l'immagine finale
+            const finalImage = new Image();
+            finalImage.src = originalCanvas.toDataURL();
+    
+            // 21. Attendi che l'immagine finale sia caricata
+            await new Promise((resolve) => {
+                finalImage.onload = resolve;
+            });
+    
+            GetApiKeyUse()
+            updateGraphicsOptions();
+    
+            return finalImage;
+    
+        } catch (error) {
+            console.error('Errore durante la rimozione dello sfondo:', error);
+            alert('Errore con l\'API di remove.bg: ' + error.message);
+            // Se c'è un errore, utilizza il metodo alternativo
+            return await removeBackgroundLocally(image);
+        }
     }
 }
 
@@ -3021,6 +3060,7 @@ function addAutoUpdateListeners() {
         toggleMatchDaySection();
         toggleStadiumLocationSection();
         generatePreviews();
+        GetApiKeyUse()
     });
 
     // Selezione della squadra di casa
