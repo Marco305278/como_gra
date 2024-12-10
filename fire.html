@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphics - Como 1907</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/assets/logo.png">
+    <!-- Collegamento al foglio di stile CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Graphics - Como 1907">
+    <meta property="og:description" content="Graphics for Como 1907">
+    <meta property="og:image" content="images/assets/logo.png">
+    <meta property="og:site_name" content="Graphics - Como 1907">
+    <meta property="og:url" content="https://www.marco305278.github.io/como_gra/">
+
+    <style>
+        /* Nasconde inizialmente la sezione Data e Ora */
+        #dateTimeSection {
+            display: none;
+        }
+
+        #imagesHeader {
+            display: none;
+        }
+    </style>
+</head>
+<body style="height: 200vh;">
+    <p style="color: rgb(217, 217, 217); opacity: 0.4; position: fixed; top: 0; right: 0; padding: 10px; margin: 0; cursor:not-allowed;">TEST</p>
+    <div class="content">
+        <div class="title">
+            <h4>Graphics</h4>
+            <a href="test.html">
+                <div>
+                    <img src="images/assets/logo.png" alt="Logo" width="64" class="logo">
+                    <h1>Como 1907</h1>
+                </div>
+            </a>
+        </div>
+        <!-- ... (resto del tuo contenuto HTML) ... -->
+
+        <canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;">
+            Il tuo browser non supporta il tag canvas.
+        </canvas>
+        <button id="saveButton">Salva Canvas su Firebase</button>
+    </div>
+
+    <script type="module">
+        // Importa le funzioni necessarie dal SDK di Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
+
+        // Configurazione Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBRduW7hkBNlSf0DJedsSl_VL4Bp2pQ5b4",
+            authDomain: "como-1907-graphics-main.firebaseapp.com",
+            projectId: "como-1907-graphics-main",
+            storageBucket: "como-1907-graphics-main.appspot.com", // Corretto
+            messagingSenderId: "265131671232",
+            appId: "1:265131671232:web:440bd456fdc73b02b53725",
+            measurementId: "G-FD3VRBVJLM"
+        };
+
+        // Inizializza Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const storage = getStorage(app); // Corretto: Usa getStorage invece di getAnalytics
+
+        // Funzione per salvare il canvas su Firebase Storage
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const canvas = document.getElementById('myCanvas');
+
+            // Disegna qualcosa sul canvas (opzionale)
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(50, 50, 150, 100);
+
+            // Converti il canvas in Blob
+            canvas.toBlob(async function(blob) {
+                try {
+                    // Crea un riferimento a Firebase Storage
+                    const storageRef = ref(storage, 'images/canvasImage_' + Date.now() + '.png');
+
+                    // Carica il Blob su Firebase Storage
+                    const snapshot = await uploadBytes(storageRef, blob);
+                    console.log('Immagine caricata con successo!');
+
+                    // Ottieni l'URL scaricabile
+                    const downloadURL = await getDownloadURL(snapshot.ref);
+                    console.log('URL dell\'immagine:', downloadURL);
+
+                    // Visualizza l'immagine caricata (opzionale)
+                    const img = document.createElement('img');
+                    img.src = downloadURL;
+                    document.body.appendChild(img);
+                } catch (error) {
+                    console.error('Errore nel caricamento dell\'immagine:', error);
+                }
+            }, 'image/png');
+        });
+    </script>
+
+    <!-- Rimuovi questo script se non è necessario -->
+    <script src="script.js"></script>
+</body>
+</html>
