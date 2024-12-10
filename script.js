@@ -125,7 +125,7 @@ const graphicStyles = {
             playerSpacing: 57,
             playerStartY: 400,
             substitutesStartY: 1140,
-            substitutesFontSize: 34
+            substitutesFontSize: 40
         },
         'overlay_9x16': {
             homeTeamName: { x: 960, y: 485, fontSize: 82, color: 'white', font: 'DrukText-Medium-Trial', textAlign: 'right' },
@@ -1457,6 +1457,7 @@ function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
         const testWidth = metrics.width;
 
         if (testWidth > maxWidth && currentLine) {
+            // Se la linea corrente supera la larghezza, la chiudiamo e iniziamo una nuova
             lines.push(currentLine);
             currentLine = name;
         } else {
@@ -1464,7 +1465,7 @@ function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
         }
     }
 
-    // Costruisci le linee con word wrapping
+    // Costruzione delle linee con controllo della larghezza
     names.forEach(name => {
         addNameToLine(name);
     });
@@ -1474,30 +1475,19 @@ function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
         lines.push(currentLine);
     }
 
-    // Se ci sono più di tre linee, non fare nulla (le linee extra verranno aggiunte successivamente)
-    // Tuttavia, se vuoi limitare a tre linee e aggiungere una quarta solo quando necessario,
-    // puoi gestire questo caso specifico.
+    // Divisione delle linee principali e delle extra
+    const primaryLines = lines.slice(0, 3);
+    const extraLines = lines.slice(3);
 
-    // Determina se è necessario aggiungere linee extra
-    const primaryLines = [];
-    let extraLines = [];
-
-    // Suddividi le prime tre linee e le eventuali linee extra
-    primaryLines.push(...lines.slice(0, 3));
-    if (lines.length > 3) {
-        extraLines = lines.slice(3);
-    }
-
-    // Combina le linee extra in una singola quarta linea se necessario
+    // Combina eventuali linee extra
     if (extraLines.length > 0) {
         primaryLines.push(extraLines.join(' | '));
     }
 
-    // Imposta l'allineamento del testo al centro
+    // Disegno delle linee
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
 
-    // Disegna le linee principali
     primaryLines.forEach((line, index) => {
         ctx.fillText(line, x, y + index * lineHeight);
     });
@@ -1808,7 +1798,7 @@ async function generatePreviews() {
                                         const number = select.dataset.number || '';
                         
                                         if (selectedOption.text.includes(' ')) {
-                                            name = selectedOption.text.split(' ').slice(0, -1).join(' ').toUpperCase();
+                                            name = selectedOption.value.split(' ').slice(0, -1).join(' ').toUpperCase();
                                         } else {
                                             name = selectedOption.text.toUpperCase();
                                         }
