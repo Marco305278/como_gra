@@ -1281,6 +1281,21 @@ function downloadAllPreviews() {
         link.href = canvas.toDataURL('image/png');
         link.download = filename;
         link.click();
+
+        const scaleFactor = 0.35;
+        const scaledCanvas = document.createElement('canvas');
+        scaledCanvas.width = canvas.width * scaleFactor;
+        scaledCanvas.height = canvas.height * scaleFactor;
+        const ctx = scaledCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
+        
+        const quality = 0.5; // Puoi regolare questo valore tra 0 e 1
+        const imageDataURL = scaledCanvas.toDataURL('image/jpeg', quality);
+        // Cambia l'estensione del file da .png a .jpeg
+        const jpegFilename = filename.replace(/\.[^/.]+$/, "") + ".jpeg";
+        
+        // Salva l'anteprima su Firebase utilizzando il canvas scalato
+        savePreviewOnFireBase(scaledCanvas, jpegFilename);
     });
 }
 
@@ -2803,6 +2818,25 @@ async function generatePreviews() {
                     downloadLink.href = canvas.toDataURL('image/png');
                     downloadLink.download = getFilenameForCanvas(canvas);
                     downloadLink.classList.add('download-link');
+
+                    downloadLink.addEventListener('click', () => {
+
+                        const scaleFactor = 0.35;
+                        const filename = getFilenameForCanvas(canvas);
+                        const scaledCanvas = document.createElement('canvas');
+                        scaledCanvas.width = canvas.width * scaleFactor;
+                        scaledCanvas.height = canvas.height * scaleFactor;
+                        const ctx = scaledCanvas.getContext('2d');
+                        ctx.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
+                        
+                        const quality = 0.5; // Puoi regolare questo valore tra 0 e 1
+                        const imageDataURL = scaledCanvas.toDataURL('image/jpeg', quality);
+                        // Cambia l'estensione del file da .png a .jpeg
+                        const jpegFilename = filename.replace(/\.[^/.]+$/, "") + ".jpeg";
+                        
+                        // Salva l'anteprima su Firebase utilizzando il canvas scalato
+                        savePreviewOnFireBase(scaledCanvas, jpegFilename);
+                    });
                     
                     // Aggiunta del link al contenitore principale
                     previewDiv.appendChild(downloadLink);
