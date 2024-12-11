@@ -14,7 +14,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 function saveTeamOnFireBase(championship, team) {
-  database.ref(`${championship}/team/`).set(team)
+  console.log(`--test mode-- save: ${team}`)
 }
 
 function syncTeamOnFireBase(championship, select) {
@@ -26,7 +26,7 @@ function syncTeamOnFireBase(championship, select) {
 }
 
 function saveMatchDayOnFireBase(championship, number) {
-  database.ref(`${championship}/mtc_day/`).set(number)
+  console.log(`--test mode-- save: ${number}`)
 }
 
 function syncMatchDayOnFireBase(championship, input) {
@@ -40,7 +40,7 @@ function syncMatchDayOnFireBase(championship, input) {
 }
 
 function saveDateOnFireBase(championship, date) {
-  database.ref(`${championship}/date`).set(date)
+  console.log(`--test mode-- save: ${date}`)
 }
 
 function syncDateOnFireBase(championship, input) {
@@ -54,7 +54,7 @@ function syncDateOnFireBase(championship, input) {
 }
 
 function saveTimeOnFireBase(championship, time) {
-  database.ref(`${championship}/time`).set(time)
+  console.log(`--test mode-- save: ${time}`)
 }
 
 function syncTimeOnFireBase(championship, input) {
@@ -68,7 +68,7 @@ function syncTimeOnFireBase(championship, input) {
 }
 
 function saveStadiumOnFireBase(championship, stadium) {
-  database.ref(`${championship}/stadium`).set(stadium)
+  console.log(`--test mode-- save: ${stadium}`)
 }
 
 function syncStadiumOnFireBase(championship, input) {
@@ -79,4 +79,8 @@ function syncStadiumOnFireBase(championship, input) {
         input.value = stadium;
       }
     });
+}
+
+function savePreviewOnFireBase(canvas, filename) {
+  console.log(`--test mode-- filename: ${filename}`)
 }

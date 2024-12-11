@@ -23,6 +23,7 @@ const firebaseConfig = {
         const team = snapshot.val();
         if (team) { select.value = team; }
       });
+      generatePreviews()
   }
   
   function saveMatchDayOnFireBase(championship, number) {
@@ -37,6 +38,7 @@ const firebaseConfig = {
           input.value = mtcday;
         }
       });
+      generatePreviews()
   }
   
   function saveDateOnFireBase(championship, date) {
@@ -51,6 +53,7 @@ const firebaseConfig = {
           input.value = date;
         }
       });
+      generatePreviews()
   }
   
   function saveTimeOnFireBase(championship, time) {
@@ -65,6 +68,7 @@ const firebaseConfig = {
           input.value = time;
         }
       });
+      generatePreviews()
   }
   
   function saveStadiumOnFireBase(championship, stadium) {
@@ -79,13 +83,14 @@ const firebaseConfig = {
           input.value = stadium;
         }
       });
+      generatePreviews()
   }
 
 // Riferimento a Firebase Storage
 const storage = firebase.storage();
 
 function savePreviewOnFireBase(canvas, filename) {
-    const storageRef = storage.ref('graphics/' + filename);
+    const storageRef = storage.ref('previous_graphics/' + filename);
 
     // Converti il canvas in Blob
     canvas.toBlob((blob) => {
