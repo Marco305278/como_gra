@@ -15,6 +15,26 @@ if (!firebase.apps.length) {
     firebase.app();
 }
 
+
+// Riferimento a Firebase Database
+const database = firebase.database(app);
+
+function saveTeamOnFireBase(championship, team) {
+    firebase.database().ref(championship).set(team);
+}
+
+function syncTeamOnFireBase(championship, select) {
+  firebase.database()
+    .ref(championship)
+    .on('value', (snapshot) => {
+      const selectedOption = snapshot.val();
+      if (selectedOption) {
+        select.value = selectedOption;
+      }
+    });
+}
+
+
 // Riferimento a Firebase Storage
 const storage = firebase.storage();
 
