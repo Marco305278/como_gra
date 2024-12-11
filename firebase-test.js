@@ -1,41 +1,82 @@
+// Import and configure Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyBRduW7hkBNlSf0DJedsSl_VL4Bp2pQ5b4",
-    authDomain: "como-1907-graphics-main.firebaseapp.com",
-    projectId: "como-1907-graphics-main",
-    storageBucket: "como-1907-graphics-main.firebasestorage.app",
-    messagingSenderId: "265131671232",
-    appId: "1:265131671232:web:440bd456fdc73b02b53725",
-    measurementId: "G-FD3VRBVJLM"
+  apiKey: "AIzaSyBRduW7hkBNlSf0DJedsSl_VL4Bp2pQ5b4",
+  authDomain: "como-1907-graphics-main.firebaseapp.com",
+  databaseURL: "https://como-1907-graphics-main-default-rtdb.firebaseio.com/",
+  projectId: "como-1907-graphics-main",
+  storageBucket: "como-1907-graphics-main.firebasestorage.app",
+  messagingSenderId: "265131671232",
+  appId: "1:265131671232:web:440bd456fdc73b02b53725",
+  measurementId: "G-FD3VRBVJLM"
 };
 
-let app = '';
-
-// Inizializza Firebase
-if (!firebase.apps.length) {
-    app = firebase.initializeApp(firebaseConfig);
-} else {
-    app = firebase.app();
-}
-
-// Riferimento a Firebase Database
-const database = firebase.database(app);
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 function saveTeamOnFireBase(championship, team) {
-    firebase.database().ref(championship).set(team);
+  database.ref(`${championship}/team/`).set(team)
 }
 
 function syncTeamOnFireBase(championship, select) {
-  firebase.database()
-    .ref(championship)
+  database.ref(`${championship}/team/`)
     .on('value', (snapshot) => {
-      const selectedOption = snapshot.val();
-      if (selectedOption) {
-        select.value = selectedOption;
+      const team = snapshot.val();
+      if (team) { select.value = team; }
+    });
+}
+
+function saveMatchDayOnFireBase(championship, number) {
+  database.ref(`${championship}/mtc_day/`).set(number)
+}
+
+function syncMatchDayOnFireBase(championship, input) {
+  database.ref(`${championship}/mtc_day`)
+    .on('value', (snapshot) => {
+      const mtcday = snapshot.val();
+      if (mtcday) {
+        input.value = mtcday;
       }
     });
 }
 
+function saveDateOnFireBase(championship, date) {
+  database.ref(`${championship}/date`).set(date)
+}
 
-function savePreviewOnFireBase(canvas, filename) {
-    console.log(`--test mode-- filename:${filename}`);
+function syncDateOnFireBase(championship, input) {
+  database.ref(`${championship}/date`)
+    .on('value', (snapshot) => {
+      const date = snapshot.val();
+      if (date) {
+        input.value = date;
+      }
+    });
+}
+
+function saveTimeOnFireBase(championship, time) {
+  database.ref(`${championship}/time`).set(time)
+}
+
+function syncTimeOnFireBase(championship, input) {
+  database.ref(`${championship}/time`)
+    .on('value', (snapshot) => {
+      const time = snapshot.val();
+      if (time) {
+        input.value = time;
+      }
+    });
+}
+
+function saveStadiumOnFireBase(championship, stadium) {
+  database.ref(`${championship}/stadium`).set(stadium)
+}
+
+function syncStadiumOnFireBase(championship, input) {
+  database.ref(`${championship}/stadium`)
+    .on('value', (snapshot) => {
+      const stadium = snapshot.val();
+      if (stadium) {
+        input.value = stadium;
+      }
+    });
 }

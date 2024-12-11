@@ -388,21 +388,21 @@ function populateSelectableSelect(selectElement, teams, selectedValue = null) {
         }
     });
 
-    if (selectedValue) {
-        const optionExists = Array.from(selectElement.options).some(option => option.value === selectedValue);
-        if (optionExists) {
-            selectElement.value = selectedValue;
-        } else {
-            if (selectElement.options.length > 0) {
-                selectElement.selectedIndex = 0;
-            }
-        }
-    } else {
+    if (!selectedValue) {
         try {
             syncTeamOnFireBase(championshipSelect.value, selectElement)
         } catch (error) {
             console.error('Errore durante la richiesta a FireBase:', error);
 
+            if (selectElement.options.length > 0) {
+                selectElement.selectedIndex = 0;
+            }
+        }
+    } else {
+        const optionExists = Array.from(selectElement.options).some(option => option.value === selectedValue);
+        if (optionExists) {
+            selectElement.value = selectedValue;
+        } else {
             if (selectElement.options.length > 0) {
                 selectElement.selectedIndex = 0;
             }
@@ -1320,9 +1320,9 @@ function getFilenameForCanvas(canvas) {
 
     if (graphicName === 'livematch' || graphicName === 'highlights') {
         if (format === '5x8') {
-            filename = `V_Live Match_${homeTeamName} vs ${awayTeamName}_${day}.png`;
+            filename = `V_${capitalizeFirstLetter(graphicName)}_${homeTeamName} vs ${awayTeamName}_${day}.png`;
         } else {
-            filename = `H_Live Match_${homeTeamName} vs ${awayTeamName}_${day}.png`;
+            filename = `H_${capitalizeFirstLetter(graphicName)}_${homeTeamName} vs ${awayTeamName}_${day}.png`;
         }
     } else if (graphicName === 'insta' || graphicName === 'tickets'){
         filename = `${capitalizeFirstLetter(graphicName)}_${format}_${day}_.png`;
@@ -1742,7 +1742,7 @@ async function generatePreviews() {
                 if (bgImage) {
                     drawImageCover(ctx, bgImage, canvas.width, canvas.height, graphicName, overlayName, bgX, bgY, bgScale);
                 } else {
-                    ctx.fillStyle = '#ffffff';
+                    ctx.fillStyle = '#000000';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                 }
 
@@ -3100,20 +3100,19 @@ function addAutoUpdateListeners() {
         toggleMatchDaySection();
         toggleStadiumLocationSection();
         generatePreviews();
-        GetApiKeyUse()
     });
 
     // Selezione della squadra di casa
     homeTeamSelect.addEventListener('change', () => {
 
-        saveTeamOnFireBase(championshipSelect.value, homeTeamSelect)
+        saveTeamOnFireBase(championshipSelect.value, homeTeamSelect.value)
         generatePreviews();
     });
 
     // Selezione della squadra ospite
     awayTeamSelect.addEventListener('change', () => {
         
-        saveTeamOnFireBase(championshipSelect.value, awayTeamSelect)
+        saveTeamOnFireBase(championshipSelect.value, awayTeamSelect.value)
         generatePreviews();
     });
 
@@ -3173,14 +3172,17 @@ function addAutoUpdateListeners() {
     });
 
     stadiumInput.addEventListener('input', () => {
+        saveStadiumOnFireBase(championshipSelect.value, stadiumInput.value)
         generatePreviews();
     });
 
     matchDateInput.addEventListener('change', () => {
+        saveDateOnFireBase(championshipSelect.value, matchDateInput.value)
         generatePreviews();
     });
 
     matchTimeInput.addEventListener('change', () => {
+        saveTimeOnFireBase(championshipSelect.value, matchTimeInput.value)
         generatePreviews();
     });
 
@@ -3191,6 +3193,11 @@ function addAutoUpdateListeners() {
             generatePreviews();
         });
     }
+    if (matchDayInput) {
+        matchDayInput.addEventListener('change', () => {
+            saveMatchDayOnFireBase(championshipSelect.value, matchDayInput.value);
+        });
+    }
 }
 
 function toggleDateTimeSection() {
@@ -3199,6 +3206,9 @@ function toggleDateTimeSection() {
         .map(cb => cb.value);
 
     const requiresDateTime = selectedGraphics.some(graphic => graphicsRequireDateTime.includes(graphic));
+
+    syncDateOnFireBase(championshipSelect.value, matchDateInput);
+    syncTimeOnFireBase(championshipSelect.value, matchTimeInput);
 
     if (requiresDateTime) {
         dateTimeSection.style.display = 'block';
@@ -3215,10 +3225,13 @@ function toggleMatchDaySection() {
     const requiresMatchDay = selectedGraphics.some(graphic => graphicsRequireMatchDay.includes(graphic));
 
     if (requiresMatchDay) {
+        syncMatchDayOnFireBase(championshipSelect.value, matchDayInput)
         matchDaySection.style.display = 'flex';
     } else {
         matchDaySection.style.display = 'none';
     }
+
+    
 }
 
 function toggleStadiumLocationSection() {
@@ -3229,6 +3242,7 @@ function toggleStadiumLocationSection() {
     const requiresStadiumLocation = selectedGraphics.some(graphic => graphicsRequireStadiumLocation.includes(graphic));
 
     if (requiresStadiumLocation) {
+        syncStadiumOnFireBase(championshipSelect.value, stadiumInput)
         stadiumLocationSection.style.display = 'block';
     } else {
         stadiumLocationSection.style.display = 'none';
@@ -3458,6 +3472,7 @@ function addUploadItemListeners() {
     if (!isNaN(currentValue)) {
       matchDayInput.value = currentValue + 1;
     }
+    saveMatchDayOnFireBase(championshipSelect.value, matchDayInput.value);
   });
   
   decreaseButton.addEventListener('click', () => {
@@ -3465,6 +3480,7 @@ function addUploadItemListeners() {
     if (!isNaN(currentValue) && currentValue > 0) {
       matchDayInput.value = currentValue - 1;
     }
+    saveMatchDayOnFireBase(championshipSelect.value, matchDayInput.value);
   });
 
   function updateImagesHeaderVisibility() {
