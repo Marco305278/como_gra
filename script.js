@@ -900,19 +900,21 @@ function updateGraphicsOptions() {
 
 
                 case 'highlights':
-                    if (!isFulltimeHighlightsAdded) { // Controlla se è già stato aggiunto
-                        optionDiv.innerHTML += `
-                            <h3>Full Time - Highlights</h3>
+                    if (!isHalftimeHighlightsAdded) {
+                        // Campi per i punteggi di half-time
+                        const halftimeDiv = document.createElement('div');
+                        halftimeDiv.innerHTML = `
+                            <h3>Half Time - Goal</h3>
                             <div style="background: #e8f0f8; border-radius: 6px; padding: 10px;" class="score">
                                 <div class="col col100" style="text-align: center; padding-top: 4px;">
                                     <div><label>Home score:</label></div>
                                     <div style="width: 140px"></div>
                                     <div><label>Away score:</label></div>
                                 </div>
-                                <div class="col col100" style="text-align: center;">
+                                <div class="col col100 number-input-fz" style="text-align: center;">
                                     <div>
                                         <div class="cell100">
-                                            <input size="2" id="homeFullScore" type="number" class="homeFullScore number" min="0" placeholder="0" value="0">
+                                            <input size="2" type="number" class="homeHalfScore number" min="0" placeholder="0" value="0">
                                         </div>
                                     </div>
                                     <div style="width: 140px;">
@@ -920,13 +922,14 @@ function updateGraphicsOptions() {
                                     </div>
                                     <div>
                                         <div class="cell100">
-                                            <input type="number" id="awayFullScore" class="awayFullScore  number" min="0" placeholder="0" value="0">
+                                            <input type="number" class="awayHalfScore number" min="0" placeholder="0" value="0">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         `;
-                        isFulltimeHighlightsAdded = true; // Imposta il flag su true
+                        optionDiv.appendChild(halftimeDiv);
+                        isHalftimeHighlightsAdded = true;
                     }
                     break;
                 case 'halftime':
