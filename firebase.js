@@ -10,8 +10,9 @@ const firebaseConfig = {
     measurementId: "G-FD3VRBVJLM"
   };
   
-  const app = firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
   const database = firebase.database();
+  const storage = firebase.storage();
   
   function saveTeamOnFireBase(championship, team) {
     database.ref(`${championship}/team/`).set(team)
@@ -85,9 +86,6 @@ const firebaseConfig = {
       });
       generatePreviews()
   }
-
-// Riferimento a Firebase Storage
-const storage = firebase.storage();
 
 function savePreviewOnFireBase(canvas, filename) {
     const storageRef = storage.ref('previous_graphics/' + filename);
