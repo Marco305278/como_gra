@@ -32,17 +32,6 @@
     font-style: normal;
 }
 
-/* Media query specifica per Safari */
-@media not all and (min-resolution: 0.001dpcm) {
-    /* Definisci il font per gli altri browser */
-    @font-face {
-        font-family: 'MazzardH-Light';
-        src: url('fonts/DrukText-Medium-Trial.ttf') format('truetype');
-        font-weight: 600;
-        font-style: normal;
-    }
-}
-
 @font-face {
     font-family: 'bodoni-72-book-italic';
     src: url('fonts/bodoni-72-book-italic.ttf') format('truetype');
@@ -60,6 +49,7 @@
 @font-face {
     font-family: 'Saturday-Lovin';
     src: url('fonts/Saturday-Lovin.ttf') format('truetype');
+    font-weight: 800;
     font-style: normal;
 }
 
