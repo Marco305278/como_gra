@@ -86,34 +86,59 @@ function savePreviewOnFireBase(canvas, filename) {
   console.log(`--test mode-- filename: ${filename}`)
 }
 
-async function saveImagesOnFireBase(images, filename) {
-  try {
+async function saveLiveMatchOnFireBase(images, filename, championship, home, team, date, time) {
+  console.log(`--test mode-- save: ${images}, ${filename}, ${championship}, ${home}, ${team}, ${date}, ${time}`)
+}
 
-    const response = await fetch(images);
-    const blob = await response.blob();
-    const file = new File([blob], filename, { type: blob.type });
-    const storageRef = storage.ref('live_match/' + filename);
-    const uploadTask = storageRef.put(file, { contentType: 'image/png' });
+function syncLiveMatchOnFireBase(championship, championship2, team, team2, date, date2, time, time2) {
+  championship.value = 'primavera';
+  championship2.value = 'women';
 
-    return new Promise((resolve, reject) => {
-      uploadTask.on('state_changed', 
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload in corso: ${progress.toFixed(2)}% completato`);
-        }, 
-        (error) => {
-          console.error('Errore nel caricamento:', error);
-          reject(error);
-        }, 
-        () => {
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            console.log('File disponibile a:', downloadURL);
-          });
-        }
-      );
-    });
-  } catch (error) {
-    console.error('Errore nella funzione saveImagesOnFireBase:', error);
-    throw error;
-  }
+
+
+  database.ref(`mtc_live/primavera/date`)
+  .on('value', (snapshot) => {
+    const selected_date = snapshot.val();
+    if (selected_date) {
+      date.value = selected_date;
+    }
+  });
+  database.ref(`mtc_live/primavera/time`)
+  .on('value', (snapshot) => {
+    const selected_time = snapshot.val();
+    if (selected_time) {
+      time.value = selected_time;
+    }
+  });
+
+  database.ref(`mtc_live/women/date`)
+  .on('value', (snapshot) => {
+    const selected_date2 = snapshot.val();
+    if (selected_date2) {
+      date2.value = selected_date2;
+    }
+  });
+  database.ref(`mtc_live/women/time`)
+  .on('value', (snapshot) => {
+    const selected_time2 = snapshot.val();
+    if (selected_time2) {
+      time2.value = selected_time2;
+    }
+  });
+
+  database.ref(`mtc_live/women/team`)
+  .on('value', (snapshot) => {
+    const selected_team2 = snapshot.val();
+    if (selected_team2) {
+      team2.value = selected_team2;
+    }
+  });
+
+  database.ref(`mtc_live/primavera/team`)
+  .on('value', (snapshot) => {
+    const selected_team = snapshot.val();
+    if (selected_team) {
+      team.value = selected_team;
+    }
+  });
 }

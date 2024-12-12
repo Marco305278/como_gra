@@ -2,6 +2,7 @@
 const championshipSelect = document.getElementById('championship');
 const homeTeamSelect = document.getElementById('homeTeam');
 const awayTeamSelect = document.getElementById('awayTeam');
+const weekInput = document.getElementById('week');
 const swapBtn = document.getElementById('swapBtn');
 const swapHome = document.getElementById('swapHome');
 const graphicCheckboxes = document.querySelectorAll('input[name="graphic"]');
@@ -21,6 +22,14 @@ const decreaseButton = document.getElementById('decrease');
 const increaseButton = document.getElementById('increase');
 const halftimeCheckbox = document.getElementById('customHalfOverlay');
 const fulltimeCheckbox = document.getElementById('customFullOverlay');
+
+const weekgraphicsSection = document.getElementById('weekgraphics');
+const championshipSelect2 = document.getElementById('championship2');
+const homeTeamSelect2 = document.getElementById('homeTeam2');
+const awayTeamSelect2 = document.getElementById('awayTeam2');
+const matchDateInput2 = document.getElementById('matchDate2');
+const matchTimeInput2 = document.getElementById('matchTime2');
+const swapBtn2 = document.getElementById('swapBtn2');
 
 
 let jsondata = {};
@@ -259,6 +268,10 @@ const graphicStyles = {
             stadiumLocation: { x: 65, y: 1380 + 335, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
         }
     },
+    'week': {
+        'overlay_4x5': {},
+        'overlay_9x16': {}
+    },
     'insta': {
         'overlay_9x16': {}
     },
@@ -290,18 +303,23 @@ const graphicsFormats = {
     'highlights': ['overlay_5x8', 'overlay_16x9'],
     'nextmatch': ['overlay_4x5', 'overlay_9x16'],
     'matchday': ['overlay_4x5', 'overlay_9x16'],
+    'week': ['overlay_4x5', 'overlay_9x16'],
     'tickets': ['overlay_4x5'],
     'insta' : ['overlay_9x16']
 };
 
 // Definizione delle grafiche che richiedono l'uso dei loghi delle squadre
-const graphicsWithLogos = ['livematch', 'highlights', 'halftime', 'fulltime', 'goal', 'kickoff', 'kickoffworld'];
-const graphicsRequireDateTime = ['kickoff', 'matchday', 'nextmatch', 'livematch', 'kickoffworld'];
+const graphicsWithLogos = ['livematch', 'highlights', 'halftime', 'fulltime', 'goal', 'kickoff', 'kickoffworld', 'week'];
+const graphicsRequireDateTime = ['kickoff', 'matchday', 'nextmatch', 'livematch', 'kickoffworld', 'week'];
 const graphicsRequireMatchDay = ['matchday', 'nextmatch'];
 const graphicsRequireStadiumLocation = ['nextmatch', 'matchday'];
 const graphicsWithChampionshipLogo = ['nextmatch', 'matchday'];
 
+let isHomeFixed2 = true;
 let isHomeFixed = true;
+
+let isActiveLiveMatch = false;
+let isWeekSection = true;
 
 let customPlayer = false;
 
@@ -338,6 +356,7 @@ let ApiKeyUseTotal = 100;
 const fixedTeam = {value: 'como 1907', text: 'Como 1907' };
 
 let currentTeams = [];
+let currentTeams2 = [];
 let backgroundImages = {};
 
 
@@ -447,6 +466,72 @@ function populateTeams() {
         homeTeamSelect.disabled = false;
         populateSelectableSelect(homeTeamSelect, currentTeams);
     }
+    if (isHomeFixed2) {
+        // Imposta il team fisso come squadra di casa
+        homeTeamSelect2.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
+        homeTeamSelect2.disabled = true;
+
+        // Abilita la selezione della squadra ospite
+        awayTeamSelect2.disabled = false;
+        populateSelectableSelect(awayTeamSelect2, currentTeams2);
+    } else {
+        // Imposta il team fisso come squadra ospite
+        awayTeamSelect2.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
+        awayTeamSelect2.disabled = true;
+
+        // Abilita la selezione della squadra di casa
+        homeTeamSelect2.disabled = false;
+        populateSelectableSelect(homeTeamSelect2, currentTeam2s);
+    }
+}
+
+function populateTeams2() {
+    const championship2 = championshipSelect2.value; 
+
+    // Verifica che jsondata e jsondata.teams siano definiti
+    if (!jsondata || !jsondata.teams) {
+        console.error('jsondata o jsondata.teams è undefined');
+        return;
+    }
+    
+    const teams2 = jsondata.teams[championship2];
+
+    currentTeams2 = teams2;
+
+    if (isHomeFixed) {
+        // Imposta il team fisso come squadra di casa
+        homeTeamSelect.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
+        homeTeamSelect.disabled = true;
+
+        // Abilita la selezione della squadra ospite
+        awayTeamSelect.disabled = false;
+        populateSelectableSelect(awayTeamSelect, currentTeams);
+    } else {
+        // Imposta il team fisso come squadra ospite
+        awayTeamSelect.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
+        awayTeamSelect.disabled = true;
+
+        // Abilita la selezione della squadra di casa
+        homeTeamSelect.disabled = false;
+        populateSelectableSelect(homeTeamSelect, currentTeams);
+    }
+    if (isHomeFixed2) {
+        // Imposta il team fisso come squadra di casa
+        homeTeamSelect2.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
+        homeTeamSelect2.disabled = true;
+
+        // Abilita la selezione della squadra ospite
+        awayTeamSelect2.disabled = false;
+        populateSelectableSelect(awayTeamSelect2, currentTeams2);
+    } else {
+        // Imposta il team fisso come squadra ospite
+        awayTeamSelect2.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
+        awayTeamSelect2.disabled = true;
+
+        // Abilita la selezione della squadra di casa
+        homeTeamSelect2.disabled = false;
+        populateSelectableSelect(homeTeamSelect2, currentTeam2s);
+    }
 }
 
 function toggleTeams() {
@@ -471,8 +556,28 @@ function toggleTeams() {
     isHomeFixed = !isHomeFixed;
     playerHome = !playerHome;
     playerFotoNumber = !playerFotoNumber;
+}
 
-    generatePreviews();
+function toggleTeams2() {
+    if (isHomeFixed2) {
+        const selectedAwayTeam2 = awayTeamSelect2.value;
+
+        homeTeamSelect2.disabled = false;
+        populateSelectableSelect(homeTeamSelect2, currentTeams2, selectedAwayTeam2);
+
+        awayTeamSelect2.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
+        awayTeamSelect2.disabled = true;
+    } else {
+        const selectedHomeTeam2 = homeTeamSelect2.value;
+
+        awayTeamSelect2.disabled = false;
+        populateSelectableSelect(awayTeamSelect2, currentTeams2, selectedHomeTeam2);
+
+        homeTeamSelect2.innerHTML = `<option value="${fixedTeam.value}">${fixedTeam.text}</option>`;
+        homeTeamSelect2.disabled = true;
+    }
+
+    isHomeFixed2 = !isHomeFixed2;
 }
 
 function populatePlayerSelect(selectElement) {
@@ -511,6 +616,17 @@ function populatePlayerSelect(selectElement) {
     });
 }
 
+function toggleWeekSection() {
+    if (isWeekSection) {
+        weekgraphicsSection.style.display = 'block';
+
+
+
+    } else {
+        weekgraphicsSection.style.display = 'none';
+    }
+}
+
 function updateGraphicsOptions() {
     // Salva i valori esistenti degli input
     const existingInputs = {};
@@ -520,6 +636,10 @@ function updateGraphicsOptions() {
     });
 
     GetApiKeyUse()
+
+    isWeekSection = false;
+
+    toggleWeekSection()
 
     graphicsOptionsDiv.innerHTML = ''; // Pulisce le opzioni esistenti
 
@@ -810,6 +930,31 @@ function updateGraphicsOptions() {
 
 
                     break;
+
+                case 'week':
+
+                    if (!isActiveLiveMatch) {
+                        console.log('UAHSOIDJAOIJFOIAJDOIFJ jsndoajnsdnaosnd')
+                        if (isHomeFixed) {
+                            syncLiveMatchOnFireBase(championshipSelect, championshipSelect2, awayTeamSelect, awayTeamSelect2, matchDateInput, matchDateInput2, matchTimeInput, matchTimeInput2)
+                        } else {
+                            syncLiveMatchOnFireBase(championshipSelect, championshipSelect2, homeTeamSelect, homeTeamSelect2, matchDateInput, matchDateInput2, matchTimeInput, matchTimeInput2)
+                        }
+                    }
+
+                        // Event listener per il pulsante Swap
+                        swapBtn2.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            toggleTeams2();
+                        });
+
+                    isActiveLiveMatch = true;
+                    isWeekSection = true
+
+                    toggleWeekSection()
+
+                    populateTeams2()
+                break;
 
                 case 'fulltime':                
 
@@ -1319,22 +1464,49 @@ function downloadAllPreviews() {
         
         if (championshipSelect.value === 'women') {
             livematchFilename = 'livematch_women';
+            if (livematchImage) {
+                const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
+                if (isHomeFixed === 'true') {
+                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, homeTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                    .then(downloadURL => {
+                        console.log('Immagine caricata su Firebase:', downloadURL);
+                    })
+                } else {
+                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, awayTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                    .then(downloadURL => {
+                        console.log('Immagine caricata su Firebase:', downloadURL);
+                    })
+                    .catch(error => {
+                        console.error('Errore nel caricamento dell\'immagine:', error);
+                    });
+                }
+            } else {
+                console.error('Elemento <img> non trovato.');
+            }
         } else {
             livematchFilename = 'livematch_primavera';
+            if (livematchImage) {
+                const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
+                if (isHomeFixed === 'true') {
+                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, homeTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                    .then(downloadURL => {
+                        console.log('Immagine caricata su Firebase:', downloadURL);
+                    })
+                } else {
+                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, awayTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                    .then(downloadURL => {
+                        console.log('Immagine caricata su Firebase:', downloadURL);
+                    })
+                    .catch(error => {
+                        console.error('Errore nel caricamento dell\'immagine:', error);
+                    });
+                }
+            } else {
+                console.error('Elemento <img> non trovato.');
+            }
         }
         
-        if (livematchImage) {
-            const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
-            saveImagesOnFireBase(livematchImageDataURL, livematchFilename)
-                .then(downloadURL => {
-                    console.log('Immagine caricata su Firebase:', downloadURL);
-                })
-                .catch(error => {
-                    console.error('Errore nel caricamento dell\'immagine:', error);
-                });
-        } else {
-            console.error('Elemento <img> non trovato.');
-        }
+        
     });
 }
 
@@ -2882,7 +3054,7 @@ async function generatePreviews() {
 
                         let livematchFilename = '';
         
-                        if (championshipSelect === 'women') {
+                        if (championshipSelect.value === 'women') {
                             livematchFilename = 'livematch_women';
                         } else {
                             livematchFilename = 'livematch_primavera';
@@ -2890,7 +3062,7 @@ async function generatePreviews() {
                         
                         if (livematchImage) {
                             const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
-                            saveImagesOnFireBase(livematchImageDataURL, livematchFilename)
+                            saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename)
                                 .then(downloadURL => {
                                     console.log('Immagine caricata su Firebase:', downloadURL);
                                 })
@@ -3160,6 +3332,17 @@ function addAutoUpdateListeners() {
         generatePreviews();
     });
 
+    championshipSelect2.addEventListener('change', () => {
+        // Popola le squadre quando cambia il campionato
+        populateTeams2();
+        updateGraphicsOptions();
+        toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
+        toggleMatchDaySection();
+        toggleStadiumLocationSection();
+        generatePreviews();
+    });
+
+
     // Selezione della squadra di casa
     homeTeamSelect.addEventListener('change', () => {
 
@@ -3309,11 +3492,11 @@ function toggleStadiumLocationSection() {
 
 function initializeTeams() {
     populateTeams();
+    populateTeams2();
     updateGraphicsOptions();
     toggleDateTimeSection();
     toggleMatchDaySection();
     toggleStadiumLocationSection();
-    generatePreviews();
 }
 
 function generateBackgroundUploadFields() {

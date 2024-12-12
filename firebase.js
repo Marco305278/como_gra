@@ -120,8 +120,13 @@ function savePreviewOnFireBase(canvas, filename) {
     }, 'image/png');
 }
 
-async function saveImagesOnFireBase(images, filename) {
+async function saveLiveMatchOnFireBase(images, filename, championship, home, team, date, time) {
   try {
+
+    database.ref(`mtc_live/${championship}/home`).set(home)
+    database.ref(`mtc_live/${championship}/team`).set(team)
+    database.ref(`mtc_live/${championship}/date`).set(date)
+    database.ref(`mtc_live/${championship}/time`).set(time)
 
     const response = await fetch(images);
     const blob = await response.blob();
@@ -150,4 +155,59 @@ async function saveImagesOnFireBase(images, filename) {
     console.error('Errore nella funzione saveImagesOnFireBase:', error);
     throw error;
   }
+}
+
+function syncLiveMatchOnFireBase(championship, championship2, team, team2, date, date2, time, time2) {
+  championship.value = 'primavera';
+  championship2.value = 'women';
+
+
+
+  database.ref(`mtc_live/primavera/date`)
+  .on('value', (snapshot) => {
+    const selected_date = snapshot.val();
+    if (selected_date) {
+      date.value = selected_date;
+    }
+  });
+  database.ref(`mtc_live/primavera/time`)
+  .on('value', (snapshot) => {
+    const selected_time = snapshot.val();
+    if (selected_time) {
+      time.value = selected_time;
+    }
+  });
+
+  database.ref(`mtc_live/women/date`)
+  .on('value', (snapshot) => {
+    const selected_date2 = snapshot.val();
+    if (selected_date2) {
+      date2.value = selected_date2;
+    }
+  });
+  database.ref(`mtc_live/women/time`)
+  .on('value', (snapshot) => {
+    const selected_time2 = snapshot.val();
+    if (selected_time2) {
+      time2.value = selected_time2;
+    }
+  });
+
+  database.ref(`mtc_live/women/team`)
+  .on('value', (snapshot) => {
+    const selected_team2 = snapshot.val();
+    if (selected_team2) {
+      team2.value = selected_team2;
+    }
+  });
+
+  database.ref(`mtc_live/primavera/team`)
+  .on('value', (snapshot) => {
+    const selected_team = snapshot.val();
+    if (selected_team) {
+      team.value = selected_team;
+    }
+  });
+
+  generatePreviews()
 }

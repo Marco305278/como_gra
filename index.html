@@ -65,7 +65,8 @@ marco305278.github.io/como_gra
 
     <style>
         #dateTimeSection,
-        #imagesHeader {
+        #imagesHeader,
+        #weekgraphics {
             display: none;
         }
     </style>
@@ -206,6 +207,101 @@ marco305278.github.io/como_gra
                         <input type="text" id="stadium" class="input" placeholder="Stadium" required style="height: 44px;">
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+                    <!-- Selezione del Campionato -->
+                     <div id="weekgraphics">
+                        
+                    <label for="championship2">Championship:</label>
+    
+                    <div class="col teams_container">
+                        <div class="div">
+                        <div id="arrow" class="symbol-arrow"><img src="images/assets/arrow.svg"></div>
+                        <select id="championship2" class="category-selection">
+                            <option value="seriea">Serie A</option>
+                            <option value="primavera">Primavera</option>
+                            <option value="women">Women</option>
+                        </select>
+                        </div>
+                    </div>
+    
+                    <!-- Selezione Squadre -->
+                    <div class="col">
+                        <div class="w100">
+                            <label for="homeTeam2">Home team:</label>
+                        </div>
+                        <div class="swap-div" style="width: 120px;">
+                        </div>
+                        <div class="w100">
+                            <label for="awayTeam2">Away team:</label>
+                        </div>
+                    </div>
+                    <div class="col teams_container">
+                        <div class="div">
+                            <div id="arrow" class="symbol-arrow"><img src="images/assets/arrow.svg"></div>
+                            <select id="homeTeam2" disabled>
+                                <option value="como1907">Como 1907</option>
+                            </select>
+                        </div>
+                        <div class="swap-div div" style="width: 120px;">
+                            <button id="swapBtn2" class="swap-button" title="Swap Teams">
+                                <img src="images/assets/swap.svg" width="20px" alt="Swap">
+                            </button>
+                        </div>
+                        <div class="div">
+                            <div id="arrow" class="symbol-arrow"><img src="images/assets/arrow.svg"></div>
+                            <select id="awayTeam2">
+                                <!-- Le squadre saranno popolate in base al campionato -->
+                            </select>
+                        </div>
+                    </div>
+    
+    
+                    <!-- Sezione Data e Ora (Inizialmente Nascosta) -->
+                    <div id="dateTimeSection2">
+                        <div class="col col100">
+                            <div>
+                                <label for="matchDate2">Data Match:</label>
+                            </div>
+                            <div class="swap-div" style="width: 140px;">
+                            </div>
+                            <div>
+                                <label for="matchTime2">Orario Match:</label>
+                            </div>
+                        </div>
+                        <div class="col col100">
+                            <div>
+                                <input type="date" id="matchDate2" class="input" required>
+                            </div>
+                            <div class="swap-div" style="width: 140px;"></div>
+                            <div>
+                                <input type="time" id="matchTime2" class="input" required>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 <!-- Opzioni di Personalizzazione per le Grafiche Selezionate -->
                 <div id="graphicsOptions">
