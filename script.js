@@ -694,7 +694,6 @@ function updateGraphicsOptions() {
                     swapPlayerFotoNumber.addEventListener('click', (e) => {
                         e.preventDefault();
                         playerFotoNumber = !playerFotoNumber; // Inverti lo stato di playerHome
-                        generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
                     });
 
                     }
@@ -767,7 +766,6 @@ function updateGraphicsOptions() {
                     swapHome.addEventListener('click', (e) => {
                         e.preventDefault();
                         playerHome = !playerHome; // Inverti lo stato di playerHome
-                        generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
                     });
 
                     
@@ -822,9 +820,6 @@ function updateGraphicsOptions() {
 
                         divBack.appendChild(selectPlayer);
                         }
-
-                        // Rigenera le anteprime per riflettere il cambiamento
-                        generatePreviews();
                     });
 
 
@@ -3625,16 +3620,6 @@ function generateBackgroundUploadFields() {
                 s2.placeholder = 'S';
                 s2.type = 'number';
                 s2.min = '0';
-
-                x2.addEventListener('change', () => {
-                    generatePreviews();
-                });
-                y2.addEventListener('change', () => {
-                    generatePreviews();
-                });
-                s2.addEventListener('change', () => {
-                    generatePreviews();
-                });
 
 
 
