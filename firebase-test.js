@@ -10,8 +10,9 @@ const firebaseConfig = {
   measurementId: "G-FD3VRBVJLM"
 };
 
-const app = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
+const storage = firebase.storage();
 
 function saveTeamOnFireBase(championship, team) {
   console.log(`--test mode-- save: ${team}`)
@@ -83,4 +84,36 @@ function syncStadiumOnFireBase(championship, input) {
 
 function savePreviewOnFireBase(canvas, filename) {
   console.log(`--test mode-- filename: ${filename}`)
+}
+
+async function saveImagesOnFireBase(images, filename) {
+  try {
+
+    const response = await fetch(images);
+    const blob = await response.blob();
+    const file = new File([blob], filename, { type: blob.type });
+    const storageRef = storage.ref('live_match/' + filename);
+    const uploadTask = storageRef.put(file, { contentType: 'image/png' });
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on('state_changed', 
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload in corso: ${progress.toFixed(2)}% completato`);
+        }, 
+        (error) => {
+          console.error('Errore nel caricamento:', error);
+          reject(error);
+        }, 
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            console.log('File disponibile a:', downloadURL);
+          });
+        }
+      );
+    });
+  } catch (error) {
+    console.error('Errore nella funzione saveImagesOnFireBase:', error);
+    throw error;
+  }
 }
