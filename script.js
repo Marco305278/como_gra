@@ -3329,7 +3329,6 @@ function addAutoUpdateListeners() {
         toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
         toggleMatchDaySection();
         toggleStadiumLocationSection();
-        generatePreviews();
     });
 
     championshipSelect2.addEventListener('change', () => {
@@ -3339,7 +3338,6 @@ function addAutoUpdateListeners() {
         toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
         toggleMatchDaySection();
         toggleStadiumLocationSection();
-        generatePreviews();
     });
 
 
@@ -3347,14 +3345,12 @@ function addAutoUpdateListeners() {
     homeTeamSelect.addEventListener('change', () => {
 
         saveTeamOnFireBase(championshipSelect.value, homeTeamSelect.value)
-        generatePreviews();
     });
 
     // Selezione della squadra ospite
     awayTeamSelect.addEventListener('change', () => {
         
         saveTeamOnFireBase(championshipSelect.value, awayTeamSelect.value)
-        generatePreviews();
     });
 
     // Selezione delle grafiche
@@ -3414,24 +3410,20 @@ function addAutoUpdateListeners() {
 
     stadiumInput.addEventListener('input', () => {
         saveStadiumOnFireBase(championshipSelect.value, stadiumInput.value)
-        generatePreviews();
     });
 
     matchDateInput.addEventListener('change', () => {
         saveDateOnFireBase(championshipSelect.value, matchDateInput.value)
-        generatePreviews();
     });
 
     matchTimeInput.addEventListener('change', () => {
         saveTimeOnFireBase(championshipSelect.value, matchTimeInput.value)
-        generatePreviews();
     });
 
     // Event listener per l'input del matchday
     const matchDayInput = document.getElementById('matchDay');
     if (matchDayInput) {
         matchDayInput.addEventListener('input', () => {
-            generatePreviews();
         });
     }
     if (matchDayInput) {
