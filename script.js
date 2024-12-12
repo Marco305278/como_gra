@@ -694,6 +694,7 @@ function updateGraphicsOptions() {
                     swapPlayerFotoNumber.addEventListener('click', (e) => {
                         e.preventDefault();
                         playerFotoNumber = !playerFotoNumber; // Inverti lo stato di playerHome
+                        generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
                     });
 
                     }
@@ -766,6 +767,7 @@ function updateGraphicsOptions() {
                     swapHome.addEventListener('click', (e) => {
                         e.preventDefault();
                         playerHome = !playerHome; // Inverti lo stato di playerHome
+                        generatePreviews(); // Rigenera le anteprime per riflettere il cambiamento
                     });
 
                     
@@ -820,6 +822,9 @@ function updateGraphicsOptions() {
 
                         divBack.appendChild(selectPlayer);
                         }
+
+                        // Rigenera le anteprime per riflettere il cambiamento
+                        generatePreviews();
                     });
 
 
@@ -3324,6 +3329,7 @@ function addAutoUpdateListeners() {
         toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
         toggleMatchDaySection();
         toggleStadiumLocationSection();
+        generatePreviews();
     });
 
     championshipSelect2.addEventListener('change', () => {
@@ -3333,6 +3339,7 @@ function addAutoUpdateListeners() {
         toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
         toggleMatchDaySection();
         toggleStadiumLocationSection();
+        generatePreviews();
     });
 
 
@@ -3340,12 +3347,14 @@ function addAutoUpdateListeners() {
     homeTeamSelect.addEventListener('change', () => {
 
         saveTeamOnFireBase(championshipSelect.value, homeTeamSelect.value)
+        generatePreviews();
     });
 
     // Selezione della squadra ospite
     awayTeamSelect.addEventListener('change', () => {
         
         saveTeamOnFireBase(championshipSelect.value, awayTeamSelect.value)
+        generatePreviews();
     });
 
     // Selezione delle grafiche
@@ -3358,11 +3367,6 @@ function addAutoUpdateListeners() {
             handleGraphicsChange(); // Chiamata a handleGraphicsChange
             updateImagesHeaderVisibility(); // Aggiungi questa linea
         });
-    });
-
-    // Event listeners per le opzioni di personalizzazione delle grafiche
-    graphicsOptionsDiv.addEventListener('input', () => {
-        generatePreviews();
     });
 
     // Event listener per il pulsante Generate
@@ -3405,20 +3409,24 @@ function addAutoUpdateListeners() {
 
     stadiumInput.addEventListener('input', () => {
         saveStadiumOnFireBase(championshipSelect.value, stadiumInput.value)
+        generatePreviews();
     });
 
     matchDateInput.addEventListener('change', () => {
         saveDateOnFireBase(championshipSelect.value, matchDateInput.value)
+        generatePreviews();
     });
 
     matchTimeInput.addEventListener('change', () => {
         saveTimeOnFireBase(championshipSelect.value, matchTimeInput.value)
+        generatePreviews();
     });
 
     // Event listener per l'input del matchday
     const matchDayInput = document.getElementById('matchDay');
     if (matchDayInput) {
         matchDayInput.addEventListener('input', () => {
+            generatePreviews();
         });
     }
     if (matchDayInput) {
@@ -3621,6 +3629,16 @@ function generateBackgroundUploadFields() {
                 s2.type = 'number';
                 s2.min = '0';
 
+                x2.addEventListener('change', () => {
+                    generatePreviews();
+                });
+                y2.addEventListener('change', () => {
+                    generatePreviews();
+                });
+                s2.addEventListener('change', () => {
+                    generatePreviews();
+                });
+
 
 
                 const label = document.createElement('label');
@@ -3663,6 +3681,7 @@ function generateBackgroundUploadFields() {
 
 function handleGraphicsChange() {
     generateBackgroundUploadFields();
+    generatePreviews();
     advCustomHalfOverlay = false;
     advCustomFullOverlay = false;
 
