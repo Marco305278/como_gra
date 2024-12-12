@@ -3678,7 +3678,6 @@ function generateBackgroundUploadFields() {
 
 function handleGraphicsChange() {
     generateBackgroundUploadFields();
-    generatePreviews();
     advCustomHalfOverlay = false;
     advCustomFullOverlay = false;
 
