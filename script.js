@@ -324,6 +324,8 @@ let lastbgOverlayHalfImage = []
 let lastbgOverlayFullImage = []
 let lastbgOverlayGoalImage = []
 
+let livematchImage = []
+
 let playerHome = true;
 
 let playerFotoNumber = false
@@ -1272,6 +1274,16 @@ function loadImage(src) {
 }
 
 
+function convertImgToDataURL(img, type = 'image/png') {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    return canvas.toDataURL(type);
+}
+
+
 /**
  * Funzione per scaricare tutte le immagini generate
  */
@@ -1302,6 +1314,27 @@ function downloadAllPreviews() {
         
         // Salva l'anteprima su Firebase utilizzando il canvas scalato
         savePreviewOnFireBase(scaledCanvas, jpegFilename);
+
+        let livematchFilename = '';
+        
+        if (championshipSelect.value === 'women') {
+            livematchFilename = 'livematch_women';
+        } else {
+            livematchFilename = 'livematch_primavera';
+        }
+        
+        if (livematchImage) {
+            const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
+            saveImagesOnFireBase(livematchImageDataURL, livematchFilename)
+                .then(downloadURL => {
+                    console.log('Immagine caricata su Firebase:', downloadURL);
+                })
+                .catch(error => {
+                    console.error('Errore nel caricamento dell\'immagine:', error);
+                });
+        } else {
+            console.error('Elemento <img> non trovato.');
+        }
     });
 }
 
@@ -1776,6 +1809,10 @@ async function generatePreviews() {
                             drawImageCover(ctx, bgFullOverlayImage, canvas.width, canvas.height, graphicName, overlayName, bgX, bgY, bgScale);
                         }
                     }
+                }
+
+                if (graphicName === 'livematch') {
+                    livematchImage = bgImage
                 }
 
                 const style = graphicStyles[graphicName][overlayName];
@@ -2842,6 +2879,27 @@ async function generatePreviews() {
                         
                         // Salva l'anteprima su Firebase utilizzando il canvas scalato
                         savePreviewOnFireBase(scaledCanvas, jpegFilename);
+
+                        let livematchFilename = '';
+        
+                        if (championshipSelect === 'women') {
+                            livematchFilename = 'livematch_women';
+                        } else {
+                            livematchFilename = 'livematch_primavera';
+                        }
+                        
+                        if (livematchImage) {
+                            const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
+                            saveImagesOnFireBase(livematchImageDataURL, livematchFilename)
+                                .then(downloadURL => {
+                                    console.log('Immagine caricata su Firebase:', downloadURL);
+                                })
+                                .catch(error => {
+                                    console.error('Errore nel caricamento dell\'immagine:', error);
+                                });
+                        } else {
+                            console.error('Elemento <img> non trovato.');
+                        }
                     });
                     
                     // Aggiunta del link al contenitore principale
