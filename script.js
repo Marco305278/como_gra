@@ -3056,21 +3056,46 @@ async function generatePreviews() {
         
                         if (championshipSelect.value === 'women') {
                             livematchFilename = 'livematch_women';
+                            if (livematchImage) {
+                                const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
+                                if (isHomeFixed === 'true') {
+                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, homeTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                                    .then(downloadURL => {
+                                        console.log('Immagine caricata su Firebase:', downloadURL);
+                                    })
+                                } else {
+                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, awayTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                                    .then(downloadURL => {
+                                        console.log('Immagine caricata su Firebase:', downloadURL);
+                                    })
+                                    .catch(error => {
+                                        console.error('Errore nel caricamento dell\'immagine:', error);
+                                    });
+                                }
+                            } else {
+                                console.error('Elemento <img> non trovato.');
+                            }
                         } else {
                             livematchFilename = 'livematch_primavera';
-                        }
-                        
-                        if (livematchImage) {
-                            const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
-                            saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename)
-                                .then(downloadURL => {
-                                    console.log('Immagine caricata su Firebase:', downloadURL);
-                                })
-                                .catch(error => {
-                                    console.error('Errore nel caricamento dell\'immagine:', error);
-                                });
-                        } else {
-                            console.error('Elemento <img> non trovato.');
+                            if (livematchImage) {
+                                const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
+                                if (isHomeFixed === 'true') {
+                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, homeTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                                    .then(downloadURL => {
+                                        console.log('Immagine caricata su Firebase:', downloadURL);
+                                    })
+                                } else {
+                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, awayTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                                    .then(downloadURL => {
+                                        console.log('Immagine caricata su Firebase:', downloadURL);
+                                    })
+                                    .catch(error => {
+                                        console.error('Errore nel caricamento dell\'immagine:', error);
+                                    });
+                                }
+                            } else {
+                                console.error('Elemento <img> non trovato.');
+                            }
                         }
                     });
                     
