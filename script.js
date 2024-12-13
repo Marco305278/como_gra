@@ -3059,12 +3059,12 @@ async function generatePreviews() {
                             if (livematchImage) {
                                 const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
                                 if (isHomeFixed === 'true') {
-                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, homeTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championship, isHomeFixed, homeTeamSelect.value, matchDateInput.value, matchTimeInput.value)
                                     .then(downloadURL => {
                                         console.log('Immagine caricata su Firebase:', downloadURL);
                                     })
                                 } else {
-                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, awayTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championship, isHomeFixed, awayTeamSelect.value, matchDateInput.value, matchTimeInput.value)
                                     .then(downloadURL => {
                                         console.log('Immagine caricata su Firebase:', downloadURL);
                                     })
@@ -3080,12 +3080,12 @@ async function generatePreviews() {
                             if (livematchImage) {
                                 const livematchImageDataURL = convertImgToDataURL(livematchImage, 'image/jpeg');
                                 if (isHomeFixed === 'true') {
-                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, homeTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championship, isHomeFixed, homeTeamSelect.value, matchDateInput.value, matchTimeInput.value)
                                     .then(downloadURL => {
                                         console.log('Immagine caricata su Firebase:', downloadURL);
                                     })
                                 } else {
-                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championshipSelect.value, isHomeFixed, awayTeamSelect.value, matchDateInput.value, matchTimeInput.value)
+                                    saveLiveMatchOnFireBase(livematchImageDataURL, livematchFilename, championship, isHomeFixed, awayTeamSelect.value, matchDateInput.value, matchTimeInput.value)
                                     .then(downloadURL => {
                                         console.log('Immagine caricata su Firebase:', downloadURL);
                                     })
