@@ -1419,7 +1419,7 @@ function loadImage(src) {
 }
 
 
-function convertImgToDataURL(img, type = 'image/png') {
+function convertImgToDataURL(img, type = 'image/jpeg') {
     const canvas = document.createElement('canvas');
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
