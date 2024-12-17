@@ -1530,9 +1530,9 @@ function getFilenameForCanvas(canvas) {
             filename = `H_${capitalizeFirstLetter(graphicName)}_${homeTeamName} vs ${awayTeamName}_${day}.jpg`;
         }
     } else if (graphicName === 'insta' || graphicName === 'tickets'){
-        filename = `${capitalizeFirstLetter(graphicName)}_${format}_${day}_.jpg`;
+        filename = `${capitalizeFirstLetter(graphicName)}_${format}_${day}_.png`;
     } else {
-        filename = `${capitalizeFirstLetter(graphicName)}_${homeTeamName} vs ${awayTeamName}_${format}_${day}_${timeZoneAbbreviation.toLowerCase()}.jpg`;
+        filename = `${capitalizeFirstLetter(graphicName)}_${homeTeamName} vs ${awayTeamName}_${format}_${day}_${timeZoneAbbreviation.toLowerCase()}.png`;
     }
 
     return filename;
