@@ -1445,7 +1445,7 @@ function downloadAllPreviews() {
         link.download = filename;
         link.click();
 
-        const scaleFactor = 0.35;
+        //const scaleFactor = 0.35;
         const scaledCanvas = document.createElement('canvas');
         scaledCanvas.width = canvas.width;
         scaledCanvas.height = canvas.height;
