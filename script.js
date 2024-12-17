@@ -1441,7 +1441,7 @@ function downloadAllPreviews() {
     canvases.forEach((canvas, index) => {
         const filename = getFilenameForCanvas(canvas);
         const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
+        link.href = canvas.toDataURL('image/jpeg', 0.8);
         link.download = filename;
         link.click();
 
@@ -3030,7 +3030,7 @@ async function generatePreviews() {
                     downloadLink.appendChild(downloadText);
                     
                     // Impostazione delle proprietà per il download
-                    downloadLink.href = canvas.toDataURL('image/png');
+                    downloadLink.href = canvas.toDataURL('image/jpeg', 0.8);
                     downloadLink.download = getFilenameForCanvas(canvas);
                     downloadLink.classList.add('download-link');
 
