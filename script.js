@@ -1447,8 +1447,8 @@ function downloadAllPreviews() {
 
         const scaleFactor = 0.35;
         const scaledCanvas = document.createElement('canvas');
-        scaledCanvas.width = canvas.width * scaleFactor;
-        scaledCanvas.height = canvas.height * scaleFactor;
+        scaledCanvas.width = canvas.width;
+        scaledCanvas.height = canvas.height;
         const ctx = scaledCanvas.getContext('2d');
         ctx.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
         
