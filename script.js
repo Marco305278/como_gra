@@ -1187,7 +1187,7 @@ function updateGraphicsOptions() {
             if (isCustom) {
                 fieldsHTML += `
                     <div class="player-input-container">
-                        <input id="${prefix}${i}" name="player" data-number="${i}" placeholder="${i} Player">
+                        <input id="${prefix}${i}" name="player" data-number="${i}" placeholder="(numero player)  Es:  ${i} Player">
                     </div>
                 `;
             } else {
