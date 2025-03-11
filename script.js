@@ -3536,135 +3536,10 @@ function generateBackgroundUploadFields() {
                 const uploadContainer2 = document.createElement('div');
                 uploadContainer2.classList.add('upload-container-title');
 
-                const lx2 = document.createElement('label');
-                lx2.setAttribute('for', `background-x-${graphicId}`);
+                const button = document.createElement('div');
+                button.classList.add('background-button')
 
-                const imgx2 = document.createElement("div");
-                imgx2.innerHTML = `
-                    <?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="14" height="14" id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
-                        <defs>
-                            <style>
-                                .st0, .st1 {
-                                    fill: #1d3b62;
-                                }
-                                .st1 {
-                                    stroke: #1d3b62;
-                                    stroke-width: 20px;
-                                }
-                            </style>
-                        </defs>
-                        <g id="Layer_2">
-                            <g id="icons_Q2">
-                                <g>
-                                    <path class="st1" d="M687.7,544.9H51.5c-22.5,0-40.8,16.9-40.8,37.7s18.3,37.7,40.8,37.7h636.1"/>
-                                    <path class="st0" d="M55.5,410.6c30.6,0,55.5-24.8,55.5-55.5v-55.5c0-30.6-24.8-55.5-55.5-55.5S0,268.9,0,299.6v55.5c0,30.6,24.8,55.5,55.5,55.5Z"/>
-                                    <path class="st0" d="M55.5,166.5c30.6,0,55.5-24.8,55.5-55.5v-55.5C111,24.8,86.1,0,55.5,0S0,24.8,0,55.5v55.5c0,30.6,24.8,55.5,55.5,55.5Z"/>
-                                </g>
-                            </g>
-                        </g>
-                        <path class="st0" d="M799,584.6l-203.4,203.4c-16.1,16.1-42.1,16.1-58.1,0-16.1-16.1-16.1-42.1,0-58.1l145.3-145.3-145.3-145.3c-16.1-16.1-16.1-42.1,0-58.1,16.1-16.1,42.1-16.1,58.1,0l203.4,203.4Z"/>
-                    </svg>
-                `;
-                lx2.appendChild(imgx2);
-
-                const x2 = document.createElement('input');
-                x2.id = `background-x-${graphicId}`;
-                x2.placeholder = 'X';
-                x2.type = 'number';
-                x2.min = '0';
-
-                const ly2 = document.createElement('label');
-                ly2.setAttribute('for', `background-y-${graphicId}`);
-
-                const imgy2 = document.createElement("div");
-                imgy2.innerHTML = `
-                    <?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="14" height="14"  id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-                    <defs>
-                        <style>
-                        .cls-1 {
-                            stroke: #1d3b62;
-                            stroke-width: 20px;
-                        }
-
-                        .cls-1, .cls-2 {
-                            fill: #1d3b62;
-                        }
-                        </style>
-                    </defs>
-                    <g id="Layer_2" data-name="Layer 2">
-                        <g id="icons_Q2" data-name="icons Q2">
-                        <g>
-                            <path class="cls-1" d="M254.59,688.15V52.05c0-22.52-16.88-40.78-37.71-40.78s-37.71,18.26-37.71,40.78v636.1"/>
-                            <path class="cls-2" d="M444.41.5c-30.65,0-55.49,24.84-55.49,55.49s24.84,55.49,55.49,55.49h55.49c30.65,0,55.49-24.84,55.49-55.49S530.55.5,499.9.5h-55.49,0Z"/>
-                            <path class="cls-2" d="M633.02,55.99c0,30.65,24.84,55.49,55.49,55.49h55.49c30.65,0,55.49-24.84,55.49-55.49S774.65.5,744,.5h-55.49c-30.65,0-55.49,24.84-55.49,55.49Z"/>
-                        </g>
-                        </g>
-                    </g>
-                    <path class="cls-2" d="M418.37,596.08c16.05-16.05,16.05-42.06,0-58.11-16.05-16.05-42.06-16.05-58.11,0l-145.32,145.3-145.29-145.3c-16.05-16.05-42.06-16.05-58.11,0-16.05,16.05-16.05,42.06,0,58.11l203.4,203.42,203.43-203.42Z"/>
-                    </svg>
-                `;
-                ly2.appendChild(imgy2);
-
-                const y2 = document.createElement('input');
-                y2.id = `background-y-${graphicId}`;
-                y2.placeholder = 'Y';
-                y2.type = 'number';
-                y2.min = '0';
-
-                const ls2 = document.createElement('label');
-                ls2.setAttribute('for', `background-s-${graphicId}`);
-
-                const imgs2 = document.createElement("div");
-                imgs2.innerHTML = `
-                    <?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="14" height="14"  id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-                    <defs>
-                        <style>
-                        .cls-1, .cls-2 {
-                            fill: #1d3b62;
-                        }
-
-                        .cls-2 {
-                            stroke: #1d3b62;
-                            stroke-width: 20px;
-                        }
-                        </style>
-                    </defs>
-                    <g id="Layer_2" data-name="Layer 2">
-                        <g id="icons_Q2" data-name="icons Q2">
-                        <path class="cls-2" d="M917.27-170.35l-475.61,475.61c-16.84,16.84-18.55,42.43-3.82,57.15,14.73,14.73,40.32,13.02,57.15-3.82L970.6-117.02"/>
-                        </g>
-                    </g>
-                    <path class="cls-1" d="M797.5,0h-287.66c-22.7.01-41.09,18.4-41.09,41.11,0,22.7,18.39,41.09,41.09,41.09h205.48s.01,205.49.01,205.49c0,22.7,18.39,41.09,41.09,41.09,22.7,0,41.09-18.39,41.09-41.09V0Z"/>
-                    <g id="Layer_2-2" data-name="Layer 2">
-                        <g id="icons_Q2-2" data-name="icons Q2">
-                        <path class="cls-2" d="M-118.9,970.38l475.58-475.58c16.84-16.84,18.55-42.42,3.82-57.15-14.73-14.73-40.32-13.02-57.15,3.82l-475.58,475.58"/>
-                        </g>
-                    </g>
-                    <path class="cls-1" d="M.86,800.03h287.66c22.7-.01,41.09-18.4,41.09-41.11,0-22.7-18.39-41.09-41.09-41.09H83.05s-.01-205.49-.01-205.49c0-22.7-18.39-41.09-41.09-41.09-22.7,0-41.09,18.39-41.09,41.09v287.69Z"/>
-                    </svg>
-                `;
-                ls2.appendChild(imgs2);
-
-                const s2 = document.createElement('input');
-                s2.id = `background-s-${graphicId}`;
-                s2.placeholder = 'S';
-                s2.type = 'number';
-                s2.min = '0';
-
-                x2.addEventListener('change', () => {
-                    generatePreviews();
-                });
-                y2.addEventListener('change', () => {
-                    generatePreviews();
-                });
-                s2.addEventListener('change', () => {
-                    generatePreviews();
-                });
-
-
+                const arrow = document.innerHTML
 
                 const label = document.createElement('label');
                 label.setAttribute('for', `background-${graphicId}`);
@@ -3677,13 +3552,9 @@ function generateBackgroundUploadFields() {
                 input.accept = 'image/*';
                 input.dataset.graphicId = graphicId;
 
-                uploadContainer2.appendChild(label)
-                uploadContainer2.appendChild(lx2)
-                uploadContainer2.appendChild(x2)
-                uploadContainer2.appendChild(ly2)
-                uploadContainer2.appendChild(y2)
-                uploadContainer2.appendChild(ls2)
-                uploadContainer2.appendChild(s2)
+                uploadContainer2.appendChild(label);
+                uploadContainer2.appendChild(button);
+                button.appendChild(arrow)
                 uploadItem.appendChild(uploadContainer2);
                 uploadItem.appendChild(input);
                 uploadContainer.appendChild(uploadItem);
