@@ -1931,7 +1931,7 @@ async function generatePreviews() {
 
             if (['nextmatch', 'matchday', 'kickoff'].includes(graphicName)) {
                 if (championshipSelect.value == 'primavera') {
-                    timeVersions.push({ timeOffsetHours: 6, timeZoneAbbreviation: 'WIB' });
+                    timeVersions.push({ timeOffsetHours: 5, timeZoneAbbreviation: 'WIB' });
                 }
             }
 
