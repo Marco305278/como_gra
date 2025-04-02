@@ -1927,7 +1927,7 @@ async function generatePreviews() {
             const bgScale = bgSInput ? parseFloat(bgSInput.value) || 1 : 1;
 
             // Determina se generare entrambe le versioni
-            let timeVersions = [{ timeOffsetHours: 0, timeZoneAbbreviation: 'CET' }];
+            let timeVersions = [{ timeOffsetHours: 0, timeZoneAbbreviation: 'CEST' }];
 
             if (['nextmatch', 'matchday', 'kickoff'].includes(graphicName)) {
                 if (championshipSelect.value == 'primavera') {
