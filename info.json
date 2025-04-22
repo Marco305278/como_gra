@@ -44,8 +44,8 @@
         { "value": "spezia", "text": "Spezia" },
         { "value": "sudtirol", "text": "Sudtirol" },
         { "value": "ternana", "text": "Ternana" },
-        { "value": "vicenza", "text": "Vicenza" },
         { "value": "venezia", "text": "Venezia" },
+        { "value": "vicenza", "text": "Vicenza" },
         { "value": "virtusentella", "text": "Virtus Entella" }
       ],
       "women": [
