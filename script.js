@@ -2369,7 +2369,7 @@ async function generatePreviews() {
 
                         if (style.matchDay) {
                             const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                            const matchDayText = `MATCHDAY ${matchDayValue}`;
+                            const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
                             let matchDayWidth = 0
                             ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
                             ctx.fillStyle = style.matchDay.color;
@@ -2493,7 +2493,7 @@ async function generatePreviews() {
 
                     if (style.matchDay) {
                         const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                        const matchDayText = `MATCHDAY ${matchDayValue}`;
+                        const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
                         ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
                         ctx.fillStyle = style.matchDay.color;
                         ctx.textAlign = 'left';
@@ -2637,7 +2637,7 @@ async function generatePreviews() {
                         // Disegna il matchday
                         if (style.matchDay) {
                             const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                            const matchDayText = `MATCHDAY ${matchDayValue}`;
+                            const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
                             ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
                             ctx.fillStyle = style.matchDay.color;
                             ctx.textAlign = 'left';
@@ -2976,13 +2976,14 @@ async function generatePreviews() {
                         // Disegna il match day se necessario
                         if (style.matchDay) {
                             const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+                            const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
                             ctx.font = `bold ${style.matchDay.fontSize}px ${style.matchDay.font}`;
                             ctx.fillStyle = style.matchDay.color;
                             ctx.textAlign = 'left';
                             if (style.matchDay.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, `MATCHDAY ${matchDayValue}`, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
+                                drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
                             } else {
-                                ctx.fillText(`MATCHDAY ${matchDayValue}`, style.matchDay.x, style.matchDay.y);
+                                ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
                             }
                         }
                     }
