@@ -54,40 +54,36 @@ const apiKeyThird = '29CqKVDrjSrQKCmAC5qXHayL';
 const graphicStyles = {
     'fulltime': {
         'overlay_4x5': {
-            homeLogo: { x: 70, y: 970, width: 150, height: 150 },
-            awayLogo: { x: 70, y: 1145, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 85, width: 130, height: 212 },
-            homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            homeLogo: { x: 575, y: 205, width: 100, height: 100 },
+            awayLogo: { x: 915, y: 205, width: 100, height: 100 },
+            championshipLogo: null,
+            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
         'overlay_9x16': {
-            homeLogo: { x: 70, y: 1470, width: 150, height: 150 },
-            awayLogo: { x: 70, y: 1645, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 150, width: 130, height: 212 },
-            homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            homeLogo: { x: 575, y: 335, width: 100, height: 100 },
+            awayLogo: { x: 900, y: 335, width: 100, height: 100 },
+            championshipLogo: null,
+            combinedScore: { x: 785, y: 430, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
     },
     'halftime': {
         'overlay_4x5': {
-            homeLogo: { x: 70, y: 970, width: 150, height: 150 },
-            awayLogo: { x: 70, y: 1145, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 85, width: 130, height: 212 },
-            homeScore: { x: 260, y: 1100, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            awayScore: { x: 260, y: 1275, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            homeLogo: { x: 575, y: 205, width: 100, height: 100 },
+            awayLogo: { x: 915, y: 205, width: 100, height: 100 },
+            championshipLogo: null,
+            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
         'overlay_9x16': {
-            homeLogo: { x: 70, y: 1470, width: 150, height: 150 },
-            awayLogo: { x: 70, y: 1645, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 150, width: 130, height: 212 },
-            homeScore: { x: 260, y: 1600, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            awayScore: { x: 260, y: 1775, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
+            homeLogo: { x: 575, y: 335, width: 100, height: 100 },
+            awayLogo: { x: 900, y: 335, width: 100, height: 100 },
+            championshipLogo: null,
+            combinedScore: { x: 785, y: 430, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
@@ -2886,24 +2882,35 @@ async function generatePreviews() {
                             }
                         }
 
-                        // Disegna i punteggi
-                        if (style.homeScore && style.awayScore) {
-                            ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
-                            ctx.fillStyle = style.homeScore.color;
-                            ctx.textAlign = 'left';
-                            if (style.homeScore.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
-                            } else {
-                                ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
-                            }
+                        if (graphicName === 'fulltime' || graphicName === 'halftime') {
+                            // Disegna i punteggi orizzontali
+                            const combinedText = `${homeScore}-${awayScore}`;
 
-                            ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
-                            ctx.fillStyle = style.awayScore.color;
-                            ctx.textAlign = 'left';
-                            if (style.awayScore.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
-                            } else {
-                                ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
+                            // Disegna il testo combinato
+                            ctx.font = `bold ${style.combinedScore.fontSize}px ${style.combinedScore.font}`;
+                            ctx.fillStyle = style.combinedScore.color;
+                            ctx.textAlign = style.combinedScore.textAlign;
+                            ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
+                        } else {
+                            // Disegna i punteggi
+                            if (style.homeScore && style.awayScore) {
+                                ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
+                                ctx.fillStyle = style.homeScore.color;
+                                ctx.textAlign = 'left';
+                                if (style.homeScore.letterSpacing) {
+                                    drawTextWithLetterSpacing(ctx, homeScore, style.homeScore.x, style.homeScore.y, style.homeScore.letterSpacing);
+                                } else {
+                                    ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
+                                }
+
+                                ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
+                                ctx.fillStyle = style.awayScore.color;
+                                ctx.textAlign = 'left';
+                                if (style.awayScore.letterSpacing) {
+                                    drawTextWithLetterSpacing(ctx, awayScore, style.awayScore.x, style.awayScore.y, style.awayScore.letterSpacing);
+                                } else {
+                                    ctx.fillText(awayScore, style.awayScore.x, style.awayScore.y);
+                                }
                             }
                         }
 
