@@ -90,22 +90,18 @@ const graphicStyles = {
     },
     'kickoff': {
         'overlay_4x5': {
-            homeLogo: { x: 80, y: 980, width: 165, height: 165 },
-            awayLogo: { x: 285, y: 980, width: 165, height: 165 },
-            championshipLogo: { x: 70, y: 0, width: 130, height: 212 },
-            homeScore: null,
-            awayScore: null,
-            dateTime: { x: 70, y: 295, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
-            matchDay: null
+            homeTeamName: { x: 515, y: 1115 - 505, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            vsText: { y: 1695 - 495, fontSize: 48, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            awayTeamName: { x: 715, y: 1690 - 505, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            matchDay: { x: 100, y: 940, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -2 },
+            dateTime: null
         },
         'overlay_9x16': {
-            homeLogo: { x: 80, y: 1280, width: 165, height: 165 },
-            awayLogo: { x: 285, y: 1280, width: 165, height: 165 },
-            championshipLogo: { x: 65, y: 290, width: 130, height: 212 },
-            homeScore: null,
-            awayScore: null,
-            dateTime: { x: 70, y: 590, fontSize: 68, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
-            matchDay: null
+            homeTeamName: { x: 515, y: 1115, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            vsText: { y: 1695, fontSize: 36, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            awayTeamName: { x: 715, y: 1690, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            matchDay: { x: 100, y: 1445, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -2 },
+            dateTime: null
         }
     },
     'kickoffworld': {
@@ -124,46 +120,51 @@ const graphicStyles = {
     },
     'startingxi': {
         'overlay_4x5': {
-            homeTeamName: { y: 295, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
-            vsText: { y: 295, fontSize: 82, color: 'white', font: 'bodoni-72-book-italic' },
-            awayTeamName: { y: 295, fontSize: 78, color: 'white', font: 'DrukText-Medium-Trial' },
+            vsText: { y: 805, fontSize: 48, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            awayTeamName: { x: 415, y: 805, fontSize: 48, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             playerFontSize: 47,
-            playerSpacing: 57,
-            playerStartY: 400,
-            substitutesStartY: 1140,
+            playerSpacing: 48,
+            playerStartY: 610,
+            substitutesStartY: 1155,
             substitutesFontSize: 40
         },
         'overlay_9x16': {
-            homeTeamName: { x: 960, y: 485, fontSize: 82, color: 'white', font: 'DrukText-Medium-Trial', textAlign: 'right' },
-            vsText: { text: 'VS', x: 600, y: 485, fontSize: 86, color: 'white', font: 'bodoni-72-book-italic', textAlign: 'center' },
-            awayTeamName: { x: 960, y: 485, fontSize: 82, color: 'white', font: 'DrukText-Medium-Trial', textAlign: 'center' },
+            vsText: { y: 1115, fontSize: 60, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            awayTeamName: { x: 515, y: 1115, fontSize: 60, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             playerFontSize: 52,
-            playerSpacing: 67,
-            playerStartY: 675,
-            substitutesStartY: 1575,
+            playerFont: 'bodoni-72-book',
+            playerSpacing: 54,
+            playerStartY: 870,
+            substitutesStartY: 1530,
             substitutesFontSize: 45
         }
     },
     'goal': {
         'overlay_4x5': {
-            homeLogo: { x: 720, y: 50, width: 150, height: 150 },
-            awayLogo: { x: 720, y: 235, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
-            homeScore: { x: 910, y: 180, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
-            awayScore: { x: 910, y: 365, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
+            //homeLogo: { x: 720, y: 50, width: 150, height: 150 },
+            //awayLogo: { x: 720, y: 235, width: 150, height: 150 },
+            homeTeamName: { x: 515, y: 1115 - 505, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            vsText: { y: 1695 - 495, fontSize: 48, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            awayTeamName: { x: 715, y: 1690 - 505, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            homeScore: null,
+            awayScore: null,
+            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null,
-            playerName: { x: 70, y: 1250, fontSize: 130, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 }
+            playerName: { x: 70, y: 1250, fontSize: 130, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 }
         },
         'overlay_9x16': {
-            homeLogo: { x: 720, y: 150, width: 150, height: 150 },
-            awayLogo: { x: 720, y: 335, width: 150, height: 150 },
-            championshipLogo: { x: 70, y: 80, width: 130, height: 212 },
-            homeScore: { x: 910, y: 280, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
-            awayScore: { x: 910, y: 465, fontSize: 164, color: 'white', font: 'bodoni-72-bold', letterSpacing: -10 },
+            //homeLogo: { x: 720, y: 150, width: 150, height: 150 },
+            //awayLogo: { x: 720, y: 335, width: 150, height: 150 },
+            homeTeamName: { x: 515, y: 1115, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            vsText: { y: 1695, fontSize: 36, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            awayTeamName: { x: 715, y: 1690, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            homeScore: null,
+            awayScore: null,
+            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null,
-            playerName: { x: 70, y: 1740, fontSize: 145, color: 'white', font: 'Saturday-Lovin', letterSpacing: 0 }
+            playerName: { x: 70, y: 1740, fontSize: 145, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 }
         }
     },
     'livematch': {
@@ -208,60 +209,60 @@ const graphicStyles = {
         'overlay_4x5': {
             homeLogo: null,
             awayLogo: null,
-            championshipLogo: { x: 890, y: 0, width: 130, height: 212 },
+            championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1185, sety: 1185+55, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 790, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
-            nextMatchTitle: { x: 60, y: 150, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
-            homeTeamName: { x: 60, y: 970, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 960, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
-            awayTeamName: { x: 60, y: 1115, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1295, fontSize: 48, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
+            dateTime: { x: 540, y: 1230, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            matchDay: { x: 80, y: 915, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: -2 },
+            nextMatchTitle: null,
+            homeTeamName: { x: 540, y: 1070, fontSize: 140, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            vsText: { x: null, y: 885, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            awayTeamName: { x: 540, y: 1185, fontSize: 140, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 540, y: 1205, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         },
         'overlay_9x16': {
             homeLogo: null,
             awayLogo: null,
-            championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
+            championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1210 + 390, sety: 1210 + 390 + 55, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 800 + 350, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 8 },
-            nextMatchTitle: { x: 60, y: 310, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 },
-            homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 960 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
-            awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1380 + 335, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
+            dateTime: { x: 540, y: 1105 + 390, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            matchDay: { x: 80, y: 900 + 180, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: -2 },
+            nextMatchTitle: null,
+            homeTeamName: { x: 540, y: 950 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            awayTeamName: { x: 540, y: 1120 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 540, y: 1380 + 335, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         }
     },
     'matchday': {
         'overlay_4x5': {
             homeLogo: null,
             awayLogo: null,
-            championshipLogo: { x: 65, y: 140, width: 130, height: 212 },
+            championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1100, fontSize: 62, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 700, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 6 },
+            dateTime: { x: 540, y: 1140, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            matchDay: { x: 65, y: 770, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             nextMatchTitle: null,
-            homeTeamName: { x: 60, y: 885, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
+            homeTeamName: { x: 540, y: 950, fontSize: 190, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 885, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
-            awayTeamName: { x: 60, y: 1030, fontSize: 170, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1205, fontSize: 48, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
+            awayTeamName: { x: 540, y: 1105, fontSize: 190, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 540, y: 1205, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         },
         'overlay_9x16': {
             homeLogo: null,
             awayLogo: null,
-            championshipLogo: { x: 70, y: 820, width: 130, height: 212 },
+            championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 65, y: 1210 + 390, fontSize: 72, color: 'white', font: 'bodoni-72-bold', letterSpacing: 0 },
-            matchDay: { x: 65, y: 800 + 350, fontSize: 40, color: 'white', font: 'bodoni-72-bold', letterSpacing: 8 },
+            dateTime: { x: 540, y: 1105 + 390, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            matchDay: { x: 65, y: 700 + 390, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             nextMatchTitle: null,
-            homeTeamName: { x: 60, y: 970 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
+            homeTeamName: { x: 540, y: 950 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
             vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
-            awayTeamName: { x: 60, y: 1140 + 390, fontSize: 185, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -10 },
-            stadiumLocation: { x: 65, y: 1380 + 335, fontSize: 52, color: 'white', font: 'bodoni-72-bold', letterSpacing: 2 }
+            awayTeamName: { x: 540, y: 1120 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 540, y: 1380 + 335, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         }
     },
     'week': {
@@ -307,7 +308,7 @@ const graphicsFormats = {
 // Definizione delle grafiche che richiedono l'uso dei loghi delle squadre
 const graphicsWithLogos = ['livematch', 'highlights', 'halftime', 'fulltime', 'goal', 'kickoff', 'kickoffworld', 'week'];
 const graphicsRequireDateTime = ['kickoff', 'matchday', 'nextmatch', 'livematch', 'kickoffworld', 'week'];
-const graphicsRequireMatchDay = ['matchday', 'nextmatch'];
+const graphicsRequireMatchDay = ['matchday', 'nextmatch', 'kickoff'];
 const graphicsRequireStadiumLocation = ['nextmatch', 'matchday'];
 const graphicsWithChampionshipLogo = ['nextmatch', 'matchday'];
 
@@ -952,7 +953,7 @@ function updateGraphicsOptions() {
                     populateTeams2()
                 break;
 
-                case 'fulltime':                
+                case 'fulltime':
 
                 if (!isFulltimeHighlightsAdded) { // Controlla se è già stato aggiunto
                     optionDiv.innerHTML += `
@@ -1047,7 +1048,6 @@ function updateGraphicsOptions() {
                     }
                 break;
 
-
                 case 'highlights':
                     if (!isFulltimeHighlightsAdded) { // Controlla se è già stato aggiunto
                         optionDiv.innerHTML += `
@@ -1078,6 +1078,7 @@ function updateGraphicsOptions() {
                         isFulltimeHighlightsAdded = true; // Imposta il flag su true
                     }
                     break;
+                
                 case 'halftime':
 
                     if (!isHalftimeHighlightsAdded) {
@@ -1174,8 +1175,10 @@ function updateGraphicsOptions() {
                                             });
                                         }
                     break;
-                    
-                    case 'startingxi':
+                
+                case 'startingxi':
+
+
     // Funzione per generare i campi dei giocatori (select o input)
     function generatePlayerFields(prefix, count, isCustom) {
         let fieldsHTML = '';
@@ -1686,55 +1689,150 @@ function getTeamDisplayName(teamValue) {
     return team ? team.text : teamValue;
 }
 
-function drawThreeLineCenteredText(ctx, text, maxWidth, x, y, lineHeight) {
-    const splitSeparator = ' | ';
-    const displaySeparator = '  |  ';
-    const names = text.split(splitSeparator).filter(name => name.trim() !== '');
-    const lines = [];
-    let currentLine = '';
+function drawThreeLineRightAlignedText(ctx, text, maxWidth, x, y, lineHeight) {
+    const splitSeparator = ',';
+    const displaySeparator = ', ';
+    const sepLen = displaySeparator.length;
 
-    // Funzione per aggiungere un nome alla linea corrente con controllo della larghezza
-    function addNameToLine(name) {
-        const separator = currentLine ? displaySeparator : '';
-        const testLine = currentLine + separator + name;
-        const testWidth = ctx.measureText(testLine).width;
+    // Preparazione nomi
+    const names = text
+        .split(splitSeparator)
+        .map(s => s.trim())
+        .filter(s => s !== '');
 
-        if (testWidth > maxWidth && currentLine) {
-            // Se la linea corrente supera la larghezza, la chiudiamo e iniziamo una nuova
-            lines.push(currentLine);
-            currentLine = name;
-        } else {
-            currentLine = testLine;
+    if (names.length === 0) return;
+
+    const n = names.length;
+    const k = Math.min(3, n); // massimo 3 righe (o meno se meno nomi)
+    const nameLen = names.map(s => s.length);
+
+    // prefix sum dei caratteri (solo nomi, i separatori vengono calcolati quando servono)
+    const prefix = new Array(n + 1).fill(0);
+    for (let i = 0; i < n; i++) prefix[i + 1] = prefix[i] + nameLen[i];
+
+    function groupCharSum(i, j) {
+        // somma dei caratteri dei nomi i..j incluso + separatori interni
+        const namesSum = prefix[j + 1] - prefix[i];
+        const separatorsCount = Math.max(0, j - i);
+        return namesSum + separatorsCount * sepLen;
+    }
+
+    // DP: dp[i][g] = valore minimo possibile del massimo carico quando si suddividono i primi i elementi in g gruppi
+    const dp = Array.from({ length: n + 1 }, () => Array(k + 1).fill(Infinity));
+    const back = Array.from({ length: n + 1 }, () => Array(k + 1).fill(-1));
+    dp[0][0] = 0;
+
+    for (let i = 1; i <= n; i++) {
+        for (let g = 1; g <= k; g++) {
+            // proviamo una rottura j..i-1 come ultimo gruppo
+            for (let j = 0; j < i; j++) {
+                const cost = Math.max(dp[j][g - 1], groupCharSum(j, i - 1));
+                if (cost < dp[i][g]) {
+                    dp[i][g] = cost;
+                    back[i][g] = j;
+                }
+            }
         }
     }
 
-    // Costruzione delle linee con controllo della larghezza
-    names.forEach(name => {
-        addNameToLine(name);
-    });
-
-    // Aggiungi l'ultima linea se non vuota
-    if (currentLine) {
-        lines.push(currentLine);
+    // ricostruzione partizioni (g=k, i=n)
+    const partitions = [];
+    let cur = n, curg = k;
+    while (curg > 0) {
+        const j = back[cur][curg];
+        if (j === -1) {
+            // sicurezza: se DP ha fallito per qualche motivo, usiamo fallback greedy
+            partitions.length = 0;
+            break;
+        }
+        partitions.unshift([j, cur - 1]);
+        cur = j;
+        curg--;
     }
 
-    // Divisione delle linee principali e delle extra
-    const primaryLines = lines.slice(0, 3);
-    const extraLines = lines.slice(3);
-
-    // Combina eventuali linee extra
-    if (extraLines.length > 0) {
-        primaryLines.push(extraLines.join(displaySeparator));
+    // Se qualcosa è andato storto con la DP (caso raro), facciamo un semplice fallback greedy by chars
+    if (partitions.length === 0) {
+        const approx = Math.ceil((prefix[n] + (n - 1) * sepLen) / k);
+        let start = 0;
+        for (let g = 0; g < k; g++) {
+            if (g === k - 1) {
+                partitions.push([start, n - 1]);
+            } else {
+                let end = start;
+                while (end + 1 < n && groupCharSum(start, end) < approx) end++;
+                partitions.push([start, end]);
+                start = end + 1;
+                if (start >= n) {
+                    // riempi con vuoti se necessario
+                    while (partitions.length < k) partitions.push([n, n - 1]);
+                    break;
+                }
+            }
+        }
     }
 
-    // Disegno delle linee
-    ctx.textAlign = 'center';
+    // Costruisci le righe a partire dalle partizioni
+    let lines = partitions
+        .map(([i, j]) => (i <= j ? names.slice(i, j + 1).join(displaySeparator) : '') )
+        .filter(l => l !== '');
+
+    // Funzione per suddividere un array di nomi in segmenti che rispettino maxWidth (greedy basata su measureText)
+    function splitNamesByWidth(namesArray) {
+        const segments = [];
+        let current = '';
+        for (let idx = 0; idx < namesArray.length; idx++) {
+            const name = namesArray[idx];
+            const sep = current ? displaySeparator : '';
+            const test = current + sep + name;
+            const w = ctx.measureText(test).width;
+            if (w > maxWidth && current) {
+                segments.push(current);
+                current = name;
+            } else {
+                current = test;
+            }
+        }
+        if (current) segments.push(current);
+        return segments;
+    }
+
+    // Controlla larghezza misurata: se qualche riga supera maxWidth, la spezziamo (preservando ordine dei nomi)
+    let changed = true;
+    while (changed) {
+        changed = false;
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const measured = ctx.measureText(line).width;
+            if (measured > maxWidth) {
+                // otteniamo i nomi della riga (split con displaySeparator)
+                const rowNames = line.split(displaySeparator).map(s => s.trim());
+                const segments = splitNamesByWidth(rowNames);
+                // sostituisci la riga i con i segmenti ottenuti
+                lines.splice(i, 1, ...segments);
+                changed = true;
+                break; // riavvia il controllo dall'inizio
+            }
+        }
+    }
+
+    // Se abbiamo più di 3 righe, uniamo le righe extra nella terza riga con displaySeparator
+    if (lines.length > 3) {
+        const primary = lines.slice(0, 2);
+        const rest = lines.slice(2).join(displaySeparator);
+        primary.push(rest);
+        lines = primary;
+    }
+
+    // Se abbiamo meno di 3 righe, va bene: disegniamo solo quelle che ci sono.
+    ctx.textAlign = 'right';
     ctx.textBaseline = 'top';
 
-    primaryLines.forEach((line, index) => {
-        ctx.fillText(line, x, y + index * lineHeight);
-    });
+    // Disegna al più 3 righe
+    for (let i = 0; i < Math.min(3, lines.length); i++) {
+        ctx.fillText(lines[i], x, y + i * lineHeight);
+    }
 }
+
 
 /**
  * Funzione per creare le tab delle grafiche
@@ -1783,28 +1881,82 @@ function createGraphicTabs(selectedGraphics, selectedGraphicName) {
 }
 
 function drawCenteredWrappedText(ctx, text, maxWidth, x, y, lineHeight) {
-    const words = text.split(' ');
-    let line = '';
-    const lines = [];
-
-    words.forEach(word => {
-        const testLine = line + word + ' ';
-        const metrics = ctx.measureText(testLine);
-        const testWidth = metrics.width;
-        if (testWidth > maxWidth && line !== '') {
-            lines.push(line.trim());
-            line = word + ' ';
-        } else {
-            line = testLine;
-        }
-    });
-    lines.push(line.trim());
-
+    const lines = computeOptimalLines(ctx, text, maxWidth);
     lines.forEach((lineText, index) => {
         const lineWidth = ctx.measureText(lineText).width;
         ctx.fillText(lineText, x - lineWidth / 2, y + index * lineHeight);
     });
 }
+
+function computeOptimalLines(ctx, text, maxWidth) {
+    // split su whitespace e rimuovi eventuali voci vuote
+    let rawWords = text.split(/\s+/).filter(Boolean);
+
+    // spezza parole troppo lunghe (senza aggiungere alcun carattere speciale)
+    rawWords = rawWords.flatMap(w => splitLongWordIfNeeded(ctx, w, maxWidth));
+
+    const n = rawWords.length;
+    const spaceWidth = ctx.measureText(' ').width;
+    const w = rawWords.map(word => ctx.measureText(word).width);
+
+    const prefix = new Array(n + 1).fill(0);
+    for (let i = 0; i < n; i++) prefix[i + 1] = prefix[i] + w[i];
+
+    function lineWidth(i, j) {
+        if (i > j) return 0;
+        const wordsWidth = prefix[j + 1] - prefix[i];
+        const spaces = (j - i);
+        return wordsWidth + spaces * spaceWidth;
+    }
+
+    const INF = 1e18;
+    const dp = new Array(n + 1).fill(INF);
+    const nextBreak = new Array(n).fill(-1);
+    dp[n] = 0;
+
+    for (let i = n - 1; i >= 0; i--) {
+        for (let j = i; j < n; j++) {
+            const lw = lineWidth(i, j);
+            if (lw > maxWidth) break;
+            const isLast = (j === n - 1);
+            const badness = isLast ? 0 : Math.pow(maxWidth - lw, 2);
+            const cost = badness + dp[j + 1];
+            if (cost < dp[i]) {
+                dp[i] = cost;
+                nextBreak[i] = j + 1;
+            }
+        }
+    }
+
+    const lines = [];
+    let idx = 0;
+    while (idx < n) {
+        const nb = nextBreak[idx] === -1 ? idx + 1 : nextBreak[idx];
+        // unisci le parole con uno spazio normale (nessuna barra verticale)
+        lines.push(rawWords.slice(idx, nb).join(' '));
+        idx = nb;
+    }
+    return lines;
+}
+
+function splitLongWordIfNeeded(ctx, word, maxWidth) {
+    if (ctx.measureText(word).width <= maxWidth) return [word];
+
+    const parts = [];
+    let start = 0;
+    while (start < word.length) {
+        let end = start + 1;
+        while (end <= word.length && ctx.measureText(word.slice(start, end)).width <= maxWidth) {
+            end++;
+        }
+        const sliceEnd = Math.max(start + 1, end - 1);
+        parts.push(word.slice(start, sliceEnd)); // parte della parola (nessun separatore speciale)
+        start = sliceEnd;
+    }
+    return parts;
+}
+
+
 
 /**
  * Funzione per generare le anteprime
@@ -2045,13 +2197,13 @@ async function generatePreviews() {
                                         const number = select.dataset.number || '';
                         
                                         if (selectedOption.text.includes(' ')) {
-                                            name = selectedOption.value.split(' ').slice(0, -1).join(' ').toUpperCase();
+                                            name = selectedOption.value.split(' ').slice(0, -1).join(' ');
                                         } else {
-                                            name = selectedOption.text.toUpperCase();
+                                            name = selectedOption.text;
                                         }
                         
                                         if (select.value === captainValue) {
-                                            name += ' [C]';
+                                            name += ' (C)';
                                         }
                         
                                         return { number, name };
@@ -2059,7 +2211,7 @@ async function generatePreviews() {
 
                                 } else {
                                     const input = document.getElementById(id);
-                                    const inputValue = input.value.trim().toUpperCase();
+                                    const inputValue = input.value.trim();
 
                                     if (inputValue) {
                                         const firstSpaceIndex = inputValue.indexOf(' ');
@@ -2068,8 +2220,8 @@ async function generatePreviews() {
                                             const number = inputValue.substring(0, firstSpaceIndex);
                                             let name = inputValue.substring(firstSpaceIndex + 1);
                         
-                                            if (name === captainValue.toUpperCase()) {
-                                                name += ' [C]';
+                                            if (name === captainValue) {
+                                                name += ' (C)';
                                             }
                         
                                             return { number, name };
@@ -2090,20 +2242,20 @@ async function generatePreviews() {
                                         const number = selectedOption.number || '';
                         
                                         if (selectedOption.text.includes(' ')) {
-                                            name = selectedOption.value.split(' ').slice(0, -1).join(' ').toUpperCase();
+                                            name = selectedOption.value.split(' ').slice(0, -1).join(' ');
                                         } else {
-                                            name = selectedOption.text.toUpperCase();
+                                            name = selectedOption.text;
                                         }
                         
                                         if (select.value === captainValue) {
-                                            name += ' [C]';
+                                            name += ' (C)';
                                         }
                         
                                         return { number, name };
                                     }
                                 } else {
                                     const input = document.getElementById(id);
-                                    const inputValue = input.value.trim().toUpperCase();
+                                    const inputValue = input.value.trim();
                         
                                     if (inputValue) {
                                         const firstSpaceIndex = inputValue.indexOf(' ');
@@ -2112,8 +2264,8 @@ async function generatePreviews() {
                                             const number = inputValue.substring(0, firstSpaceIndex);
                                             let name = inputValue.substring(firstSpaceIndex + 1);
                         
-                                            if (name === captainValue.toUpperCase()) {
-                                                name += ' [C]';
+                                            if (name === captainValue) {
+                                                name += ' (C)';
                                             }
                         
                                             return { number, name };
@@ -2126,39 +2278,48 @@ async function generatePreviews() {
                             }
                         }).filter(player => player !== null);
                         
-                        // Imposta lo stile del testo dei giocatori
-                        ctx.font = `bold ${startingXIStyle.playerFontSize}px bodoni-72-book-italic`;
-                        ctx.fillStyle = `white`;
-                        ctx.textAlign = 'right';
-                        ctx.textBaseline = 'top';
+  const offsetX = 545;
 
-                        if (championshipSelect.value == 'primavera') {
-                            playerNames.forEach(player => {
-                                const yPosition = playerStartY + (player.number - 1) * playerSpacing;
-                                ctx.fillText(player.number, 380, yPosition);
-                            });
+    ctx.save();
+    ctx.translate(offsetX, 0);
 
-                            ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`;
-                            ctx.textAlign = 'left';
+// Imposta lo stile del testo dei giocatori
+ctx.font = `${startingXIStyle.playerFontSize}px bodoni-72-book`;
+ctx.fillStyle = 'white';
+ctx.textAlign = 'right';
+ctx.textBaseline = 'top';
 
-                            playerNames.forEach(player => {
-                                const yPosition = playerStartY + (player.number - 1) * playerSpacing
-                                ctx.fillText(player.name, 420, yPosition);
-                            });
-                        } else {
-                            playerNames.forEach((player, index) => {
-                                const yPosition = playerStartY + index * playerSpacing;
-                                ctx.fillText(player.number, 380, yPosition);
-                            });
+if (championshipSelect.value == 'primavera') {
+    playerNames.forEach(player => {
+        const yPosition = playerStartY + (player.number - 1) * playerSpacing;
+        // il nome viene disegnato a sinistra (x = 380) ma con textAlign = 'right'
+        ctx.fillText(player.name, 380, yPosition);
+    });
 
-                            ctx.font = `bold ${startingXIStyle.playerFontSize}px ${startingXIStyle.playerFont}`;
-                            ctx.textAlign = 'left';
+    // Poi disegniamo il NUMERO a DESTRA (con font bodoni/italic), allineato al centro
+    ctx.font = `${startingXIStyle.playerFontSize}px bodoni-72-book`;
+    ctx.textAlign = 'center';
+    playerNames.forEach(player => {
+        const yPosition = playerStartY + (player.number - 1) * playerSpacing;
+        ctx.fillText(player.number, 420, yPosition);
+    });
+} else {
+    // Non-primavera: usiamo index per l'ordine
+    playerNames.forEach((player, index) => {
+        const yPosition = playerStartY + index * playerSpacing;
+        ctx.fillText(player.name, 380, yPosition);
+    });
 
-                            playerNames.forEach((player, index) => {
-                                const yPosition = playerStartY + index * playerSpacing;
-                                ctx.fillText(player.name, 420, yPosition);
-                            });
-                        }
+    ctx.font = `${startingXIStyle.playerFontSize}px bodoni-72-book`;
+    ctx.textAlign = 'center';
+    playerNames.forEach((player, index) => {
+        const yPosition = playerStartY + index * playerSpacing;
+        ctx.fillText(player.number, 420, yPosition);
+    });
+}
+
+ctx.restore();
+
 
                         const canvas = ctx.canvas;
                         const canvasWidth = canvas.width;
@@ -2170,13 +2331,13 @@ async function generatePreviews() {
                                 const select = document.getElementById(id);
                                 const selectedOption = currentPlayers.find(p => p.value === select.value);
                                 if (selectedOption && selectedOption.text.includes(' ')) {
-                                    return selectedOption.value.split(' ').slice(0, -1).join(' ').toUpperCase();
+                                    return selectedOption.value.split(' ').slice(0, -1).join(' ');
                                 } else if (selectedOption) {
-                                    return selectedOption.text.toUpperCase();
+                                    return selectedOption.text;
                                 }
                             } else {
                                 const input = document.getElementById(id);
-                                let name = input.value.trim().toUpperCase();
+                                let name = input.value.trim();
                                 if (name) {
                                     return name;
                                 }
@@ -2184,109 +2345,88 @@ async function generatePreviews() {
                             return '';
                         }).filter(name => name !== '');
                         
-                        const substitutesText = substitutesNames.join(' | ');
+                        const substitutesText = substitutesNames.join(', ');
 
-                        const substitutesLineHeight = startingXIStyle.substitutesFontSize + 5;
-                        ctx.font = `bold ${startingXIStyle.substitutesFontSize}px ${startingXIStyle.playerFont}`;
+                        const substitutesLineHeight = startingXIStyle.substitutesFontSize;
+                        ctx.font = `${startingXIStyle.substitutesFontSize}px ${startingXIStyle.playerFont}`;
                         ctx.fillStyle = `white`;
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'top';
 
-                        const maxWidth = 1000;
+                        const maxWidth = 840;
                         const spacing = 10;
                         const substitutesYPosition = startingXIStyle.substitutesStartY;
 
-                        drawThreeLineCenteredText(ctx, substitutesText, maxWidth, canvas.width / 2, substitutesYPosition, substitutesLineHeight);
-                            let homeTeamNameWidth = 0;
-                            let homeTeamText = '';
-                            if (style.homeTeamName) {
-                                homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
-                                ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
-                                ctx.fillStyle = style.homeTeamName.color;
-                                ctx.textAlign = 'left'; // Impostiamo l'allineamento a sinistra per facilitare il calcolo
-                                ctx.textBaseline = 'middle'; // Allineamento verticale al centro
+                        drawCenteredWrappedText(ctx, substitutesText, maxWidth, canvas.width - 100, substitutesYPosition, substitutesLineHeight);
 
-                                if (style.homeTeamName.letterSpacing) {
-                                    homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
-                                } else {
-                                    homeTeamNameWidth = ctx.measureText(homeTeamText).width;
-                                }
-                            }
+                            // calcolo larghezze e testi
+let vsTextWidth = 0;
+let vsText = '';
 
-                            let vsTextWidth = 0;
-                            let vsText = '';
-                            if (style.vsText) {
-                                vsText = 'vs.';
-                                ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
-                                ctx.fillStyle = style.vsText.color;
-                                ctx.textAlign = 'left';
-                                ctx.textBaseline = 'middle';
+if (style.vsText) {
+  vsText = 'vs.';
+  ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+  ctx.textBaseline = 'middle';
+  if (style.vsText.letterSpacing) {
+    vsTextWidth = measureTextWithLetterSpacing(ctx, vsText, style.vsText.letterSpacing);
+  } else {
+    vsTextWidth = ctx.measureText(vsText).width;
+  }
+}
 
-                                if (style.vsText.letterSpacing) {
-                                    vsTextWidth = measureTextWithLetterSpacing(ctx, vsText, style.vsText.letterSpacing);
-                                } else {
-                                    vsTextWidth = ctx.measureText(vsText).width;
-                                }
-                            }
+let awayTeamNameWidth = 0;
+let awayTeamText = '';
 
-                            let awayTeamNameWidth = 0;
-                            let awayTeamText = '';
-                            if (style.awayTeamName) {
-                                awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
-                                ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
-                                ctx.fillStyle = style.awayTeamName.color;
-                                ctx.textAlign = 'left';
-                                ctx.textBaseline = 'middle';
+if (style.awayTeamName) {
+  awayTeamText = getTeamDisplayName(awayTeamSelect.value);
+  ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+  if (style.awayTeamName.letterSpacing) {
+    awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+  } else {
+    awayTeamNameWidth = ctx.measureText(awayTeamText).width;
+  }
+}
 
-                                if (style.awayTeamName.letterSpacing) {
-                                    awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
-                                } else {
-                                    awayTeamNameWidth = ctx.measureText(awayTeamText).width;
-                                }
-                            }
+// ANCHOR: punto di allineamento DX per l'away team
+const anchorX = style.awayTeamName?.x ?? 0; // x di riferimento (destra)
+const anchorY = style.awayTeamName?.y ?? 0; // y dove disegnare l'away
 
-                            const totalBlockWidth = homeTeamNameWidth + spacing + vsTextWidth + spacing + awayTeamNameWidth;
-                            const startX = (canvasWidth - totalBlockWidth) / 2;
+// calcolo la x di partenza per disegnare (usiamo sempre fillText con textAlign = 'left')
+// disegno l'away in modo che finisca ad anchorX: start = anchorX - width
+const awayStartX = anchorX - awayTeamNameWidth;
 
-                            if (style.homeTeamName) {
-                                const homeX = startX;
-                                ctx.textAlign = 'left';
-                                ctx.fillStyle = style.homeTeamName.color;
-                                ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
-                                if (style.homeTeamName.letterSpacing) {
-                                    drawTextWithLetterSpacing(ctx, homeTeamText, homeX, style.homeTeamName.y, style.homeTeamName.letterSpacing);
-                                } else {
-                                    ctx.fillText(homeTeamText, homeX, style.homeTeamName.y);
-                                }
-                            }
+// Disegno away team
+if (style.awayTeamName) {
+  ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+  ctx.fillStyle = style.awayTeamName.color;
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left'; // usiamo left e passiamo awayStartX come x iniziale
+  if (style.awayTeamName.letterSpacing) {
+    drawTextWithLetterSpacing(ctx, awayTeamText, awayStartX, anchorY, style.awayTeamName.letterSpacing);
+  } else {
+    ctx.fillText(awayTeamText, awayStartX, anchorY);
+  }
+}
 
-                            if (style.vsText) {
-                                const vsX = startX + homeTeamNameWidth + spacing;
-                                ctx.textAlign = 'left';
-                                ctx.fillStyle = style.vsText.color;
-                                ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
-                                ctx.textBaseline = 'middle';
-                                if (style.vsText.letterSpacing) {
-                                    drawTextWithLetterSpacing(ctx, vsText, vsX, style.vsText.y, style.vsText.letterSpacing);
-                                } else {
-                                    ctx.fillText(vsText, vsX, style.vsText.y);
-                                }
-                            }
+// Posiziono il "vs." calcolando la larghezza dell'away + spacing
+// Lo mettiamo alla sinistra dell'away: vsStartX = awayStartX - spacing - vsTextWidth
+if (style.vsText) {
+  const vsStartX = awayStartX - vsTextWidth;
 
-                            if (style.awayTeamName) {
-                                const awayX = startX + homeTeamNameWidth + spacing + vsTextWidth + spacing;
-                                ctx.textAlign = 'left';
-                                ctx.fillStyle = style.awayTeamName.color;
-                                ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
-                                if (style.awayTeamName.letterSpacing) {
-                                    drawTextWithLetterSpacing(ctx, awayTeamText, awayX, style.awayTeamName.y, style.awayTeamName.letterSpacing);
-                                } else {
-                                    ctx.fillText(awayTeamText, awayX, style.awayTeamName.y);
-                                }
-                            }
+  ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+  ctx.fillStyle = style.vsText.color;
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  if (style.vsText.letterSpacing) {
+    drawTextWithLetterSpacing(ctx, vsText, vsStartX, style.vsText.y, style.vsText.letterSpacing);
+  } else {
+    ctx.fillText(vsText, vsStartX, style.vsText.y);
+  }
+}
+
 
                     } else if (graphicName === 'nextmatch' || graphicName === 'matchday') {
-                        // !NEXTMATCH !MATCHDAY
+                        // !home !MATCHDAY
                         if (style.nextMatchTitle) {
                             ctx.font = `bold ${style.nextMatchTitle.fontSize}px ${style.nextMatchTitle.font}`;
                             ctx.fillStyle = style.nextMatchTitle.color;
@@ -2305,84 +2445,202 @@ async function generatePreviews() {
                                     const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
                                     ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
                                     ctx.fillStyle = style.homeTeamName.color;
-                                    ctx.textAlign = 'left';
-                                    homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
-                                    drawTextWithLetterSpacing(ctx, homeTeamText, canvas.width - style.homeTeamName.x - homeTeamNameWidth, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+
+                                    if (style.homeTeamName.letterSpacing) {
+                                        // misura larghezza totale con letter spacing
+                                        homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+                                        // calcola x di partenza (centra l'intero blocco)
+                                        const startX = style.homeTeamName.x - homeTeamNameWidth / 2;
+                                        // quando disegni carattere per carattere, assicurati che ctx.textAlign sia 'left'
+                                        ctx.textAlign = 'left';
+                                        drawTextWithLetterSpacing(ctx, homeTeamText, startX, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+                                    } else {
+                                        // per fillText possiamo usare textAlign 'center' e usare style.x come centro
+                                        ctx.textAlign = 'center';
+                                        ctx.fillText(homeTeamText, style.homeTeamName.x, style.homeTeamName.y);
+                                        homeTeamNameWidth = ctx.measureText(homeTeamText).width;
+                                        // se vuoi la larghezza totale reale per confronti successivi, usa quella misurata
+                                    }
                                 }
 
                                 if (style.awayTeamName) {
                                     const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
                                     ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
                                     ctx.fillStyle = style.awayTeamName.color;
-                                    ctx.textAlign = 'left';
-                                    awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
-                                    drawTextWithLetterSpacing(ctx, awayTeamText, canvas.width - style.awayTeamName.x - awayTeamNameWidth, style.awayTeamName.y, style.awayTeamName.letterSpacing);
+
+                                    if (style.awayTeamName.letterSpacing) {
+                                        const awayWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+                                        const startX = style.awayTeamName.x - awayWidth / 2;
+                                        ctx.textAlign = 'left';
+                                        drawTextWithLetterSpacing(ctx, awayTeamText, startX, style.awayTeamName.y, style.awayTeamName.letterSpacing);
+                                    } else {
+                                        ctx.textAlign = 'center';
+                                        ctx.fillText(awayTeamText, style.awayTeamName.x, style.awayTeamName.y);
+                                    }
                                 }
 
-                                let vsTextX;
-                                let vsTextWidth;
-                                if (style.vsText && homeTeamNameWidth !== undefined) {
-                                    vsTextX = canvas.width - style.homeTeamName.x - awayTeamNameWidth;
-                                    ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
-                                    ctx.fillStyle = style.vsText.color;
-                                    ctx.textAlign = 'right';
-                                        ctx.fillText('vs.', vsTextX, style.vsText.y + 80);
-                                        vsTextWidth = ctx.measureText('vs.').width;
-                                }
+                                // (opzionale) Ripristina l'allineamento di default se necessario
+                                ctx.textAlign = 'left';
 
+
+                                                        // Disegna la data del match (stringa intera centrata)
                                 if (style.dateTime) {
-                                const dateParts = getFormattedDateParts(
-                                    adjustedDateObj,
-                                    timeVersion.timeZoneAbbreviation,
-                                    'en-GB',
-                                    graphicName
-                                );
-                                
-                                const dateText = `${dateParts.month} ${dateParts.day}`;
-                                const suffix = dateParts.ordinalSuffix;
-                                const timeText = ` | ${dateParts.time}`;
+                                    const dateParts = getFormattedDateParts(
+                                        adjustedDateObj,
+                                        timeVersion.timeZoneAbbreviation,
+                                        'en-GB',
+                                        graphicName
+                                    );
 
+                                    const dateText = `${dateParts.month} ${dateParts.day}`;
+                                    timeText = ` | ${dateParts.time}`;
 
-                                ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                                ctx.fillStyle = style.dateTime.color;
-                                ctx.textAlign = 'right';
-                                ctx.textBaseline = 'alphabetic';
-                                ctx.fillText(timeText, canvas.width - style.dateTime.x, style.dateTime.sety);
+                                    // eventuale stadium (vuoto se non presente)
+                                    const stadiumLocationValue = (style.stadiumLocation ? stadiumInput.value.trim() : '') || '';
+                                    const stadiumText = stadiumLocationValue ? ` | ${stadiumLocationValue}` : '';
 
-                                const hoursWidth = ctx.measureText(timeText);
+                                    // gap tra segmenti (come prima avevi +5)
+                                    const interSegmentGap = 5;
 
-                                const suffixFontSize = style.dateTime.fontSize * 0.7;
-                                ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
-                                ctx.font = ctx.font.replace('normal', 'small-caps');
-                                ctx.fillText(suffix, canvas.width - style.dateTime.x - hoursWidth.width, style.dateTime.sety);
+                                    // Costruisci i segmenti con font/color appropriati
+                                    const segments = [];
 
-                                const suffixWidth = ctx.measureText(suffix);
+                                    // segmento data (month + day)
+                                    segments.push({
+                                        text: dateText,
+                                        font: `${style.dateTime.fontSize}px ${style.dateTime.font}`,
+                                        color: style.dateTime.color
+                                    });
 
-                                // Imposta lo stile per il mese e il giorno
-                                ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                                ctx.fillText(dateText, canvas.width - style.dateTime.x - hoursWidth.width - suffixWidth.width - 3, style.dateTime.sety);  
-                            }
+                                    // segmento time (usa lo stesso stile di dateTime)
+                                    segments.push({
+                                        text: timeText,
+                                        font: `${style.dateTime.fontSize}px ${style.dateTime.font}`,
+                                        color: style.dateTime.color
+                                    });
 
-                        if (style.matchDay) {
-                            const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                            const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
-                            let matchDayWidth = 0
-                            ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-                            ctx.fillStyle = style.matchDay.color;
-                            ctx.textAlign = 'left';
-                                matchDayWidth = measureTextWithLetterSpacing(ctx, matchDayText, style.matchDay.letterSpacing);
-                                drawTextWithLetterSpacing(ctx, matchDayText, canvas.width - style.matchDay.x - matchDayWidth, style.matchDay.y, style.matchDay.letterSpacing);
-                        }
+                                    // segmento stadium (se presente usa style.stadiumLocation se definito)
+                                    if (stadiumText) {
+                                        const stadiumFontSize = style.stadiumLocation ? style.stadiumLocation.fontSize : style.dateTime.fontSize;
+                                        const stadiumFont = style.stadiumLocation ? style.stadiumLocation.font : style.dateTime.font;
+                                        const stadiumColor = style.stadiumLocation ? style.stadiumLocation.color : style.dateTime.color;
 
-                        if (style.stadiumLocation) {
-                            const stadiumLocationValue = stadiumInput.value.trim() || '';
-                            let stadiumLocationWidth = 0
-                            ctx.font = `${style.stadiumLocation.fontSize}px ${style.stadiumLocation.font}`;
-                            ctx.fillStyle = style.stadiumLocation.color;
-                            ctx.textAlign = 'left';
-                                stadiumLocationWidth = measureTextWithLetterSpacing(ctx, stadiumLocationValue, style.stadiumLocation.letterSpacing);
-                                drawTextWithLetterSpacing(ctx, stadiumLocationValue, canvas.width -  style.stadiumLocation.x - stadiumLocationWidth, style.stadiumLocation.y, style.stadiumLocation.letterSpacing);
-                        }
+                                        segments.push({
+                                            text: stadiumText,
+                                            font: `${stadiumFontSize}px ${stadiumFont}`,
+                                            color: stadiumColor
+                                        });
+                                    }
+
+                                    // misura tutti i segmenti e prendi anche il max ascent (per calcolare y uniforme)
+                                    let totalWidth = 0;
+                                    let maxAscent = 0;
+                                    const metricsArr = [];
+
+                                    for (let i = 0; i < segments.length; i++) {
+                                        const seg = segments[i];
+                                        ctx.font = seg.font;
+                                        // misura del testo
+                                        const m = ctx.measureText(seg.text);
+                                        metricsArr.push(m);
+                                        // larghezza del segmento
+                                        totalWidth += m.width;
+                                        // ascent massimo (per baseline)
+                                        if (m.actualBoundingBoxAscent && m.actualBoundingBoxAscent > maxAscent) {
+                                            maxAscent = m.actualBoundingBoxAscent;
+                                        }
+                                    }
+
+                                    // aggiungi gap tra segmenti
+                                    if (segments.length > 1) {
+                                        totalWidth += interSegmentGap * (segments.length - 1);
+                                    }
+
+                                    // calcola x di partenza per centrare l'intera stringa
+                                    const startX = style.dateTime.x - totalWidth / 2;
+
+                                    // calcola y basandoci sul maxAscent per allineare verticalmente
+                                    // se actualBoundingBoxAscent non disponibile, fallback a fontSize
+                                    const fallbackAscent = style.dateTime.fontSize || 0;
+                                    const ascentToUse = maxAscent || fallbackAscent;
+                                    const y = style.dateTime.y + ascentToUse;
+
+                                    // disegna i segmenti uno dopo l'altro, usando textAlign 'left'
+                                    ctx.textBaseline = 'alphabetic';
+                                    ctx.textAlign = 'left';
+
+                                    let cursorX = startX;
+                                    for (let i = 0; i < segments.length; i++) {
+                                        const seg = segments[i];
+                                        ctx.font = seg.font;
+                                        ctx.fillStyle = seg.color;
+
+                                        // se vuoi fare small-caps per uno specifico segmento (es. suffix), qui è il posto per farlo.
+                                        // esempio:
+                                        // if (i === 1 && vuoiSmallCaps) ctx.font = ctx.font.replace('normal', 'small-caps');
+
+                                        ctx.fillText(seg.text, cursorX, y);
+
+                                        // avanza il cursore
+                                        // usa la misura già calcolata per evitare misure ripetute
+                                        const segWidth = metricsArr[i].width;
+                                        cursorX += segWidth + interSegmentGap;
+                                    }
+
+                                    // ripristina font e colore originali (opzionale)
+                                    ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+                                    ctx.fillStyle = style.dateTime.color;
+                                }
+
+                        // Disegna il matchday
+if (style.matchDay) {
+    const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+    const matchDayRaw = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
+    const matchDayText = `NEXT MATCH: ${matchDayRaw}`;
+
+    // Imposto font/color prima di misurare
+    ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+    ctx.fillStyle = style.matchDay.color;
+
+    // Calcolo il centro orizzontale del canvas
+    const centerX = canvas.width / 2;
+    const y = style.matchDay.y; // non modificare la disposizione verticale
+
+    // Funzione helper per disegnare testo con letter spacing, centrato rispetto a centerX
+    function drawTextWithLetterSpacingCentered(ctx, text, centerX, y, letterSpacing) {
+        // misuro larghezze dei singoli caratteri
+        const glyphWidths = [];
+        for (let i = 0; i < text.length; i++) {
+            glyphWidths.push(ctx.measureText(text[i]).width);
+        }
+        const totalGlyphsWidth = glyphWidths.reduce((a, b) => a + b, 0);
+        const gaps = Math.max(0, text.length - 1);
+        const totalWidth = totalGlyphsWidth + gaps * letterSpacing;
+
+        // calcolo la x di partenza (sinistra) in modo che il gruppo sia centrato su centerX
+        let x = centerX - totalWidth / 2;
+
+        // disegno carattere per carattere
+        for (let i = 0; i < text.length; i++) {
+            ctx.fillText(text[i], x, y);
+            x += glyphWidths[i] + letterSpacing;
+        }
+    }
+
+    // Se c'è letterSpacing usiamo la funzione dedicata (assumiamo valore in pixel)
+    if (style.matchDay.letterSpacing) {
+        // assicuriamoci che il testo venga disegnato con allineamento 'left' perché calcoliamo la x manualmente
+        ctx.textAlign = 'left';
+        drawTextWithLetterSpacingCentered(ctx, matchDayText, centerX, y, style.matchDay.letterSpacing);
+    } else {
+        // senza letter spacing: misuro la larghezza e disegno partendo da centerX - width/2
+        ctx.textAlign = 'left';
+        const textWidth = ctx.measureText(matchDayText).width;
+        const startX = centerX - textWidth / 2;
+        ctx.fillText(matchDayText, startX, y);
+    }
+}
+
 
                         if (style.championshipLogo) {
                             const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
@@ -2396,120 +2654,153 @@ async function generatePreviews() {
                             }
                         }
                     } else {
-                        let homeTeamNameWidth;
-                        if (style.homeTeamName) {
-                            const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
-                            ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
-                            ctx.fillStyle = style.homeTeamName.color;
+                        const LEFT_MARGIN = 60;
+let homeTeamNameWidth;
+
+if (style.homeTeamName) {
+    const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+    ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+    ctx.fillStyle = style.homeTeamName.color;
+
+    if (style.homeTeamName.letterSpacing) {
+        // misura larghezza totale con letter spacing
+        homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+        // usa LEFT_MARGIN come x iniziale, senza centrare
+        const startX = LEFT_MARGIN;
+        ctx.textAlign = 'left';
+        drawTextWithLetterSpacing(ctx, homeTeamText, startX, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+    } else {
+        // disegna usando textAlign 'left' e x fisso a LEFT_MARGIN
+        ctx.textAlign = 'left';
+        ctx.fillText(homeTeamText, LEFT_MARGIN, style.homeTeamName.y);
+        homeTeamNameWidth = ctx.measureText(homeTeamText).width;
+    }
+}
+
+if (style.awayTeamName) {
+    const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+    ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+    ctx.fillStyle = style.awayTeamName.color;
+
+    if (style.awayTeamName.letterSpacing) {
+        const awayWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+        const startX = LEFT_MARGIN;
+        ctx.textAlign = 'left';
+        drawTextWithLetterSpacing(ctx, awayTeamText, startX, style.awayTeamName.y, style.awayTeamName.letterSpacing);
+    } else {
+        ctx.textAlign = 'left';
+        ctx.fillText(awayTeamText, LEFT_MARGIN, style.awayTeamName.y);
+    }
+}
+
+// (opzionale) Ripristina l'allineamento di default se necessario
+ctx.textAlign = 'left';
+
+// Disegna la data del match (ora senza centratura, a LEFT_MARGIN)
+if (style.dateTime) {
+    const dateParts = getFormattedDateParts(
+        adjustedDateObj,
+        timeVersion.timeZoneAbbreviation,
+        'en-GB',
+        graphicName
+    );
+
+    const dateText = `${dateParts.month} ${dateParts.day}`;
+    timeText = ` | ${dateParts.time}`;
+
+    const stadiumLocationValue = (style.stadiumLocation ? stadiumInput.value.trim() : '') || '';
+    const stadiumText = stadiumLocationValue ? ` | ${stadiumLocationValue}` : '';
+
+    const interSegmentGap = 5;
+
+    const segments = [];
+
+    segments.push({
+        text: dateText,
+        font: `${style.dateTime.fontSize}px ${style.dateTime.font}`,
+        color: style.dateTime.color
+    });
+
+    segments.push({
+        text: timeText,
+        font: `${style.dateTime.fontSize}px ${style.dateTime.font}`,
+        color: style.dateTime.color
+    });
+
+    if (stadiumText) {
+        const stadiumFontSize = style.stadiumLocation ? style.stadiumLocation.fontSize : style.dateTime.fontSize;
+        const stadiumFont = style.stadiumLocation ? style.stadiumLocation.font : style.dateTime.font;
+        const stadiumColor = style.stadiumLocation ? style.stadiumLocation.color : style.dateTime.color;
+
+        segments.push({
+            text: stadiumText,
+            font: `${stadiumFontSize}px ${stadiumFont}`,
+            color: stadiumColor
+        });
+    }
+
+    // misura tutti i segmenti e prendi anche il max ascent (per calcolare y uniforme)
+    let totalWidth = 0;
+    let maxAscent = 0;
+    const metricsArr = [];
+
+    for (let i = 0; i < segments.length; i++) {
+        const seg = segments[i];
+        ctx.font = seg.font;
+        const m = ctx.measureText(seg.text);
+        metricsArr.push(m);
+        totalWidth += m.width;
+        if (m.actualBoundingBoxAscent && m.actualBoundingBoxAscent > maxAscent) {
+            maxAscent = m.actualBoundingBoxAscent;
+        }
+    }
+
+    if (segments.length > 1) {
+        totalWidth += interSegmentGap * (segments.length - 1);
+    }
+
+    // usa LEFT_MARGIN come x di partenza (non centrare)
+    const startX = LEFT_MARGIN + 20;
+
+    const fallbackAscent = style.dateTime.fontSize || 0;
+    const ascentToUse = maxAscent || fallbackAscent;
+    const y = style.dateTime.y + ascentToUse;
+
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign = 'left';
+
+    let cursorX = startX;
+    for (let i = 0; i < segments.length; i++) {
+        const seg = segments[i];
+        ctx.font = seg.font;
+        ctx.fillStyle = seg.color;
+
+        ctx.fillText(seg.text, cursorX, y);
+
+        const segWidth = metricsArr[i].width;
+        cursorX += segWidth + interSegmentGap;
+    }
+
+    // ripristina font e colore originali (opzionale)
+    ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+    ctx.fillStyle = style.dateTime.color;
+}
+
+
+                        // Disegna il matchday
+                        if (style.matchDay) {
+                            const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+                            const matchDayRaw = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
+                            const matchDayText = `NEXT MATCH: PRIMAVERA 2`;
+                            ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+                            ctx.fillStyle = style.matchDay.color;
                             ctx.textAlign = 'left';
-                            if (style.homeTeamName.letterSpacing) {
-                                homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
-                                drawTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.x, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+                            if (style.matchDay.letterSpacing) {
+                                drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
                             } else {
-                                ctx.fillText(homeTeamText, style.homeTeamName.x, style.homeTeamName.y);
-                                homeTeamNameWidth = ctx.measureText(homeTeamText).width;
+                                ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
                             }
                         }
-
-                        let vsTextX;
-                        let vsTextWidth;
-                        if (style.vsText && homeTeamNameWidth !== undefined) {
-                            const spacingAfterHomeTeamName = 10; // Spazio tra il nome della squadra e 'VS'
-                            vsTextX = style.homeTeamName.x + homeTeamNameWidth + spacingAfterHomeTeamName;
-                            ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
-                            ctx.fillStyle = style.vsText.color;
-                            ctx.textAlign = 'left';
-                            if (style.vsText.letterSpacing) {
-                                vsTextWidth = measureTextWithLetterSpacing(ctx, 'vs.', style.vsText.letterSpacing);
-                                drawTextWithLetterSpacing(ctx, 'vs.', vsTextX, style.vsText.y, style.vsText.letterSpacing);
-                            } else {
-                                ctx.fillText('vs.', vsTextX, style.vsText.y);
-                                vsTextWidth = ctx.measureText('vs.').width;
-                            }
-                        }
-
-                        if (style.awayTeamName) {
-                            const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
-                            ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
-                            ctx.fillStyle = style.awayTeamName.color;
-                            ctx.textAlign = 'left';
-                            if (style.awayTeamName.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.x, style.awayTeamName.y, style.awayTeamName.letterSpacing);
-                            } else {
-                                ctx.fillText(awayTeamText, style.awayTeamName.x, style.awayTeamName.y);
-                            }
-                        }
-
-                        if (style.dateTime) {
-                        const dateParts = getFormattedDateParts(
-                            adjustedDateObj,
-                            timeVersion.timeZoneAbbreviation,
-                            'en-GB',
-                            graphicName
-                        );
-                        
-                        const dateText = `${dateParts.month} ${dateParts.day}`;
-                        const suffix = dateParts.ordinalSuffix;
-                        let timeText = ``;
-
-                        if (championship == 'primavera') {
-                            timeText = ` | ${dateParts.time} ${timeVersion.timeZoneAbbreviation}`;
-                        } else {
-                            timeText = ` | ${dateParts.time}`;
-                        }
-                        
-                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                        ctx.fillStyle = style.dateTime.color;
-                        ctx.textAlign = 'left';
-                        ctx.textBaseline = 'alphabetic';
-                        
-                        const dateMetrics = ctx.measureText(dateText);
-                        const dateTextWidth = dateMetrics.width + 5;
-                        const dateAscent = dateMetrics.actualBoundingBoxAscent;
-                        const y = style.dateTime.y + dateAscent;
-                        
-                        ctx.fillText(dateText, style.dateTime.x, y);
-                        
-                        const suffixFontSize = style.dateTime.fontSize * 0.7;
-                        ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
-                        ctx.font = ctx.font.replace('normal', 'small-caps');
-                        
-                        const suffixMetrics = ctx.measureText(suffix);
-                        const suffixAscent = suffixMetrics.actualBoundingBoxAscent;
-                        const suffixOffsetY = y;
-                        
-                        ctx.fillText(suffix, style.dateTime.x + dateTextWidth, suffixOffsetY);
-                        
-                        const suffixWidth = suffixMetrics.width;
-                        
-                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                        
-                        ctx.fillText(timeText, style.dateTime.x + dateTextWidth + suffixWidth, y);
-                    }
-
-                    if (style.matchDay) {
-                        const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                        const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
-                        ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-                        ctx.fillStyle = style.matchDay.color;
-                        ctx.textAlign = 'left';
-                        if (style.matchDay.letterSpacing) {
-                            drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-                        } else {
-                            ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-                        }
-                    }
-                    if (style.stadiumLocation) {
-                       const stadiumLocationValue = stadiumInput.value.trim() || '';
-                        ctx.font = `${style.stadiumLocation.fontSize}px ${style.stadiumLocation.font}`;
-                        ctx.fillStyle = style.stadiumLocation.color;
-                        ctx.textAlign = 'left';
-                        if (style.stadiumLocation.letterSpacing) {
-                            drawTextWithLetterSpacing(ctx, stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y, style.stadiumLocation.letterSpacing);
-                        } else {
-                            ctx.fillText(stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y);
-                        }
-                    }
 
                     if (style.championshipLogo) {
                         const championshipLogoSrc = `images/logos/${championshipSelect.value}-logo.png`;
@@ -2521,141 +2812,205 @@ async function generatePreviews() {
                 }
             } else {
 
-                        let homeTeamNameWidth;
-                        if (style.homeTeamName) {
-                            const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
-                            ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
-                            ctx.fillStyle = style.homeTeamName.color;
-                            ctx.textAlign = 'left';
-                            if (style.homeTeamName.letterSpacing) {
-                                homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
-                                drawTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.x, style.homeTeamName.y, style.homeTeamName.letterSpacing);
-                            } else {
-                                ctx.fillText(homeTeamText, style.homeTeamName.x, style.homeTeamName.y);
-                                homeTeamNameWidth = ctx.measureText(homeTeamText).width;
-                            }
-                        }
+let homeTeamNameWidth;
+if (style.homeTeamName) {
+    const homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+    ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+    ctx.fillStyle = style.homeTeamName.color;
 
-                        // Calcola la posizione x per 'VS'
-                        let vsTextX;
-                        let vsTextWidth;
-                        if (style.vsText && homeTeamNameWidth !== undefined) {
-                            const spacingAfterHomeTeamName = 10; // Spazio tra il nome della squadra e 'VS'
-                            vsTextX = style.homeTeamName.x + homeTeamNameWidth + spacingAfterHomeTeamName;
-                            ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
-                            ctx.fillStyle = style.vsText.color;
-                            ctx.textAlign = 'left';
-                            if (style.vsText.letterSpacing) {
-                                vsTextWidth = measureTextWithLetterSpacing(ctx, 'vs.', style.vsText.letterSpacing);
-                                drawTextWithLetterSpacing(ctx, 'vs.', vsTextX, style.vsText.y, style.vsText.letterSpacing);
-                            } else {
-                                ctx.fillText('vs.', vsTextX, style.vsText.y);
-                                vsTextWidth = ctx.measureText('vs.').width;
-                            }
-                        }
+    if (style.homeTeamName.letterSpacing) {
+        // misura larghezza totale con letter spacing
+        homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+        // calcola x di partenza (centra l'intero blocco)
+        const startX = style.homeTeamName.x - homeTeamNameWidth / 2;
+        // quando disegni carattere per carattere, assicurati che ctx.textAlign sia 'left'
+        ctx.textAlign = 'left';
+        drawTextWithLetterSpacing(ctx, homeTeamText, startX, style.homeTeamName.y, style.homeTeamName.letterSpacing);
+    } else {
+        // per fillText possiamo usare textAlign 'center' e usare style.x come centro
+        ctx.textAlign = 'center';
+        ctx.fillText(homeTeamText, style.homeTeamName.x, style.homeTeamName.y);
+        homeTeamNameWidth = ctx.measureText(homeTeamText).width;
+        // se vuoi la larghezza totale reale per confronti successivi, usa quella misurata
+    }
+}
 
-                        // Disegna il nome della squadra ospite
-                        if (style.awayTeamName) {
-                            const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
-                            ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
-                            ctx.fillStyle = style.awayTeamName.color;
-                            ctx.textAlign = 'left';
-                            if (style.awayTeamName.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.x, style.awayTeamName.y, style.awayTeamName.letterSpacing);
-                            } else {
-                                ctx.fillText(awayTeamText, style.awayTeamName.x, style.awayTeamName.y);
-                            }
-                        }
+if (style.awayTeamName) {
+    const awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+    ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+    ctx.fillStyle = style.awayTeamName.color;
 
-                        // Disegna la data del match
-                        if (style.dateTime) {
-                            // Ottieni i componenti formattati della data
-                        const dateParts = getFormattedDateParts(
-                            adjustedDateObj,
-                            timeVersion.timeZoneAbbreviation,
-                            'en-GB',
-                            graphicName
-                        );
-                        
-                        // Prepara i testi da disegnare
-                        const dateText = `${dateParts.month} ${dateParts.day}`;
-                        const suffix = dateParts.ordinalSuffix;
-                        let timeText = ``;
+    if (style.awayTeamName.letterSpacing) {
+        const awayWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+        const startX = style.awayTeamName.x - awayWidth / 2;
+        ctx.textAlign = 'left';
+        drawTextWithLetterSpacing(ctx, awayTeamText, startX, style.awayTeamName.y, style.awayTeamName.letterSpacing);
+    } else {
+        ctx.textAlign = 'center';
+        ctx.fillText(awayTeamText, style.awayTeamName.x, style.awayTeamName.y);
+    }
+}
 
-                        if (championship == 'primavera') {
-                            timeText = ` | ${dateParts.time} ${timeVersion.timeZoneAbbreviation}`;
-                        } else {
-                            timeText = ` | ${dateParts.time}`;
-                        }
-                        
-                        // Imposta lo stile per il mese e il giorno
-                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                        ctx.fillStyle = style.dateTime.color;
-                        ctx.textAlign = 'left';
-                        ctx.textBaseline = 'alphabetic';
-                        
-                        // Calcola le metriche del testo del mese e del giorno
-                        const dateMetrics = ctx.measureText(dateText);
-                        const dateTextWidth = dateMetrics.width + 5;
-                        const dateAscent = dateMetrics.actualBoundingBoxAscent;
-                        
-                        // Calcola la posizione y per il testo in base alla baseline
-                        const y = style.dateTime.y + dateAscent;
-                        
-                        // Disegna il testo del mese e del giorno
-                        ctx.fillText(dateText, style.dateTime.x, y);
-                        
-                        // Imposta lo stile per il suffisso in small-caps e dimensione ridotta
-                        const suffixFontSize = style.dateTime.fontSize * 0.7;
-                        ctx.font = `${suffixFontSize}px ${style.dateTime.font}`;
-                        ctx.font = ctx.font.replace('normal', 'small-caps');
-                        
-                        // Calcola le metriche del suffisso
-                        const suffixMetrics = ctx.measureText(suffix);
-                        const suffixAscent = suffixMetrics.actualBoundingBoxAscent;
-                        
-                        // Calcola l'offset verticale per allineare il suffisso
-                        const suffixOffsetY = y;
-                        
-                        // Disegna il suffisso immediatamente dopo il giorno
-                        ctx.fillText(suffix, style.dateTime.x + dateTextWidth, suffixOffsetY);
-                        
-                        // Calcola la larghezza del suffisso
-                        const suffixWidth = suffixMetrics.width;
-                        
-                        // Ripristina lo stile del font per il testo successivo (ora)
-                        ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
-                        
-                        // Disegna il testo dell'ora dopo il suffisso
-                        ctx.fillText(timeText, style.dateTime.x + dateTextWidth + suffixWidth, y);
-                                                }
+// (opzionale) Ripristina l'allineamento di default se necessario
+ctx.textAlign = 'left';
 
-                        // Disegna il matchday
+
+                        // Disegna la data del match (stringa intera centrata)
+if (style.dateTime) {
+    const dateParts = getFormattedDateParts(
+        adjustedDateObj,
+        timeVersion.timeZoneAbbreviation,
+        'en-GB',
+        graphicName
+    );
+
+    const dateText = `${dateParts.month} ${dateParts.day}`;
+    timeText = ` | ${dateParts.time}`;
+
+    // eventuale stadium (vuoto se non presente)
+    const stadiumLocationValue = (style.stadiumLocation ? stadiumInput.value.trim() : '') || '';
+    const stadiumText = stadiumLocationValue ? ` | ${stadiumLocationValue}` : '';
+
+    // gap tra segmenti (come prima avevi +5)
+    const interSegmentGap = 5;
+
+    // Costruisci i segmenti con font/color appropriati
+    const segments = [];
+
+    // segmento data (month + day)
+    segments.push({
+        text: dateText,
+        font: `${style.dateTime.fontSize}px ${style.dateTime.font}`,
+        color: style.dateTime.color
+    });
+
+    // segmento time (usa lo stesso stile di dateTime)
+    segments.push({
+        text: timeText,
+        font: `${style.dateTime.fontSize}px ${style.dateTime.font}`,
+        color: style.dateTime.color
+    });
+
+    // segmento stadium (se presente usa style.stadiumLocation se definito)
+    if (stadiumText) {
+        const stadiumFontSize = style.stadiumLocation ? style.stadiumLocation.fontSize : style.dateTime.fontSize;
+        const stadiumFont = style.stadiumLocation ? style.stadiumLocation.font : style.dateTime.font;
+        const stadiumColor = style.stadiumLocation ? style.stadiumLocation.color : style.dateTime.color;
+
+        segments.push({
+            text: stadiumText,
+            font: `${stadiumFontSize}px ${stadiumFont}`,
+            color: stadiumColor
+        });
+    }
+
+    // misura tutti i segmenti e prendi anche il max ascent (per calcolare y uniforme)
+    let totalWidth = 0;
+    let maxAscent = 0;
+    const metricsArr = [];
+
+    for (let i = 0; i < segments.length; i++) {
+        const seg = segments[i];
+        ctx.font = seg.font;
+        // misura del testo
+        const m = ctx.measureText(seg.text);
+        metricsArr.push(m);
+        // larghezza del segmento
+        totalWidth += m.width;
+        // ascent massimo (per baseline)
+        if (m.actualBoundingBoxAscent && m.actualBoundingBoxAscent > maxAscent) {
+            maxAscent = m.actualBoundingBoxAscent;
+        }
+    }
+
+    // aggiungi gap tra segmenti
+    if (segments.length > 1) {
+        totalWidth += interSegmentGap * (segments.length - 1);
+    }
+
+    // calcola x di partenza per centrare l'intera stringa
+    const startX = style.dateTime.x - totalWidth / 2;
+
+    // calcola y basandoci sul maxAscent per allineare verticalmente
+    // se actualBoundingBoxAscent non disponibile, fallback a fontSize
+    const fallbackAscent = style.dateTime.fontSize || 0;
+    const ascentToUse = maxAscent || fallbackAscent;
+    const y = style.dateTime.y + ascentToUse;
+
+    // disegna i segmenti uno dopo l'altro, usando textAlign 'left'
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign = 'left';
+
+    let cursorX = startX;
+    for (let i = 0; i < segments.length; i++) {
+        const seg = segments[i];
+        ctx.font = seg.font;
+        ctx.fillStyle = seg.color;
+
+        // se vuoi fare small-caps per uno specifico segmento (es. suffix), qui è il posto per farlo.
+        // esempio:
+        // if (i === 1 && vuoiSmallCaps) ctx.font = ctx.font.replace('normal', 'small-caps');
+
+        ctx.fillText(seg.text, cursorX, y);
+
+        // avanza il cursore
+        // usa la misura già calcolata per evitare misure ripetute
+        const segWidth = metricsArr[i].width;
+        cursorX += segWidth + interSegmentGap;
+    }
+
+    // ripristina font e colore originali (opzionale)
+    ctx.font = `${style.dateTime.fontSize}px ${style.dateTime.font}`;
+    ctx.fillStyle = style.dateTime.color;
+}
+
+
                         if (style.matchDay) {
-                            const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                            const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
-                            ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
-                            ctx.fillStyle = style.matchDay.color;
-                            ctx.textAlign = 'left';
-                            if (style.matchDay.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, matchDayText, style.matchDay.x, style.matchDay.y, style.matchDay.letterSpacing);
-                            } else {
-                                ctx.fillText(matchDayText, style.matchDay.x, style.matchDay.y);
-                            }
-                        }
+    const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
+    const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
 
-                        // Disegna la posizione dello stadio
-                        if (style.stadiumLocation) {
-                            const stadiumLocationValue = stadiumInput.value.trim() || '';
-                            ctx.font = `${style.stadiumLocation.fontSize}px ${style.stadiumLocation.font}`;
-                            ctx.fillStyle = style.stadiumLocation.color;
-                            ctx.textAlign = 'left';
-                            if (style.stadiumLocation.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y, style.stadiumLocation.letterSpacing);
-                            } else {
-                                ctx.fillText(stadiumLocationValue, style.stadiumLocation.x, style.stadiumLocation.y);
-                            }
-                        }
+    // Imposto font/color prima di misurare
+    ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
+    ctx.fillStyle = style.matchDay.color;
+
+    // Calcolo il centro orizzontale del canvas
+    const centerX = canvas.width / 2;
+    const y = style.matchDay.y; // non modificare la disposizione verticale
+
+    // Funzione helper per disegnare testo con letter spacing, centrato rispetto a centerX
+    function drawTextWithLetterSpacingCentered(ctx, text, centerX, y, letterSpacing) {
+        // misuro larghezze dei singoli caratteri
+        const glyphWidths = [];
+        for (let i = 0; i < text.length; i++) {
+            glyphWidths.push(ctx.measureText(text[i]).width);
+        }
+        const totalGlyphsWidth = glyphWidths.reduce((a, b) => a + b, 0);
+        const gaps = Math.max(0, text.length - 1);
+        const totalWidth = totalGlyphsWidth + gaps * letterSpacing;
+
+        // calcolo la x di partenza (sinistra) in modo che il gruppo sia centrato su centerX
+        let x = centerX - totalWidth / 2;
+
+        // disegno carattere per carattere
+        for (let i = 0; i < text.length; i++) {
+            ctx.fillText(text[i], x, y);
+            x += glyphWidths[i] + letterSpacing;
+        }
+    }
+
+    // Se c'è letterSpacing usiamo la funzione dedicata (assumiamo valore in pixel)
+    if (style.matchDay.letterSpacing) {
+        // assicuriamoci che il testo venga disegnato con allineamento 'left' perché calcoliamo la x manualmente
+        ctx.textAlign = 'left';
+        drawTextWithLetterSpacingCentered(ctx, matchDayText, centerX, y, style.matchDay.letterSpacing);
+    } else {
+        // senza letter spacing: misuro la larghezza e disegno partendo da centerX - width/2
+        ctx.textAlign = 'left';
+        const textWidth = ctx.measureText(matchDayText).width;
+        const startX = centerX - textWidth / 2;
+        ctx.fillText(matchDayText, startX, y);
+    }
+}
 
                         // Disegna il logo del campionato se presente
                         if (style.championshipLogo) {
@@ -2820,7 +3175,115 @@ async function generatePreviews() {
                             awayScore = document.querySelector('.awayHalfScore') ? document.querySelector('.awayHalfScore').value.trim() : '0';
                         }
 
+                        
+
                         if (graphicName === 'kickoff') {
+
+// --- Preparazione testi e misure ---
+let homeTeamNameWidth = 0;
+let homeTeamText = '';
+if (style.homeTeamName) {
+  homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+  ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+  if (style.homeTeamName.letterSpacing) {
+    homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+  } else {
+    homeTeamNameWidth = ctx.measureText(homeTeamText).width;
+  }
+}
+
+let vsText = '';
+let vsTextWidth = 0;
+if (style.vsText) {
+  vsText = 'vs.';
+  ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+  ctx.textBaseline = 'middle';
+  if (style.vsText.letterSpacing) {
+    vsTextWidth = measureTextWithLetterSpacing(ctx, vsText, style.vsText.letterSpacing);
+  } else {
+    vsTextWidth = ctx.measureText(vsText).width;
+  }
+}
+
+let awayTeamNameWidth = 0;
+let awayTeamText = '';
+if (style.awayTeamName) {
+  awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+  ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+  if (style.awayTeamName.letterSpacing) {
+    awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+  } else {
+    awayTeamNameWidth = ctx.measureText(awayTeamText).width;
+  }
+}
+
+// --- Parametri di layout e fallback ---
+const defaultSpacing = (typeof style.spacing === 'number' && style.spacing >= 0) ? style.spacing : 8;
+
+// Anchor (destra) dell'away team: se non fornita, usiamo la destra del canvas con un piccolo padding
+const awayAnchorX = (typeof style.awayTeamName?.x === 'number') ? style.awayTeamName.x : (ctx.canvas?.width ? ctx.canvas.width - 10 : 0);
+// Y di riferimento: preferiamo lo y dell'away, altrimenti vs, altrimenti home, altrimenti 0
+const anchorY = (typeof style.awayTeamName?.y === 'number') ? style.awayTeamName.y
+                : (typeof style.vsText?.y === 'number') ? style.vsText.y
+                : (typeof style.homeTeamName?.y === 'number') ? style.homeTeamName.y
+                : 0;
+
+// Spacing personalizzabili (se definiti per ciascun elemento) altrimenti default
+const vsSpacing = (typeof style.vsText?.spacing === 'number') ? style.vsText.spacing : defaultSpacing;
+const homeSpacing = (typeof style.homeTeamName?.spacing === 'number') ? style.homeTeamName.spacing : defaultSpacing;
+
+// --- Calcoli delle X di partenza (usiamo sempre textAlign = 'left' per fillText / letter-spacing custom) ---
+// away deve terminare a awayAnchorX => awayStartX = awayAnchorX - awayWidth
+const awayStartX = awayAnchorX - awayTeamNameWidth;
+
+// vs va alla sinistra dell'away: vsStartX = awayStartX - vsSpacing - vsWidth
+const vsStartX = awayStartX - vsSpacing - vsTextWidth;
+
+// home va alla sinistra del "vs.": homeStartX = vsStartX - homeSpacing - homeWidth
+const homeStartX = vsStartX - homeSpacing - homeTeamNameWidth;
+
+// --- Disegno HOME (sinistra) ---
+if (style.homeTeamName) {
+  ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+  ctx.fillStyle = style.homeTeamName.color ?? '#000';
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  if (style.homeTeamName.letterSpacing) {
+    drawTextWithLetterSpacing(ctx, homeTeamText, homeStartX, anchorY, style.homeTeamName.letterSpacing);
+  } else {
+    ctx.fillText(homeTeamText, homeStartX, anchorY);
+  }
+}
+
+// --- Disegno "vs." (al centro tra home e away) ---
+if (style.vsText) {
+  ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+  ctx.fillStyle = style.vsText.color ?? '#000';
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  const vsY = (typeof style.vsText.y === 'number') ? style.vsText.y : anchorY;
+  if (style.vsText.letterSpacing) {
+    drawTextWithLetterSpacing(ctx, vsText, vsStartX, vsY, style.vsText.letterSpacing);
+  } else {
+    ctx.fillText(vsText, vsStartX, vsY);
+  }
+}
+
+// --- Disegno AWAY (destra) ---
+if (style.awayTeamName) {
+  ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+  ctx.fillStyle = style.awayTeamName.color ?? '#000';
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  if (style.awayTeamName.letterSpacing) {
+    drawTextWithLetterSpacing(ctx, awayTeamText, awayStartX, anchorY, style.awayTeamName.letterSpacing);
+  } else {
+    ctx.fillText(awayTeamText, awayStartX, anchorY);
+  }
+}
+
+
+                            
                             if (style.dateTime) {
                                     const dateParts = getFormattedDateParts(
                                         adjustedDateObj,
@@ -2929,6 +3392,121 @@ async function generatePreviews() {
                                 }
                                 ctx.drawImage(overlayImage, 0, 0, canvas.width, canvas.height);
                             }
+
+                            const combinedText = `${homeScore}-${awayScore}`;
+
+                        // Disegna il testo combinato
+                        ctx.font = `bold ${style.combinedScore.fontSize}px ${style.combinedScore.font}`;
+                        ctx.fillStyle = style.combinedScore.color;
+                        ctx.textAlign = style.combinedScore.textAlign;
+                        ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
+
+
+                            // --- Preparazione testi e misure ---
+let homeTeamNameWidth = 0;
+let homeTeamText = '';
+if (style.homeTeamName) {
+  homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+  ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+  if (style.homeTeamName.letterSpacing) {
+    homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
+  } else {
+    homeTeamNameWidth = ctx.measureText(homeTeamText).width;
+  }
+}
+
+let vsText = '';
+let vsTextWidth = 0;
+if (style.vsText) {
+  vsText = 'vs.';
+  ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+  ctx.textBaseline = 'middle';
+  if (style.vsText.letterSpacing) {
+    vsTextWidth = measureTextWithLetterSpacing(ctx, vsText, style.vsText.letterSpacing);
+  } else {
+    vsTextWidth = ctx.measureText(vsText).width;
+  }
+}
+
+let awayTeamNameWidth = 0;
+let awayTeamText = '';
+if (style.awayTeamName) {
+  awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+  ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+  if (style.awayTeamName.letterSpacing) {
+    awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
+  } else {
+    awayTeamNameWidth = ctx.measureText(awayTeamText).width;
+  }
+}
+
+// --- Parametri di layout e fallback ---
+const defaultSpacing = (typeof style.spacing === 'number' && style.spacing >= 0) ? style.spacing : 8;
+
+// Anchor (destra) dell'away team: se non fornita, usiamo la destra del canvas con un piccolo padding
+const awayAnchorX = (typeof style.awayTeamName?.x === 'number') ? style.awayTeamName.x : (ctx.canvas?.width ? ctx.canvas.width - 10 : 0);
+// Y di riferimento: preferiamo lo y dell'away, altrimenti vs, altrimenti home, altrimenti 0
+const anchorY = (typeof style.awayTeamName?.y === 'number') ? style.awayTeamName.y
+                : (typeof style.vsText?.y === 'number') ? style.vsText.y
+                : (typeof style.homeTeamName?.y === 'number') ? style.homeTeamName.y
+                : 0;
+
+// Spacing personalizzabili (se definiti per ciascun elemento) altrimenti default
+const vsSpacing = (typeof style.vsText?.spacing === 'number') ? style.vsText.spacing : defaultSpacing;
+const homeSpacing = (typeof style.homeTeamName?.spacing === 'number') ? style.homeTeamName.spacing : defaultSpacing;
+
+// --- Calcoli delle X di partenza (usiamo sempre textAlign = 'left' per fillText / letter-spacing custom) ---
+// away deve terminare a awayAnchorX => awayStartX = awayAnchorX - awayWidth
+const awayStartX = awayAnchorX - awayTeamNameWidth;
+
+// vs va alla sinistra dell'away: vsStartX = awayStartX - vsSpacing - vsWidth
+const vsStartX = awayStartX - vsSpacing - vsTextWidth;
+
+// home va alla sinistra del "vs.": homeStartX = vsStartX - homeSpacing - homeWidth
+const homeStartX = vsStartX - homeSpacing - homeTeamNameWidth;
+
+// --- Disegno HOME (sinistra) ---
+if (style.homeTeamName) {
+  ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
+  ctx.fillStyle = style.homeTeamName.color ?? '#000';
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  if (style.homeTeamName.letterSpacing) {
+    drawTextWithLetterSpacing(ctx, homeTeamText, homeStartX, anchorY, style.homeTeamName.letterSpacing);
+  } else {
+    ctx.fillText(homeTeamText, homeStartX, anchorY);
+  }
+}
+
+// --- Disegno "vs." (al centro tra home e away) ---
+if (style.vsText) {
+  ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
+  ctx.fillStyle = style.vsText.color ?? '#000';
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  const vsY = (typeof style.vsText.y === 'number') ? style.vsText.y : anchorY;
+  if (style.vsText.letterSpacing) {
+    drawTextWithLetterSpacing(ctx, vsText, vsStartX, vsY, style.vsText.letterSpacing);
+  } else {
+    ctx.fillText(vsText, vsStartX, vsY);
+  }
+}
+
+// --- Disegno AWAY (destra) ---
+if (style.awayTeamName) {
+  ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
+  ctx.fillStyle = style.awayTeamName.color ?? '#000';
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  if (style.awayTeamName.letterSpacing) {
+    drawTextWithLetterSpacing(ctx, awayTeamText, awayStartX, anchorY, style.awayTeamName.letterSpacing);
+  } else {
+    ctx.fillText(awayTeamText, awayStartX, anchorY);
+  }
+}
+
+                            
+
                         }
 
                         if (style.championshipLogo) {
@@ -2979,11 +3557,13 @@ async function generatePreviews() {
                             
                             ctx.shadowColor = 'transparent';
                         }
+                        
 
                         // Disegna il match day se necessario
                         if (style.matchDay) {
                             const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                            const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
+                            const matchDayRaw = matchDayValue === '0' ? 'PLAYOFF' : `Matchday ${matchDayValue}`;
+                            const matchDayText = championshipSelect.value === "women" ? `SERIE B: ${matchDayRaw}` : `${matchDayRaw}`;
                             ctx.font = `bold ${style.matchDay.fontSize}px ${style.matchDay.font}`;
                             ctx.fillStyle = style.matchDay.color;
                             ctx.textAlign = 'left';

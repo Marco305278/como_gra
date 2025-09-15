@@ -2,6 +2,13 @@
 
 /* Caricamento dei font personalizzati */
 @font-face {
+    font-family: 'DrukText-Mediumitalic-Trial';
+    src: url('fonts/DrukText-Mediumitalic-Trial.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'DrukText-Medium-Trial';
     src: url('fonts/DrukText-Medium-Trial.ttf') format('truetype');
     font-weight: normal;
@@ -32,6 +39,13 @@
 @font-face {
     font-family: 'bodoni-72-bold';
     src: url('fonts/bodoni-72-bold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'bodoni-72-book';
+    src: url('fonts/bodoni-72-book.ttf') format('truetype');
     font-weight: 800;
     font-style: normal;
 }
