@@ -57,7 +57,7 @@ const graphicStyles = {
             homeLogo: { x: 575, y: 205, width: 100, height: 100 },
             awayLogo: { x: 915, y: 205, width: 100, height: 100 },
             championshipLogo: null,
-            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
+            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
@@ -65,7 +65,7 @@ const graphicStyles = {
             homeLogo: { x: 575, y: 335, width: 100, height: 100 },
             awayLogo: { x: 900, y: 335, width: 100, height: 100 },
             championshipLogo: null,
-            combinedScore: { x: 785, y: 430, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
+            combinedScore: { x: 785, y: 430, fontSize: 125, color: 'white', font: 'bodoni-72-book', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
@@ -75,7 +75,7 @@ const graphicStyles = {
             homeLogo: { x: 575, y: 205, width: 100, height: 100 },
             awayLogo: { x: 915, y: 205, width: 100, height: 100 },
             championshipLogo: null,
-            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
+            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         },
@@ -83,7 +83,7 @@ const graphicStyles = {
             homeLogo: { x: 575, y: 335, width: 100, height: 100 },
             awayLogo: { x: 900, y: 335, width: 100, height: 100 },
             championshipLogo: null,
-            combinedScore: { x: 785, y: 430, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
+            combinedScore: { x: 785, y: 430, fontSize: 125, color: 'white', font: 'bodoni-72-book', letterSpacing: 0, textAlign: 'center' },
             dateTime: null,
             matchDay: null // Non richiesto per questa grafica
         }
@@ -91,14 +91,14 @@ const graphicStyles = {
     'kickoff': {
         'overlay_4x5': {
             homeTeamName: { x: 515, y: 1115 - 505, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
-            vsText: { y: 1695 - 495, fontSize: 48, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            vsText: { y: 1690 - 505, fontSize: 48, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             awayTeamName: { x: 715, y: 1690 - 505, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             matchDay: { x: 100, y: 940, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -2 },
             dateTime: null
         },
         'overlay_9x16': {
             homeTeamName: { x: 515, y: 1115, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
-            vsText: { y: 1695, fontSize: 36, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            vsText: { y: 1690, fontSize: 38, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             awayTeamName: { x: 715, y: 1690, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             matchDay: { x: 100, y: 1445, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -2 },
             dateTime: null
@@ -143,28 +143,28 @@ const graphicStyles = {
         'overlay_4x5': {
             //homeLogo: { x: 720, y: 50, width: 150, height: 150 },
             //awayLogo: { x: 720, y: 235, width: 150, height: 150 },
-            homeTeamName: { x: 515, y: 1115 - 505, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
-            vsText: { y: 1695 - 495, fontSize: 48, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
-            awayTeamName: { x: 715, y: 1690 - 505, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            homeTeamName: { x: 515, y: 1690 - 515, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            vsText: { y: 1693 - 515, fontSize: 30, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            awayTeamName: { x: 715, y: 1690 - 515, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             homeScore: null,
             awayScore: null,
-            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
+            combinedScore: { x: 540, y: 1560 - 515, fontSize: 240, color: 'white', font: 'bodoni-72-book', letterSpacing: 5, textAlign: 'center' },
             dateTime: null,
             matchDay: null,
-            playerName: { x: 70, y: 1250, fontSize: 130, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 }
+            playerName: { x: 540, y: 1625 - 515, fontSize: 90, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -5, textAlign: 'center' }
         },
         'overlay_9x16': {
             //homeLogo: { x: 720, y: 150, width: 150, height: 150 },
             //awayLogo: { x: 720, y: 335, width: 150, height: 150 },
             homeTeamName: { x: 515, y: 1115, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
-            vsText: { y: 1695, fontSize: 36, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
+            vsText: { y: 1693, fontSize: 36, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             awayTeamName: { x: 715, y: 1690, fontSize: 44, color: 'white', font: 'bodoni-72-book', letterSpacing: -3 },
             homeScore: null,
             awayScore: null,
-            combinedScore: { x: 785, y: 300, fontSize: 125, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0, textAlign: 'center' },
+            combinedScore: { x: 540, y: 1560, fontSize: 270, color: 'white', font: 'bodoni-72-book', letterSpacing: 5, textAlign: 'center' },
             dateTime: null,
             matchDay: null,
-            playerName: { x: 70, y: 1740, fontSize: 145, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 }
+            playerName: { x: 540, y: 1625, fontSize: 102, color: 'white', font: 'DrukText-Medium-Trial', letterSpacing: -5, textAlign: 'center' }
         }
     },
     'livematch': {
@@ -174,7 +174,7 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 150, y: 630, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
+            dateTime: { x: 281, y: 630, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
             matchDay: null // Non richiesto per questa grafica
         },
         'overlay_16x9': {
@@ -183,7 +183,27 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            dateTime: { x: 665, y: 660, fontSize: 34, color: 'white', font: 'MazzardH-Medium', letterSpacing: 8 },
+            dateTime: { x: 960, y: 660, fontSize: 34, color: 'white', font: 'MazzardH-Medium', letterSpacing: 8 },
+            matchDay: null // Non richiesto per questa grafica
+        }
+    },
+    'matchreplay': {
+        'overlay_5x8': {
+            homeLogo: { x: 180, y: 700, width: 105, height: 105 },
+            awayLogo: { x: 300, y: 700, width: 105, height: 105 },
+            championshipLogo: null,
+            homeScore: null,
+            awayScore: null,
+            dateTime: { x: 281, y: 630, fontSize: 17, color: 'white', font: 'MazzardH-Medium', letterSpacing: 3.8 },
+            matchDay: null // Non richiesto per questa grafica
+        },
+        'overlay_16x9': {
+            homeLogo: { x: 710, y: 790, width: 230, height: 230 },
+            awayLogo: { x: 980, y: 790, width: 230, height: 230 },
+            championshipLogo: null,
+            homeScore: null,
+            awayScore: null,
+            dateTime: { x: 960, y: 660, fontSize: 34, color: 'white', font: 'MazzardH-Medium', letterSpacing: 8 },
             matchDay: null // Non richiesto per questa grafica
         }
     },
@@ -216,7 +236,7 @@ const graphicStyles = {
             matchDay: { x: 80, y: 915, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: -2 },
             nextMatchTitle: null,
             homeTeamName: { x: 540, y: 1070, fontSize: 140, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 885, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            vsText: { x: null, y: 885, fontSize: 100, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             awayTeamName: { x: 540, y: 1185, fontSize: 140, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
             stadiumLocation: { x: 540, y: 1205, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         },
@@ -230,7 +250,7 @@ const graphicStyles = {
             matchDay: { x: 80, y: 900 + 180, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: -2 },
             nextMatchTitle: null,
             homeTeamName: { x: 540, y: 950 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             awayTeamName: { x: 540, y: 1120 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
             stadiumLocation: { x: 540, y: 1380 + 335, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         }
@@ -246,7 +266,7 @@ const graphicStyles = {
             matchDay: { x: 65, y: 770, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             nextMatchTitle: null,
             homeTeamName: { x: 540, y: 950, fontSize: 190, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 885, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            vsText: { x: null, y: 885, fontSize: 100, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             awayTeamName: { x: 540, y: 1105, fontSize: 190, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
             stadiumLocation: { x: 540, y: 1205, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         },
@@ -260,7 +280,7 @@ const graphicStyles = {
             matchDay: { x: 65, y: 700 + 390, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             nextMatchTitle: null,
             homeTeamName: { x: 540, y: 950 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
-            vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book-italic', letterSpacing: 0 },
+            vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             awayTeamName: { x: 540, y: 1120 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
             stadiumLocation: { x: 540, y: 1380 + 335, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         }
@@ -297,6 +317,7 @@ const graphicsFormats = {
     'startingxi': ['overlay_4x5', 'overlay_9x16'],
     'goal': ['overlay_4x5', 'overlay_9x16'],
     'livematch': ['overlay_5x8', 'overlay_16x9'],
+    'matchreplay': ['overlay_5x8', 'overlay_16x9'],
     'highlights': ['overlay_5x8', 'overlay_16x9'],
     'nextmatch': ['overlay_4x5', 'overlay_9x16'],
     'matchday': ['overlay_4x5', 'overlay_9x16'],
@@ -306,16 +327,16 @@ const graphicsFormats = {
 };
 
 // Definizione delle grafiche che richiedono l'uso dei loghi delle squadre
-const graphicsWithLogos = ['livematch', 'highlights', 'halftime', 'fulltime', 'goal', 'kickoff', 'kickoffworld', 'week'];
-const graphicsRequireDateTime = ['kickoff', 'matchday', 'nextmatch', 'livematch', 'kickoffworld', 'week'];
+const graphicsWithLogos = ['livematch',  'matchreplay', 'highlights', 'kickoffworld', 'week'];
+const graphicsRequireDateTime = ['matchday', 'nextmatch', 'livematch', 'matchreplay', 'kickoffworld', 'week'];
 const graphicsRequireMatchDay = ['matchday', 'nextmatch', 'kickoff'];
 const graphicsRequireStadiumLocation = ['nextmatch', 'matchday'];
-const graphicsWithChampionshipLogo = ['nextmatch', 'matchday'];
 
 let isHomeFixed2 = true;
 let isHomeFixed = true;
 
 let isActiveLiveMatch = false;
+let isActiveMatchReplay = false;
 let isWeekSection = true;
 
 let customPlayer = false;
@@ -931,7 +952,6 @@ function updateGraphicsOptions() {
                 case 'week':
 
                     if (!isActiveLiveMatch) {
-                        console.log('UAHSOIDJAOIJFOIAJDOIFJ jsndoajnsdnaosnd')
                         if (isHomeFixed) {
                             syncLiveMatchOnFireBase(championshipSelect, championshipSelect2, awayTeamSelect, awayTeamSelect2, matchDateInput, matchDateInput2, matchTimeInput, matchTimeInput2)
                         } else {
@@ -1522,7 +1542,7 @@ function getFilenameForCanvas(canvas) {
 
     let filename = '';
 
-    if (graphicName === 'livematch' || graphicName === 'highlights') {
+    if (graphicName === 'livematch' || graphicName === 'matchreplay' || graphicName === 'highlights') {
         if (format === '5x8') {
             filename = `V_${capitalizeFirstLetter(graphicName)}_${homeTeamName} vs ${awayTeamName}_${day}.jpg`;
         } else {
@@ -1537,26 +1557,32 @@ function getFilenameForCanvas(canvas) {
     return filename;
 }
 
+function formatDate(
+    dateObj,
+    timeZoneAbbreviation = 'CET',
+    locale = 'en-GB',
+    graphicName = ''
+) {
+    // Mappa mesi → 3 lettere
+    const monthNames = [
+        'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+        'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+    ];
 
-function formatDate(dateObj, timeZoneAbbreviation = 'CET', locale = 'en-GB', graphicName = '') {
-    const formatter = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric' });
-    const parts = formatter.formatToParts(dateObj);
+    const month = monthNames[dateObj.getMonth()]; // 0 = Jan, 11 = Dec
+    const day = dateObj.getDate();
 
-    let month = '';
-    let day = 0;
-
-    parts.forEach(part => {
-        if (part.type === 'month') {
-            month = part.value.toUpperCase();
-        }
-        if (part.type === 'day') {
-            day = parseInt(part.value, 10);
-        }
+    const formattedTime = dateObj.toLocaleTimeString(locale, {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
     });
-    const formattedTime = dateObj.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
+
+    if (graphicName === 'matchreplay') { return `${month} ${day}`; }
 
     return `${month} ${day} | ${formattedTime} ${timeZoneAbbreviation}`;
 }
+
 
 
 // Funzione modificata per ottenere i componenti formattati della data
@@ -1653,15 +1679,40 @@ function drawImageCover(ctx, img, canvasWidth, canvasHeight, graphicName = '', o
 /**
  * Funzione per disegnare testo con letter-spacing personalizzato
  */
-function drawTextWithLetterSpacing(ctx, text, x, y, letterSpacing) {
-    const characters = text.split('');
-    let currentX = x;
+function drawTextWithLetterSpacing(ctx, text, x, y, letterSpacing = 0) {
+    if (!text) return;
 
-    characters.forEach(char => {
-        ctx.fillText(char, currentX, y);
-        const metrics = ctx.measureText(char);
-        currentX += metrics.width + letterSpacing;
-    });
+    // Converti in array di "grapheme" semplice (spread va bene per la maggior parte dei casi)
+    const chars = Array.from(text);
+
+    // Calcola larghezze carattere per carattere
+    const charWidths = chars.map(ch => ctx.measureText(ch).width);
+    let totalWidth = charWidths.reduce((sum, w) => sum + w, 0);
+
+    if (chars.length > 1) {
+        totalWidth += letterSpacing * (chars.length - 1);
+    }
+
+    // Determina punto di partenza in base a ctx.textAlign
+    const originalAlign = ctx.textAlign || 'left';
+    let startX = x;
+    if (originalAlign === 'center') {
+        startX = x - totalWidth / 2;
+    } else if (originalAlign === 'right' || originalAlign === 'end') {
+        startX = x - totalWidth;
+    } // left => startX = x
+
+    // Disegna carattere per carattere: usa textAlign = 'left' per posizione precisa
+    ctx.textAlign = 'left';
+    let currX = startX;
+    for (let i = 0; i < chars.length; i++) {
+        const ch = chars[i];
+        ctx.fillText(ch, currX, y);
+        currX += charWidths[i] + letterSpacing;
+    }
+
+    // Ripristina l'allineamento originale
+    ctx.textAlign = originalAlign;
 }
 
 /**
@@ -1686,7 +1737,7 @@ function measureTextWithLetterSpacing(ctx, text, letterSpacing) {
  */
 function getTeamDisplayName(teamValue) {
     const team = currentTeams.find(t => t.value === teamValue);
-    return team ? team.text : teamValue;
+    return team ? team.text : teamValue[0].toUpperCase() + teamValue.slice(1);
 }
 
 function drawThreeLineRightAlignedText(ctx, text, maxWidth, x, y, lineHeight) {
@@ -2074,14 +2125,14 @@ async function generatePreviews() {
             const bgY = bgYInput ? parseFloat(bgYInput.value) || 0 : 0;
             const bgScale = bgSInput ? parseFloat(bgSInput.value) || 1 : 1;
 
-            // Determina se generare entrambe le versioni
+            // TIMEZONE Determina se generare entrambe le versioni
             let timeVersions = [{ timeOffsetHours: 0, timeZoneAbbreviation: 'CEST' }];
 
-            if (['nextmatch', 'matchday', 'kickoff'].includes(graphicName)) {
-                if (championshipSelect.value == 'primavera') {
-                    timeVersions.push({ timeOffsetHours: 5, timeZoneAbbreviation: 'WIB' });
-                }
-            }
+            //if (['nextmatch', 'matchday', 'kickoff'].includes(graphicName)) {
+            //    if (championshipSelect.value == 'primavera') {
+            //        timeVersions.push({ timeOffsetHours: 5, timeZoneAbbreviation: 'WIB' });
+            //    }
+            //}
 
             for (const timeVersion of timeVersions) {
 
@@ -2170,7 +2221,7 @@ async function generatePreviews() {
                         const combinedText = `${homeScore}-${awayScore}`;
 
                         // Disegna il testo combinato
-                        ctx.font = `bold ${style.combinedScore.fontSize}px ${style.combinedScore.font}`;
+                        ctx.font = `italic ${style.combinedScore.fontSize}px ${style.combinedScore.font}`;
                         ctx.fillStyle = style.combinedScore.color;
                         ctx.textAlign = style.combinedScore.textAlign;
                         ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
@@ -3335,7 +3386,7 @@ if (style.awayTeamName) {
                                 const dateText = formatDate(adjustedDateObj, timeVersion.timeZoneAbbreviation, 'en-GB', graphicName);
                                 ctx.font = `bold ${style.dateTime.fontSize}px ${style.dateTime.font}`;
                                 ctx.fillStyle = style.dateTime.color;
-                                ctx.textAlign = 'left';
+                                ctx.textAlign = 'center';
                                 if (style.dateTime.letterSpacing) {
                                     ctx.textBaseline = 'top';
                                     drawTextWithLetterSpacing(ctx, dateText, style.dateTime.x, style.dateTime.y, style.dateTime.letterSpacing);
@@ -3350,14 +3401,14 @@ if (style.awayTeamName) {
                             const combinedText = `${homeScore}-${awayScore}`;
 
                             // Disegna il testo combinato
-                            ctx.font = `bold ${style.combinedScore.fontSize}px ${style.combinedScore.font}`;
+                            ctx.font = `italic ${style.combinedScore.fontSize}px ${style.combinedScore.font}`;
                             ctx.fillStyle = style.combinedScore.color;
                             ctx.textAlign = style.combinedScore.textAlign;
                             ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
                         } else {
                             // Disegna i punteggi
                             if (style.homeScore && style.awayScore) {
-                                ctx.font = `bold ${style.homeScore.fontSize}px ${style.homeScore.font}`;
+                                ctx.font = `italic ${style.homeScore.fontSize}px ${style.homeScore.font}`;
                                 ctx.fillStyle = style.homeScore.color;
                                 ctx.textAlign = 'left';
                                 if (style.homeScore.letterSpacing) {
@@ -3366,7 +3417,7 @@ if (style.awayTeamName) {
                                     ctx.fillText(homeScore, style.homeScore.x, style.homeScore.y);
                                 }
 
-                                ctx.font = `bold ${style.awayScore.fontSize}px ${style.awayScore.font}`;
+                                ctx.font = `italic ${style.awayScore.fontSize}px ${style.awayScore.font}`;
                                 ctx.fillStyle = style.awayScore.color;
                                 ctx.textAlign = 'left';
                                 if (style.awayScore.letterSpacing) {
@@ -3396,17 +3447,17 @@ if (style.awayTeamName) {
                             const combinedText = `${homeScore}-${awayScore}`;
 
                         // Disegna il testo combinato
-                        ctx.font = `bold ${style.combinedScore.fontSize}px ${style.combinedScore.font}`;
+                        ctx.font = `italic ${style.combinedScore.fontSize}px ${style.combinedScore.font}`;
                         ctx.fillStyle = style.combinedScore.color;
                         ctx.textAlign = style.combinedScore.textAlign;
                         ctx.fillText(combinedText, style.combinedScore.x, style.combinedScore.y);
 
 
-                            // --- Preparazione testi e misure ---
+// --- Preparazione testi e misure ---
 let homeTeamNameWidth = 0;
 let homeTeamText = '';
 if (style.homeTeamName) {
-  homeTeamText = getTeamDisplayName(homeTeamSelect.value).toUpperCase();
+  homeTeamText = getTeamDisplayName(homeTeamSelect.value);
   ctx.font = `${style.homeTeamName.fontSize}px ${style.homeTeamName.font}`;
   if (style.homeTeamName.letterSpacing) {
     homeTeamNameWidth = measureTextWithLetterSpacing(ctx, homeTeamText, style.homeTeamName.letterSpacing);
@@ -3431,7 +3482,7 @@ if (style.vsText) {
 let awayTeamNameWidth = 0;
 let awayTeamText = '';
 if (style.awayTeamName) {
-  awayTeamText = getTeamDisplayName(awayTeamSelect.value).toUpperCase();
+  awayTeamText = getTeamDisplayName(awayTeamSelect.value);
   ctx.font = `${style.awayTeamName.fontSize}px ${style.awayTeamName.font}`;
   if (style.awayTeamName.letterSpacing) {
     awayTeamNameWidth = measureTextWithLetterSpacing(ctx, awayTeamText, style.awayTeamName.letterSpacing);
@@ -3443,27 +3494,27 @@ if (style.awayTeamName) {
 // --- Parametri di layout e fallback ---
 const defaultSpacing = (typeof style.spacing === 'number' && style.spacing >= 0) ? style.spacing : 8;
 
-// Anchor (destra) dell'away team: se non fornita, usiamo la destra del canvas con un piccolo padding
-const awayAnchorX = (typeof style.awayTeamName?.x === 'number') ? style.awayTeamName.x : (ctx.canvas?.width ? ctx.canvas.width - 10 : 0);
-// Y di riferimento: preferiamo lo y dell'away, altrimenti vs, altrimenti home, altrimenti 0
-const anchorY = (typeof style.awayTeamName?.y === 'number') ? style.awayTeamName.y
-                : (typeof style.vsText?.y === 'number') ? style.vsText.y
-                : (typeof style.homeTeamName?.y === 'number') ? style.homeTeamName.y
-                : 0;
-
 // Spacing personalizzabili (se definiti per ciascun elemento) altrimenti default
 const vsSpacing = (typeof style.vsText?.spacing === 'number') ? style.vsText.spacing : defaultSpacing;
 const homeSpacing = (typeof style.homeTeamName?.spacing === 'number') ? style.homeTeamName.spacing : defaultSpacing;
 
+// --- Calcolo larghezza totale del blocco testo (home + spacing + vs + spacing + away) ---
+const totalWidth = homeTeamNameWidth + homeSpacing + vsTextWidth + vsSpacing + awayTeamNameWidth;
+
+// --- Start X: centro orizzontale della canvas -> startX = (canvas.width - totalWidth) / 2 ---
+const canvasWidth = (ctx.canvas && typeof ctx.canvas.width === 'number') ? ctx.canvas.width : 0;
+const startX = canvasWidth ? Math.round((canvasWidth - totalWidth) / 2) : 0;
+
 // --- Calcoli delle X di partenza (usiamo sempre textAlign = 'left' per fillText / letter-spacing custom) ---
-// away deve terminare a awayAnchorX => awayStartX = awayAnchorX - awayWidth
-const awayStartX = awayAnchorX - awayTeamNameWidth;
+const homeStartX = startX;
+const vsStartX = homeStartX + homeTeamNameWidth + homeSpacing;
+const awayStartX = vsStartX + vsTextWidth + vsSpacing;
 
-// vs va alla sinistra dell'away: vsStartX = awayStartX - vsSpacing - vsWidth
-const vsStartX = awayStartX - vsSpacing - vsTextWidth;
-
-// home va alla sinistra del "vs.": homeStartX = vsStartX - homeSpacing - homeWidth
-const homeStartX = vsStartX - homeSpacing - homeTeamNameWidth;
+// --- Y di riferimento: preferiamo lo y dell'away, altrimenti vs, altrimenti home, altrimenti centro verticale della canvas, altrimenti 0 ---
+const anchorY = (typeof style.awayTeamName?.y === 'number') ? style.awayTeamName.y
+                : (typeof style.vsText?.y === 'number') ? style.vsText.y
+                : (typeof style.homeTeamName?.y === 'number') ? style.homeTeamName.y
+                : ((ctx.canvas && typeof ctx.canvas.height === 'number') ? ctx.canvas.height / 2 : 0);
 
 // --- Disegno HOME (sinistra) ---
 if (style.homeTeamName) {
@@ -3478,7 +3529,7 @@ if (style.homeTeamName) {
   }
 }
 
-// --- Disegno "vs." (al centro tra home e away) ---
+// --- Disegno "vs." (al centro del blocco tra home e away) ---
 if (style.vsText) {
   ctx.font = `${style.vsText.fontSize}px ${style.vsText.font}`;
   ctx.fillStyle = style.vsText.color ?? '#000';
@@ -3505,6 +3556,7 @@ if (style.awayTeamName) {
   }
 }
 
+
                             
 
                         }
@@ -3519,45 +3571,40 @@ if (style.awayTeamName) {
 
                         if (style.playerName) {
                             let playerName = ''; // Dichiarazione variabile fuori dagli scope condizionali
-                        
+
                             if (customPlayer) {
-                                // Recupera il nome del giocatore da un input testuale
                                 const playerInput = document.getElementById('goalPlayerInput');
                                 playerName = playerInput ? playerInput.value.trim() : '';
                             } else {
-                                // Recupera il nome del giocatore dal select
                                 const playerSelect = document.getElementById('goalPlayerSelect');
                                 if (playerSelect) {
                                     const selectedValue = playerSelect.value;
                                     const selectedPlayer = currentPlayers.find(p => p.value === selectedValue);
-                        
+
                                     if (selectedPlayer) {
-                                        playerName = selectedPlayer.text;
+                                        playerName = selectedPlayer.text.toUpperCase();
                                     } else {
                                         console.warn(`Giocatore con valore "${selectedValue}" non trovato nell'array corrente.`);
                                     }
                                 }
                             }
-                        
-                            // Puoi ora usare `playerName` come richiesto
-                            
+
                             ctx.font = `${style.playerName.fontSize}px ${style.playerName.font}`;
                             ctx.fillStyle = style.playerName.color;
-                            ctx.textAlign = 'left';
-                            ctx.shadowColor = 'rgba(0, 0, 0, 0.58)';
-                            ctx.shadowBlur = 8;
-                            ctx.shadowOffsetX = 2;
-                            ctx.shadowOffsetY = 2;
-                            
+                            ctx.textAlign = 'center';    // Punto di riferimento orizzontale
+                            ctx.textBaseline = 'middle'; // Punto di riferimento verticale
+
+                            const centerX = canvas.width / 2;
+
                             if (style.playerName.letterSpacing) {
-                                drawTextWithLetterSpacing(ctx, playerName, style.playerName.x, style.playerName.y, style.playerName.letterSpacing);
+                                drawTextWithLetterSpacing(ctx, playerName, centerX, style.playerName.y, style.playerName.letterSpacing);
                             } else {
-                                ctx.fillText(playerName, style.playerName.x, style.playerName.y);
+                                ctx.fillText(playerName, centerX, style.playerName.y);
                             }
-                            
+
                             ctx.shadowColor = 'transparent';
                         }
-                        
+
 
                         // Disegna il match day se necessario
                         if (style.matchDay) {
@@ -3576,7 +3623,7 @@ if (style.awayTeamName) {
                     }
 
                     // **Inizio Modifica Livematch: Aggiunta del Titolo**
-                    if (graphicName === 'livematch') {
+                    if (graphicName === 'livematch' || graphicName === 'matchreplay') {
                         const formatSuffix = overlayName.replace('overlay_', ''); // Es: '5x8' da 'overlay_5x8'
                         const championship = championshipSelect.value; // Es: 'primavera' o 'women'
                         const titleImageSrc = `images/graphics/livematch/title/${championship}_${formatSuffix}.png`;
@@ -3589,7 +3636,6 @@ if (style.awayTeamName) {
                             ctx.drawImage(titleImage, titleX, 0, titleImage.width, titleImage.height);
                         }
                     }
-                    // **Fine Modifica Livematch**
 
                     // Imposta gli attributi data-* sul canvas per uso futuro
                     canvas.dataset.timeZoneAbbreviation = timeVersion.timeZoneAbbreviation || '';
