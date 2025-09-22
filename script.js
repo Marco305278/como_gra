@@ -4128,6 +4128,11 @@ function addAutoUpdateListeners() {
         generatePreviews();
     });
 
+    academyResultInput.addEventListener('input', (e) => {
+        e.preventDefault();
+        generatePreviews();
+    });
+
     // Event listener per l'input del matchday
     const matchDayInput = document.getElementById('matchDay');
     if (matchDayInput) {
