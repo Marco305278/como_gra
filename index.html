@@ -81,7 +81,7 @@ marco305278.github.io/como_gra
             <h4>Graphics</h4>
             <a href="#" onclick="reloadAndClick()"><div><img src="images/assets/logo.png" alt="Logo" width="64" class="logo"><h1>Como 1907</h1></div></a>
         </div>
-        <p style="font-size: 0.1px; opacity: 0; line-height: 0; cursor: none;"><b style="font-family: 'DrukText-Medium-Trial';">a</b><b style="font-family: 'MazzardH-Medium';">a</b><b style="font-family: 'MazzardH-Light';">a</b><b style="font-family: 'bodoni-72-book-italic';">a</b><b style="font-family: 'bodoni-72-bold';">a</b><b style="font-family: 'Saturday-Lovin';">a</b></p>
+        <p style="font-size: 0.1px; opacity: 0; line-height: 0; cursor: none;"><b style="font-family: 'DrukText-Medium-Trial';">a</b><b style="font-family: 'MazzardH-Medium';">a</b><b style="font-family: 'Nexa-Regular';">a</b><b style="font-family: 'Nexa-Heavy';">a</b><b style="font-family: 'DrukText-Mediumitalic-Trial';">a</b><b style="font-family: 'MazzardH-Light';">a</b><b style="font-family: 'bodoni-72-book-italic';">a</b><b style="font-family: 'bodoni-72-bold';">a</b><b style="font-family: 'Saturday-Lovin';">a</b></p>
 
         <div class="container">
             <!-- Sezione Selezione Base -->
@@ -119,6 +119,9 @@ marco305278.github.io/como_gra
 
                     <input type="checkbox" id="matchreplay" name="graphic" value="matchreplay">
                     <label for="matchreplay">Match Replay</label>
+
+                    <input type="checkbox" checked id="academyresult" name="graphic" value="academyresult">
+                    <label for="academyresult">Academy Result</label>
                     
                     <input type="checkbox" id="highlights" name="graphic" value="highlights">
                     <label for="highlights">Highlights</label>
@@ -215,15 +218,6 @@ marco305278.github.io/como_gra
                     </div>
                 </div>
 
-
-
-
-
-
-
-
-
-
                     <!-- Selezione del Campionato -->
                      <div id="weekgraphics">
                         
@@ -302,8 +296,22 @@ marco305278.github.io/como_gra
 
 
 
-
-
+                <!-- Sezione AcademyResult (Inizialmente Nascosta) -->
+                <div id="academyResultSection" class="academyresultcol">
+                    <div style="width: 100%;">
+                        <label for="academyResult">ACADEMY RESULT</label>
+                        <textarea type="text" id="academyResult" class="input" " required style="width: 100%; resize: vertical; font-size: 22px; min-height: 180px; max-height: 500px; height: 320px;">
+U19-SERIA A/B | 21.12 | Venezia  0 - 4  Como 1907
+U16-SERIA A/B | 22.12 | Monza   0 - 3  Como 1907
+U15-SERIA A/B | 22.12 | Monza  1 - 1  Como 1907
+--
+U19-JUNIORES | 21.12 | Sederiano  0 - 9  Como 1907
+U17-ALLIEVE | 22.12 | Como 1907  1 - 2  Cremonese
+U15-GIOVANISSIME | 21.12 | Como 1907  11 - 1  Arsaghese
+U13-ESORDIENTI | 21.12 | Tabiago  2 - 4  Como 1907
+U11-PULCINE | 20.12 | Arsaghese  2 - 3  Como 1907</textarea>
+                    </div>
+                </div>
 
 
 

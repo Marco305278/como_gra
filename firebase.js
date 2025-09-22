@@ -41,6 +41,21 @@ const firebaseConfig = {
       });
       generatePreviews()
   }
+
+  function saveAcademyResultOnFireBase(championship, number) {
+    database.ref(`${championship}/acd_res/`).set(number)
+  }
+  
+  function syncAcademyResultOnFireBase(championship, input) {
+    database.ref(`${championship}/acd_res`)
+      .on('value', (snapshot) => {
+        const acdres = snapshot.val();
+        if (acdres) {
+          input.value = acdres;
+        }
+      });
+      generatePreviews()
+  }
   
   function saveDateOnFireBase(championship, date) {
     database.ref(`${championship}/date`).set(date)

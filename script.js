@@ -14,10 +14,12 @@ const matchDateInput = document.getElementById('matchDate');
 const matchTimeInput = document.getElementById('matchTime');
 const dateTimeSection = document.getElementById('dateTimeSection');
 const matchDaySection = document.getElementById('matchDaySection');
+const academyResultSection = document.getElementById('academyResultSection');
 const uploadContainer = document.querySelector('.upload-background-section .upload-container');
 const stadiumLocationSection = document.getElementById('stadiumLocationSection');
 const stadiumInput = document.getElementById('stadium');
 const matchDayInput = document.getElementById('matchDay');
+const academyResultInput = document.getElementById('academyResult');
 const decreaseButton = document.getElementById('decrease');
 const increaseButton = document.getElementById('increase');
 const halftimeCheckbox = document.getElementById('customHalfOverlay');
@@ -285,6 +287,38 @@ const graphicStyles = {
             stadiumLocation: { x: 540, y: 1380 + 335, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
         }
     },
+    'academyresult': {
+        'overlay_4x5': {
+            homeLogo: null,
+            awayLogo: null,
+            championshipLogo: null,
+            homeScore: null,
+            awayScore: null,
+            academyResult: { y: 550 },
+            dateTime: { x: 540, y: 1140, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            matchDay: { x: 65, y: 770, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            nextMatchTitle: null,
+            homeTeamName: { x: 540, y: 950, fontSize: 190, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            vsText: { x: null, y: 885, fontSize: 100, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            awayTeamName: { x: 540, y: 1105, fontSize: 190, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 540, y: 1205, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
+        },
+        'overlay_9x16': {
+            homeLogo: null,
+            awayLogo: null,
+            championshipLogo: null,
+            homeScore: null,
+            awayScore: null,
+            academyResult: { y: 765 },
+            dateTime: { x: 540, y: 1105 + 390, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            matchDay: { x: 65, y: 700 + 390, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            nextMatchTitle: null,
+            homeTeamName: { x: 540, y: 950 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            vsText: { x: null, y: 970 + 390, fontSize: 100, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
+            awayTeamName: { x: 540, y: 1120 + 330, fontSize: 210, color: 'white', font: 'DrukText-Mediumitalic-Trial', letterSpacing: -10 },
+            stadiumLocation: { x: 540, y: 1380 + 335, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 2 }
+        }
+    },
     'week': {
         'overlay_4x5': {},
         'overlay_9x16': {}
@@ -321,6 +355,7 @@ const graphicsFormats = {
     'highlights': ['overlay_5x8', 'overlay_16x9'],
     'nextmatch': ['overlay_4x5', 'overlay_9x16'],
     'matchday': ['overlay_4x5', 'overlay_9x16'],
+    'academyresult': ['overlay_4x5', 'overlay_9x16'],
     'week': ['overlay_4x5', 'overlay_9x16'],
     'tickets': ['overlay_4x5'],
     'insta' : ['overlay_9x16']
@@ -331,6 +366,7 @@ const graphicsWithLogos = ['livematch',  'matchreplay', 'highlights', 'kickoffwo
 const graphicsRequireDateTime = ['matchday', 'nextmatch', 'livematch', 'matchreplay', 'kickoffworld', 'week'];
 const graphicsRequireMatchDay = ['matchday', 'nextmatch', 'kickoff'];
 const graphicsRequireStadiumLocation = ['nextmatch', 'matchday'];
+const graphicsRequireAcademyResult = ['academyresult'];
 
 let isHomeFixed2 = true;
 let isHomeFixed = true;
@@ -3073,6 +3109,14 @@ if (style.dateTime) {
                         }
                         }
 
+                    
+                    } else if (graphicName === 'academyresult') {
+                        // !ACADEMYRESULT
+                            const academyResultValue = document.getElementById('academyResult').value.trim() || '';
+
+                            renderAcademyResults(ctx, style, academyResultValue)
+
+                        
                     } else if (graphicName === 'insta') {
                         // !INSTA
                         const rectWidth = 943.5;
@@ -3987,6 +4031,7 @@ function addAutoUpdateListeners() {
         updateGraphicsOptions();
         toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
         toggleMatchDaySection();
+        toggleAcademyResultSection();
         toggleStadiumLocationSection();
         generatePreviews();
     });
@@ -3997,6 +4042,7 @@ function addAutoUpdateListeners() {
         updateGraphicsOptions();
         toggleDateTimeSection(); // Mostra/nasconde la sezione Data e Ora
         toggleMatchDaySection();
+        toggleAcademyResultSection();
         toggleStadiumLocationSection();
         generatePreviews();
     });
@@ -4022,6 +4068,7 @@ function addAutoUpdateListeners() {
             updateGraphicsOptions();
             toggleDateTimeSection();
             toggleMatchDaySection();
+            toggleAcademyResultSection();
             toggleStadiumLocationSection();
             handleGraphicsChange(); // Chiamata a handleGraphicsChange
             updateImagesHeaderVisibility(); // Aggiungi questa linea
@@ -4129,6 +4176,23 @@ function toggleMatchDaySection() {
     
 }
 
+function toggleAcademyResultSection() {
+    const selectedGraphics = Array.from(graphicCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+    const requiresAcademyResult = selectedGraphics.some(graphic => graphicsRequireAcademyResult.includes(graphic));
+
+    if (requiresAcademyResult) {
+        //syncAcademyResultOnFireBase(championshipSelect.value, academyInput)
+        academyResultSection.style.display = 'flex';
+    } else {
+        academyResultSection.style.display = 'none';
+    }
+
+    
+}
+
 function toggleStadiumLocationSection() {
     const selectedGraphics = Array.from(graphicCheckboxes)
         .filter(cb => cb.checked)
@@ -4150,6 +4214,7 @@ function initializeTeams() {
     updateGraphicsOptions();
     toggleDateTimeSection();
     toggleMatchDaySection();
+    toggleAcademyResultSection();
     toggleStadiumLocationSection();
 }
 
@@ -4403,3 +4468,203 @@ async function initialize() {
 
 // Assicurati di avere una sola definizione della funzione initialize
 document.addEventListener('DOMContentLoaded', initialize);
+
+
+
+
+
+
+
+/**
+ * Disegna o misura testo su canvas con supporto per letterSpacing.
+ * Ritorna la larghezza (px) occupata dal testo.
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {string} text
+ * @param {number} x - posizione left (usata solo se draw===true)
+ * @param {number} y - posizione top (usata solo se draw===true)
+ * @param {string} fontFamily
+ * @param {number} fontSize
+ * @param {number|null} letterSpacing - se null/0 disegno normale
+ * @param {boolean} draw - se false solo misura, se true misura e disegna
+ * @returns {number} width in px
+ */
+function drawText(ctx, text, x, y, fontFamily, fontSize, letterSpacing = 0, draw = true) {
+  if (text == null) text = '';
+  ctx.font = `${fontSize}px ${fontFamily}`;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+
+  // misura considerando letterSpacing
+  let width = 0;
+  if (!letterSpacing) {
+    width = ctx.measureText(text).width;
+    if (draw) ctx.fillText(text, x, y);
+    return width;
+  }
+
+  // con letterSpacing: somma larghezze carattere per carattere
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const w = ctx.measureText(ch).width;
+    width += w;
+    if (i < text.length - 1) width += letterSpacing;
+  }
+
+  // disegno carattere per carattere se richiesto
+  if (draw) {
+    let curX = x;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      ctx.fillText(ch, curX, y);
+      curX += ctx.measureText(ch).width + letterSpacing;
+    }
+  }
+
+  return width;
+}
+
+/**
+ * Render completo dei risultati "academy".
+ * - Allinea tutto a sinistra.
+ * - Usa drawText per disegno + misura (gestisce letterSpacing).
+ * - Cambia sezione su riga "--".
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {object} style - oggetto style con sotto-oggetto academyResult
+ * @param {string} value - testo grezzo multilinea
+ */
+function renderAcademyResults(ctx, style = {}, value = '') {
+  const s = (style && style.academyResult) || {};
+
+  // fallback configurazioni
+  const cfg = {
+    startX: s.x ?? 70,
+    startY: s.y ?? 550,
+    color: s.color ?? '#fff',
+    // font family / sizes (fallback se non presenti)
+    titleFont: s.titleFont ?? s.font ?? 'DrukText-Medium-Trial',
+    titleFontSize: s.titleFontSize ?? 73,
+    codeFont: s.codeFont ?? 'Nexa-Heavy',
+    codeFontSize: s.codeFontSize ?? 34,
+    restFont: s.font ?? 'Nexa-Regular',
+    restFontSize: s.fontSize ?? 34,
+
+    codeGap: s.codeGap ?? 22,
+    lineGap: s.lineGap ?? 8,
+    sectionExtraGap: s.sectionExtraGap ?? 18,
+    // letter spacing: valori separati per ciascun font con fallback gerarchico
+    letterSpacing: s.letterSpacing ?? -5, // fallback generale
+    titleLetterSpacing: (s.titleLetterSpacing ?? s.letterSpacing) ?? -5,
+    codeLetterSpacing: (s.codeLetterSpacing ?? s.letterSpacing) ?? -1,
+    restLetterSpacing: (s.restLetterSpacing ?? s.letterSpacing) ?? -1
+  };
+
+  // impostazioni canvas
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'left';
+  ctx.fillStyle = cfg.color;
+
+  let x = cfg.startX;
+  let y = cfg.startY;
+
+  // funzione interna per disegnare titolo (sinistra)
+  function drawTitle(text) {
+    // titolo in font/title size, allineato a cfg.startX
+    ctx.fillStyle = cfg.color;
+    // usa titleLetterSpacing separato
+    const w = drawText(
+      ctx,
+      text,
+      x,
+      y,
+      cfg.titleFont,
+      cfg.titleFontSize,
+      cfg.titleLetterSpacing,
+      true
+    );
+    y += cfg.titleFontSize + cfg.lineGap + 45;
+    return w;
+  }
+
+  // funzione interna per disegnare una singola riga (code + resto)
+  function drawLine(lineText) {
+    if (!lineText) return;
+    // trova primo '-' per separazione "Uxx - resto"
+    const dashIndex = lineText.indexOf('-');
+    let code = '';
+    let rest = lineText;
+
+    if (dashIndex > 0) {
+      code = lineText.slice(0, dashIndex).trim();
+      rest = lineText.slice(dashIndex + 1).trim();
+    } else {
+      // fallback: prima parola come code
+      const sp = lineText.indexOf(' ');
+      if (sp > 0) {
+        code = lineText.slice(0, sp).trim();
+        rest = lineText.slice(sp + 1).trim();
+      } else {
+        rest = lineText.trim();
+      }
+    }
+
+    // disegna codice (a x)
+    ctx.fillStyle = cfg.color;
+    let codeWidth = 0;
+    if (code) {
+      codeWidth = drawText(
+        ctx,
+        code,
+        x,
+        y,
+        cfg.codeFont,
+        cfg.codeFontSize,
+        cfg.codeLetterSpacing,
+        true
+      );
+    }
+
+    // calcola posizione del resto
+    const restX = x + (code ? (codeWidth + cfg.codeGap) : 0);
+
+    // disegna resto usando restLetterSpacing separato
+    drawText(
+      ctx,
+      rest,
+      restX,
+      y,
+      cfg.restFont,
+      cfg.restFontSize,
+      cfg.restLetterSpacing,
+      true
+    );
+
+    // aggiorna y
+    const lineHeight = Math.max(cfg.codeFontSize, cfg.restFontSize);
+    y += lineHeight + cfg.lineGap;
+  }
+
+  // parsing delle righe (rimuove righe vuote)
+  const lines = (value || '').split(/\r?\n/).map(l => l.replace(/\t/g, ' ').trim());
+
+  // se non ci sono righe non fare nulla
+  if (!lines.some(l => l.length > 0)) return;
+
+  // disegna sezione MEN
+  drawTitle("MEN'S TEAMS");
+
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i].trim();
+    if (raw.length === 0) continue;
+
+    if (raw === '--') {
+      // cambio sezione: spazio extra e WOMEN'S TEAMS
+      y += cfg.sectionExtraGap + 100;
+      drawTitle("WOMEN'S TEAMS");
+      continue;
+    }
+
+    drawLine(raw);
+  }
+}
