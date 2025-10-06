@@ -294,7 +294,7 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            academyResult: { y: 550 },
+            academyResult: { y: 550, datey: 335, dateFontSize: 38 },
             dateTime: { x: 540, y: 1140, fontSize: 34, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             matchDay: { x: 65, y: 770, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             nextMatchTitle: null,
@@ -309,7 +309,7 @@ const graphicStyles = {
             championshipLogo: null,
             homeScore: null,
             awayScore: null,
-            academyResult: { y: 765 },
+            academyResult: { y: 765, datey: 505, dateFontSize: 44 },
             dateTime: { x: 540, y: 1105 + 390, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             matchDay: { x: 65, y: 700 + 390, fontSize: 40, color: 'white', font: 'bodoni-72-book', letterSpacing: 0 },
             nextMatchTitle: null,
@@ -4494,8 +4494,10 @@ document.addEventListener('DOMContentLoaded', initialize);
  * @param {boolean} draw - se false solo misura, se true misura e disegna
  * @returns {number} width in px
  */
-function drawText(ctx, text, x, y, fontFamily, fontSize, letterSpacing = 0, draw = true) {
-  if (text == null) text = '';
+function drawText(ctx, text, x, y, fontFamily, fontSize, letterSpacing = 0, draw = true, opts = {}) {
+    const fontStyle = (opts && opts.fontStyle) ? opts.fontStyle : 'normal';
+  
+    if (text == null) text = '';
   ctx.font = `${fontSize}px ${fontFamily}`;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'top';
@@ -4531,13 +4533,6 @@ function drawText(ctx, text, x, y, fontFamily, fontSize, letterSpacing = 0, draw
 
 /**
  * Render completo dei risultati "academy".
- * - Allinea tutto a sinistra.
- * - Usa drawText per disegno + misura (gestisce letterSpacing).
- * - Cambia sezione su riga "--".
- * - Overflow: se numero righe supera la soglia corrente, alza lo startY (logica già presente).
- * - NOVITÀ: se le righe di contenuto > 12, riduce di 22.5px
- *   (a) lo spazio tra le righe e (b) i margini extra intorno ai due titoli.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} style - oggetto style con sotto-oggetto academyResult
  * @param {string} value - testo grezzo multilinea
@@ -4573,6 +4568,16 @@ function renderAcademyResults(ctx, style = {}, value = '') {
     restLetterSpacing: (s.restLetterSpacing ?? s.letterSpacing) ?? -1
   };
 
+  // configurazione per la scritta tra doppi apici (quote)
+  cfg.quote = {
+    x: (s.dateX ?? s.datex ?? cfg.startX),                // X opzionale; default allo startX
+    y: (s.dateY ?? s.datey ?? cfg.startY),                // Y allineata a s.datey se presente
+    font: (s.dateFont ?? s.font ?? 'Nexa-Regular'),         // font dedicato
+    size: (s.dateFontSize ?? 38),                         // size dedicata
+    letterSpacing: ((s.dateLetterSpacing ?? s.letterSpacing) ?? -1),
+    color: (s.dateColor ?? cfg.color)
+  };
+
   // dinamica spazi (modificabile in base al conteggio righe)
   const dyn = {
     lineGap: cfg.lineGap,
@@ -4589,10 +4594,30 @@ function renderAcademyResults(ctx, style = {}, value = '') {
   let y = cfg.startY;
 
   // parsing delle righe (rimuove tab + trim)
-  const lines = (value || '').split(/\r?\n/).map(l => l.replace(/\t/g, ' ').trim());
+  const rawLines = (value || '')
+    .split(/\r?\n/)
+    .map(l => l.replace(/\t/g, ' ').trim());
 
-  // se non ci sono righe non fare nulla
-  if (!lines.some(l => l.length > 0)) return;
+  // estrazione prima occorrenza di testo tra doppi apici "..."
+  // se esistono almeno due apici, prendo il contenuto della prima coppia
+  let quotedText = null;
+  const allQuoteMatches = [...(value || '').matchAll(/"([^"]+)"/g)];
+  if (allQuoteMatches.length >= 1) {
+    quotedText = allQuoteMatches[0][1];
+  } else {
+    // fallback: se una riga inizia con " ma non ha la chiusura,
+    // prendo tutto dopo il primo apice
+    const firstQuoteLine = rawLines.find(l => l.startsWith('"'));
+    if (firstQuoteLine) {
+      quotedText = firstQuoteLine.slice(1).trim();
+    }
+  }
+
+  // filtra le righe: escludi righe che iniziano con " (non vanno stampate nella lista)
+  const lines = rawLines.filter(l => !l.startsWith('"'));
+
+  // se non ci sono righe utili e non c'è quote, non fare nulla
+  if (!lines.some(l => l.length > 0) && !quotedText) return;
 
   // conteggio righe "contenuto" (esclusi vuoti e separatore "--")
   const contentLinesCount = lines.reduce((acc, raw) => {
@@ -4601,22 +4626,39 @@ function renderAcademyResults(ctx, style = {}, value = '') {
     return acc + 1;
   }, 0);
 
-    // overflow logica esistente (mantengo i tuoi parametri attuali)
-    const overflow = Math.max(0, contentLinesCount - 9);
+  // overflow logica esistente (mantengo i tuoi parametri attuali)
+  const overflow = Math.max(0, contentLinesCount - 9);
 
-    // calcolo Y iniziale tenendo conto dell'overflow
-    let yStart = cfg.startY - ((overflow > 0 && s.y < 600) ? (overflow * 45) : 0);
+  // calcolo Y iniziale tenendo conto dell'overflow
+  let yStart = cfg.startY - ((overflow > 0 && s.y < 600) ? (overflow * 45) : 0);
 
-    // *** NUOVO: compressione spazi se > 12 righe ***
-    // quando si attiva, aggiungo +105 alla Y (sommato all'eventuale shift overflow)
-    if (contentLinesCount > 12 && s.y < 600) {
+  // *** NUOVO: compressione spazi se > 12 righe ***
+  // quando si attiva, aggiungo +105 alla Y (sommato all'eventuale shift overflow)
+  if (contentLinesCount > 12 && s.y < 600) {
     yStart += 105; // <- offset richiesto
     dyn.titleAfterExtra = Math.max(0, dyn.titleAfterExtra - 22.5);
     dyn.sectionSwitchExtra = Math.max(0, dyn.sectionSwitchExtra - 60);
-    }
+  }
 
-    // applico la Y calcolata
-    y = yStart;
+  // applico la Y calcolata
+  y = yStart;
+
+  // se presente quotedText, disegnalo "a parte" con stile dedicato
+  if (quotedText) {
+    const prevFill = ctx.fillStyle;
+    ctx.fillStyle = cfg.quote.color;
+    drawText(
+      ctx,
+      quotedText,
+      cfg.quote.x,
+      cfg.quote.y,             // allineamento verticale a s.datey (se passato)
+      cfg.quote.font,
+      cfg.quote.size,
+      cfg.quote.letterSpacing,
+      true
+    );
+    ctx.fillStyle = prevFill;
+  }
 
   // funzione interna per disegnare titolo (sinistra)
   function drawTitle(text) {
