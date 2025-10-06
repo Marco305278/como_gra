@@ -3113,7 +3113,7 @@ if (style.dateTime) {
                     } else if (graphicName === 'academyresult') {
                         // !ACADEMYRESULT
                             const academyResultValue = document.getElementById('academyResult').value.trim() || '';
-
+                            console.log(dimensions)
                             renderAcademyResults(ctx, style, academyResultValue)
 
                         
@@ -4534,6 +4534,9 @@ function drawText(ctx, text, x, y, fontFamily, fontSize, letterSpacing = 0, draw
  * - Allinea tutto a sinistra.
  * - Usa drawText per disegno + misura (gestisce letterSpacing).
  * - Cambia sezione su riga "--".
+ * - Overflow: se numero righe supera la soglia corrente, alza lo startY (logica già presente).
+ * - NOVITÀ: se le righe di contenuto > 12, riduce di 22.5px
+ *   (a) lo spazio tra le righe e (b) i margini extra intorno ai due titoli.
  *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} style - oggetto style con sotto-oggetto academyResult
@@ -4558,11 +4561,23 @@ function renderAcademyResults(ctx, style = {}, value = '') {
     codeGap: s.codeGap ?? 22,
     lineGap: s.lineGap ?? 8,
     sectionExtraGap: s.sectionExtraGap ?? 18,
-    // letter spacing: valori separati per ciascun font con fallback gerarchico
+
+    // margini extra (ora parametrizzabili)
+    titleAfterExtra: s.titleAfterExtra ?? 45,   // spazio extra dopo ogni titolo
+    sectionSwitchExtra: s.sectionSwitchExtra ?? 100, // spazio extra prima del secondo titolo
+
+    // letter spacing
     letterSpacing: s.letterSpacing ?? -5, // fallback generale
     titleLetterSpacing: (s.titleLetterSpacing ?? s.letterSpacing) ?? -5,
     codeLetterSpacing: (s.codeLetterSpacing ?? s.letterSpacing) ?? -1,
     restLetterSpacing: (s.restLetterSpacing ?? s.letterSpacing) ?? -1
+  };
+
+  // dinamica spazi (modificabile in base al conteggio righe)
+  const dyn = {
+    lineGap: cfg.lineGap,
+    titleAfterExtra: cfg.titleAfterExtra,
+    sectionSwitchExtra: cfg.sectionSwitchExtra
   };
 
   // impostazioni canvas
@@ -4573,12 +4588,40 @@ function renderAcademyResults(ctx, style = {}, value = '') {
   let x = cfg.startX;
   let y = cfg.startY;
 
+  // parsing delle righe (rimuove tab + trim)
+  const lines = (value || '').split(/\r?\n/).map(l => l.replace(/\t/g, ' ').trim());
+
+  // se non ci sono righe non fare nulla
+  if (!lines.some(l => l.length > 0)) return;
+
+  // conteggio righe "contenuto" (esclusi vuoti e separatore "--")
+  const contentLinesCount = lines.reduce((acc, raw) => {
+    const t = raw.trim();
+    if (t.length === 0 || t === '--') return acc;
+    return acc + 1;
+  }, 0);
+
+    // overflow logica esistente (mantengo i tuoi parametri attuali)
+    const overflow = Math.max(0, contentLinesCount - 9);
+
+    // calcolo Y iniziale tenendo conto dell'overflow
+    let yStart = cfg.startY - ((overflow > 0 && s.y < 600) ? (overflow * 45) : 0);
+
+    // *** NUOVO: compressione spazi se > 12 righe ***
+    // quando si attiva, aggiungo +105 alla Y (sommato all'eventuale shift overflow)
+    if (contentLinesCount > 12 && s.y < 600) {
+    yStart += 105; // <- offset richiesto
+    dyn.titleAfterExtra = Math.max(0, dyn.titleAfterExtra - 22.5);
+    dyn.sectionSwitchExtra = Math.max(0, dyn.sectionSwitchExtra - 60);
+    }
+
+    // applico la Y calcolata
+    y = yStart;
+
   // funzione interna per disegnare titolo (sinistra)
   function drawTitle(text) {
-    // titolo in font/title size, allineato a cfg.startX
     ctx.fillStyle = cfg.color;
-    // usa titleLetterSpacing separato
-    const w = drawText(
+    drawText(
       ctx,
       text,
       x,
@@ -4588,13 +4631,14 @@ function renderAcademyResults(ctx, style = {}, value = '') {
       cfg.titleLetterSpacing,
       true
     );
-    y += cfg.titleFontSize + cfg.lineGap + 45;
-    return w;
+    // distanza dopo il titolo: gap di riga + extra dinamico
+    y += cfg.titleFontSize + dyn.lineGap + dyn.titleAfterExtra;
   }
 
   // funzione interna per disegnare una singola riga (code + resto)
   function drawLine(lineText) {
     if (!lineText) return;
+
     // trova primo '-' per separazione "Uxx - resto"
     const dashIndex = lineText.indexOf('-');
     let code = '';
@@ -4645,16 +4689,10 @@ function renderAcademyResults(ctx, style = {}, value = '') {
       true
     );
 
-    // aggiorna y
+    // aggiorna y: altezza + gap dinamico
     const lineHeight = Math.max(cfg.codeFontSize, cfg.restFontSize);
-    y += lineHeight + cfg.lineGap;
+    y += lineHeight + dyn.lineGap;
   }
-
-  // parsing delle righe (rimuove righe vuote)
-  const lines = (value || '').split(/\r?\n/).map(l => l.replace(/\t/g, ' ').trim());
-
-  // se non ci sono righe non fare nulla
-  if (!lines.some(l => l.length > 0)) return;
 
   // disegna sezione MEN
   drawTitle("MEN'S TEAMS");
@@ -4664,8 +4702,8 @@ function renderAcademyResults(ctx, style = {}, value = '') {
     if (raw.length === 0) continue;
 
     if (raw === '--') {
-      // cambio sezione: spazio extra e WOMEN'S TEAMS
-      y += cfg.sectionExtraGap + 100;
+      // cambio sezione: spazio extra dinamico e WOMEN'S TEAMS
+      y += cfg.sectionExtraGap + dyn.sectionSwitchExtra;
       drawTitle("WOMEN'S TEAMS");
       continue;
     }
