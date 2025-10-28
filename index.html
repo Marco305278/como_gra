@@ -21,6 +21,15 @@ marco305278.github.io/como_gra
     <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-storage-compat.js"></script>
 
+    <!-- Supabase Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Crea il client Supabase
+        const supabaseUrl = 'https://nohxspnoafbxqfkxoqvq.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vaHhzcG5vYWZieHFma3hvcXZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2NTEyOTksImV4cCI6MjA3NzIyNzI5OX0.S4izVM5iF3oXoO0hXYHDM4WOzS0-NLKmN7yY8HarE5M'; // trova nella dashboard di Supabase
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    </script>
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Graphics - Como 1907">
@@ -142,6 +151,7 @@ marco305278.github.io/como_gra
                     <select id="championship" class="category-selection">
                         <option value="seriea">Serie A</option>
                         <option value="primavera" selected>Primavera</option>
+                        <option value="coppa_italia_primavera" selected>Coppa Italia Primavera</option>
                         <option value="women">Women</option>
                     </select>
                     </div>
@@ -202,16 +212,27 @@ marco305278.github.io/como_gra
                     </div>
                 </div>
 
-                <!-- Sezione MatchDay (Inizialmente Nascosta) -->
-                <div id="matchDaySection" class="matchdaycol">
-                    <div style="margin-right: 14px;">
-                        <label for="matchDay">Matchday</label>
-                        <div class="number-container">
-                            <div id="decrease" class="symbol"><p>-</p></div>
-                            <input type="number" id="matchDay" min="0" class="input number" placeholder="1" required style="width: 100px; font-size: 22px; height: 44px; text-align: center;" value="1">
-                            <div id="increase" class="symbol"><p>+</p></div>
+                                <!-- Sezione rounds (Inizialmente Nascosta) -->
+                <div id="roundsSection" class="roundssectioncol">
+                    <div style="width: 100%;">
+                        <label for="rounds">ROUNDS</label>
+                        <textarea type="text" id="rounds" class="input" " required style="width: 100%; resize: vertical; font-size: 22px; min-height: 50px; max-height: 120px; height: 50px;">COPPA ITALIA PRIMAVERA </textarea>
+                    </div>
+                </div>
+
+                <div style="display: flex;">
+                    <!-- Sezione MatchDay (Inizialmente Nascosta) -->
+                    <div id="matchDaySection" class="matchdaycol">
+                        <div style="margin-right: 14px;">
+                            <label for="matchDay">Matchday</label>
+                            <div class="number-container">
+                                <div id="decrease" class="symbol"><p>-</p></div>
+                                <input type="number" id="matchDay" min="0" class="input number" placeholder="1" required style="width: 100px; font-size: 22px; height: 44px; text-align: center;" value="1">
+                                <div id="increase" class="symbol"><p>+</p></div>
+                            </div>
                         </div>
                     </div>
+
                     <div style="width: 100%;" id="stadiumLocationSection">
                         <label for="stadium">Stadium</label>
                         <input type="text" id="stadium" class="input" placeholder="Stadium" required style="height: 44px;">

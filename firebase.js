@@ -102,6 +102,7 @@ const firebaseConfig = {
       generatePreviews()
   }
 
+  /*
 function savePreviewOnFireBase(canvas, filename) {
     const storageRef = storage.ref('previous_graphics/' + filename);
 
@@ -133,7 +134,63 @@ function savePreviewOnFireBase(canvas, filename) {
             console.error('Conversione del canvas in Blob fallita.');
         }
     }, 'image/png');
+}*/
+
+// SAVE ON SUPABASE
+async function savePreviewOnFireBase(canvas, filename) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(async (blob) => {
+      if (!blob) {
+        console.error('Conversione del canvas in Blob fallita.');
+        reject('Errore nella conversione del canvas.');
+        return;
+      }
+
+      try {
+        let baseName = filename.replace(/\.\w+$/, ''); // rimuove estensione
+        let ext = filename.match(/\.\w+$/)?.[0] || '.webp'; // estensione
+        let counter = 0;
+        let filePath = filename;
+        const maxAttempts = 10;
+
+        while (counter < maxAttempts) {
+          try {
+            const { data, error } = await supabase.storage
+              .from('graphics')
+              .upload(filePath, blob, {
+                contentType: 'image/webp',
+                upsert: false
+              });
+
+            if (!error) {
+              // Caricamento riuscito
+              const { data: publicUrlData } = supabase.storage
+                .from('graphics')
+                .getPublicUrl(filePath);
+
+              console.log('File disponibile a:', publicUrlData.publicUrl);
+              resolve(publicUrlData.publicUrl);
+              return;
+            }
+          } catch (err) {
+            // Ignora l'errore e genera nuovo nome
+          }
+
+          // Se errore o file già esiste, crea nuovo nome con _numero
+          counter++;
+          filePath = `${baseName}_${counter}${ext}`;
+        }
+
+        reject(`Impossibile caricare il file dopo ${maxAttempts} tentativi`);
+      } catch (err) {
+        console.error('Errore inatteso:', err);
+        reject(err);
+      }
+    }, 'image/webp');
+  });
 }
+
+
 
 async function saveLiveMatchOnFireBase(images, filename, championship, home, team, date, time) {
   try {

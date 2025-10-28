@@ -14,6 +14,7 @@ const matchDateInput = document.getElementById('matchDate');
 const matchTimeInput = document.getElementById('matchTime');
 const dateTimeSection = document.getElementById('dateTimeSection');
 const matchDaySection = document.getElementById('matchDaySection');
+const roundsSection = document.getElementById('roundsSection');
 const academyResultSection = document.getElementById('academyResultSection');
 const uploadContainer = document.querySelector('.upload-background-section .upload-container');
 const stadiumLocationSection = document.getElementById('stadiumLocationSection');
@@ -486,7 +487,7 @@ function populateSelectableSelect(selectElement, teams, selectedValue = null) {
 }
 
 function populateTeams() {
-    const championship = championshipSelect.value; 
+    const championship = championshipSelect.value == "coppa_italia_primavera" ? "primavera" : championshipSelect.value; 
 
     // Verifica che jsondata e jsondata.teams siano definiti
     if (!jsondata || !jsondata.teams) {
@@ -647,7 +648,7 @@ function populatePlayerSelect(selectElement) {
     defaultOption.textContent = number;
     selectElement.appendChild(defaultOption);
 
-    const championship = championshipSelect.value;
+    const championship = championshipSelect.value == "coppa_italia_primavera" ? "primavera" : championshipSelect.value;
 
     // Recupera i giocatori per la categoria determinata
     const players = jsondata.players[championship] || [];
@@ -790,7 +791,7 @@ function updateGraphicsOptions() {
                         selectPlayer.id = 'goalPlayerSelect';
                         selectPlayer.name = 'goalPlayerSelect';
 
-                        const championship = championshipSelect.value;
+                        const championship = championshipSelect.value == "coppa_italia_primavera" ? "primavera" : championshipSelect.value;
                         const players = jsondata.players[championship];
 
                         players.forEach(player => {
@@ -864,7 +865,7 @@ function updateGraphicsOptions() {
                         selectPlayer.id = 'goalPlayerSelect';
                         selectPlayer.name = 'goalPlayerSelect';
 
-                        const championship = championshipSelect.value;
+                        const championship = championshipSelect.value == "coppa_italia_primavera" ? "primavera" : championshipSelect.value;
                         const players = jsondata.players[championship];
 
                         players.forEach(player => {
@@ -2054,7 +2055,7 @@ async function generatePreviews() {
 
     let currentPlayers = [];
 
-    const championship = championshipSelect.value;
+    const championship = championshipSelect.value == "coppa_italia_primavera" ? "primavera" : championshipSelect.value;
     currentPlayers = jsondata.players[championship];
 
     // Memorizza la grafica attualmente selezionata
@@ -2878,7 +2879,7 @@ if (style.dateTime) {
                         if (style.matchDay) {
                             const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
                             const matchDayRaw = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
-                            const matchDayText = `NEXT MATCH: PRIMAVERA 2`;
+                            const matchDayText = championshipSelect.value === 'coppa_italia_primavera' ? `NEXT MATCH: COPPA ITALIA PRIMAVERA` : `NEXT MATCH: PRIMAVERA 2`;
                             ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
                             ctx.fillStyle = style.matchDay.color;
                             ctx.textAlign = 'left';
@@ -3054,7 +3055,7 @@ if (style.dateTime) {
 
                         if (style.matchDay) {
     const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-    const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : `MATCHDAY ${matchDayValue}`;
+    const matchDayText = matchDayValue === '0' ? 'PLAYOFF' : championshipSelect.value == "coppa_italia_primavera" ? `${document.getElementById('rounds').value}` : `MATCHDAY ${matchDayValue}`;
 
     // Imposto font/color prima di misurare
     ctx.font = `${style.matchDay.fontSize}px ${style.matchDay.font}`;
@@ -3653,7 +3654,7 @@ if (style.awayTeamName) {
                         // Disegna il match day se necessario
                         if (style.matchDay) {
                             const matchDayValue = document.getElementById('matchDay').value.trim() || '1';
-                            const matchDayRaw = matchDayValue === '0' ? 'PLAYOFF' : `Matchday ${matchDayValue}`;
+                            const matchDayRaw = matchDayValue === '0' ? 'PLAYOFF' : championshipSelect.value == "coppa_italia_primavera" ? `${document.getElementById('rounds').value}` : `MATCHDAY ${matchDayValue}`;
                             const matchDayText = championshipSelect.value === "women" ? `SERIE B: ${matchDayRaw}` : `${matchDayRaw}`;
                             ctx.font = `bold ${style.matchDay.fontSize}px ${style.matchDay.font}`;
                             ctx.fillStyle = style.matchDay.color;
@@ -3669,7 +3670,7 @@ if (style.awayTeamName) {
                     // **Inizio Modifica Livematch: Aggiunta del Titolo**
                     if (graphicName === 'livematch' || graphicName === 'matchreplay') {
                         const formatSuffix = overlayName.replace('overlay_', ''); // Es: '5x8' da 'overlay_5x8'
-                        const championship = championshipSelect.value; // Es: 'primavera' o 'women'
+                        const championship = championshipSelect.value == "coppa_italia_primavera" ? "primavera" : championshipSelect.value; // Es: 'primavera' o 'women'
                         const titleImageSrc = `images/graphics/livematch/title/${championship}_${formatSuffix}.png`;
 
                         const titleImage = await loadImage(titleImageSrc);
@@ -3714,7 +3715,7 @@ if (style.awayTeamName) {
 
                     downloadLink.addEventListener('click', () => {
 
-                        const scaleFactor = 0.35;
+                        const scaleFactor = 0.25;
                         const filename = getFilenameForCanvas(canvas);
                         const scaledCanvas = document.createElement('canvas');
                         scaledCanvas.width = canvas.width * scaleFactor;
@@ -3722,10 +3723,10 @@ if (style.awayTeamName) {
                         const ctx = scaledCanvas.getContext('2d');
                         ctx.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
                         
-                        const quality = 0.5; // Puoi regolare questo valore tra 0 e 1
-                        const imageDataURL = scaledCanvas.toDataURL('image/jpeg', quality);
+                        const quality = 0.3; // Puoi regolare questo valore tra 0 e 1
+                        const imageDataURL = scaledCanvas.toDataURL('image/webp', quality);
                         // Cambia l'estensione del file da .png a .jpeg
-                        const jpegFilename = filename.replace(/\.[^/.]+$/, "") + ".jpeg";
+                        const jpegFilename = filename.replace(/\.[^/.]+$/, "") + ".webp";
                         
                         // Salva l'anteprima su Firebase utilizzando il canvas scalato
                         savePreviewOnFireBase(scaledCanvas, jpegFilename);
@@ -4173,9 +4174,16 @@ function toggleMatchDaySection() {
 
     if (requiresMatchDay) {
         syncMatchDayOnFireBase(championshipSelect.value, matchDayInput)
-        matchDaySection.style.display = 'flex';
+        if (championshipSelect.value == "coppa_italia_primavera") {
+            matchDaySection.style.display = 'none';
+            roundsSection.style.display = 'flex';
+        } else {
+            matchDaySection.style.display = 'flex';
+            roundsSection.style.display = 'none';
+        }
     } else {
         matchDaySection.style.display = 'none';
+        roundsSection.style.display = 'none';
     }
 
     
